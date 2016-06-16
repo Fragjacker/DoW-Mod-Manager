@@ -17,7 +17,7 @@ namespace DoW_Mod_Manager
     /// <summary>
     ///  Contains all elements necessary for the Form
     /// </summary>
-    public partial class Form1 : Form
+    public partial class ModManagerForm : Form
     {
         private string currentDir = ""; //Is the current Directory of Soulstorm
         private string _devMode = ""; //Contains the argument for starting the .exe in dev mode
@@ -30,7 +30,7 @@ namespace DoW_Mod_Manager
         /// <summary>
         ///  Initializes all the necessary components used by the GUI
         /// </summary>
-        public Form1()
+        public ModManagerForm()
         {
             InitializeComponent();
         }
@@ -58,7 +58,7 @@ namespace DoW_Mod_Manager
 
             else
             {
-                MessageBox.Show("ERROR finding Soulstorm on your Computer! Please put the DoW Mod Manager 1.2.exe in the directory that contains the Soulstorm.exe!");
+                MessageBox.Show("ERROR finding Soulstorm on your Computer! Please put the DoW Mod Manager 1.3.exe in the directory that contains the Soulstorm.exe!");
                 Application.Exit();
             }
             // This was implemented to find soulstorm by using the Registry Key Install location. But since the resource folder must be placed in a certain direction i've decided that a local directory scan would suffice.
@@ -429,6 +429,12 @@ namespace DoW_Mod_Manager
             // around the selected item.
             //
             e.DrawFocusRectangle();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ModMergerForm mergerWindow = new ModMergerForm();
+            mergerWindow.Show();
         }
     }
 }
