@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModMergerForm));
             this.labell = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.UsedModsList = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.AvailableModsList = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -42,7 +42,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.loadedModBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -65,15 +65,15 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Currently loaded Mod";
             // 
-            // listBox1
+            // UsedModsList
             // 
-            this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(18, 119);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.ScrollAlwaysVisible = true;
-            this.listBox1.Size = new System.Drawing.Size(392, 199);
-            this.listBox1.TabIndex = 3;
+            this.UsedModsList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.UsedModsList.FormattingEnabled = true;
+            this.UsedModsList.Location = new System.Drawing.Point(18, 119);
+            this.UsedModsList.Name = "UsedModsList";
+            this.UsedModsList.ScrollAlwaysVisible = true;
+            this.UsedModsList.Size = new System.Drawing.Size(392, 199);
+            this.UsedModsList.TabIndex = 3;
             // 
             // label2
             // 
@@ -84,14 +84,14 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Used Mods:";
             // 
-            // listBox2
+            // AvailableModsList
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(18, 366);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.ScrollAlwaysVisible = true;
-            this.listBox2.Size = new System.Drawing.Size(392, 199);
-            this.listBox2.TabIndex = 3;
+            this.AvailableModsList.FormattingEnabled = true;
+            this.AvailableModsList.Location = new System.Drawing.Point(18, 366);
+            this.AvailableModsList.Name = "AvailableModsList";
+            this.AvailableModsList.ScrollAlwaysVisible = true;
+            this.AvailableModsList.Size = new System.Drawing.Size(392, 199);
+            this.AvailableModsList.TabIndex = 3;
             // 
             // label3
             // 
@@ -169,14 +169,15 @@
             this.button8.TabIndex = 6;
             this.button8.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // loadedModBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(18, 72);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(330, 21);
-            this.comboBox1.TabIndex = 8;
-            this.comboBox1.Text = "--None--";
+            this.loadedModBox.FormattingEnabled = true;
+            this.loadedModBox.Location = new System.Drawing.Point(18, 72);
+            this.loadedModBox.Name = "loadedModBox";
+            this.loadedModBox.Size = new System.Drawing.Size(330, 21);
+            this.loadedModBox.TabIndex = 8;
+            this.loadedModBox.Text = "--None--";
+            this.loadedModBox.SelectedIndexChanged += new System.EventHandler(this.loadedModBox_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -195,7 +196,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(489, 583);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.loadedModBox);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button7);
@@ -205,8 +206,8 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.AvailableModsList);
+            this.Controls.Add(this.UsedModsList);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labell);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -221,9 +222,9 @@
 
         private System.Windows.Forms.Label labell;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox UsedModsList;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox AvailableModsList;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
@@ -232,7 +233,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox loadedModBox;
         private System.Windows.Forms.Label label4;
     }
 }

@@ -433,7 +433,7 @@ namespace DoW_Mod_Manager
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ModMergerForm mergerWindow = new ModMergerForm();
+            ModMergerForm mergerWindow = new ModMergerForm(this);
             mergerWindow.Show();
         }
     }

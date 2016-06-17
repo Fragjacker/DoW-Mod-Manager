@@ -211,7 +211,7 @@
             this.Controls.Add(this.textBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ModManagerForm";
-            this.Text = "DoW MODenizer v1.2";
+            this.Text = "DoW MODenizer v1.3";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -225,7 +225,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ListBox InstalledModsList;
         private System.Windows.Forms.ListBox RequiredModsList;
         private System.Windows.Forms.Button startButton1;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -235,6 +234,7 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.ListBox InstalledModsList;
     }
 }
 
