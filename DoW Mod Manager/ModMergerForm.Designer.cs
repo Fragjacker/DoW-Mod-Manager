@@ -166,6 +166,7 @@
             this.buttonActivate.Size = new System.Drawing.Size(51, 46);
             this.buttonActivate.TabIndex = 6;
             this.buttonActivate.UseVisualStyleBackColor = true;
+            this.buttonActivate.Click += new System.EventHandler(this.buttonActivate_Click);
             // 
             // buttonDeactivate
             // 
@@ -176,6 +177,7 @@
             this.buttonDeactivate.Size = new System.Drawing.Size(51, 46);
             this.buttonDeactivate.TabIndex = 6;
             this.buttonDeactivate.UseVisualStyleBackColor = true;
+            this.buttonDeactivate.Click += new System.EventHandler(this.buttonDeactivate_Click);
             // 
             // loadedModBox
             // 

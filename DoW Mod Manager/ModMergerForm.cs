@@ -309,6 +309,40 @@ namespace DoW_Mod_Manager
             writeModLoadoutToFile();
         }
 
+        private void buttonActivate_Click(object sender, EventArgs e)
+        {
+            setModtoActive();
+        }
+
+        private void buttonDeactivate_Click(object sender, EventArgs e)
+        {
+            setModtoInactive();
+        }
+
+        private void setModtoActive()
+        {
+            //Get the currently selected element from the Used Mods List
+            int selection = UsedModsList.SelectedIndex;
+
+            //Toggle it to be active
+            _Modlist[selection].State = "Active";
+
+            //Redraw the List of Items
+            drawAllRequiredModsFromList();
+        }
+
+        private void setModtoInactive()
+        {
+            //Get the currently selected element from the Used Mods List
+            int selection = UsedModsList.SelectedIndex;
+
+            //Toggle it to be active
+            _Modlist[selection].State = "Inactive";
+
+            //Redraw the List of Items
+            drawAllRequiredModsFromList();
+        }
+
 
         /// <summary>
         /// Sets that State of the current Mod beeing namely: "Active" "Inactive" "Pending"-For yet to be determined file clashes. The parameter determines which Mod gets its state changed
@@ -408,7 +442,14 @@ namespace DoW_Mod_Manager
                 for (int i = 0; i < _Modlist.Count; i++)
 
                 {
-                    modString = "RequiredMod." + (i + 1) + " = " + _Modlist[i].Name;
+                    if (_Modlist[i].State.Equals("Active"))
+                    {
+                        modString = "RequiredMod." + (i + 1) + " = " + _Modlist[i].Name;
+                    }
+                    if (_Modlist[i].State.Equals("Inactive"))
+                    {
+                        modString = "//RequiredMod." + (i + 1) + " = " + _Modlist[i].Name;
+                    }
 
                     writer.WriteLine(modString);
 
@@ -438,7 +479,7 @@ namespace DoW_Mod_Manager
 
             while ((line = file.ReadLine()) != null && !line.Contains("RequiredMod"))
             {
-                    writer.WriteLine(line);
+                writer.WriteLine(line);
             }
 
             file.Close();
