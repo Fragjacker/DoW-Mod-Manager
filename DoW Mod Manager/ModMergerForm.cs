@@ -97,6 +97,7 @@ namespace DoW_Mod_Manager
 
         private void drawAllRequiredModsFromList()
         {
+            UsedModsList.Items.Clear();
             string entry = "";
             foreach (var item in _Modlist)
             {
@@ -130,7 +131,6 @@ namespace DoW_Mod_Manager
 
             //Clear all to repopulate everything again
             _Modlist.Clear();
-            UsedModsList.Items.Clear();
 
             // Read the file and display it line by line.
             System.IO.StreamReader file = new System.IO.StreamReader(currentPath);
@@ -311,6 +311,68 @@ namespace DoW_Mod_Manager
         string getModState(int count)
         {
             return _Modlist[count].State;
+        }
+
+        private void buttonArrowUp_Click(object sender, EventArgs e)
+        {
+            BottomUpSwapRequiredMod();
+        }
+
+        private void BottomUpSwapRequiredMod()
+        {
+            Mod topItem, bottomItem;
+            int topPos, bottomPos;
+
+            //Copy Old Entries that will be Swapped
+            topPos = UsedModsList.SelectedIndex - 1;
+            bottomPos = UsedModsList.SelectedIndex;
+
+            if (topPos >= 0)
+            {
+                topItem = _Modlist[topPos];
+                bottomItem = _Modlist[bottomPos];
+
+                //Swap the Items
+                _Modlist[bottomPos] = topItem;
+                _Modlist[topPos] = bottomItem;
+
+                //Redraw the list
+                drawAllRequiredModsFromList();
+
+                //Reselect the newly placed item to allow for quick traverse through the list
+                UsedModsList.SelectedIndex = topPos;
+            }
+        }
+
+        private void buttonArrowDown_Click(object sender, EventArgs e)
+        {
+            TopDownSwapRequiredMod();
+        }
+
+        private void TopDownSwapRequiredMod()
+        {
+            Mod topItem, bottomItem;
+            int topPos, bottomPos;
+
+            //Copy Old Entries that will be Swapped
+            topPos = UsedModsList.SelectedIndex;
+            bottomPos = UsedModsList.SelectedIndex + 1;
+
+            if (bottomPos <= _Modlist.Count - 1)
+            {
+                topItem = _Modlist[topPos];
+                bottomItem = _Modlist[bottomPos];
+
+                //Swap the Items
+                _Modlist[bottomPos] = topItem;
+                _Modlist[topPos] = bottomItem;
+
+                //Redraw the list
+                drawAllRequiredModsFromList();
+
+                //Reselect the newly placed item to allow for quick traverse through the list
+                UsedModsList.SelectedIndex = bottomPos;
+            }
         }
     }
 }

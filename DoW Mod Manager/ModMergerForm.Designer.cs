@@ -35,13 +35,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.AvailableModsList = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.buttonSaveFile = new System.Windows.Forms.Button();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.buttonRemove = new System.Windows.Forms.Button();
+            this.buttonArrowUp = new System.Windows.Forms.Button();
+            this.buttonArrowDown = new System.Windows.Forms.Button();
+            this.buttonActivate = new System.Windows.Forms.Button();
+            this.buttonDeactivate = new System.Windows.Forms.Button();
             this.loadedModBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -103,76 +103,78 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Available Mods:";
             // 
-            // button2
+            // buttonSaveFile
             // 
-            this.button2.Location = new System.Drawing.Point(364, 54);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(114, 39);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "SAVE...";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonSaveFile.Location = new System.Drawing.Point(364, 54);
+            this.buttonSaveFile.Name = "buttonSaveFile";
+            this.buttonSaveFile.Size = new System.Drawing.Size(114, 39);
+            this.buttonSaveFile.TabIndex = 5;
+            this.buttonSaveFile.Text = "SAVE...";
+            this.buttonSaveFile.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // buttonAdd
             // 
-            this.button3.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.plus;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.button3.Location = new System.Drawing.Point(162, 324);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(38, 36);
-            this.button3.TabIndex = 5;
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonAdd.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.plus;
+            this.buttonAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.buttonAdd.Location = new System.Drawing.Point(162, 324);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(38, 36);
+            this.buttonAdd.TabIndex = 5;
+            this.buttonAdd.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // buttonRemove
             // 
-            this.button4.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.minus;
-            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.button4.Location = new System.Drawing.Point(206, 324);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(38, 36);
-            this.button4.TabIndex = 5;
-            this.button4.UseVisualStyleBackColor = true;
+            this.buttonRemove.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.minus;
+            this.buttonRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.buttonRemove.Location = new System.Drawing.Point(206, 324);
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(38, 36);
+            this.buttonRemove.TabIndex = 5;
+            this.buttonRemove.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // buttonArrowUp
             // 
-            this.button5.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.arrow_up;
-            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button5.Location = new System.Drawing.Point(426, 170);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(51, 46);
-            this.button5.TabIndex = 6;
-            this.button5.UseVisualStyleBackColor = true;
+            this.buttonArrowUp.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.arrow_up;
+            this.buttonArrowUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonArrowUp.Location = new System.Drawing.Point(426, 170);
+            this.buttonArrowUp.Name = "buttonArrowUp";
+            this.buttonArrowUp.Size = new System.Drawing.Size(51, 46);
+            this.buttonArrowUp.TabIndex = 6;
+            this.buttonArrowUp.UseVisualStyleBackColor = true;
+            this.buttonArrowUp.Click += new System.EventHandler(this.buttonArrowUp_Click);
             // 
-            // button6
+            // buttonArrowDown
             // 
-            this.button6.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.arrow_down;
-            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button6.Location = new System.Drawing.Point(426, 222);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(51, 46);
-            this.button6.TabIndex = 6;
-            this.button6.UseVisualStyleBackColor = true;
+            this.buttonArrowDown.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.arrow_down;
+            this.buttonArrowDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonArrowDown.Location = new System.Drawing.Point(426, 222);
+            this.buttonArrowDown.Name = "buttonArrowDown";
+            this.buttonArrowDown.Size = new System.Drawing.Size(51, 46);
+            this.buttonArrowDown.TabIndex = 6;
+            this.buttonArrowDown.UseVisualStyleBackColor = true;
+            this.buttonArrowDown.Click += new System.EventHandler(this.buttonArrowDown_Click);
             // 
-            // button7
+            // buttonActivate
             // 
-            this.button7.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.Checkmark;
-            this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button7.Location = new System.Drawing.Point(426, 118);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(51, 46);
-            this.button7.TabIndex = 6;
-            this.button7.UseVisualStyleBackColor = true;
+            this.buttonActivate.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.Checkmark;
+            this.buttonActivate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonActivate.Location = new System.Drawing.Point(426, 118);
+            this.buttonActivate.Name = "buttonActivate";
+            this.buttonActivate.Size = new System.Drawing.Size(51, 46);
+            this.buttonActivate.TabIndex = 6;
+            this.buttonActivate.UseVisualStyleBackColor = true;
             // 
-            // button8
+            // buttonDeactivate
             // 
-            this.button8.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.cross;
-            this.button8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button8.Location = new System.Drawing.Point(426, 276);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(51, 46);
-            this.button8.TabIndex = 6;
-            this.button8.UseVisualStyleBackColor = true;
+            this.buttonDeactivate.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.cross;
+            this.buttonDeactivate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonDeactivate.Location = new System.Drawing.Point(426, 276);
+            this.buttonDeactivate.Name = "buttonDeactivate";
+            this.buttonDeactivate.Size = new System.Drawing.Size(51, 46);
+            this.buttonDeactivate.TabIndex = 6;
+            this.buttonDeactivate.UseVisualStyleBackColor = true;
             // 
             // loadedModBox
             // 
@@ -202,13 +204,13 @@
             this.ClientSize = new System.Drawing.Size(489, 583);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.loadedModBox);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.buttonDeactivate);
+            this.Controls.Add(this.buttonArrowDown);
+            this.Controls.Add(this.buttonActivate);
+            this.Controls.Add(this.buttonArrowUp);
+            this.Controls.Add(this.buttonRemove);
+            this.Controls.Add(this.buttonAdd);
+            this.Controls.Add(this.buttonSaveFile);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.AvailableModsList);
@@ -231,13 +233,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox AvailableModsList;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button buttonSaveFile;
+        private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.Button buttonRemove;
+        private System.Windows.Forms.Button buttonArrowUp;
+        private System.Windows.Forms.Button buttonArrowDown;
+        private System.Windows.Forms.Button buttonActivate;
+        private System.Windows.Forms.Button buttonDeactivate;
         private System.Windows.Forms.ComboBox loadedModBox;
         private System.Windows.Forms.Label label4;
     }
