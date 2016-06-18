@@ -19,12 +19,13 @@ namespace DoW_Mod_Manager
     /// </summary>
     public partial class ModManagerForm : Form
     {
-        private string currentDir = ""; //Is the current Directory of Soulstorm
+        //TODO: Den Path currentDir wieder auf "" setzen. Hier nur fürs debugging gesetzt
+        public string currentDir = "D:\\THQ\\Dawn of War - Soulstorm"; //Is the current Directory of Soulstorm
         private string _devMode = ""; //Contains the argument for starting the .exe in dev mode
         private string _noIntroMode = " -nomovies"; //Contains the argument for starting the .exe with no Intromovies
         private string _highPolyMode = "";//Contains the argument for starting the .exe in High Poly Mode.
-        private string[] _filePaths; //Stores the paths of the found .module files in the Soulstorm directory
-        private string[] _modFolderPaths;//Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir. 
+        public string[] _filePaths; //Stores the paths of the found .module files in the Soulstorm directory
+        public string[] _modFolderPaths;//Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir. 
         private bool[] _isInstalled; //A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
 
         /// <summary>
@@ -42,7 +43,8 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            currentDir = Directory.GetCurrentDirectory();
+            //TODO: Das hier unten wieder auskommentieren.
+            //currentDir = Directory.GetCurrentDirectory();
             _filePaths = Directory.GetFiles(currentDir, "Soulstorm.exe");
 
 
