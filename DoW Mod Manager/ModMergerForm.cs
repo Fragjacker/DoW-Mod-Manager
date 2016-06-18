@@ -319,6 +319,41 @@ namespace DoW_Mod_Manager
             setModtoInactive();
         }
 
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            addAvailableMod();
+        }
+
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            removeUsedMod();
+        }
+
+
+        private void removeUsedMod()
+        {
+            //Get the new addable Mod candidate
+            int delMod = UsedModsList.SelectedIndex;
+
+            //Add the Mod to the selection of used Mods
+            _Modlist.RemoveAt(delMod);
+
+            //Redraw the List to display the added candidate
+            drawAllRequiredModsFromList();
+        }
+
+        private void addAvailableMod()
+        {
+            //Get the new addable Mod candidate
+            string newMod = AvailableModsList.SelectedItem.ToString();
+
+            //Add the Mod to the selection of used Mods
+            _Modlist.Add(new Mod(newMod, "Pending"));
+
+            //Redraw the List to display the added candidate
+            drawAllRequiredModsFromList();
+        }
+
         private void setModtoActive()
         {
             //Get the currently selected element from the Used Mods List
@@ -445,13 +480,13 @@ namespace DoW_Mod_Manager
                     if (_Modlist[i].State.Equals("Active"))
                     {
                         modString = "RequiredMod." + (i + 1) + " = " + _Modlist[i].Name;
+                        writer.WriteLine(modString);
                     }
                     if (_Modlist[i].State.Equals("Inactive"))
                     {
                         modString = "//RequiredMod." + (i + 1) + " = " + _Modlist[i].Name;
+                        writer.WriteLine(modString);
                     }
-
-                    writer.WriteLine(modString);
 
                 }
 

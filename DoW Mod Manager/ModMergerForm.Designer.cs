@@ -123,6 +123,7 @@
             this.buttonAdd.Size = new System.Drawing.Size(38, 36);
             this.buttonAdd.TabIndex = 5;
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // buttonRemove
             // 
@@ -134,6 +135,7 @@
             this.buttonRemove.Size = new System.Drawing.Size(38, 36);
             this.buttonRemove.TabIndex = 5;
             this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
             // buttonArrowUp
             // 
