@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -293,6 +294,22 @@ namespace DoW_Mod_Manager
         }
 
 
+        private void buttonArrowUp_Click(object sender, EventArgs e)
+        {
+            BottomUpSwapRequiredMod();
+        }
+
+        private void buttonArrowDown_Click(object sender, EventArgs e)
+        {
+            TopDownSwapRequiredMod();
+        }
+
+        private void buttonSaveFile_Click(object sender, EventArgs e)
+        {
+            writeModLoadoutToFile();
+        }
+
+
         /// <summary>
         /// Sets that State of the current Mod beeing namely: "Active" "Inactive" "Pending"-For yet to be determined file clashes. The parameter determines which Mod gets its state changed
         /// </summary>
@@ -311,11 +328,6 @@ namespace DoW_Mod_Manager
         string getModState(int count)
         {
             return _Modlist[count].State;
-        }
-
-        private void buttonArrowUp_Click(object sender, EventArgs e)
-        {
-            BottomUpSwapRequiredMod();
         }
 
         private void BottomUpSwapRequiredMod()
@@ -344,11 +356,6 @@ namespace DoW_Mod_Manager
             }
         }
 
-        private void buttonArrowDown_Click(object sender, EventArgs e)
-        {
-            TopDownSwapRequiredMod();
-        }
-
         private void TopDownSwapRequiredMod()
         {
             Mod topItem, bottomItem;
@@ -373,6 +380,68 @@ namespace DoW_Mod_Manager
                 //Reselect the newly placed item to allow for quick traverse through the list
                 UsedModsList.SelectedIndex = bottomPos;
             }
+        }
+
+        /// <summary>
+        /// writes the current Mod loadout into a .module file.
+        /// </summary>
+        private void writeModLoadoutToFile()
+        {
+
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "DoW Mod Module file|*.module";
+            saveFileDialog1.Title = "Save your Mod Loadout";
+
+            string modString = "";
+
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+
+            {
+
+                StreamWriter writer = new StreamWriter(saveFileDialog1.OpenFile());
+
+                readFileTilRequiredMod(writer);
+
+                //This writes the current Mod Loadout into the module file
+                for (int i = 0; i < _Modlist.Count; i++)
+
+                {
+                    modString = "RequiredMod." + (i + 1) + " = " + _Modlist[i].Name;
+
+                    writer.WriteLine(modString);
+
+                }
+
+                writer.Dispose();
+
+                writer.Close();
+            }
+        }
+
+        /// <summary>
+        /// Reads the .module file that shall be saved and overrides it's Required Mods entries.
+        /// </summary>
+        /// <param name="writer"></param>
+        private void readFileTilRequiredMod(StreamWriter writer)
+        {
+            int index = loadedModBox.SelectedIndex;
+            string currentPath = ModManager._filePaths[index];
+            string line = "";
+
+            // Displays a SaveFileDialog so the user can save the .module File
+
+            StreamReader file = new StreamReader(currentPath);
+
+            // Populate the Required Mods List with entries from the .module file
+
+            while ((line = file.ReadLine()) != null && !line.Contains("RequiredMod"))
+            {
+                    writer.WriteLine(line);
+            }
+
+            file.Close();
         }
     }
 }
