@@ -52,6 +52,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void getAvailableMods()
         {
+            AvailableModsList.Items.Clear();
             AvailableModsList.Items.AddRange(ModManager.InstalledModsList.Items);
         }
 
@@ -101,6 +102,19 @@ namespace DoW_Mod_Manager
             {
                 entry = item.Name + " ..." + item.State;
                 UsedModsList.Items.Add(entry);
+            }
+            hideUnavailableMods();
+        }
+
+        private void hideUnavailableMods()
+        {
+            getAvailableMods(); //Get a Fresh new List everytime
+            foreach (var item in _Modlist)
+            {
+                if (AvailableModsList.Items.Contains(item.Name))
+                {
+                    AvailableModsList.Items.Remove(item.Name);
+                }
             }
         }
 
