@@ -19,9 +19,9 @@ namespace DoW_Mod_Manager
     /// </summary>
     public partial class ModManagerForm : Form
     {
-        // Set this to fixed path for debugging Inside of Visual Studio
+        //TODO: Set this to fixed path for debugging Inside of Visual Studio
 
-        public string currentDir = ""; //Is the current Directory of Soulstorm
+        public string currentDir = "D:\\THQ\\Dawn of War - Soulstorm"; //Is the current Directory of Soulstorm
         private string _devMode = ""; //Contains the argument for starting the .exe in dev mode
         private string _noIntroMode = " -nomovies"; //Contains the argument for starting the .exe with no Intromovies
         private string _highPolyMode = "";//Contains the argument for starting the .exe in High Poly Mode.
@@ -44,8 +44,8 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Outcomment currentDir so it won't override your custom currentDir for debugging.
-            currentDir = Directory.GetCurrentDirectory();
+            //TODO: Outcomment currentDir so it won't override your custom currentDir for debugging.
+            //currentDir = Directory.GetCurrentDirectory();
             _filePaths = Directory.GetFiles(currentDir, "Soulstorm.exe");
 
 

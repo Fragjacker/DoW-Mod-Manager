@@ -80,6 +80,23 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void loadedModBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            getActiveModsFromFile();
+
+            if (_Modlist.Count != 0)
+            {
+                drawAllRequiredModsFromList();
+                buttonSaveFile.Enabled = true;
+            }
+            else
+            {
+                UsedModsList.Items.Clear();
+                getAvailableMods();
+                hideOrReinsertLastSelectedMod();
+            }
+        }
+
+        private void hideOrReinsertLastSelectedMod()
+        {
             if (_lastItem != null && !AvailableModsList.Items.Contains(_lastItem))
             {
                 AvailableModsList.Items.Insert(_lastPosition, _lastItem);
@@ -89,13 +106,6 @@ namespace DoW_Mod_Manager
             _lastPosition = AvailableModsList.Items.IndexOf(_lastItem);
 
             AvailableModsList.Items.Remove(loadedModBox.SelectedItem);
-
-            getActiveModsFromFile();
-            if (_Modlist.Count != 0)
-            {
-                drawAllRequiredModsFromList();
-                buttonSaveFile.Enabled = true;
-            }
         }
 
         private void drawAllRequiredModsFromList()
@@ -116,6 +126,8 @@ namespace DoW_Mod_Manager
         private void hideUnavailableMods()
         {
             getAvailableMods(); //Get a Fresh new List everytime
+            hideOrReinsertLastSelectedMod();
+
             foreach (var item in _Modlist)
             {
                 if (AvailableModsList.Items.Contains(item.Name))
