@@ -221,8 +221,8 @@ namespace DoW_Mod_Manager
         {
             string text = input;
             string pat = @"\bRequiredMod\b";
-            string patCommented1 = @";;";
-            string patCommented2 = @"//";
+            string patCommented1 = @"^[;]+";
+            string patCommented2 = @"^[\/]+";
             string state = "";
 
             // Instantiate the regular expression object.
