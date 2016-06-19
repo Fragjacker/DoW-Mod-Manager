@@ -105,6 +105,7 @@
             // 
             // buttonSaveFile
             // 
+            this.buttonSaveFile.Enabled = false;
             this.buttonSaveFile.Location = new System.Drawing.Point(364, 54);
             this.buttonSaveFile.Name = "buttonSaveFile";
             this.buttonSaveFile.Size = new System.Drawing.Size(114, 39);

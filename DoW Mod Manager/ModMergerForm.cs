@@ -13,6 +13,7 @@ namespace DoW_Mod_Manager
         private object _lastItem = null;
         private int _lastPosition = 0;
 
+
         private List<Mod> _Modlist = new List<Mod>();
 
 
@@ -84,7 +85,7 @@ namespace DoW_Mod_Manager
                 AvailableModsList.Items.Insert(_lastPosition, _lastItem);
             }
 
-            _lastItem = loadedModBox.SelectedItem;
+            _lastItem = loadedModBox.SelectedItem; //Stores the last selected item in order to reinsert it once the selection changes again.
             _lastPosition = AvailableModsList.Items.IndexOf(_lastItem);
 
             AvailableModsList.Items.Remove(loadedModBox.SelectedItem);
@@ -93,12 +94,16 @@ namespace DoW_Mod_Manager
             if (_Modlist.Count != 0)
             {
                 drawAllRequiredModsFromList();
+                buttonSaveFile.Enabled = true;
             }
         }
 
         private void drawAllRequiredModsFromList()
         {
             UsedModsList.Items.Clear();
+
+            sortInactiveModsToBottom();
+
             string entry = "";
             foreach (var item in _Modlist)
             {
@@ -116,6 +121,37 @@ namespace DoW_Mod_Manager
                 if (AvailableModsList.Items.Contains(item.Name))
                 {
                     AvailableModsList.Items.Remove(item.Name);
+                }
+            }
+        }
+
+        private void sortInactiveModsToBottom()
+        {
+            Mod item = null;
+            for (int i = 0; i < _Modlist.Count; i++)
+            {
+                if (_Modlist[i].State.Equals("Inactive"))
+                {
+                    item = _Modlist[i];
+                    _Modlist.Add(item);
+                    _Modlist.RemoveAt(i);
+
+                    //Mod topItem, bottomItem;
+                    //int topPos, bottomPos;
+
+                    //for (int traverse = i; traverse < _Modlist.Count - 1; traverse++)
+                    //{
+                    //    //Copy Old Entries that will be Swapped
+                    //    topPos = traverse;
+                    //    bottomPos = traverse + 1;
+
+                    //    topItem = _Modlist[topPos];
+                    //    bottomItem = _Modlist[bottomPos];
+
+                    //    //Swap the Items
+                    //    _Modlist[bottomPos] = topItem;
+                    //    _Modlist[topPos] = bottomItem;
+                    //}
                 }
             }
         }
@@ -335,8 +371,11 @@ namespace DoW_Mod_Manager
             //Get the new addable Mod candidate
             int delMod = UsedModsList.SelectedIndex;
 
-            //Add the Mod to the selection of used Mods
-            _Modlist.RemoveAt(delMod);
+            if (delMod != -1)
+            {
+                //Add the Mod to the selection of used Mods
+                _Modlist.RemoveAt(delMod);
+            }
 
             //Redraw the List to display the added candidate
             drawAllRequiredModsFromList();
@@ -344,11 +383,17 @@ namespace DoW_Mod_Manager
 
         private void addAvailableMod()
         {
-            //Get the new addable Mod candidate
-            string newMod = AvailableModsList.SelectedItem.ToString();
+            if (AvailableModsList.SelectedItem != null)
+            {
+                //Get the new addable Mod candidate
+                string newMod = AvailableModsList.SelectedItem.ToString();
 
-            //Add the Mod to the selection of used Mods
-            _Modlist.Add(new Mod(newMod, "Pending"));
+                //Add the Mod to the selection of used Mods
+                _Modlist.Add(new Mod(newMod, "Pending"));
+            }
+
+            //TODO: Make new Mods be pending again on beeing Added
+            //_Modlist.Add(new Mod(newMod, "Pending"));
 
             //Redraw the List to display the added candidate
             drawAllRequiredModsFromList();
@@ -359,9 +404,11 @@ namespace DoW_Mod_Manager
             //Get the currently selected element from the Used Mods List
             int selection = UsedModsList.SelectedIndex;
 
-            //Toggle it to be active
-            _Modlist[selection].State = "Active";
-
+            if (selection != -1)
+            {
+                //Toggle it to be active
+                _Modlist[selection].State = "Active";
+            }
             //Redraw the List of Items
             drawAllRequiredModsFromList();
         }
@@ -371,9 +418,11 @@ namespace DoW_Mod_Manager
             //Get the currently selected element from the Used Mods List
             int selection = UsedModsList.SelectedIndex;
 
-            //Toggle it to be active
-            _Modlist[selection].State = "Inactive";
-
+            if (selection != -1)
+            {
+                //Toggle it to be active
+                _Modlist[selection].State = "Inactive";
+            }
             //Redraw the List of Items
             drawAllRequiredModsFromList();
         }
@@ -461,6 +510,7 @@ namespace DoW_Mod_Manager
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "DoW Mod Module file|*.module";
             saveFileDialog1.Title = "Save your Mod Loadout";
+            saveFileDialog1.FileName = loadedModBox.SelectedItem.ToString(); //Gets the the Text of the current loaded Mod for the save Dialog
 
             string modString = "";
 
