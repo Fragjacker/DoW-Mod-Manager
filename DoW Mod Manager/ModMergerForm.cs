@@ -376,7 +376,7 @@ namespace DoW_Mod_Manager
                 string newMod = AvailableModsList.SelectedItem.ToString();
 
                 //Add the Mod to the selection of used Mods
-                _Modlist.Add(new Mod(newMod, "Pending"));
+                _Modlist.Add(new Mod(newMod, "Active"));
             }
 
             //TODO: Make new Mods be pending again on beeing Added

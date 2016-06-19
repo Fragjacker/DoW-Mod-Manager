@@ -21,7 +21,7 @@ namespace DoW_Mod_Manager
     {
         // Set this to fixed path for debugging Inside of Visual Studio
 
-        public string currentDir = "D:\\Program Files (x86)\\Steam\\SteamApps\\common\\Dawn of War Soulstorm"; //Is the current Directory of Soulstorm
+        public string currentDir = ""; //Is the current Directory of Soulstorm
         private string _devMode = ""; //Contains the argument for starting the .exe in dev mode
         private string _noIntroMode = " -nomovies"; //Contains the argument for starting the .exe with no Intromovies
         private string _highPolyMode = "";//Contains the argument for starting the .exe in High Poly Mode.
@@ -45,7 +45,7 @@ namespace DoW_Mod_Manager
         private void Form1_Load(object sender, EventArgs e)
         {
             //Outcomment currentDir so it won't override your custom currentDir for debugging.
-            //currentDir = Directory.GetCurrentDirectory();
+            currentDir = Directory.GetCurrentDirectory();
             _filePaths = Directory.GetFiles(currentDir, "Soulstorm.exe");
 
 
