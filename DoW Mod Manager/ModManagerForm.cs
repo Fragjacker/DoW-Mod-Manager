@@ -93,7 +93,7 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Checks if the Mods are actually REALLY installed by checking if their asset folders are present by the name specified within the .module files "Modfolder" tagline
         /// </summary>
-        private void checkforInstalledMods()
+        public void checkforInstalledMods()
         {
             startButton1.Enabled = true;
 

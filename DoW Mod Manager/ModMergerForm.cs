@@ -128,32 +128,19 @@ namespace DoW_Mod_Manager
         private void sortInactiveModsToBottom()
         {
             Mod item = null;
+            List<Mod> _inactiveModsList = new List<Mod>();
+
             for (int i = 0; i < _Modlist.Count; i++)
             {
                 if (_Modlist[i].State.Equals("Inactive"))
                 {
                     item = _Modlist[i];
-                    _Modlist.Add(item);
+                    _inactiveModsList.Add(item);
                     _Modlist.RemoveAt(i);
-
-                    //Mod topItem, bottomItem;
-                    //int topPos, bottomPos;
-
-                    //for (int traverse = i; traverse < _Modlist.Count - 1; traverse++)
-                    //{
-                    //    //Copy Old Entries that will be Swapped
-                    //    topPos = traverse;
-                    //    bottomPos = traverse + 1;
-
-                    //    topItem = _Modlist[topPos];
-                    //    bottomItem = _Modlist[bottomPos];
-
-                    //    //Swap the Items
-                    //    _Modlist[bottomPos] = topItem;
-                    //    _Modlist[topPos] = bottomItem;
-                    //}
+                    i--; //Go one step Back to stay in place for enxt entry
                 }
             }
+            _Modlist.AddRange(_inactiveModsList);
         }
 
         /// <summary>
@@ -448,6 +435,9 @@ namespace DoW_Mod_Manager
             return _Modlist[count].State;
         }
 
+        /// <summary>
+        /// Swaps two Used Mods List Elements from Bottom to Top.
+        /// </summary>
         private void BottomUpSwapRequiredMod()
         {
             Mod topItem, bottomItem;
@@ -474,29 +464,35 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// Swaps two Used Mods List Elements from Top to Bottom.
+        /// </summary>
         private void TopDownSwapRequiredMod()
         {
             Mod topItem, bottomItem;
             int topPos, bottomPos;
 
-            //Copy Old Entries that will be Swapped
-            topPos = UsedModsList.SelectedIndex;
-            bottomPos = UsedModsList.SelectedIndex + 1;
-
-            if (bottomPos <= _Modlist.Count - 1)
+            if (UsedModsList.SelectedIndex != -1)
             {
-                topItem = _Modlist[topPos];
-                bottomItem = _Modlist[bottomPos];
+                //Copy Old Entries that will be Swapped
+                topPos = UsedModsList.SelectedIndex;
+                bottomPos = UsedModsList.SelectedIndex + 1;
 
-                //Swap the Items
-                _Modlist[bottomPos] = topItem;
-                _Modlist[topPos] = bottomItem;
+                if (bottomPos <= _Modlist.Count - 1)
+                {
+                    topItem = _Modlist[topPos];
+                    bottomItem = _Modlist[bottomPos];
 
-                //Redraw the list
-                drawAllRequiredModsFromList();
+                    //Swap the Items
+                    _Modlist[bottomPos] = topItem;
+                    _Modlist[topPos] = bottomItem;
 
-                //Reselect the newly placed item to allow for quick traverse through the list
-                UsedModsList.SelectedIndex = bottomPos;
+                    //Redraw the list
+                    drawAllRequiredModsFromList();
+
+                    //Reselect the newly placed item to allow for quick traverse through the list
+                    UsedModsList.SelectedIndex = bottomPos;
+                }
             }
         }
 
@@ -544,7 +540,21 @@ namespace DoW_Mod_Manager
 
                 writer.Close();
             }
+            //checkForModManagerSelectedModForRefresh();
         }
+
+        /// <summary>
+        /// Checks if the current selected Mod inside the Mod Merge is the same that is currently selected inside the Mod Manager in order to update the installed Mods view.
+        /// </summary>
+        //private void checkForModManagerSelectedModForRefresh()
+        //{
+        //    if(ModManager.InstalledModsList.SelectedItem == loadedModBox.SelectedItem)
+        //    {
+        //        ModManager.checkforInstalledMods();
+        //    }
+        //}
+
+
 
         /// <summary>
         /// Reads the .module file that shall be saved and overrides it's Required Mods entries.
