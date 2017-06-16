@@ -43,6 +43,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
+            //currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
             currentDir = Directory.GetCurrentDirectory();
             _filePaths = Directory.GetFiles(currentDir, "Soulstorm.exe");
 
@@ -60,39 +61,39 @@ namespace DoW_Mod_Manager
 
             //TODO: Uncommoment below block and comment try and catch block again!
 
-            //else
-            //{
-            //    MessageBox.Show("ERROR finding Soulstorm on your Computer! Please put the DoW Mod Manager 1.3.exe in the directory that contains the Soulstorm.exe!");
-            //    Application.Exit();
-            //}
+            else
+            {
+                MessageBox.Show("ERROR finding Soulstorm on your Computer! Please put the DoW Mod Manager 1.3.exe in the directory that contains the Soulstorm.exe!");
+                Application.Exit();
+            }
 
             // This was implemented to find soulstorm by using the Registry Key Install location. But since the resource folder must be placed in a certain direction i've decided that a local directory scan would suffice.
             // Uncomment this to make the Form Window open up. Since the program will exit if there's no local Soulstorm.exe file be found.
-            else
-            {
-                try
-                {
-                    RegistryKey regKey = Registry.LocalMachine;
-                    regKey = regKey.OpenSubKey(@"Software\\THQ\\Dawn of War - Soulstorm\\");
+            //else
+            //{
+            //    try
+            //    {
+            //        RegistryKey regKey = Registry.LocalMachine;
+            //        regKey = regKey.OpenSubKey(@"Software\\THQ\\Dawn of War - Soulstorm\\");
 
-                    if (regKey != null)
-                    {
-                        currentDir = regKey.GetValue("InstallLocation").ToString();
+            //        if (regKey != null)
+            //        {
+            //            currentDir = regKey.GetValue("InstallLocation").ToString();
 
-                        textBox1.AppendText(currentDir);
+            //            textBox1.AppendText(currentDir);
 
-                        getMods();
+            //            getMods();
 
-                        //getModFoldersFromFile();
-                        InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
-                    }
+            //            //getModFoldersFromFile();
+            //            InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
+            //        }
 
-                }
-                catch (Exception eventos)
-                {
-                    throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
-                }
-            }
+            //    }
+            //    catch (Exception eventos)
+            //    {
+            //        throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
+            //    }
+            //}
         }
 
         /// <summary>
@@ -196,6 +197,8 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void getMods()
         {
+            List<string> newfilePathsArray = new List<string>(); //Make a new list for the new Pathitems
+            int Index = 0;
             InstalledModsList.Items.Clear();
             string line = "";
 
@@ -215,11 +218,14 @@ namespace DoW_Mod_Manager
                     {
                         if (modIsPlayable(line) == true)
                         {
+                            newfilePathsArray.Add(_filePaths[Index]);
                             InstalledModsList.Items.Add(Path.GetFileNameWithoutExtension(s));
                         }
                     }
                     file.Close();
+                    Index++;
                 }
+                _filePaths = newfilePathsArray.ToArray(); //Override the old array that contained unplayable mods with the new one.
             }
             else
             {
