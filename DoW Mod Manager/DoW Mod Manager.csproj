@@ -136,6 +136,12 @@
     <None Include="bin\resource\plus.png" />
     <None Include="bin\resource\arrow_down.png" />
     <None Include="bin\resource\arrow_up.png" />
+    <None Include="bin\resource\arrow_down_disabled.png" />
+    <None Include="bin\resource\arrow_up_disabled.png" />
+    <None Include="bin\resource\Checkmark_disabled.png" />
+    <None Include="bin\resource\cross_disabled.png" />
+    <None Include="bin\resource\minus_disabled.png" />
+    <None Include="bin\resource\plus_disabled.png" />
     <Content Include="MODenizer.ico" />
   </ItemGroup>
   <ItemGroup>

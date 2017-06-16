@@ -12,6 +12,9 @@ namespace DoW_Mod_Manager
         private ModManagerForm ModManager;
         private object _lastItem = null;
         private int _lastPosition = 0;
+        //TODO: Uncomment the block below and remove fixed path!
+        private string _currentDir = Directory.GetCurrentDirectory();
+        //private string _currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
 
 
         private List<Mod> _Modlist = new List<Mod>();
@@ -44,8 +47,19 @@ namespace DoW_Mod_Manager
         {
             InitializeComponent();
             ModManager = Form;
-            getAvailableMods();
             getLoadableMods();
+
+            //Disable All buttons at first
+            disableArrowDownButton();
+            disableArrowUpButton();
+            disableCheckmarkButton();
+            disableCrossButton();
+            disableMinusButton();
+            disablePlusButton();
+
+            //Disable the simpler textboxes
+            UsedModsList.Enabled = false;
+            AvailableModsList.Enabled = false;
         }
 
 
@@ -86,6 +100,10 @@ namespace DoW_Mod_Manager
             {
                 drawAllRequiredModsFromList();
                 buttonSaveFile.Enabled = true;
+
+                //enable UI Elements
+                UsedModsList.Enabled = true;
+                AvailableModsList.Enabled = true;
             }
             else
             {
@@ -326,6 +344,90 @@ namespace DoW_Mod_Manager
             // around the selected item.
             //
             e.DrawFocusRectangle();
+        }
+
+        private void enablePlusButton()
+        {
+            buttonAdd.Enabled = true;
+            string str_Path = Path.GetFullPath(_currentDir + "\\DoW Mod Manager Resources\\plus.png");
+            buttonAdd.BackgroundImage = Image.FromFile(str_Path);
+        }
+
+        private void disablePlusButton()
+        {
+            buttonAdd.Enabled = false;
+            string str_Path = Path.GetFullPath(_currentDir + "\\DoW Mod Manager Resources\\plus_disabled.png");
+            buttonAdd.BackgroundImage = Image.FromFile(str_Path);
+        }
+
+        private void enableMinusButton()
+        {
+            buttonRemove.Enabled = true;
+            string str_Path = Path.GetFullPath(_currentDir + "\\DoW Mod Manager Resources\\minus.png");
+            buttonRemove.BackgroundImage = Image.FromFile(str_Path);
+        }
+
+        private void disableMinusButton()
+        {
+            buttonRemove.Enabled = false;
+            string str_Path = Path.GetFullPath(_currentDir + "\\DoW Mod Manager Resources\\minus_disabled.png");
+            buttonRemove.BackgroundImage = Image.FromFile(str_Path);
+        }
+
+        private void enableCheckmarkButton()
+        {
+            buttonActivate.Enabled = true;
+            string str_Path = Path.GetFullPath(_currentDir + "\\DoW Mod Manager Resources\\checkmark.png");
+            buttonActivate.BackgroundImage = Image.FromFile(str_Path);
+        }
+
+        private void disableCheckmarkButton()
+        {
+            buttonActivate.Enabled = false;
+            string str_Path = Path.GetFullPath(_currentDir + "\\DoW Mod Manager Resources\\checkmark_disabled.png");
+            buttonActivate.BackgroundImage = Image.FromFile(str_Path);
+        }
+
+        private void enableCrossButton()
+        {
+            buttonDeactivate.Enabled = true;
+            string str_Path = Path.GetFullPath(_currentDir + "\\DoW Mod Manager Resources\\cross.png");
+            buttonDeactivate.BackgroundImage = Image.FromFile(str_Path);
+        }
+
+        private void disableCrossButton()
+        {
+            buttonDeactivate.Enabled = false;
+            string str_Path = Path.GetFullPath(_currentDir + "\\DoW Mod Manager Resources\\cross_disabled.png");
+            buttonDeactivate.BackgroundImage = Image.FromFile(str_Path);
+        }
+
+        private void enableArrowUpButton()
+        {
+            buttonArrowUp.Enabled = true;
+            string str_Path = Path.GetFullPath(_currentDir + "\\DoW Mod Manager Resources\\arrow_up.png");
+            buttonArrowUp.BackgroundImage = Image.FromFile(str_Path);
+        }
+
+        private void disableArrowUpButton()
+        {
+            buttonArrowUp.Enabled = false;
+            string str_Path = Path.GetFullPath(_currentDir + "\\DoW Mod Manager Resources\\arrow_up_disabled.png");
+            buttonArrowUp.BackgroundImage = Image.FromFile(str_Path);
+        }
+
+        private void enableArrowDownButton()
+        {
+            buttonArrowDown.Enabled = true;
+            string str_Path = Path.GetFullPath(_currentDir + "\\DoW Mod Manager Resources\\arrow_down.png");
+            buttonArrowDown.BackgroundImage = Image.FromFile(str_Path);
+        }
+
+        private void disableArrowDownButton()
+        {
+            buttonArrowDown.Enabled = false;
+            string str_Path = Path.GetFullPath(_currentDir + "\\DoW Mod Manager Resources\\arrow_down_disabled.png");
+            buttonArrowDown.BackgroundImage = Image.FromFile(str_Path);
         }
 
 
@@ -590,6 +692,28 @@ namespace DoW_Mod_Manager
             }
 
             file.Close();
+        }
+
+        private void UsedModsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            disablePlusButton();
+
+            enableMinusButton();
+            enableCheckmarkButton();
+            enableArrowUpButton();
+            enableArrowDownButton();
+            enableCrossButton();
+        }
+
+        private void AvailableModsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            enablePlusButton();
+
+            disableMinusButton();
+            disableCheckmarkButton();
+            disableArrowUpButton();
+            disableArrowDownButton();
+            disableCrossButton();
         }
     }
 }

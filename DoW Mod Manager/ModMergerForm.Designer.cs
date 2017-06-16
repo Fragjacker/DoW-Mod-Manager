@@ -75,6 +75,7 @@
             this.UsedModsList.Size = new System.Drawing.Size(392, 199);
             this.UsedModsList.TabIndex = 3;
             this.UsedModsList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.UsedModsList_DrawItem);
+            this.UsedModsList.SelectedIndexChanged += new System.EventHandler(this.UsedModsList_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -93,6 +94,7 @@
             this.AvailableModsList.ScrollAlwaysVisible = true;
             this.AvailableModsList.Size = new System.Drawing.Size(392, 199);
             this.AvailableModsList.TabIndex = 3;
+            this.AvailableModsList.SelectedIndexChanged += new System.EventHandler(this.AvailableModsList_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -225,7 +227,7 @@
             this.Controls.Add(this.labell);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ModMergerForm";
-            this.Text = "Mod Merger v1.0";
+            this.Text = "Mod Merger v1.1";
             this.ResumeLayout(false);
             this.PerformLayout();
 

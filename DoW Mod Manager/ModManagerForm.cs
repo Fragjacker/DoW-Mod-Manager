@@ -43,6 +43,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
+            //TODO: Set proper directory again
             //currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
             currentDir = Directory.GetCurrentDirectory();
             _filePaths = Directory.GetFiles(currentDir, "Soulstorm.exe");
