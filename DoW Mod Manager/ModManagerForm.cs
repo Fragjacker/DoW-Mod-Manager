@@ -60,39 +60,39 @@ namespace DoW_Mod_Manager
 
             //TODO: Uncommoment below block and comment try and catch block again!
 
-            else
-            {
-                MessageBox.Show("ERROR finding Soulstorm on your Computer! Please put the DoW Mod Manager 1.3.exe in the directory that contains the Soulstorm.exe!");
-                Application.Exit();
-            }
+            //else
+            //{
+            //    MessageBox.Show("ERROR finding Soulstorm on your Computer! Please put the DoW Mod Manager 1.3.exe in the directory that contains the Soulstorm.exe!");
+            //    Application.Exit();
+            //}
 
             // This was implemented to find soulstorm by using the Registry Key Install location. But since the resource folder must be placed in a certain direction i've decided that a local directory scan would suffice.
             // Uncomment this to make the Form Window open up. Since the program will exit if there's no local Soulstorm.exe file be found.
-            //else
-            //{
-            //    try
-            //    {
-            //        RegistryKey regKey = Registry.LocalMachine;
-            //        regKey = regKey.OpenSubKey(@"Software\\THQ\\Dawn of War - Soulstorm\\");
+            else
+            {
+                try
+                {
+                    RegistryKey regKey = Registry.LocalMachine;
+                    regKey = regKey.OpenSubKey(@"Software\\THQ\\Dawn of War - Soulstorm\\");
 
-            //        if (regKey != null)
-            //        {
-            //            currentDir = regKey.GetValue("InstallLocation").ToString();
+                    if (regKey != null)
+                    {
+                        currentDir = regKey.GetValue("InstallLocation").ToString();
 
-            //            textBox1.AppendText(currentDir);
+                        textBox1.AppendText(currentDir);
 
-            //            getMods();
+                        getMods();
 
-            //            //getModFoldersFromFile();
-            //            InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
-            //        }
+                        //getModFoldersFromFile();
+                        InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
+                    }
 
-            //    }
-            //    catch (Exception eventos)
-            //    {
-            //        throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
-            //    }
-            //}
+                }
+                catch (Exception eventos)
+                {
+                    throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
+                }
+            }
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace DoW_Mod_Manager
 
             if (match.Success)
             {
-                result = match.Value.Replace(" ", ""); 
+                result = match.Value.Replace(" ", "");
             }
             return result;
         }
@@ -183,7 +183,7 @@ namespace DoW_Mod_Manager
 
             Match match = require.Match(text);
 
-            if(match.Success)
+            if (match.Success)
             {
                 result = match.Value.Replace(" ", "");
                 result = match.Value.Replace(".module", "");
@@ -197,6 +197,7 @@ namespace DoW_Mod_Manager
         private void getMods()
         {
             InstalledModsList.Items.Clear();
+            string line = "";
 
             _filePaths = Directory.GetFiles(currentDir, "*.module");
 
@@ -204,8 +205,20 @@ namespace DoW_Mod_Manager
             {
                 foreach (string s in _filePaths)
                 {
-                    //_availableMods.Ite;
-                    InstalledModsList.Items.Add(Path.GetFileNameWithoutExtension(s));
+
+                    // Read the .module file to see if the mod is playable
+                    System.IO.StreamReader file = new System.IO.StreamReader(s);
+
+                    // Filter the unplayable mods and populate the List only with playable mods
+
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        if (modIsPlayable(line) == true)
+                        {
+                            InstalledModsList.Items.Add(Path.GetFileNameWithoutExtension(s));
+                        }
+                    }
+                    file.Close();
                 }
             }
             else
@@ -221,21 +234,26 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        //private bool modIsPlayable(string input)
-        //{
-        //    bool isPlayable;
-        //    string textline = input;
+        private bool modIsPlayable(string input)
+        {
+            bool isPlayable = false;
+            string textline = input;
 
-        //    if(result == "1")
-        //    {
-        //        isPlayable = true;
-        //    }
-        //    else
-        //    {
-        //        isPlayable = false;
-        //    }
-        //    return isPlayable;
-        //}
+            string pat = @"Playable = 1";
+
+            // Instantiate the regular expression object.
+            Regex require = new Regex(pat, RegexOptions.IgnoreCase);
+
+            // Match the regular expression pattern against a text string.
+
+            Match match = require.Match(textline);
+
+            if (match.Success)
+            {
+                isPlayable = true;
+            }
+            return isPlayable;
+        }
 
 
         /// <summary>
@@ -362,6 +380,7 @@ namespace DoW_Mod_Manager
                             count++;
                         }
                     }
+                    file.Close();
                 }
                 else
                 {
@@ -370,7 +389,6 @@ namespace DoW_Mod_Manager
                     count++;
                 }
                 index++;
-                //file.Close();
             }
         }
 
