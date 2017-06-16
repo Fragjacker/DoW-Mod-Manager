@@ -629,30 +629,39 @@ namespace DoW_Mod_Manager
 
             {
 
-                StreamWriter writer = new StreamWriter(saveFileDialog1.OpenFile());
+                System.IO.StreamReader reader = new System.IO.StreamReader(saveFileDialog1.FileName);
+                List<string> writer = readFileTilRequiredMod(reader);
 
-                readFileTilRequiredMod(writer);
-
-                //This writes the current Mod Loadout into the module file
+                //Write more info into the list of text
                 for (int i = 0; i < _Modlist.Count; i++)
 
                 {
                     if (_Modlist[i].State.Equals("Active"))
                     {
                         modString = "RequiredMod." + (i + 1) + " = " + _Modlist[i].Name;
-                        writer.WriteLine(modString);
+                        writer.Add(modString);
                     }
                     if (_Modlist[i].State.Equals("Inactive"))
                     {
                         modString = "//RequiredMod." + (i + 1) + " = " + _Modlist[i].Name;
-                        writer.WriteLine(modString);
+                        writer.Add(modString);
                     }
 
                 }
 
-                writer.Dispose();
+                //Finally write the stuff
+                int index = loadedModBox.SelectedIndex;
+                string currentPath = ModManager._filePaths[index];
+                StreamWriter newFile = new StreamWriter(currentPath);
 
-                writer.Close();
+                foreach (var line in writer)
+                {
+                    newFile.WriteLine(line);
+                }
+
+                newFile.Dispose();
+
+                newFile.Close();
             }
             //checkForModManagerSelectedModForRefresh();
         }
@@ -673,47 +682,53 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Reads the .module file that shall be saved and overrides it's Required Mods entries.
         /// </summary>
-        /// <param name="writer"></param>
-        private void readFileTilRequiredMod(StreamWriter writer)
+        /// <param name="reader"></param>
+        private List<string> readFileTilRequiredMod(StreamReader reader)
         {
+            List<string> cacheList = new List<string>();
             int index = loadedModBox.SelectedIndex;
-            string currentPath = ModManager._filePaths[index];
+            //string currentPath = ModManager._filePaths[index];
             string line = "";
 
             // Displays a SaveFileDialog so the user can save the .module File
 
-            StreamReader file = new StreamReader(currentPath);
-
             // Populate the Required Mods List with entries from the .module file
 
-            while ((line = file.ReadLine()) != null && !line.Contains("RequiredMod"))
+            while ((line = reader.ReadLine()) != null && !line.Contains("RequiredMod"))
             {
-                writer.WriteLine(line);
+                cacheList.Add(line);
+                //file.WriteLine(line);
             }
-
-            file.Close();
+            reader.Close();
+            return cacheList;
         }
 
         private void UsedModsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            disablePlusButton();
+            if (UsedModsList.SelectedItem != null)
+            {
+                disablePlusButton();
 
-            enableMinusButton();
-            enableCheckmarkButton();
-            enableArrowUpButton();
-            enableArrowDownButton();
-            enableCrossButton();
+                enableMinusButton();
+                enableCheckmarkButton();
+                enableArrowUpButton();
+                enableArrowDownButton();
+                enableCrossButton(); 
+            }
         }
 
         private void AvailableModsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            enablePlusButton();
+            if (AvailableModsList.SelectedItem != null)
+            {
+                enablePlusButton();
 
-            disableMinusButton();
-            disableCheckmarkButton();
-            disableArrowUpButton();
-            disableArrowDownButton();
-            disableCrossButton();
+                disableMinusButton();
+                disableCheckmarkButton();
+                disableArrowUpButton();
+                disableArrowDownButton();
+                disableCrossButton();
+            }
         }
     }
 }
