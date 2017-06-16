@@ -225,7 +225,7 @@
             this.Controls.Add(this.labell);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ModMergerForm";
-            this.Text = "Mod Merger";
+            this.Text = "Mod Merger v1.0";
             this.ResumeLayout(false);
             this.PerformLayout();
 

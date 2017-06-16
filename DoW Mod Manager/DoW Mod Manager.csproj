@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DoW_Mod_Manager</RootNamespace>
-    <AssemblyName>DoW Mod Manager 1.3</AssemblyName>
+    <AssemblyName>DoW Mod Manager v1.4</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -47,7 +47,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\DoW Mod Manager 1.3.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\DoW Mod Manager v1.4.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>MODenizer.ico</ApplicationIcon>

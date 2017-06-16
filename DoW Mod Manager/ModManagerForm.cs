@@ -19,7 +19,6 @@ namespace DoW_Mod_Manager
     /// </summary>
     public partial class ModManagerForm : Form
     {
-        //TODO: Set this to fixed path for debugging Inside of Visual Studio
 
         public string currentDir = ""; //Is the current Directory of Soulstorm
         private string _devMode = ""; //Contains the argument for starting the .exe in dev mode
@@ -44,11 +43,11 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            //TODO: Outcomment currentDir so it won't override your custom currentDir for debugging.
             currentDir = Directory.GetCurrentDirectory();
             _filePaths = Directory.GetFiles(currentDir, "Soulstorm.exe");
 
 
+            //Check if there was a valid Directory detected previously, then perform getting all the info to populate the lists
             if (_filePaths.Length != 0)
             {
                 textBox1.AppendText(currentDir);
@@ -59,11 +58,14 @@ namespace DoW_Mod_Manager
                 InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
             }
 
+            //TODO: Uncommoment below block and comment try and catch block again!
+
             else
             {
                 MessageBox.Show("ERROR finding Soulstorm on your Computer! Please put the DoW Mod Manager 1.3.exe in the directory that contains the Soulstorm.exe!");
                 Application.Exit();
             }
+
             // This was implemented to find soulstorm by using the Registry Key Install location. But since the resource folder must be placed in a certain direction i've decided that a local directory scan would suffice.
             // Uncomment this to make the Form Window open up. Since the program will exit if there's no local Soulstorm.exe file be found.
             //else
@@ -80,10 +82,13 @@ namespace DoW_Mod_Manager
             //            textBox1.AppendText(currentDir);
 
             //            getMods();
+
+            //            //getModFoldersFromFile();
+            //            InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
             //        }
 
             //    }
-            //    catch (Exception e)
+            //    catch (Exception eventos)
             //    {
             //        throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
             //    }
@@ -151,12 +156,11 @@ namespace DoW_Mod_Manager
 
             // Match the regular expression pattern against a text string.
 
-            Match m = require.Match(text);
+            Match match = require.Match(text);
 
-            foreach (Match match in Regex.Matches(inputstring, pat))
+            if (match.Success)
             {
-                result = m.Value.Replace(" ", "");
-               // result = m.Value;
+                result = match.Value.Replace(" ", ""); 
             }
             return result;
         }
@@ -177,13 +181,12 @@ namespace DoW_Mod_Manager
 
             // Match the regular expression pattern against a text string.
 
-            Match m = require.Match(text);
+            Match match = require.Match(text);
 
-            foreach (Match match in Regex.Matches(input, pat))
+            if(match.Success)
             {
-                //result = m.Value.Replace(".module","");
-                result = m.Value.Replace(" ", "");
-                result = m.Value.Replace(".module", "");
+                result = match.Value.Replace(" ", "");
+                result = match.Value.Replace(".module", "");
             }
             return result;
         }
@@ -212,6 +215,29 @@ namespace DoW_Mod_Manager
         }
 
 
+
+        /// <summary>
+        /// This function returns 'true' if a Mod is set as "Playable = 1" in the .module file 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        //private bool modIsPlayable(string input)
+        //{
+        //    bool isPlayable;
+        //    string textline = input;
+
+        //    if(result == "1")
+        //    {
+        //        isPlayable = true;
+        //    }
+        //    else
+        //    {
+        //        isPlayable = false;
+        //    }
+        //    return isPlayable;
+        //}
+
+
         /// <summary>
         /// Reads the .module file and scans for "RequiredMods" lines and returns if a line was found or not via true/false. This is used to add the lines to the Form Window.
         /// </summary>
@@ -226,12 +252,12 @@ namespace DoW_Mod_Manager
             bool state = false;
 
             // Instantiate the regular expression object.
-            Regex require = new Regex(pat, RegexOptions.IgnoreCase);
-            Regex notrequire = new Regex(patCommented1, RegexOptions.IgnoreCase);
+            //Regex require = new Regex(pat, RegexOptions.IgnoreCase);
+            //Regex notrequire = new Regex(patCommented1, RegexOptions.IgnoreCase);
 
             // Match the regular expression pattern against a text string.
 
-            Match m = require.Match(text);
+            //Match m = require.Match(text);
 
             foreach (Match match in Regex.Matches(input, pat))
             {
@@ -263,11 +289,11 @@ namespace DoW_Mod_Manager
             bool state = false;
 
             // Instantiate the regular expression object.
-            Regex require = new Regex(pat, RegexOptions.IgnoreCase);
+            //Regex require = new Regex(pat, RegexOptions.IgnoreCase);
 
             // Match the regular expression pattern against a text string.
 
-            Match m = require.Match(text);
+            //Match m = require.Match(text);
 
             foreach (Match match in Regex.Matches(input, pat))
             {
