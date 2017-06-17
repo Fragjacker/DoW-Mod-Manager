@@ -234,7 +234,7 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.Button button1;
-        public System.Windows.Forms.ListBox InstalledModsList;
+        private System.Windows.Forms.ListBox InstalledModsList;
     }
 }
 

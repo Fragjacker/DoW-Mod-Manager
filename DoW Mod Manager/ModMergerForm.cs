@@ -69,7 +69,7 @@ namespace DoW_Mod_Manager
         private void getAvailableMods()
         {
             AvailableModsList.Items.Clear();
-            AvailableModsList.Items.AddRange(ModManager.InstalledModsList.Items);
+            AvailableModsList.Items.AddRange(ModManager.allFoundModules.ToArray());
         }
 
         /// <summary>
@@ -77,9 +77,9 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void getLoadableMods()
         {
-            String[] modsList = new String[ModManager.InstalledModsList.Items.Count];
+            String[] modsList = new String[ModManager.allValidModules.Count];
             int counter = 0;
-            foreach (var listBoxItem in ModManager.InstalledModsList.Items)
+            foreach (var listBoxItem in ModManager.allValidModules)
             {
                 modsList[counter] = listBoxItem.ToString();
                 counter++;

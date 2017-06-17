@@ -25,7 +25,9 @@ namespace DoW_Mod_Manager
         private string _noIntroMode = " -nomovies"; //Contains the argument for starting the .exe with no Intromovies
         private string _highPolyMode = "";//Contains the argument for starting the .exe in High Poly Mode.
         public string[] _filePaths; //Stores the paths of the found .module files in the Soulstorm directory
-        public string[] _modFolderPaths;//Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir. 
+        public string[] _modFolderPaths;//Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir.
+        public List<string> allFoundModules = null; //Contains the list of all available Mods that will be used by the Mod Merger
+        public List<string> allValidModules = null; //Contains the list of all playable Mods that will be used by the Mod Merger
         private bool[] _isInstalled; //A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
 
         /// <summary>
@@ -199,6 +201,9 @@ namespace DoW_Mod_Manager
         private void getMods()
         {
             List<string> newfilePathsArray = new List<string>(); //Make a new list for the new Pathitems
+            allValidModules = new List<string>();
+            allFoundModules = new List<string>();
+
             int Index = 0;
             InstalledModsList.Items.Clear();
             string line = "";
@@ -209,6 +214,8 @@ namespace DoW_Mod_Manager
             {
                 foreach (string s in _filePaths)
                 {
+                    //Find the List of ALL found module files for the Mod Merger available Mods List
+                    allFoundModules.Add(Path.GetFileNameWithoutExtension(s));
 
                     // Read the .module file to see if the mod is playable
                     System.IO.StreamReader file = new System.IO.StreamReader(s);
@@ -221,6 +228,7 @@ namespace DoW_Mod_Manager
                         {
                             newfilePathsArray.Add(_filePaths[Index]);
                             InstalledModsList.Items.Add(Path.GetFileNameWithoutExtension(s));
+                            allValidModules.Add(Path.GetFileNameWithoutExtension(s));
                         }
                     }
                     file.Close();
