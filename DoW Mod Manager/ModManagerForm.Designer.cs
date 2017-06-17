@@ -43,12 +43,14 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.startVanillaGameButton = new System.Windows.Forms.Button();
+            this.LAAStatusLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(179, 12);
+            this.textBox1.Location = new System.Drawing.Point(179, 6);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(215, 20);
@@ -57,7 +59,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 15);
+            this.label1.Location = new System.Drawing.Point(16, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(157, 13);
             this.label1.TabIndex = 1;
@@ -105,11 +107,11 @@
             // startButton1
             // 
             this.startButton1.Enabled = false;
-            this.startButton1.Location = new System.Drawing.Point(488, 28);
+            this.startButton1.Location = new System.Drawing.Point(588, 32);
             this.startButton1.Name = "startButton1";
-            this.startButton1.Size = new System.Drawing.Size(195, 48);
+            this.startButton1.Size = new System.Drawing.Size(121, 48);
             this.startButton1.TabIndex = 11;
-            this.startButton1.Text = "START GAME WITH SELECTED MOD";
+            this.startButton1.Text = "START MOD";
             this.startButton1.UseVisualStyleBackColor = true;
             this.startButton1.Click += new System.EventHandler(this.startButton1_Click);
             // 
@@ -117,7 +119,7 @@
             // 
             this.pictureBox1.ErrorImage = null;
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(706, 28);
+            this.pictureBox1.Location = new System.Drawing.Point(715, 32);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(50, 50);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -188,6 +190,28 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // startVanillaGameButton
+            // 
+            this.startVanillaGameButton.Location = new System.Drawing.Point(461, 32);
+            this.startVanillaGameButton.Name = "startVanillaGameButton";
+            this.startVanillaGameButton.Size = new System.Drawing.Size(121, 48);
+            this.startVanillaGameButton.TabIndex = 19;
+            this.startVanillaGameButton.Text = "START BASE GAME";
+            this.startVanillaGameButton.UseVisualStyleBackColor = true;
+            this.startVanillaGameButton.Click += new System.EventHandler(this.startVanillaGameButton_Click);
+            // 
+            // LAAStatusLabel
+            // 
+            this.LAAStatusLabel.AutoSize = true;
+            this.LAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LAAStatusLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.LAAStatusLabel.Location = new System.Drawing.Point(501, 5);
+            this.LAAStatusLabel.Name = "LAAStatusLabel";
+            this.LAAStatusLabel.Size = new System.Drawing.Size(162, 24);
+            this.LAAStatusLabel.TabIndex = 20;
+            this.LAAStatusLabel.Text = "LAA Flag is Active";
+            this.LAAStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // ModManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -195,6 +219,8 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.LAAStatusLabel);
+            this.Controls.Add(this.startVanillaGameButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
@@ -235,6 +261,8 @@
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox InstalledModsList;
+        private System.Windows.Forms.Button startVanillaGameButton;
+        private System.Windows.Forms.Label LAAStatusLabel;
     }
 }
 

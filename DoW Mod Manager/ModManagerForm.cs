@@ -29,6 +29,7 @@ namespace DoW_Mod_Manager
         public List<string> allFoundModules = null; //Contains the list of all available Mods that will be used by the Mod Merger
         public List<string> allValidModules = null; //Contains the list of all playable Mods that will be used by the Mod Merger
         private bool[] _isInstalled; //A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
+        private bool isLAAPatched = false; //Tells if soulstorm is LAA patched or NOT.
 
         /// <summary>
         ///  Initializes all the necessary components used by the GUI
@@ -60,6 +61,10 @@ namespace DoW_Mod_Manager
 
                 getModFoldersFromFile();
                 InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
+
+                //Check if the Game is LAA Patched and fill in the Label properly
+                isLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
+                setLAALabelText();
             }
 
             //TODO: Uncommoment below block and comment try and catch block again!
@@ -420,6 +425,14 @@ namespace DoW_Mod_Manager
             Process.Start(startInfo);
         }
 
+        private void startVanillaGameButton_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = currentDir + "\\Soulstorm.exe";
+            startInfo.Arguments = @"-modname W40k" + _devMode + _noIntroMode + _highPolyMode;
+            Process.Start(startInfo);
+        }
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true)
@@ -497,6 +510,53 @@ namespace DoW_Mod_Manager
         {
             ModMergerForm mergerWindow = new ModMergerForm(this);
             mergerWindow.Show();
+        }
+
+        private void setLAALabelText()
+        {
+            switch (isLAAPatched)
+            {
+                case true:
+                    LAAStatusLabel.Text = "LAA Flag is Active";
+                    LAAStatusLabel.ForeColor = System.Drawing.Color.Green;
+                    break;
+                case false:
+                    LAAStatusLabel.Text = "LAA Flag is Inactive";
+                    LAAStatusLabel.ForeColor = System.Drawing.Color.Red;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //Utility Code for checking if Soulstorm is LAA patched or not
+        static bool IsLargeAware(string file)
+        {
+            using (var fs = File.OpenRead(file))
+            {
+                return IsLargeAware(fs);
+            }
+        }
+
+        // Checks if the stream is a MZ header and if it is large address aware
+        static bool IsLargeAware(Stream stream)
+        {
+            const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;
+
+            var br = new BinaryReader(stream);
+
+            if (br.ReadInt16() != 0x5A4D)       //No MZ Header
+                return false;
+
+            br.BaseStream.Position = 0x3C;
+            var peloc = br.ReadInt32();         //Get the PE header location.
+
+            br.BaseStream.Position = peloc;
+            if (br.ReadInt32() != 0x4550)       //No PE header
+                return false;
+
+            br.BaseStream.Position += 0x12;
+            return (br.ReadInt16() & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE;
         }
     }
 }
