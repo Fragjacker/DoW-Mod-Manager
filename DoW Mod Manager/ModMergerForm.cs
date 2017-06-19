@@ -13,8 +13,8 @@ namespace DoW_Mod_Manager
         private object _lastItem = null;
         private int _lastPosition = 0;
         //TODO: Uncomment the block below and remove fixed path!
-        private string _currentDir = Directory.GetCurrentDirectory();
-        //private string _currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
+        //private string _currentDir = Directory.GetCurrentDirectory();
+        private string _currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
 
 
         private List<Mod> _Modlist = new List<Mod>();
@@ -616,11 +616,11 @@ namespace DoW_Mod_Manager
         private void writeModLoadoutToFile()
         {
 
-
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "DoW Mod Module file|*.module";
             saveFileDialog1.Title = "Save your Mod Loadout";
-            saveFileDialog1.FileName = loadedModBox.SelectedItem.ToString(); //Gets the the Text of the current loaded Mod for the save Dialog
+            string fileName = ModManager._filePaths[loadedModBox.SelectedIndex];
+            saveFileDialog1.FileName = loadedModBox.SelectedItem.ToString();//Gets the the Text of the current loaded Mod for the save Dialog
 
             string modString = "";
 
@@ -629,7 +629,7 @@ namespace DoW_Mod_Manager
 
             {
 
-                System.IO.StreamReader reader = new System.IO.StreamReader(saveFileDialog1.FileName);
+                System.IO.StreamReader reader = new System.IO.StreamReader(fileName);
                 List<string> writer = readFileTilRequiredMod(reader);
 
                 //Write more info into the list of text
@@ -652,7 +652,7 @@ namespace DoW_Mod_Manager
                 //Finally write the stuff
                 int index = loadedModBox.SelectedIndex;
                 string currentPath = ModManager._filePaths[index];
-                StreamWriter newFile = new StreamWriter(currentPath);
+                StreamWriter newFile = new StreamWriter(saveFileDialog1.FileName);
 
                 foreach (var line in writer)
                 {
@@ -662,6 +662,9 @@ namespace DoW_Mod_Manager
                 newFile.Dispose();
 
                 newFile.Close();
+
+                //Update the Main Mod Manager List with possible new entries
+                ModManager.setUpAllNecessaryMods();
             }
             //checkForModManagerSelectedModForRefresh();
         }

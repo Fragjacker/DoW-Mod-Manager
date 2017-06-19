@@ -47,8 +47,8 @@ namespace DoW_Mod_Manager
         private void Form1_Load(object sender, EventArgs e)
         {
             //TODO: Set proper directory again
-            //currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
-            currentDir = Directory.GetCurrentDirectory();
+            currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
+            //currentDir = Directory.GetCurrentDirectory();
             _filePaths = Directory.GetFiles(currentDir, "Soulstorm.exe");
 
 
@@ -57,10 +57,7 @@ namespace DoW_Mod_Manager
             {
                 textBox1.AppendText(currentDir);
 
-                getMods();
-
-                getModFoldersFromFile();
-                InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
+                setUpAllNecessaryMods();
 
                 //Check if the Game is LAA Patched and fill in the Label properly
                 isLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
@@ -102,6 +99,17 @@ namespace DoW_Mod_Manager
             //        throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
             //    }
             //}
+        }
+
+
+        /// <summary>
+        /// A refactored method that is used to initialize or refresh the Mod Managers main page
+        /// </summary>
+        public void setUpAllNecessaryMods()
+        {
+            getMods();
+            getModFoldersFromFile();
+            InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
         }
 
         /// <summary>
