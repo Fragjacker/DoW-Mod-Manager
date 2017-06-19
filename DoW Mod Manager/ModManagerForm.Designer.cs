@@ -186,7 +186,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(121, 43);
             this.button1.TabIndex = 18;
-            this.button1.Text = "Merge Mods...";
+            this.button1.Text = "Manage Mods...";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 

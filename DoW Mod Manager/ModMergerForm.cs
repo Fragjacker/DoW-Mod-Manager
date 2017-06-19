@@ -60,6 +60,7 @@ namespace DoW_Mod_Manager
             //Disable the simpler textboxes
             UsedModsList.Enabled = false;
             AvailableModsList.Enabled = false;
+            deleteButton.Enabled = false;
         }
 
 
@@ -77,6 +78,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void getLoadableMods()
         {
+            loadedModBox.Items.Clear();
             String[] modsList = new String[ModManager.allValidModules.Count];
             int counter = 0;
             foreach (var listBoxItem in ModManager.allValidModules)
@@ -104,6 +106,7 @@ namespace DoW_Mod_Manager
                 //enable UI Elements
                 UsedModsList.Enabled = true;
                 AvailableModsList.Enabled = true;
+                deleteButton.Enabled = true;
             }
             else
             {
@@ -619,8 +622,9 @@ namespace DoW_Mod_Manager
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "DoW Mod Module file|*.module";
             saveFileDialog1.Title = "Save your Mod Loadout";
-            string fileName = ModManager._filePaths[loadedModBox.SelectedIndex];
+            string filePath = ModManager._filePaths[loadedModBox.SelectedIndex];
             saveFileDialog1.FileName = loadedModBox.SelectedItem.ToString();//Gets the the Text of the current loaded Mod for the save Dialog
+            saveFileDialog1.InitialDirectory = filePath;
 
             string modString = "";
 
@@ -629,7 +633,7 @@ namespace DoW_Mod_Manager
 
             {
 
-                System.IO.StreamReader reader = new System.IO.StreamReader(fileName);
+                System.IO.StreamReader reader = new System.IO.StreamReader(filePath);
                 List<string> writer = readFileTilRequiredMod(reader);
 
                 //Write more info into the list of text
@@ -665,6 +669,9 @@ namespace DoW_Mod_Manager
 
                 //Update the Main Mod Manager List with possible new entries
                 ModManager.setUpAllNecessaryMods();
+                //Update the Dropdown list with the new entries
+                getLoadableMods();
+                loadedModBox.SelectedItem = _lastItem;
             }
             //checkForModManagerSelectedModForRefresh();
         }
@@ -731,6 +738,39 @@ namespace DoW_Mod_Manager
                 disableArrowUpButton();
                 disableArrowDownButton();
                 disableCrossButton();
+            }
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            if (loadedModBox.Items.Count > 1)
+            {
+                deleteButton.Enabled = true;
+                //Show a Messagebox for confirmation
+                DialogResult result1 = MessageBox.Show("Do you really want to delete the " + loadedModBox.SelectedItem.ToString() + ".module file? This will NOT uninstall the Mod but you won't be able to start the Mod anymore. This cannot be undone unless you made a backup of this file.", "Delete File", MessageBoxButtons.YesNo);
+
+                if (result1 == DialogResult.Yes)
+                {
+                    File.Delete(ModManager._filePaths[loadedModBox.SelectedIndex]);
+                    loadedModBox.SelectedIndex = loadedModBox.SelectedIndex - 1;
+
+                    //If the last item from the list was removed
+                    if(loadedModBox.Items.Count == 0)
+                    {
+                        deleteButton.Enabled = false;
+                    }
+
+                    //Update the Main Mod Manager List with possible new entries
+                    ModManager.setUpAllNecessaryMods();
+                    //Update the Dropdown list with the new entries
+                    getLoadableMods();
+                    getAvailableMods();
+                    loadedModBox.SelectedItem = _lastItem;
+                }
+            }
+            else
+            {
+                deleteButton.Enabled = false;
             }
         }
     }
