@@ -624,7 +624,7 @@ namespace DoW_Mod_Manager
             saveFileDialog1.Title = "Save your Mod Loadout";
             string filePath = ModManager._filePaths[loadedModBox.SelectedIndex];
             saveFileDialog1.FileName = loadedModBox.SelectedItem.ToString();//Gets the the Text of the current loaded Mod for the save Dialog
-            saveFileDialog1.InitialDirectory = filePath;
+            saveFileDialog1.InitialDirectory = Directory.GetCurrentDirectory();
 
             string modString = "";
 
