@@ -13,8 +13,8 @@ namespace DoW_Mod_Manager
         private object _lastItem = null;
         private int _lastPosition = 0;
         //TODO: Uncomment the block below and remove fixed path!
-        private string _currentDir = Directory.GetCurrentDirectory();
-        //private string _currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
+        //private string _currentDir = Directory.GetCurrentDirectory();
+        private string _currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
 
 
         private List<Mod> _Modlist = new List<Mod>();
@@ -866,26 +866,11 @@ namespace DoW_Mod_Manager
                 disablePlusButton();
 
                 enableMinusButton();
-                //enableCheckmarkButton();
                 enableArrowUpButton();
                 enableArrowDownButton();
 
                 //This activates/deactivates that Buttons to toggle Mods active/inactive depending if there's only Active or only Inactive Mods Left
-                if (_Modlist[UsedModsList.SelectedIndex].State.Equals("Inactive"))
-                {
-                    enableCheckmarkButton();
-                    disableCrossButton();
-                }
-                if (UsedModsList.SelectedIndex == 0 && _Modlist[UsedModsList.SelectedIndex + 1].State.Equals("Inactive") && _Modlist[UsedModsList.SelectedIndex].State.Equals("Active"))
-                {
-                    disableCheckmarkButton();
-                    disableCrossButton();
-                }
-                else if (_Modlist[UsedModsList.SelectedIndex].State.Equals("Active"))
-                {
-                    disableCheckmarkButton();
-                    enableCrossButton();
-                }
+                checkForProperButtonActivation();
 
             }
         }
@@ -904,6 +889,43 @@ namespace DoW_Mod_Manager
                 disableCrossButton();
             }
         }
+
+
+        /// <summary>
+        /// THis function handles the Activation and Deactivation of the Mod Merger buttons when the user or the program changes the selected Item of the used mods list.
+        /// </summary>
+        private void checkForProperButtonActivation()
+        {
+            if (_Modlist[UsedModsList.SelectedIndex].State.Equals("Inactive"))
+            {
+                enableCheckmarkButton();
+                disableCrossButton();
+            }
+            if (_Modlist.Count > 1)
+            {
+                if (UsedModsList.SelectedIndex == 0 && _Modlist[UsedModsList.SelectedIndex + 1].State.Equals("Inactive") && _Modlist[UsedModsList.SelectedIndex].State.Equals("Active"))
+                {
+                    disableCheckmarkButton();
+                    disableCrossButton();
+                    disableMinusButton();
+                }
+                else if (_Modlist[UsedModsList.SelectedIndex].State.Equals("Active"))
+                {
+                    disableCheckmarkButton();
+                    enableCrossButton();
+                }
+            }
+            else if (_Modlist.Count == 1)
+            {
+                if (_Modlist[UsedModsList.SelectedIndex].State.Equals("Active"))
+                {
+                    disableCheckmarkButton();
+                    disableCrossButton();
+                    disableMinusButton();
+                }
+            }
+        }
+
 
         ///// <summary>
         ///// This will delete the currently inside the dropdownlist selected Mod's module file from both the List and the System.
