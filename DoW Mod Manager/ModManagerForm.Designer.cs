@@ -44,7 +44,8 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.startVanillaGameButton = new System.Windows.Forms.Button();
-            this.LAAStatusLabel = new System.Windows.Forms.Label();
+            this.SoulstormLAAStatusLabel = new System.Windows.Forms.Label();
+            this.GraphicsConfigLAAStatusLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -200,17 +201,27 @@
             this.startVanillaGameButton.UseVisualStyleBackColor = true;
             this.startVanillaGameButton.Click += new System.EventHandler(this.startVanillaGameButton_Click);
             // 
-            // LAAStatusLabel
+            // SoulstormLAAStatusLabel
             // 
-            this.LAAStatusLabel.AutoSize = true;
-            this.LAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LAAStatusLabel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.LAAStatusLabel.Location = new System.Drawing.Point(501, 5);
-            this.LAAStatusLabel.Name = "LAAStatusLabel";
-            this.LAAStatusLabel.Size = new System.Drawing.Size(162, 24);
-            this.LAAStatusLabel.TabIndex = 20;
-            this.LAAStatusLabel.Text = "LAA Flag is Active";
-            this.LAAStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.SoulstormLAAStatusLabel.AutoSize = true;
+            this.SoulstormLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SoulstormLAAStatusLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.SoulstormLAAStatusLabel.Location = new System.Drawing.Point(435, 7);
+            this.SoulstormLAAStatusLabel.Name = "SoulstormLAAStatusLabel";
+            this.SoulstormLAAStatusLabel.Size = new System.Drawing.Size(147, 15);
+            this.SoulstormLAAStatusLabel.TabIndex = 20;
+            this.SoulstormLAAStatusLabel.Text = "Soulstorm.exe: LAA Active";
+            this.SoulstormLAAStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // GraphicsConfigLAAStatusLabel
+            // 
+            this.GraphicsConfigLAAStatusLabel.AutoSize = true;
+            this.GraphicsConfigLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GraphicsConfigLAAStatusLabel.Location = new System.Drawing.Point(585, 7);
+            this.GraphicsConfigLAAStatusLabel.Name = "GraphicsConfigLAAStatusLabel";
+            this.GraphicsConfigLAAStatusLabel.Size = new System.Drawing.Size(175, 15);
+            this.GraphicsConfigLAAStatusLabel.TabIndex = 21;
+            this.GraphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Active";
             // 
             // ModManagerForm
             // 
@@ -219,7 +230,8 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.LAAStatusLabel);
+            this.Controls.Add(this.GraphicsConfigLAAStatusLabel);
+            this.Controls.Add(this.SoulstormLAAStatusLabel);
             this.Controls.Add(this.startVanillaGameButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBox3);
@@ -262,7 +274,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox InstalledModsList;
         private System.Windows.Forms.Button startVanillaGameButton;
-        private System.Windows.Forms.Label LAAStatusLabel;
+        private System.Windows.Forms.Label SoulstormLAAStatusLabel;
+        private System.Windows.Forms.Label GraphicsConfigLAAStatusLabel;
     }
 }
 

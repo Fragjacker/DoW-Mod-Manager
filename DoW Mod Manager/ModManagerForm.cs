@@ -29,7 +29,8 @@ namespace DoW_Mod_Manager
         public List<string> allFoundModules = null; //Contains the list of all available Mods that will be used by the Mod Merger
         public List<string> allValidModules = null; //Contains the list of all playable Mods that will be used by the Mod Merger
         private bool[] _isInstalled; //A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
-        private bool isLAAPatched = false; //Tells if soulstorm is LAA patched or NOT.
+        private bool isSoulstormLAAPatched = false; //Tells if soulstorm is LAA patched or NOT.
+        private bool isGraphicsConfigLAAPatched = false; //Tells if graphicsconfig is LAA patched or NOT.
 
         /// <summary>
         ///  Initializes all the necessary components used by the GUI
@@ -47,8 +48,8 @@ namespace DoW_Mod_Manager
         private void Form1_Load(object sender, EventArgs e)
         {
             //TODO: Set proper directory again
-            currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
-            //currentDir = Directory.GetCurrentDirectory();
+            //currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
+            currentDir = Directory.GetCurrentDirectory();
             _filePaths = Directory.GetFiles(currentDir, "Soulstorm.exe");
 
 
@@ -60,8 +61,10 @@ namespace DoW_Mod_Manager
                 setUpAllNecessaryMods();
 
                 //Check if the Game is LAA Patched and fill in the Label properly
-                isLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
-                setLAALabelText();
+                isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
+                isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
+                setSoulstormLAALabelText();
+                setGraphicsConfigLAALabelText();
             }
 
             //TODO: Uncommoment below block and comment try and catch block again!
@@ -521,17 +524,36 @@ namespace DoW_Mod_Manager
             mergerWindow.Show();
         }
 
-        private void setLAALabelText()
+        private void setSoulstormLAALabelText()
         {
-            switch (isLAAPatched)
+            switch (isSoulstormLAAPatched)
             {
                 case true:
-                    LAAStatusLabel.Text = "LAA Flag is Active";
-                    LAAStatusLabel.ForeColor = System.Drawing.Color.Green;
+                    SoulstormLAAStatusLabel.Text = "Soulstorm.exe: LAA Active";
+                    SoulstormLAAStatusLabel.ForeColor = System.Drawing.Color.Green;
+                    SoulstormLAAStatusLabel.Left = 435;
                     break;
                 case false:
-                    LAAStatusLabel.Text = "LAA Flag is Inactive";
-                    LAAStatusLabel.ForeColor = System.Drawing.Color.Red;
+                    SoulstormLAAStatusLabel.Text = "Soulstorm.exe: LAA Inactive";
+                    SoulstormLAAStatusLabel.Left = 425;
+                    SoulstormLAAStatusLabel.ForeColor = System.Drawing.Color.Red;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void setGraphicsConfigLAALabelText()
+        {
+            switch (isGraphicsConfigLAAPatched)
+            {
+                case true:
+                    GraphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Active";
+                    GraphicsConfigLAAStatusLabel.ForeColor = System.Drawing.Color.Green;
+                    break;
+                case false:
+                    GraphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Inactive";
+                    GraphicsConfigLAAStatusLabel.ForeColor = System.Drawing.Color.Red;
                     break;
                 default:
                     break;

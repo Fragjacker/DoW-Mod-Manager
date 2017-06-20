@@ -13,8 +13,8 @@ namespace DoW_Mod_Manager
         private object _lastItem = null;
         private int _lastPosition = 0;
         //TODO: Uncomment the block below and remove fixed path!
-        //private string _currentDir = Directory.GetCurrentDirectory();
-        private string _currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
+        private string _currentDir = Directory.GetCurrentDirectory();
+        //private string _currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
 
 
         private List<Mod> _Modlist = new List<Mod>();
