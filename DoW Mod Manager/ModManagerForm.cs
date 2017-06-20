@@ -47,8 +47,8 @@ namespace DoW_Mod_Manager
         private void Form1_Load(object sender, EventArgs e)
         {
             //TODO: Set proper directory again
-            //currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
-            currentDir = Directory.GetCurrentDirectory();
+            currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
+            //currentDir = Directory.GetCurrentDirectory();
             _filePaths = Directory.GetFiles(currentDir, "Soulstorm.exe");
 
 
@@ -107,9 +107,10 @@ namespace DoW_Mod_Manager
         /// </summary>
         public void setUpAllNecessaryMods()
         {
+            int LastSelectedItem = InstalledModsList.SelectedIndex; //Store last selected Item to be reselected when Mod Merging is complete.
             getMods();
             getModFoldersFromFile();
-            InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
+            InstalledModsList.SelectedIndex = LastSelectedItem; //Set default selection to index 0 in order to avoid crashes
         }
 
         /// <summary>

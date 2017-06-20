@@ -13,8 +13,8 @@ namespace DoW_Mod_Manager
         private object _lastItem = null;
         private int _lastPosition = 0;
         //TODO: Uncomment the block below and remove fixed path!
-        private string _currentDir = Directory.GetCurrentDirectory();
-        //private string _currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
+        //private string _currentDir = Directory.GetCurrentDirectory();
+        private string _currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
 
 
         private List<Mod> _Modlist = new List<Mod>();
@@ -619,73 +619,62 @@ namespace DoW_Mod_Manager
         private void writeModLoadoutToFile()
         {
 
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "DoW Mod Module file|*.module";
-            saveFileDialog1.Title = "Save your Mod Loadout";
+            //SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            //saveFileDialog1.Filter = "DoW Mod Module file|*.module";
+            //saveFileDialog1.Title = "Save your Mod Loadout";
+            //saveFileDialog1.FileName = loadedModBox.SelectedItem.ToString();//Gets the the Text of the current loaded Mod for the save Dialog
+            //saveFileDialog1.InitialDirectory = Directory.GetCurrentDirectory();
+
             string filePath = ModManager._filePaths[loadedModBox.SelectedIndex];
-            saveFileDialog1.FileName = loadedModBox.SelectedItem.ToString();//Gets the the Text of the current loaded Mod for the save Dialog
-            saveFileDialog1.InitialDirectory = Directory.GetCurrentDirectory();
 
             string modString = "";
 
 
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            //if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+
+            //{
+
+            System.IO.StreamReader reader = new System.IO.StreamReader(filePath);
+            List<string> writer = readFileTilRequiredMod(reader);
+
+            //Write more info into the list of text
+            for (int i = 0; i < _Modlist.Count; i++)
 
             {
-
-                System.IO.StreamReader reader = new System.IO.StreamReader(filePath);
-                List<string> writer = readFileTilRequiredMod(reader);
-
-                //Write more info into the list of text
-                for (int i = 0; i < _Modlist.Count; i++)
-
+                if (_Modlist[i].State.Equals("Active"))
                 {
-                    if (_Modlist[i].State.Equals("Active"))
-                    {
-                        modString = "RequiredMod." + (i + 1) + " = " + _Modlist[i].Name;
-                        writer.Add(modString);
-                    }
-                    if (_Modlist[i].State.Equals("Inactive"))
-                    {
-                        modString = "//RequiredMod." + (i + 1) + " = " + _Modlist[i].Name;
-                        writer.Add(modString);
-                    }
-
+                    modString = "RequiredMod." + (i + 1) + " = " + _Modlist[i].Name;
+                    writer.Add(modString);
+                }
+                if (_Modlist[i].State.Equals("Inactive"))
+                {
+                    modString = "//RequiredMod." + (i + 1) + " = " + _Modlist[i].Name;
+                    writer.Add(modString);
                 }
 
-                //Finally write the stuff
-                int index = loadedModBox.SelectedIndex;
-                string currentPath = ModManager._filePaths[index];
-                StreamWriter newFile = new StreamWriter(saveFileDialog1.FileName);
-
-                foreach (var line in writer)
-                {
-                    newFile.WriteLine(line);
-                }
-
-                newFile.Dispose();
-
-                newFile.Close();
-
-                //Update the Main Mod Manager List with possible new entries
-                ModManager.setUpAllNecessaryMods();
-                //Update the Dropdown list with the new entries
-                getLoadableMods();
-                loadedModBox.SelectedItem = _lastItem;
             }
-            //checkForModManagerSelectedModForRefresh();
-        }
 
-        /// <summary>
-        /// Checks if the current selected Mod inside the Mod Merge is the same that is currently selected inside the Mod Manager in order to update the installed Mods view.
-        /// </summary>
-        //private void checkForModManagerSelectedModForRefresh()
-        //{
-        //    if(ModManager.InstalledModsList.SelectedItem == loadedModBox.SelectedItem)
-        //    {
-        //        ModManager.checkforInstalledMods();
-        //    }
-        //}
+            //Finally write the stuff
+            int index = loadedModBox.SelectedIndex;
+            string currentPath = ModManager._filePaths[index];
+            StreamWriter newFile = new StreamWriter(filePath);
+
+            foreach (var line in writer)
+            {
+                newFile.WriteLine(line);
+            }
+
+            newFile.Dispose();
+
+            newFile.Close();
+
+            //Update the Main Mod Manager List with possible new entries
+            ModManager.setUpAllNecessaryMods();
+            //Update the Dropdown list with the new entries
+            getLoadableMods();
+            loadedModBox.SelectedItem = _lastItem;
+            //}
+        }
 
 
 
@@ -723,7 +712,7 @@ namespace DoW_Mod_Manager
                 enableCheckmarkButton();
                 enableArrowUpButton();
                 enableArrowDownButton();
-                enableCrossButton(); 
+                enableCrossButton();
             }
         }
 
@@ -755,7 +744,7 @@ namespace DoW_Mod_Manager
                     loadedModBox.SelectedIndex = loadedModBox.SelectedIndex - 1;
 
                     //If the last item from the list was removed
-                    if(loadedModBox.Items.Count == 0)
+                    if (loadedModBox.Items.Count == 0)
                     {
                         deleteButton.Enabled = false;
                     }
