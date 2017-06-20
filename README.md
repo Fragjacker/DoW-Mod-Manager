@@ -13,6 +13,7 @@ Mod Merger changes:
 -A new Messagebox will tell you if saving the new module file was successfull.
 -It's now possible to add/remove alot of Mods by just clicking the plus/minus Button. You won't have to reselect Mods you want to add/remove everytime.
 -It's now possible to conveniently enable/disable mods as well without having to reselect them everytime.
+-Added some Tooltips to the Mod Merger buttons to explain their functionality.
 
 Mod Manager changes:
 
