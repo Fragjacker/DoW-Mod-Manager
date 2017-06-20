@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModMergerForm));
             this.labell = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,6 +45,12 @@
             this.buttonDeactivate = new System.Windows.Forms.Button();
             this.loadedModBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.ActivationButtonTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.DeactivationButtonTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.AddModTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.ArrowUpTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.ArrowDownTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.RemoveModTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // labell
@@ -125,6 +132,8 @@
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(38, 36);
             this.buttonAdd.TabIndex = 5;
+            this.AddModTooltip.SetToolTip(this.buttonAdd, "Adds selected mod from below to the above list of active mods to be loaded in-gam" +
+        "e.");
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
@@ -137,6 +146,8 @@
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(38, 36);
             this.buttonRemove.TabIndex = 5;
+            this.RemoveModTooltip.SetToolTip(this.buttonRemove, "Remove selected mod from the list above and reinsert it to the list of available " +
+        "Mods below.");
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
@@ -148,6 +159,7 @@
             this.buttonArrowUp.Name = "buttonArrowUp";
             this.buttonArrowUp.Size = new System.Drawing.Size(51, 46);
             this.buttonArrowUp.TabIndex = 6;
+            this.ArrowUpTooltip.SetToolTip(this.buttonArrowUp, "Move selected Mod one row up in the sort order.");
             this.buttonArrowUp.UseVisualStyleBackColor = true;
             this.buttonArrowUp.Click += new System.EventHandler(this.buttonArrowUp_Click);
             // 
@@ -159,6 +171,7 @@
             this.buttonArrowDown.Name = "buttonArrowDown";
             this.buttonArrowDown.Size = new System.Drawing.Size(51, 46);
             this.buttonArrowDown.TabIndex = 6;
+            this.ArrowDownTooltip.SetToolTip(this.buttonArrowDown, "Move selected Mod one row down in the sort order.");
             this.buttonArrowDown.UseVisualStyleBackColor = true;
             this.buttonArrowDown.Click += new System.EventHandler(this.buttonArrowDown_Click);
             // 
@@ -170,6 +183,7 @@
             this.buttonActivate.Name = "buttonActivate";
             this.buttonActivate.Size = new System.Drawing.Size(51, 46);
             this.buttonActivate.TabIndex = 6;
+            this.ActivationButtonTooltip.SetToolTip(this.buttonActivate, "Set selected Mod as active.");
             this.buttonActivate.UseVisualStyleBackColor = true;
             this.buttonActivate.Click += new System.EventHandler(this.buttonActivate_Click);
             // 
@@ -181,6 +195,8 @@
             this.buttonDeactivate.Name = "buttonDeactivate";
             this.buttonDeactivate.Size = new System.Drawing.Size(51, 46);
             this.buttonDeactivate.TabIndex = 6;
+            this.DeactivationButtonTooltip.SetToolTip(this.buttonDeactivate, "Set the selected Mod as inactive. That mod won\'t be loaded in-game but will stay " +
+        "inside the module file for later possible activation.");
             this.buttonDeactivate.UseVisualStyleBackColor = true;
             this.buttonDeactivate.Click += new System.EventHandler(this.buttonDeactivate_Click);
             // 
@@ -250,5 +266,11 @@
         private System.Windows.Forms.Button buttonDeactivate;
         private System.Windows.Forms.ComboBox loadedModBox;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ToolTip ActivationButtonTooltip;
+        private System.Windows.Forms.ToolTip DeactivationButtonTooltip;
+        private System.Windows.Forms.ToolTip AddModTooltip;
+        private System.Windows.Forms.ToolTip ArrowUpTooltip;
+        private System.Windows.Forms.ToolTip ArrowDownTooltip;
+        private System.Windows.Forms.ToolTip RemoveModTooltip;
     }
 }

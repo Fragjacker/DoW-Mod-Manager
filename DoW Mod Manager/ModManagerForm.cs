@@ -65,6 +65,8 @@ namespace DoW_Mod_Manager
                 isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
                 setSoulstormLAALabelText();
                 setGraphicsConfigLAALabelText();
+
+                InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
             }
 
             //TODO: Uncommoment below block and comment try and catch block again!
