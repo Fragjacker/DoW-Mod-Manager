@@ -472,6 +472,7 @@ namespace DoW_Mod_Manager
 
         private void removeUsedMod()
         {
+            int lastSelectedIndex = 0;
             //Get the new addable Mod candidate
             int delMod = UsedModsList.SelectedIndex;
 
@@ -479,18 +480,39 @@ namespace DoW_Mod_Manager
             {
                 //Add the Mod to the selection of used Mods
                 _Modlist.RemoveAt(delMod);
+                lastSelectedIndex = UsedModsList.SelectedIndex;
             }
 
             //Redraw the List to display the added candidate
             drawAllRequiredModsFromList();
+
+            //Reselect Elements at the last place
+            if (lastSelectedIndex < UsedModsList.Items.Count)
+            {
+                UsedModsList.SelectedIndex = lastSelectedIndex;
+            }
+            else if (lastSelectedIndex == UsedModsList.Items.Count && UsedModsList.Items.Count > 0)
+            {
+                UsedModsList.SelectedIndex = lastSelectedIndex - 1;
+            }
+            else if (lastSelectedIndex == 0 && UsedModsList.Items.Count == 0)
+            {
+                disableMinusButton();
+                disableCheckmarkButton();
+                disableArrowUpButton();
+                disableArrowDownButton();
+                disableCrossButton();
+            }
         }
 
         private void addAvailableMod()
         {
+            int lastSelectedIndex = 0;
             if (AvailableModsList.SelectedItem != null)
             {
                 //Get the new addable Mod candidate
                 string newMod = AvailableModsList.SelectedItem.ToString();
+                lastSelectedIndex = AvailableModsList.SelectedIndex;
 
                 //Add the Mod to the selection of used Mods
                 _Modlist.Add(new Mod(newMod, "Active"));
@@ -501,6 +523,20 @@ namespace DoW_Mod_Manager
 
             //Redraw the List to display the added candidate
             drawAllRequiredModsFromList();
+
+            //Reselect Elements at the last place
+            if (lastSelectedIndex < AvailableModsList.Items.Count)
+            {
+                AvailableModsList.SelectedIndex = lastSelectedIndex;
+            }
+            else if (lastSelectedIndex == AvailableModsList.Items.Count && AvailableModsList.Items.Count > 0)
+            {
+                AvailableModsList.SelectedIndex = lastSelectedIndex - 1;
+            }
+            else if(lastSelectedIndex == 0 && AvailableModsList.Items.Count == 0)
+            {
+                disablePlusButton();
+            }
         }
 
         private void setModtoActive()
@@ -511,7 +547,8 @@ namespace DoW_Mod_Manager
             if (selection != -1)
             {
                 //Toggle it to be active
-                _Modlist[selection].State = "Active";
+                //_Modlist[selection].State = "Active";
+                setModState(selection, "Active");
             }
             //Redraw the List of Items
             drawAllRequiredModsFromList();
@@ -525,7 +562,8 @@ namespace DoW_Mod_Manager
             if (selection != -1)
             {
                 //Toggle it to be active
-                _Modlist[selection].State = "Inactive";
+                //_Modlist[selection].State = "Inactive";
+                setModState(selection,"Inactive");
             }
             //Redraw the List of Items
             drawAllRequiredModsFromList();
@@ -675,7 +713,7 @@ namespace DoW_Mod_Manager
             loadedModBox.SelectedItem = _lastItem;
             //}
             //Show a Succesprompt
-            MessageBox.Show("Module file changes were successfully saved! You may start the Mod now.","Saving successfull");
+            MessageBox.Show("Module file changes were successfully applied!","Saving successfull");
         }
 
 
