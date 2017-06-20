@@ -13,8 +13,8 @@ namespace DoW_Mod_Manager
         private object _lastItem = null;
         private int _lastPosition = 0;
         //TODO: Uncomment the block below and remove fixed path!
-        //private string _currentDir = Directory.GetCurrentDirectory();
-        private string _currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
+        private string _currentDir = Directory.GetCurrentDirectory();
+        //private string _currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
 
 
         private List<Mod> _Modlist = new List<Mod>();
@@ -60,7 +60,7 @@ namespace DoW_Mod_Manager
             //Disable the simpler textboxes
             UsedModsList.Enabled = false;
             AvailableModsList.Enabled = false;
-            deleteButton.Enabled = false;
+            //deleteButton.Enabled = false;
         }
 
 
@@ -106,7 +106,7 @@ namespace DoW_Mod_Manager
                 //enable UI Elements
                 UsedModsList.Enabled = true;
                 AvailableModsList.Enabled = true;
-                deleteButton.Enabled = true;
+                //deleteButton.Enabled = true;
             }
             else
             {
@@ -674,6 +674,8 @@ namespace DoW_Mod_Manager
             getLoadableMods();
             loadedModBox.SelectedItem = _lastItem;
             //}
+            //Show a Succesprompt
+            MessageBox.Show("Module file changes were successfully saved! You may start the Mod now.","Saving successfull");
         }
 
 
@@ -730,37 +732,42 @@ namespace DoW_Mod_Manager
             }
         }
 
-        private void deleteButton_Click(object sender, EventArgs e)
-        {
-            if (loadedModBox.Items.Count > 1)
-            {
-                deleteButton.Enabled = true;
-                //Show a Messagebox for confirmation
-                DialogResult result1 = MessageBox.Show("Do you really want to delete the " + loadedModBox.SelectedItem.ToString() + ".module file? This will NOT uninstall the Mod but you won't be able to start the Mod anymore. This cannot be undone unless you made a backup of this file.", "Delete File", MessageBoxButtons.YesNo);
+        ///// <summary>
+        ///// This will delete the currently inside the dropdownlist selected Mod's module file from both the List and the System.
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void deleteButton_Click(object sender, EventArgs e)
+        //{
+        //    if (loadedModBox.Items.Count > 1)
+        //    {
+        //        deleteButton.Enabled = true;
+        //        //Show a Messagebox for confirmation
+        //        DialogResult result1 = MessageBox.Show("Do you really want to delete the " + loadedModBox.SelectedItem.ToString() + ".module file? This will NOT uninstall the Mod but you won't be able to start the Mod anymore. This cannot be undone unless you made a backup of this file.", "Delete File", MessageBoxButtons.YesNo);
 
-                if (result1 == DialogResult.Yes)
-                {
-                    File.Delete(ModManager._filePaths[loadedModBox.SelectedIndex]);
-                    loadedModBox.SelectedIndex = loadedModBox.SelectedIndex - 1;
+        //        if (result1 == DialogResult.Yes)
+        //        {
+        //            File.Delete(ModManager._filePaths[loadedModBox.SelectedIndex]);
+        //            loadedModBox.SelectedIndex = loadedModBox.SelectedIndex - 1;
 
-                    //If the last item from the list was removed
-                    if (loadedModBox.Items.Count == 0)
-                    {
-                        deleteButton.Enabled = false;
-                    }
+        //            //If the last item from the list was removed
+        //            if (loadedModBox.Items.Count == 0)
+        //            {
+        //                deleteButton.Enabled = false;
+        //            }
 
-                    //Update the Main Mod Manager List with possible new entries
-                    ModManager.setUpAllNecessaryMods();
-                    //Update the Dropdown list with the new entries
-                    getLoadableMods();
-                    getAvailableMods();
-                    loadedModBox.SelectedItem = _lastItem;
-                }
-            }
-            else
-            {
-                deleteButton.Enabled = false;
-            }
-        }
+        //            //Update the Main Mod Manager List with possible new entries
+        //            ModManager.setUpAllNecessaryMods();
+        //            //Update the Dropdown list with the new entries
+        //            getLoadableMods();
+        //            getAvailableMods();
+        //            loadedModBox.SelectedItem = _lastItem;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        deleteButton.Enabled = false;
+        //    }
+        //}
     }
 }

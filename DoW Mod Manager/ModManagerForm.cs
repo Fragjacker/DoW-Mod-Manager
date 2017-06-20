@@ -47,8 +47,8 @@ namespace DoW_Mod_Manager
         private void Form1_Load(object sender, EventArgs e)
         {
             //TODO: Set proper directory again
-            currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
-            //currentDir = Directory.GetCurrentDirectory();
+            //currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
+            currentDir = Directory.GetCurrentDirectory();
             _filePaths = Directory.GetFiles(currentDir, "Soulstorm.exe");
 
 
@@ -68,7 +68,7 @@ namespace DoW_Mod_Manager
 
             else
             {
-                MessageBox.Show("ERROR finding Soulstorm on your Computer! Please put the DoW Mod Manager 1.3.exe in the directory that contains the Soulstorm.exe!");
+                MessageBox.Show("ERROR finding Soulstorm.exe on your Computer! Please put the DoW Mod Manager v1.4.exe in the directory that contains the Soulstorm.exe!");
                 Application.Exit();
             }
 

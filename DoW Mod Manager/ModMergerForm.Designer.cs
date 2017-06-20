@@ -44,7 +44,6 @@
             this.buttonDeactivate = new System.Windows.Forms.Button();
             this.loadedModBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.deleteButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labell
@@ -204,16 +203,6 @@
             this.label4.TabIndex = 9;
             this.label4.Text = "Written by Cosmocrat";
             // 
-            // deleteButton
-            // 
-            this.deleteButton.Location = new System.Drawing.Point(364, 9);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(114, 39);
-            this.deleteButton.TabIndex = 10;
-            this.deleteButton.Text = "DELETE";
-            this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
-            // 
             // ModMergerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,7 +210,6 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(489, 583);
-            this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.loadedModBox);
             this.Controls.Add(this.buttonDeactivate);
@@ -262,6 +250,5 @@
         private System.Windows.Forms.Button buttonDeactivate;
         private System.Windows.Forms.ComboBox loadedModBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button deleteButton;
     }
 }
