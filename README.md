@@ -7,10 +7,12 @@ Version 1.4 Changelog:
 Mod Merger changes:
 
 -Mod Merger was updated with additional logic to handle unexpected user inputs.
--The various Buttons will now only activate if they're needed and can provide actual functionality.
+-The various Buttons will now only activate if they're needed and are able to provide actual functionality.
 -New Disabled variants of the Button images added.
 -Mod Merger allows now to overwrite an existing .module file with an updated one without crashing.
--Added a New Delete Button for the Mod Merger to allow for easy deletion of .module files (In case you didn't overwrite an already present .module file but created a new one.)
+-A new Messagebox will tell you if saving the new module file was successfull.
+-It's now possible to add/remove alot of Mods by just clicking the plus/minus Button. You won't have to reselect Mods you want to add/remove everytime.
+-It's now possible to conveniently enable/disable mods as well without having to reselect them everytime.
 
 Mod Manager changes:
 
