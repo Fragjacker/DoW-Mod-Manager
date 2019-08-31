@@ -71,39 +71,44 @@ namespace DoW_Mod_Manager
 
             //TODO: Uncommoment below block and comment try and catch block again!
 
-            else
-            {
-                MessageBox.Show("ERROR finding Soulstorm.exe on your Computer! Please put the DoW Mod Manager v1.4.exe in the directory that contains the Soulstorm.exe!");
-                Application.Exit();
-            }
+            //else
+            //{
+            //    MessageBox.Show("ERROR finding Soulstorm.exe on your Computer! Please put the DoW Mod Manager v1.4.exe in the directory that contains the Soulstorm.exe!");
+            //    Application.Exit();
+            //}
 
             // This was implemented to find soulstorm by using the Registry Key Install location. But since the resource folder must be placed in a certain direction i've decided that a local directory scan would suffice.
             // Uncomment this to make the Form Window open up. Since the program will exit if there's no local Soulstorm.exe file be found.
-            //else
-            //{
-            //    try
-            //    {
-            //        RegistryKey regKey = Registry.LocalMachine;
-            //        regKey = regKey.OpenSubKey(@"Software\\THQ\\Dawn of War - Soulstorm\\");
+            else
+            {
+                try
+                {
+                    RegistryKey regKey = Registry.LocalMachine;
+                    regKey = regKey.OpenSubKey(@"Software\\THQ\\Dawn of War - Soulstorm\\");
 
-            //        if (regKey != null)
-            //        {
-            //            currentDir = regKey.GetValue("InstallLocation").ToString();
+                    if (regKey != null)
+                    {
+                        currentDir = regKey.GetValue("InstallLocation").ToString();
 
-            //            textBox1.AppendText(currentDir);
+                        textBox1.AppendText(currentDir);
 
-            //            getMods();
+                        setUpAllNecessaryMods();
 
-            //            //getModFoldersFromFile();
-            //            InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
-            //        }
+                        //Check if the Game is LAA Patched and fill in the Label properly
+                        isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
+                        isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
+                        setSoulstormLAALabelText();
+                        setGraphicsConfigLAALabelText();
 
-            //    }
-            //    catch (Exception eventos)
-            //    {
-            //        throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
-            //    }
-            //}
+                        InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
+                    }
+
+                }
+                catch (Exception eventos)
+                {
+                    throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
+                }
+            }
         }
 
 
@@ -533,11 +538,9 @@ namespace DoW_Mod_Manager
                 case true:
                     SoulstormLAAStatusLabel.Text = "Soulstorm.exe: LAA Active";
                     SoulstormLAAStatusLabel.ForeColor = System.Drawing.Color.Green;
-                    SoulstormLAAStatusLabel.Left = 435;
                     break;
                 case false:
                     SoulstormLAAStatusLabel.Text = "Soulstorm.exe: LAA Inactive";
-                    SoulstormLAAStatusLabel.Left = 425;
                     SoulstormLAAStatusLabel.ForeColor = System.Drawing.Color.Red;
                     break;
                 default:
@@ -589,7 +592,64 @@ namespace DoW_Mod_Manager
                 return false;
 
             br.BaseStream.Position += 0x12;
-            return (br.ReadInt16() & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE;
+            Int16 LAAFlag = br.ReadInt16();
+            br.Close();
+            return (LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE;
+        }
+
+        // Toggles the LAA flag for any given EXE back and forth.
+        static bool toggleLAA(string file)
+        {
+            bool result = false;
+            var fs = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;
+
+            var br = new BinaryReader(fs);
+            var bw = new BinaryWriter(fs);
+
+            if (br.ReadInt16() != 0x5A4D)       //No MZ Header
+                return result;
+
+            br.BaseStream.Position = 0x3C;
+            var peloc = br.ReadInt32();         //Get the PE header location.
+
+            br.BaseStream.Position = peloc;
+            if (br.ReadInt32() != 0x4550)       //No PE header
+                return result;
+
+            br.BaseStream.Position += 0x12;
+            long nFilePos = (int)br.BaseStream.Position;
+            Int16 LAAFlag = br.ReadInt16();
+            if ((LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) != IMAGE_FILE_LARGE_ADDRESS_AWARE)
+            {
+                LAAFlag |= IMAGE_FILE_LARGE_ADDRESS_AWARE;
+                long nFilePos1 = bw.Seek((int)nFilePos, SeekOrigin.Begin);
+                bw.Write(LAAFlag);
+                bw.Flush();
+                result = true;
+            }
+            else if((LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE)
+            {
+                LAAFlag ^= IMAGE_FILE_LARGE_ADDRESS_AWARE;
+                long nFilePos1 = bw.Seek((int)nFilePos, SeekOrigin.Begin);
+                bw.Write(LAAFlag);
+                bw.Flush();
+                result = false;
+            }
+            br.Close();
+            bw.Close();
+            return result;
+        }
+
+        private void ButtonToggleLAA_Click(object sender, EventArgs e)
+        {
+            //Check if the Game is LAA Patched and fill in the Label properly
+            string curDirSoul = Directory.GetFiles(currentDir, "Soulstorm.exe")[0];
+            string curDirGraph = Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0];
+            isSoulstormLAAPatched = toggleLAA(curDirSoul);
+            isGraphicsConfigLAAPatched = toggleLAA(curDirGraph);
+            setSoulstormLAALabelText();
+            setGraphicsConfigLAALabelText();
         }
     }
 }
