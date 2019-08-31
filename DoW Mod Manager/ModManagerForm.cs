@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using Microsoft.Win32;
 using System.Diagnostics;
+using System.Security.Permissions;
 
 namespace DoW_Mod_Manager
 {
@@ -35,6 +36,7 @@ namespace DoW_Mod_Manager
         /// <summary>
         ///  Initializes all the necessary components used by the GUI
         /// </summary>
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public ModManagerForm()
         {
             InitializeComponent();
@@ -54,61 +56,87 @@ namespace DoW_Mod_Manager
 
 
             //Check if there was a valid Directory detected previously, then perform getting all the info to populate the lists
-            if (_filePaths.Length != 0)
-            {
-                textBox1.AppendText(currentDir);
-
-                setUpAllNecessaryMods();
-
-                //Check if the Game is LAA Patched and fill in the Label properly
-                isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
-                isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
-                setSoulstormLAALabelText();
-                setGraphicsConfigLAALabelText();
-
-                InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
-            }
-
-            //TODO: Uncommoment below block and comment try and catch block again!
-
+            //if (_filePaths.Length != 0)
+            //{
+            //    textBox1.AppendText(currentDir);
+            //    setUpAllNecessaryMods();
+            //    isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
+            //    isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
+            //    setSoulstormLAALabelText();
+            //    setGraphicsConfigLAALabelText();
+            //    InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
+            //    AddFileSystemWatcher();
+            //}
             //else
             //{
             //    MessageBox.Show("ERROR finding Soulstorm.exe on your Computer! Please put the DoW Mod Manager v1.4.exe in the directory that contains the Soulstorm.exe!");
             //    Application.Exit();
+            //    return;
             //}
 
             // This was implemented to find soulstorm by using the Registry Key Install location. But since the resource folder must be placed in a certain direction i've decided that a local directory scan would suffice.
             // Uncomment this to make the Form Window open up. Since the program will exit if there's no local Soulstorm.exe file be found.
-            else
+
+            //TODO: Uncommoment below block and comment try and catch block again!
+
+            try
             {
-                try
+                RegistryKey regKey = Registry.LocalMachine;
+                regKey = regKey.OpenSubKey(@"Software\\THQ\\Dawn of War - Soulstorm\\");
+
+                if (regKey != null)
                 {
-                    RegistryKey regKey = Registry.LocalMachine;
-                    regKey = regKey.OpenSubKey(@"Software\\THQ\\Dawn of War - Soulstorm\\");
-
-                    if (regKey != null)
-                    {
-                        currentDir = regKey.GetValue("InstallLocation").ToString();
-
-                        textBox1.AppendText(currentDir);
-
-                        setUpAllNecessaryMods();
-
-                        //Check if the Game is LAA Patched and fill in the Label properly
-                        isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
-                        isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
-                        setSoulstormLAALabelText();
-                        setGraphicsConfigLAALabelText();
-
-                        InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
-                    }
-
-                }
-                catch (Exception eventos)
-                {
-                    throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
+                    currentDir = regKey.GetValue("InstallLocation").ToString();
                 }
             }
+            catch (Exception eventos)
+            {
+                throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
+            }
+
+            textBox1.AppendText(currentDir);
+            setUpAllNecessaryMods();
+            isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
+            isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
+            setSoulstormLAALabelText();
+            setGraphicsConfigLAALabelText();
+            InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
+            AddFileSystemWatcher();
+        }
+
+        // Add FileSystem watcher to capture any file changes in the game directories.
+        private void AddFileSystemWatcher()
+        {
+            fileSystemWatcher1.Path = currentDir;
+
+            // Watch for changes in LastAccess and LastWrite times, and
+            // the renaming of files or directories.
+            fileSystemWatcher1.NotifyFilter = NotifyFilters.LastAccess
+                                    | NotifyFilters.LastWrite
+                                    | NotifyFilters.FileName
+                                    | NotifyFilters.DirectoryName;
+
+            // Add event handlers.
+            fileSystemWatcher1.Changed += OnChanged;
+            fileSystemWatcher1.Created += OnChanged;
+            fileSystemWatcher1.Deleted += OnChanged;
+            fileSystemWatcher1.Renamed += OnRenamed;
+
+            // Begin watching.
+            fileSystemWatcher1.EnableRaisingEvents = true;
+        }
+
+        // Define the event handlers.
+        private void OnChanged(object source, FileSystemEventArgs e)
+        {
+            // Specify what is done when a file is changed, created, or deleted.
+            setUpAllNecessaryMods();
+        }
+
+        private void OnRenamed(object source, RenamedEventArgs e)
+        {
+            // Specify what is done when a file is renamed.
+            setUpAllNecessaryMods();
         }
 
 
@@ -131,7 +159,16 @@ namespace DoW_Mod_Manager
             startButton1.Enabled = true;
 
             string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\Checkmark.png");
-            pictureBox1.Image = Image.FromFile(str_Path);
+            try
+            {
+                pictureBox1.Image = Image.FromFile(str_Path);
+            }
+            catch
+            {
+                MessageBox.Show("ERROR! COULD NOT FIND FOLDER 'DoW Mod Manager Resources' IN YOUR SOULSTORM DIRECTORY!");
+                Application.Exit();
+                return;
+            }
 
             int counter = 0;
             string localstring = "";
@@ -641,15 +678,44 @@ namespace DoW_Mod_Manager
             return result;
         }
 
+        // Check f a file to be read and written to is not opened still.
+        private bool IsFileLocked(string file)
+        {
+            FileStream stream = null;
+            try
+            {
+                stream = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+
+            //file is not locked
+            return false;
+        }
+
         private void ButtonToggleLAA_Click(object sender, EventArgs e)
         {
             //Check if the Game is LAA Patched and fill in the Label properly
             string curDirSoul = Directory.GetFiles(currentDir, "Soulstorm.exe")[0];
             string curDirGraph = Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0];
-            isSoulstormLAAPatched = toggleLAA(curDirSoul);
-            isGraphicsConfigLAAPatched = toggleLAA(curDirGraph);
-            setSoulstormLAALabelText();
-            setGraphicsConfigLAALabelText();
+            if (!IsFileLocked(curDirSoul) && !IsFileLocked(curDirGraph))
+            {
+                isSoulstormLAAPatched = toggleLAA(curDirSoul);
+                isGraphicsConfigLAAPatched = toggleLAA(curDirGraph);
+                setSoulstormLAALabelText();
+                setGraphicsConfigLAALabelText();
+            }
         }
     }
 }
