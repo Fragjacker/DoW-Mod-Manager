@@ -42,6 +42,11 @@ namespace DoW_Mod_Manager
             InitializeComponent();
         }
 
+        private void Form1_Closing(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
         /// <summary>
         /// Performs actions when the Application is started via the .exe file.
         /// </summary>
@@ -56,52 +61,60 @@ namespace DoW_Mod_Manager
 
 
             //Check if there was a valid Directory detected previously, then perform getting all the info to populate the lists
-            //if (_filePaths.Length != 0)
-            //{
-            //    textBox1.AppendText(currentDir);
-            //    setUpAllNecessaryMods();
-            //    isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
-            //    isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
-            //    setSoulstormLAALabelText();
-            //    setGraphicsConfigLAALabelText();
-            //    InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
-            //    AddFileSystemWatcher();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("ERROR finding Soulstorm.exe on your Computer! Please put the DoW Mod Manager v1.4.exe in the directory that contains the Soulstorm.exe!");
-            //    Application.Exit();
-            //    return;
-            //}
+            if (_filePaths.Length != 0)
+            {
+                textBox1.AppendText(currentDir);
+                setUpAllNecessaryMods();
+                isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
+                isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
+                setSoulstormLAALabelText();
+                setGraphicsConfigLAALabelText();
+                AddFileSystemWatcher();
+                // Initialize values with values from previous values or defaults.
+                InstalledModsList.SelectedIndex = (int)Properties.Settings.Default["ChoiceIndex"]; //Set default selection to index 0 in order to avoid crashes
+                checkBox1.Checked = (bool)Properties.Settings.Default["DEV"];
+                checkBox2.Checked = (bool)Properties.Settings.Default["NOMOVIES"];
+                checkBox3.Checked = (bool)Properties.Settings.Default["HIGHPOLY"];
+            }
+            else
+            {
+                MessageBox.Show("ERROR finding Soulstorm.exe on your Computer! Please put the DoW Mod Manager v1.4.exe in the directory that contains the Soulstorm.exe!");
+                Application.Exit();
+                return;
+            }
 
             // This was implemented to find soulstorm by using the Registry Key Install location. But since the resource folder must be placed in a certain direction i've decided that a local directory scan would suffice.
             // Uncomment this to make the Form Window open up. Since the program will exit if there's no local Soulstorm.exe file be found.
 
             //TODO: Uncommoment below block and comment try and catch block again!
 
-            try
-            {
-                RegistryKey regKey = Registry.LocalMachine;
-                regKey = regKey.OpenSubKey(@"Software\\THQ\\Dawn of War - Soulstorm\\");
+            //try
+            //{
+            //    RegistryKey regKey = Registry.LocalMachine;
+            //    regKey = regKey.OpenSubKey(@"Software\\THQ\\Dawn of War - Soulstorm\\");
 
-                if (regKey != null)
-                {
-                    currentDir = regKey.GetValue("InstallLocation").ToString();
-                }
-            }
-            catch (Exception eventos)
-            {
-                throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
-            }
+            //    if (regKey != null)
+            //    {
+            //        currentDir = regKey.GetValue("InstallLocation").ToString();
+            //    }
+            //}
+            //catch (Exception eventos)
+            //{
+            //    throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
+            //}
 
-            textBox1.AppendText(currentDir);
-            setUpAllNecessaryMods();
-            isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
-            isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
-            setSoulstormLAALabelText();
-            setGraphicsConfigLAALabelText();
-            InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
-            AddFileSystemWatcher();
+            //textBox1.AppendText(currentDir);
+            //setUpAllNecessaryMods();
+            //isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
+            //isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
+            //setSoulstormLAALabelText();
+            //setGraphicsConfigLAALabelText();
+            //AddFileSystemWatcher();
+            //// Initialize values with values from previous values or defaults.
+            //InstalledModsList.SelectedIndex = (int)Properties.Settings.Default["ChoiceIndex"]; //Set default selection to index 0 in order to avoid crashes
+            //checkBox1.Checked = (bool)Properties.Settings.Default["DEV"];
+            //checkBox2.Checked = (bool)Properties.Settings.Default["NOMOVIES"];
+            //checkBox3.Checked = (bool)Properties.Settings.Default["HIGHPOLY"];
         }
 
         // Add FileSystem watcher to capture any file changes in the game directories.
@@ -406,6 +419,7 @@ namespace DoW_Mod_Manager
             startButton1.Enabled = true;
 
             int index = InstalledModsList.SelectedIndex;
+            Properties.Settings.Default["ChoiceIndex"] = index;
             string currentPath = _filePaths[index];
             string line = "";
 
@@ -499,6 +513,7 @@ namespace DoW_Mod_Manager
             {
                 _devMode = "";
             }
+            Properties.Settings.Default["DEV"] = checkBox1.Checked;
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
@@ -511,6 +526,7 @@ namespace DoW_Mod_Manager
             {
                 _noIntroMode = "";
             }
+            Properties.Settings.Default["NOMOVIES"] = checkBox2.Checked;
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
@@ -523,6 +539,7 @@ namespace DoW_Mod_Manager
             {
                 _highPolyMode = "";
             }
+            Properties.Settings.Default["HIGHPOLY"] = checkBox3.Checked;
         }
 
         private void RequiredModsList_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e)

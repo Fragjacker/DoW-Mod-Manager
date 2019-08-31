@@ -68,7 +68,7 @@
             this.textBox1.Location = new System.Drawing.Point(179, 6);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(713, 20);
+            this.textBox1.Size = new System.Drawing.Size(627, 20);
             this.textBox1.TabIndex = 0;
             // 
             // label1
@@ -113,7 +113,7 @@
             this.InstalledModsList.Margin = new System.Windows.Forms.Padding(10);
             this.InstalledModsList.Name = "InstalledModsList";
             this.InstalledModsList.ScrollAlwaysVisible = true;
-            this.InstalledModsList.Size = new System.Drawing.Size(425, 381);
+            this.InstalledModsList.Size = new System.Drawing.Size(382, 381);
             this.InstalledModsList.TabIndex = 10;
             this.InstalledModsList.SelectedIndexChanged += new System.EventHandler(this.InstalledModsList_SelectedIndexChanged);
             // 
@@ -129,7 +129,7 @@
             this.RequiredModsList.Margin = new System.Windows.Forms.Padding(10);
             this.RequiredModsList.Name = "RequiredModsList";
             this.RequiredModsList.ScrollAlwaysVisible = true;
-            this.RequiredModsList.Size = new System.Drawing.Size(429, 381);
+            this.RequiredModsList.Size = new System.Drawing.Size(386, 381);
             this.RequiredModsList.TabIndex = 10;
             this.RequiredModsList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.RequiredModsList_DrawItem);
             // 
@@ -140,7 +140,7 @@
             this.startButton1.Enabled = false;
             this.startButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.startButton1.Location = new System.Drawing.Point(718, 32);
+            this.startButton1.Location = new System.Drawing.Point(632, 32);
             this.startButton1.Name = "startButton1";
             this.startButton1.Size = new System.Drawing.Size(121, 48);
             this.startButton1.TabIndex = 11;
@@ -153,7 +153,7 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.ErrorImage = null;
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(845, 32);
+            this.pictureBox1.Location = new System.Drawing.Point(759, 32);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(50, 50);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -225,7 +225,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.button1.Location = new System.Drawing.Point(654, 82);
+            this.button1.Location = new System.Drawing.Point(568, 82);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(121, 43);
             this.button1.TabIndex = 18;
@@ -239,7 +239,7 @@
             this.startVanillaGameButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.startVanillaGameButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startVanillaGameButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.startVanillaGameButton.Location = new System.Drawing.Point(591, 32);
+            this.startVanillaGameButton.Location = new System.Drawing.Point(505, 32);
             this.startVanillaGameButton.Name = "startVanillaGameButton";
             this.startVanillaGameButton.Size = new System.Drawing.Size(121, 48);
             this.startVanillaGameButton.TabIndex = 19;
@@ -253,7 +253,7 @@
             this.SoulstormLAAStatusLabel.Location = new System.Drawing.Point(315, 82);
             this.SoulstormLAAStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.SoulstormLAAStatusLabel.Name = "SoulstormLAAStatusLabel";
-            this.SoulstormLAAStatusLabel.Size = new System.Drawing.Size(226, 15);
+            this.SoulstormLAAStatusLabel.Size = new System.Drawing.Size(210, 15);
             this.SoulstormLAAStatusLabel.TabIndex = 20;
             this.SoulstormLAAStatusLabel.Text = "Soulstorm.exe: LAA Active";
             // 
@@ -263,7 +263,7 @@
             this.GraphicsConfigLAAStatusLabel.Location = new System.Drawing.Point(315, 96);
             this.GraphicsConfigLAAStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.GraphicsConfigLAAStatusLabel.Name = "GraphicsConfigLAAStatusLabel";
-            this.GraphicsConfigLAAStatusLabel.Size = new System.Drawing.Size(226, 15);
+            this.GraphicsConfigLAAStatusLabel.Size = new System.Drawing.Size(210, 15);
             this.GraphicsConfigLAAStatusLabel.TabIndex = 21;
             this.GraphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Active";
             // 
@@ -275,7 +275,7 @@
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Location = new System.Drawing.Point(12, 131);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(890, 413);
+            this.panel1.Size = new System.Drawing.Size(804, 413);
             this.panel1.TabIndex = 22;
             // 
             // splitContainer1
@@ -295,8 +295,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.RequiredModsList);
-            this.splitContainer1.Size = new System.Drawing.Size(887, 407);
-            this.splitContainer1.SplitterDistance = 439;
+            this.splitContainer1.Size = new System.Drawing.Size(801, 407);
+            this.splitContainer1.SplitterDistance = 396;
             this.splitContainer1.TabIndex = 23;
             // 
             // buttonToggleLAA
@@ -322,7 +322,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.ClientSize = new System.Drawing.Size(914, 561);
+            this.ClientSize = new System.Drawing.Size(828, 561);
             this.Controls.Add(this.buttonToggleLAA);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.SoulstormLAAStatusLabel);
@@ -342,6 +342,7 @@
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "ModManagerForm";
             this.Text = "DoW Mod Manager v1.5";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_Closing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
