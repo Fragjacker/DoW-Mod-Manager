@@ -78,7 +78,7 @@ namespace DoW_Mod_Manager
             }
             else
             {
-                MessageBox.Show("ERROR finding Soulstorm.exe on your Computer! Please put the DoW Mod Manager v1.4.exe in the directory that contains the Soulstorm.exe!");
+                MessageBox.Show("ERROR finding Soulstorm.exe in this directory! Please put the DoW Mod Manager v1.4.exe in the directory that contains the Soulstorm.exe!");
                 Application.Exit();
                 return;
             }
@@ -117,7 +117,9 @@ namespace DoW_Mod_Manager
             //checkBox3.Checked = (bool)Properties.Settings.Default["HIGHPOLY"];
         }
 
-        // Add FileSystem watcher to capture any file changes in the game directories.
+        /// <summary>
+        /// This adds FileSystem watcher to capture any file changes in the game directories.
+        /// </summary>
         private void AddFileSystemWatcher()
         {
             fileSystemWatcher1.Path = currentDir;
@@ -139,13 +141,22 @@ namespace DoW_Mod_Manager
             fileSystemWatcher1.EnableRaisingEvents = true;
         }
 
-        // Define the event handlers.
+        /// <summary>
+        /// This function defines the event handlers for when some file was changed.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
         private void OnChanged(object source, FileSystemEventArgs e)
         {
             // Specify what is done when a file is changed, created, or deleted.
             setUpAllNecessaryMods();
         }
 
+        /// <summary>
+        /// This function defines the event handlers for when some file was renamed.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
         private void OnRenamed(object source, RenamedEventArgs e)
         {
             // Specify what is done when a file is renamed.
@@ -495,6 +506,11 @@ namespace DoW_Mod_Manager
             Process.Start(startInfo);
         }
 
+        /// <summary>
+        /// This is the button to start the vanilla unmodded base game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void startVanillaGameButton_Click(object sender, EventArgs e)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -503,6 +519,12 @@ namespace DoW_Mod_Manager
             Process.Start(startInfo);
         }
 
+        /// <summary>
+        /// This is the checkbox that controls the starting option '-dev'. 
+        /// It allows for additional debug options in-game and log files.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true)
@@ -516,6 +538,12 @@ namespace DoW_Mod_Manager
             Properties.Settings.Default["DEV"] = checkBox1.Checked;
         }
 
+        /// <summary>
+        /// This is the checkbox that controls the starting option '-nomovies'. 
+        /// It prevents any movies/intros from being played.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox2.Checked == true)
@@ -529,6 +557,12 @@ namespace DoW_Mod_Manager
             Properties.Settings.Default["NOMOVIES"] = checkBox2.Checked;
         }
 
+        /// <summary>
+        /// This is the checkbox that controls the starting option '-forcehighpoly'. 
+        /// This disabled the LOD system and will display the highes mesh detail at any distance.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox3.Checked == true)
@@ -542,6 +576,11 @@ namespace DoW_Mod_Manager
             Properties.Settings.Default["HIGHPOLY"] = checkBox3.Checked;
         }
 
+        /// <summary>
+        /// This function collects and displays the list of required mods for a selected mod in order to function correctly.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RequiredModsList_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e)
         {
             //
@@ -579,12 +618,20 @@ namespace DoW_Mod_Manager
             e.DrawFocusRectangle();
         }
 
+        /// <summary>
+        /// This is function opens the Mod Merger form when the button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             ModMergerForm mergerWindow = new ModMergerForm(this);
             mergerWindow.Show();
         }
 
+        /// <summary>
+        /// This function draws the LAA text for the Soulstorm label depending on whether the flag is true (Green) or false (Red).
+        /// </summary>
         private void setSoulstormLAALabelText()
         {
             switch (isSoulstormLAAPatched)
@@ -602,6 +649,9 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This function draws the LAA text for the GraphicsConfig label depending on whether the flag is true (Green) or false (Red).
+        /// </summary>
         private void setGraphicsConfigLAALabelText()
         {
             switch (isGraphicsConfigLAAPatched)
@@ -619,7 +669,11 @@ namespace DoW_Mod_Manager
             }
         }
 
-        //Utility Code for checking if Soulstorm is LAA patched or not
+        /// <summary>
+        /// This function instigates the test if a given EXE is LAA patched or not.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>bool</returns>
         static bool IsLargeAware(string file)
         {
             using (var fs = File.OpenRead(file))
@@ -628,7 +682,11 @@ namespace DoW_Mod_Manager
             }
         }
 
-        // Checks if the stream is a MZ header and if it is large address aware
+        /// <summary>
+        /// This function performs the data probing to determine if a given file is LAA patched or not.
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns>bool</returns>
         static bool IsLargeAware(Stream stream)
         {
             const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;
@@ -651,7 +709,11 @@ namespace DoW_Mod_Manager
             return (LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE;
         }
 
-        // Toggles the LAA flag for any given EXE back and forth.
+        /// <summary>
+        /// This function performs the necessary data operations in order to toggle the LAA for a given EXE file back and forth.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>bool</returns>
         static bool toggleLAA(string file)
         {
             bool result = false;
@@ -682,7 +744,7 @@ namespace DoW_Mod_Manager
                 bw.Flush();
                 result = true;
             }
-            else if((LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE)
+            else if ((LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE)
             {
                 LAAFlag ^= IMAGE_FILE_LARGE_ADDRESS_AWARE;
                 long nFilePos1 = bw.Seek((int)nFilePos, SeekOrigin.Begin);
@@ -695,7 +757,12 @@ namespace DoW_Mod_Manager
             return result;
         }
 
-        // Check f a file to be read and written to is not opened still.
+        /// <summary>
+        /// This function checks if a file is yet still opened and thus blocked.
+        /// It prevents crashes when attempting to write to files not yet closed.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>bool</returns>
         private bool IsFileLocked(string file)
         {
             FileStream stream = null;
@@ -721,6 +788,12 @@ namespace DoW_Mod_Manager
             return false;
         }
 
+        /// <summary>
+        /// This function handles the proper toggling of the LAA flag for the Soulstorm.exe and the GraphicsConfig.exe.
+        /// It can handle the cases when users have previously patched the EXE files only partially.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonToggleLAA_Click(object sender, EventArgs e)
         {
             //Check if the Game is LAA Patched and fill in the Label properly
@@ -728,11 +801,24 @@ namespace DoW_Mod_Manager
             string curDirGraph = Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0];
             if (!IsFileLocked(curDirSoul) && !IsFileLocked(curDirGraph))
             {
-                isSoulstormLAAPatched = toggleLAA(curDirSoul);
-                isGraphicsConfigLAAPatched = toggleLAA(curDirGraph);
+                if ((isSoulstormLAAPatched && isGraphicsConfigLAAPatched) || (!isSoulstormLAAPatched && !isGraphicsConfigLAAPatched))
+                {
+                    isSoulstormLAAPatched = toggleLAA(curDirSoul);
+                    isGraphicsConfigLAAPatched = toggleLAA(curDirGraph);
+                }
+                else if (!isSoulstormLAAPatched)
+                {
+                    isSoulstormLAAPatched = toggleLAA(curDirSoul);
+                }
+                else if (!isGraphicsConfigLAAPatched)
+                {
+                    isGraphicsConfigLAAPatched = toggleLAA(curDirGraph);
+                }
+
                 setSoulstormLAALabelText();
                 setGraphicsConfigLAALabelText();
             }
+
         }
     }
 }
