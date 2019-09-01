@@ -1,4 +1,4 @@
-![mod_manager_v15](https://user-images.githubusercontent.com/19975052/64075492-665e8f80-ccb9-11e9-9bc9-ebe7093b5b42.png)
+![mod_manager_v15_thumbnail](https://user-images.githubusercontent.com/19975052/64079833-f833c000-ccec-11e9-96cb-ed5c01cc0791.png)
 # DoW-Mod-Manager-1.5
 
 This application allows for easy launch mods and managing of large collection of mods for Warhammer 40K Dawn of War: Soulstorm:tm: and Warhammer 40K Dawn of War: Dark Crusade:tm:.
