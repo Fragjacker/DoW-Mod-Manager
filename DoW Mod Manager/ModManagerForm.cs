@@ -88,7 +88,7 @@ namespace DoW_Mod_Manager
                 setGraphicsConfigLAALabelText();
                 AddFileSystemWatcher();
                 // Initialize values with values from previous values or defaults.
-                InstalledModsList.SelectedIndex = (int)Properties.Settings.Default["ChoiceIndex"]; //Set default selection to index 0 in order to avoid crashes
+                reselectSavedMod();
                 checkBox1.Checked = (bool)Properties.Settings.Default["DEV"];
                 checkBox2.Checked = (bool)Properties.Settings.Default["NOMOVIES"];
                 checkBox3.Checked = (bool)Properties.Settings.Default["HIGHPOLY"];
@@ -132,6 +132,22 @@ namespace DoW_Mod_Manager
             //checkBox1.Checked = (bool)Properties.Settings.Default["DEV"];
             //checkBox2.Checked = (bool)Properties.Settings.Default["NOMOVIES"];
             //checkBox3.Checked = (bool)Properties.Settings.Default["HIGHPOLY"];
+        }
+
+        /// <summary>
+        /// This function handles the reselection of a previously selected mod.
+        /// </summary>
+        private void reselectSavedMod()
+        {
+            int savedIndex = (int)Properties.Settings.Default["ChoiceIndex"];
+            if (InstalledModsList.Items.Count > savedIndex)
+            {
+                InstalledModsList.SelectedIndex = savedIndex;
+            }
+            else
+            {
+                InstalledModsList.SelectedIndex = InstalledModsList.Items.Count - 1;
+            }
         }
 
         /// <summary>
