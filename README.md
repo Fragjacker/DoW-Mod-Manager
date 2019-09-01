@@ -1,7 +1,7 @@
 ![mod_manager_v15](https://user-images.githubusercontent.com/19975052/64075492-665e8f80-ccb9-11e9-9bc9-ebe7093b5b42.png)
 # DoW-Mod-Manager-1.5
 
-This application allows for easy launch mods and managing of large collection of mods for Warhammer 40K Dawn of War: Soulstorm:tm:.
+This application allows for easy launch mods and managing of large collection of mods for Warhammer 40K Dawn of War: Soulstorm:tm: and Warhammer 40K Dawn of War: Dark Crusade:tm:.
 This version is supposed to fix some issues from version 1.4 of the Mod Manager while also adding some new functionality.
 
 ## Version 1.5 Changelog:
@@ -25,6 +25,8 @@ Mod Manager changes:
 -Added safeguards for missing art assets.
 
 -Added persistant data for the last chosen mod and the checkbox options.
+
+-Added support for Dark Crusade game as well.
 
 ## Version 1.4 Changelog:
 
@@ -60,19 +62,19 @@ Mod Manager changes:
 
 
 
-## -----------------INSTALLATION:-----------------
+## INSTALLATION:
 
--In order to install the Mod Manager drop the "Dow Mod Manager Resources" folder and the "DoW Mod Manager v1.5.exe" into your soulstorm root folder beeing
-"..\Dawn of War -Soulstorm\" do not put either Resources Folder nor the Executable file in a Subfolder or it won't work!
+-In order to install the Mod Manager drop the "Dow Mod Manager Resources" folder and the "DoW Mod Manager v1.5.exe" into either your soulstorm root folder beeing
+"..\Dawn of War - Soulstorm\" or "..\Dawn of War - Dark Crusade\". Do not put either Resources Folder nor the Executable file in a Subfolder or it won't work!
 
-## -----------------MOD MANAGER USAGE:-----------------
+## MOD MANAGER USAGE:
 
 -Once everything is in place launch the "DoW Mod Manager v1.5.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop
 for convenience and faster access)
 -Select a Mod from the left listing and it'll show if all necessary dependancy Mods are installed and if that is given, lets you directly launch the desired Mod
 -You have the option to directly launch the unmodded vanilla Game by clicking the "START BASE GAME" button.
 
-## -----------------MOD MANAGER FEATURE EXPLANATION:-----------------
+## MOD MANAGER FEATURE EXPLANATION:
 
 -Install location: Shows the current location of the active Mod Manager executable. You can have multiple Soulstorm installations with their own Mod Manager 
 (Simply repeat the installation process inside the new soulstorm install location)
@@ -96,7 +98,7 @@ matches anyways you'd do yourself a favor applying the LAA patch on said Executa
  
 --forcehighpoly : This option forces the game to display the highes resolution LOD of a Model at any given distance. (Hint : This may have a negative impact on your performance, use with caution.)
 
-## -----------------MOD MERGER:-----------------(WARNING: This is an experimental feature that requires some user responsibility, use with caution.)
+## MOD MERGER:(WARNING: This is an experimental feature that requires some user responsibility, use with caution.)
 
 -Pressing this button will open you another window where you have the opportunity to easily edit the Module file of any playable mod.
 
