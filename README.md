@@ -1,16 +1,7 @@
 ![mod_manager_v15](https://user-images.githubusercontent.com/19975052/64075492-665e8f80-ccb9-11e9-9bc9-ebe7093b5b42.png)
-
-Mod Manager v1.5 changes:
-
--Changed UI to use the dark color theme.
--Changed both the UI of the Mod Manager and Mod Merger, to scale properly with the size of the window, so that all space is properly utilized now.
--Added a button that allows for quick and easy toggle of the LAA flag on the relevant executables. (Integrates the functionality of the 4GB patch into one button)
--Added code that updates the mod manager entries as soon as some file gets changed/deleted in the file explorer, without having to restart the app.
--Added safeguards for missing art assets.
--Added persistant data for the last chosen mod and the checkbox options.
-
 # DoW-Mod-Manager-1.5
 
+This application allows for easy launch mods and managing of large collection of mods for Warhammer 40K Dawn of War: Soulstorm:tm:.
 This version is supposed to fix some issues from version 1.4 of the Mod Manager while also adding some new functionality.
 
 ## Version 1.5 Changelog:
@@ -18,15 +9,21 @@ This version is supposed to fix some issues from version 1.4 of the Mod Manager 
 Mod Merger changes:
 
 -UI now scales properly with window size.
+
 -Uses a dark themed color as well.
 
 Mod Manager changes:
 
 -Changed UI to use a dark color theme.
+
 -UI now scales properly with window size.
+
 -Added a button that allows for quick and easy toggle of the LAA flag on the relevant executables. (Integrates the functionality of the 4GB patch into one button)
+
 -Added code that updates the mod manager entries as soon as some file gets changed/deleted in the file explorer, without having to restart the app.
+
 -Added safeguards for missing art assets.
+
 -Added persistant data for the last chosen mod and the checkbox options.
 
 ## Version 1.4 Changelog:
@@ -34,32 +31,43 @@ Mod Manager changes:
 Mod Merger changes:
 
 -Mod Merger was updated with additional logic to handle unexpected user inputs.
+
 -The various Buttons will now only activate if they're needed and are able to provide actual functionality.
+
 -New Disabled variants of the Button images added.
+
 -Mod Merger allows now to overwrite an existing .module file with an updated one without crashing.
+
 -A new Messagebox will tell you if saving the new module file was successfull.
+
 -It's now possible to add/remove alot of Mods by just clicking the plus/minus Button. You won't have to reselect Mods you want to add/remove everytime.
+
 -It's now possible to conveniently enable/disable mods as well without having to reselect them everytime.
+
 -Added some Tooltips to the Mod Merger buttons to explain their functionality.
 
 Mod Manager changes:
 
 -The Mod manager will now only list mods that have the "Playable" flag set to 1.
+
 -Added a new Button that allows for immediate start of the unmodded Base Soulstorm game.
+
 -Added a new Label that will display if the Soulstorm.exe has the 4GB Patch (LAA Patch) applied or not.
+
 -Added a new Label that will display if the GraphicsConfig.exe has the 4GB Patch (LAA Patch) applied or not.
+
 -Mod Manager will now update it's mod list once you created a new Merged/altered an existing Mod with the Mod Merger.
 
 
 
 ## -----------------INSTALLATION:-----------------
 
--In order to install the Mod Manager drop the "Dow Mod Manager Resources" folder and the "DoW Mod Manager v1.4.exe" into your soulstorm root folder beeing
+-In order to install the Mod Manager drop the "Dow Mod Manager Resources" folder and the "DoW Mod Manager v1.5.exe" into your soulstorm root folder beeing
 "..\Dawn of War -Soulstorm\" do not put either Resources Folder nor the Executable file in a Subfolder or it won't work!
 
 ## -----------------MOD MANAGER USAGE:-----------------
 
--Once everything is in place launch the "DoW Mod Manager v1.4.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop
+-Once everything is in place launch the "DoW Mod Manager v1.5.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop
 for convenience and faster access)
 -Select a Mod from the left listing and it'll show if all necessary dependancy Mods are installed and if that is given, lets you directly launch the desired Mod
 -You have the option to directly launch the unmodded vanilla Game by clicking the "START BASE GAME" button.
@@ -73,17 +81,20 @@ for convenience and faster access)
 
 -START MOD: Starts the Game with the selected Advanced Start Options and the selected Mod if all dependancy mods are installed.
 
--Advanced Start Options:
- -dev : Starts the game in developers mode that provides helpful debug tools and enables execution of skripts (such as the autoexec.lua) in skirmish games, which are not available in the base game.
-	(WARNING: Don't use this in multiplayer as it will not work.)
- -nomovies : Skips all movies and directly launches the game with the loading screen for a faster startup (Is checked by default for convenience)
- -forcehighpoly : This option forces the game to display the highes resolution LOD of a Model at any given distance. (Hint : This may have a negative impact on your performance, use with caution.)
- 
-TOGGLE LAA: This button allows for convenient activation and deactivation of the LAA flag for the Soulstorm.exe and GraphicsConfig.exe
+-TOGGLE LAA: This button allows for convenient activation and deactivation of the LAA flag for the Soulstorm.exe and GraphicsConfig.exe
 
-LAA Labels : These two labels will show if both the Soulstorm.exe and GraphicsConfig.exe are LAA patched. Since the UA Mod pushes the game engine really hard towards it's limits
-it's recommended to use the LAA(Large Address Awareness AKA. 4GB Patch) on both Executables to reduce the chance for the game crashing when playing UA. Since most people use the LAA Patch in Online
-matches anyways you'd do yourself a favor applying the LAA patch on said Executables. The LAA patch can be obtained from the UA Moddb Pages download section.
+-LAA Labels : These two labels will show if both the Soulstorm.exe and GraphicsConfig.exe are LAA patched. Since the UA Mod and many other mods push the game engine really hard towards it's limits
+it's recommended to have the LAA(Large Address Awareness AKA. 4GB Patch) activated on both executables to reduce the chance for the game crashing when playing mods. Since most people use the LAA Patch in Online
+matches anyways you'd do yourself a favor applying the LAA patch on said Executables. The LAA patch can ba applied and removed at any time by pressing the TOGGLE LAA button.
+
+-Advanced Start Options:
+
+--dev : Starts the game in developers mode that provides helpful debug tools and enables execution of skripts (such as the autoexec.lua) in skirmish games, which are not available in the base game.
+	(WARNING: Don't use this in multiplayer as it will not work.)
+	
+--nomovies : Skips all movies and directly launches the game with the loading screen for a faster startup (Is checked by default for convenience)
+ 
+--forcehighpoly : This option forces the game to display the highes resolution LOD of a Model at any given distance. (Hint : This may have a negative impact on your performance, use with caution.)
 
 ## -----------------MOD MERGER:-----------------(WARNING: This is an experimental feature that requires some user responsibility, use with caution.)
 
