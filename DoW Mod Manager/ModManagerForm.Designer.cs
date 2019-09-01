@@ -113,7 +113,7 @@
             this.InstalledModsList.Margin = new System.Windows.Forms.Padding(10);
             this.InstalledModsList.Name = "InstalledModsList";
             this.InstalledModsList.ScrollAlwaysVisible = true;
-            this.InstalledModsList.Size = new System.Drawing.Size(382, 381);
+            this.InstalledModsList.Size = new System.Drawing.Size(381, 381);
             this.InstalledModsList.TabIndex = 10;
             this.InstalledModsList.SelectedIndexChanged += new System.EventHandler(this.InstalledModsList_SelectedIndexChanged);
             // 
@@ -129,7 +129,7 @@
             this.RequiredModsList.Margin = new System.Windows.Forms.Padding(10);
             this.RequiredModsList.Name = "RequiredModsList";
             this.RequiredModsList.ScrollAlwaysVisible = true;
-            this.RequiredModsList.Size = new System.Drawing.Size(386, 381);
+            this.RequiredModsList.Size = new System.Drawing.Size(387, 381);
             this.RequiredModsList.TabIndex = 10;
             this.RequiredModsList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.RequiredModsList_DrawItem);
             // 
@@ -163,12 +163,13 @@
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.label2.Location = new System.Drawing.Point(16, 544);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 13);
+            this.label2.Size = new System.Drawing.Size(111, 13);
             this.label2.TabIndex = 13;
-            this.label2.Text = "Written by Cosmocrat";
+            this.label2.Text = "Written by FragJacker";
             // 
             // label5
             // 
@@ -296,7 +297,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.RequiredModsList);
             this.splitContainer1.Size = new System.Drawing.Size(801, 407);
-            this.splitContainer1.SplitterDistance = 396;
+            this.splitContainer1.SplitterDistance = 395;
             this.splitContainer1.TabIndex = 23;
             // 
             // buttonToggleLAA

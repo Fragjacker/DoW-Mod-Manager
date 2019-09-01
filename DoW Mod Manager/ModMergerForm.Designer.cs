@@ -262,9 +262,9 @@
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.label4.Location = new System.Drawing.Point(16, 567);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 13);
+            this.label4.Size = new System.Drawing.Size(111, 13);
             this.label4.TabIndex = 9;
-            this.label4.Text = "Written by Cosmocrat";
+            this.label4.Text = "Written by FragJacker";
             // 
             // splitContainer1
             // 
