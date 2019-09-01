@@ -13,6 +13,21 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.Security.Permissions;
 
+/// <summary>
+/// Contains the strings for each supported Executbale.
+/// </summary>
+public struct GameExecutable
+{
+    public string Soulstorm, DarkCrusade;
+
+    public GameExecutable(string SS,
+                          string DC)
+    {
+        Soulstorm = SS;
+        DarkCrusade = DC;
+    }
+}
+
 namespace DoW_Mod_Manager
 {
     /// <summary>
@@ -30,8 +45,10 @@ namespace DoW_Mod_Manager
         public List<string> allFoundModules = null; //Contains the list of all available Mods that will be used by the Mod Merger
         public List<string> allValidModules = null; //Contains the list of all playable Mods that will be used by the Mod Merger
         private bool[] _isInstalled; //A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
-        private bool isSoulstormLAAPatched = false; //Tells if soulstorm is LAA patched or NOT.
+        private bool isGameEXELAAPatched = false; //Tells if soulstorm is LAA patched or NOT.
         private bool isGraphicsConfigLAAPatched = false; //Tells if graphicsconfig is LAA patched or NOT.
+        private GameExecutable gameExe = new GameExecutable("Soulstorm.exe", "DarkCrusade.exe");
+        private string currentGameEXE = "";
 
         /// <summary>
         ///  Initializes all the necessary components used by the GUI
@@ -57,15 +74,15 @@ namespace DoW_Mod_Manager
             //TODO: Set proper directory again
             //currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
             currentDir = Directory.GetCurrentDirectory();
-            _filePaths = Directory.GetFiles(currentDir, "Soulstorm.exe");
-
+            currentGameEXE = getCurrentEXE();
+            _filePaths = Directory.GetFiles(currentDir, currentGameEXE);
 
             //Check if there was a valid Directory detected previously, then perform getting all the info to populate the lists
             if (_filePaths.Length != 0)
             {
                 textBox1.AppendText(currentDir);
                 setUpAllNecessaryMods();
-                isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
+                isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(currentDir, currentGameEXE)[0]);
                 isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
                 setSoulstormLAALabelText();
                 setGraphicsConfigLAALabelText();
@@ -78,7 +95,7 @@ namespace DoW_Mod_Manager
             }
             else
             {
-                MessageBox.Show("ERROR finding Soulstorm.exe in this directory! Please put the DoW Mod Manager v1.4.exe in the directory that contains the Soulstorm.exe!");
+                MessageBox.Show("ERROR finding " + currentGameEXE + " in this directory! Please put the DoW Mod Manager v1.5.exe in the directory that contains the correct executable!");
                 Application.Exit();
                 return;
             }
@@ -105,7 +122,7 @@ namespace DoW_Mod_Manager
 
             //textBox1.AppendText(currentDir);
             //setUpAllNecessaryMods();
-            //isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
+            //isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, currentGameEXE)[0]);
             //isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
             //setSoulstormLAALabelText();
             //setGraphicsConfigLAALabelText();
@@ -169,9 +186,10 @@ namespace DoW_Mod_Manager
         /// </summary>
         public void setUpAllNecessaryMods()
         {
-            int LastSelectedItem = InstalledModsList.SelectedIndex; //Store last selected Item to be reselected when Mod Merging is complete.
+
             getMods();
             getModFoldersFromFile();
+            int LastSelectedItem = InstalledModsList.SelectedIndex; //Store last selected Item to be reselected when Mod Merging is complete.
             InstalledModsList.SelectedIndex = LastSelectedItem; //Set default selection to index 0 in order to avoid crashes
         }
 
@@ -189,7 +207,7 @@ namespace DoW_Mod_Manager
             }
             catch
             {
-                MessageBox.Show("ERROR! COULD NOT FIND FOLDER 'DoW Mod Manager Resources' IN YOUR SOULSTORM DIRECTORY!");
+                MessageBox.Show("ERROR! COULD NOT FIND FOLDER 'DoW Mod Manager Resources' IN THIS DIRECTORY!");
                 Application.Exit();
                 return;
             }
@@ -321,9 +339,11 @@ namespace DoW_Mod_Manager
                 }
                 _filePaths = newfilePathsArray.ToArray(); //Override the old array that contained unplayable mods with the new one.
             }
-            else
+            if (_filePaths.Length == 0 || allFoundModules.Count == 0)
             {
                 MessageBox.Show("No mods were found in the specified directory! Please check your current directory again!");
+                Application.Exit();
+                return;
             }
         }
 
@@ -501,7 +521,7 @@ namespace DoW_Mod_Manager
         private void startButton1_Click(object sender, EventArgs e)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = currentDir + "\\Soulstorm.exe";
+            startInfo.FileName = currentDir + "\\" + currentGameEXE;
             startInfo.Arguments = @"-modname " + InstalledModsList.SelectedItem + _devMode + _noIntroMode + _highPolyMode;
             Process.Start(startInfo);
         }
@@ -514,7 +534,7 @@ namespace DoW_Mod_Manager
         private void startVanillaGameButton_Click(object sender, EventArgs e)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = currentDir + "\\Soulstorm.exe";
+            startInfo.FileName = currentDir + "\\" + currentGameEXE;
             startInfo.Arguments = @"-modname W40k" + _devMode + _noIntroMode + _highPolyMode;
             Process.Start(startInfo);
         }
@@ -634,14 +654,14 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void setSoulstormLAALabelText()
         {
-            switch (isSoulstormLAAPatched)
+            switch (isGameEXELAAPatched)
             {
                 case true:
-                    SoulstormLAAStatusLabel.Text = "Soulstorm.exe: LAA Active";
+                    SoulstormLAAStatusLabel.Text = currentGameEXE + ": LAA Active";
                     SoulstormLAAStatusLabel.ForeColor = System.Drawing.Color.Green;
                     break;
                 case false:
-                    SoulstormLAAStatusLabel.Text = "Soulstorm.exe: LAA Inactive";
+                    SoulstormLAAStatusLabel.Text = currentGameEXE + ": LAA Inactive";
                     SoulstormLAAStatusLabel.ForeColor = System.Drawing.Color.Red;
                     break;
                 default:
@@ -797,18 +817,18 @@ namespace DoW_Mod_Manager
         private void ButtonToggleLAA_Click(object sender, EventArgs e)
         {
             //Check if the Game is LAA Patched and fill in the Label properly
-            string curDirSoul = Directory.GetFiles(currentDir, "Soulstorm.exe")[0];
+            string curDirSoul = Directory.GetFiles(currentDir, currentGameEXE)[0];
             string curDirGraph = Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0];
             if (!IsFileLocked(curDirSoul) && !IsFileLocked(curDirGraph))
             {
-                if ((isSoulstormLAAPatched && isGraphicsConfigLAAPatched) || (!isSoulstormLAAPatched && !isGraphicsConfigLAAPatched))
+                if ((isGameEXELAAPatched && isGraphicsConfigLAAPatched) || (!isGameEXELAAPatched && !isGraphicsConfigLAAPatched))
                 {
-                    isSoulstormLAAPatched = toggleLAA(curDirSoul);
+                    isGameEXELAAPatched = toggleLAA(curDirSoul);
                     isGraphicsConfigLAAPatched = toggleLAA(curDirGraph);
                 }
-                else if (!isSoulstormLAAPatched)
+                else if (!isGameEXELAAPatched)
                 {
-                    isSoulstormLAAPatched = toggleLAA(curDirSoul);
+                    isGameEXELAAPatched = toggleLAA(curDirSoul);
                 }
                 else if (!isGraphicsConfigLAAPatched)
                 {
@@ -820,5 +840,29 @@ namespace DoW_Mod_Manager
             }
 
         }
+
+        /// <summary>
+        /// This function scans for either the Soulstorm or the Dark Crusade version of the game.
+        /// </summary>
+        private string getCurrentEXE()
+        {
+            string[] curDir;
+            curDir = Directory.GetFiles(currentDir, gameExe.Soulstorm);
+
+            if (curDir.Length != 0)
+            {
+                return gameExe.Soulstorm;
+            }
+
+            curDir = Directory.GetFiles(currentDir, gameExe.DarkCrusade);
+            if (curDir.Length != 0)
+            {
+                return gameExe.DarkCrusade;
+            }
+            MessageBox.Show("ERROR! Neither found the Soulstorm.exe nor the DarkCrusade.exe in this directory!!");
+            Application.Exit();
+            return "";
+        }
+
     }
 }
