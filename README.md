@@ -6,7 +6,7 @@ This version is supposed to fix some issues from version 1.4 of the Mod Manager 
 
 ## INSTALLATION:
 
-- In order to install the Mod Manager drop the "Dow Mod Manager Resources" folder and the "DoW Mod Manager v1.5.exe" into either your soulstorm root folder beeing:
+- In order to install the Mod Manager drop the "Dow Mod Manager Resources" folder and the "DoW Mod Manager v1.5.exe" into your primary game directory which is either:
 
   - "..\Dawn of War - Soulstorm\" or 
   - "..\Dawn of War - Dark Crusade\". 
