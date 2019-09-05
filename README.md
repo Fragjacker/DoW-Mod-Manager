@@ -1,12 +1,12 @@
 ![mod_manager_v15_thumbnail](https://user-images.githubusercontent.com/19975052/64079833-f833c000-ccec-11e9-96cb-ed5c01cc0791.png)
-# DoW-Mod-Manager-1.5
+# DoW-Mod-Manager-1.51
 
 This application allows for an easy launch of mods and management of large collections of mods for Warhammer 40K Dawn of War: Soulstorm:tm: and Warhammer 40K Dawn of War: Dark Crusade:tm:.
 This version is supposed to fix some issues from version 1.4 of the Mod Manager while also adding some new functionality.
 
 ## INSTALLATION:
 
-- In order to install the Mod Manager drop the "Dow Mod Manager Resources" folder and the "DoW Mod Manager v1.5.exe" into your primary game directory which is either:
+- In order to install the Mod Manager drop the "Dow Mod Manager Resources" folder and the "DoW Mod Manager v1.51.exe" into your primary game directory which is either:
 
   - "..\Dawn of War - Soulstorm\" or 
   - "..\Dawn of War - Dark Crusade\". 
@@ -15,7 +15,7 @@ This version is supposed to fix some issues from version 1.4 of the Mod Manager 
 
 ## MOD MANAGER USAGE:
 
-- Once everything is in place launch the "DoW Mod Manager v1.5.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop
+- Once everything is in place launch the "DoW Mod Manager v1.51.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop
 for convenience and faster access)
 - Select a Mod from the left listing and it'll show if all necessary dependancy Mods are installed and if that is given, lets you directly launch the desired Mod
 - You have the option to directly launch the unmodded vanilla Game by clicking the "START BASE GAME" button.
@@ -72,6 +72,11 @@ To restore the previous layout (If you want to rollback) you can either Deactiva
 somewhere on your computer for later restoration.
 
 # Changelogs
+
+## Version 1.51:
+
+- Fixed an issue where the app would crash after quitting a game and clicking on the blank black space in the left available mods list.
+- Fixed deselection of last started mod after firing up the game.
 
 ## Version 1.5:
 
