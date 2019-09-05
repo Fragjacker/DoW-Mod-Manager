@@ -205,8 +205,7 @@ namespace DoW_Mod_Manager
 
             getMods();
             getModFoldersFromFile();
-            int LastSelectedItem = InstalledModsList.SelectedIndex; //Store last selected Item to be reselected when Mod Merging is complete.
-            InstalledModsList.SelectedIndex = LastSelectedItem; //Set default selection to index 0 in order to avoid crashes
+            reselectSavedMod();
         }
 
         /// <summary>
@@ -466,6 +465,11 @@ namespace DoW_Mod_Manager
             startButton1.Enabled = true;
 
             int index = InstalledModsList.SelectedIndex;
+            if(index < 0 || index >= InstalledModsList.Items.Count)
+            {
+                index = (int)Properties.Settings.Default["ChoiceIndex"];
+                InstalledModsList.SelectedIndex = index;
+            }
             Properties.Settings.Default["ChoiceIndex"] = index;
             string currentPath = _filePaths[index];
             string line = "";
