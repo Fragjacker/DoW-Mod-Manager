@@ -773,22 +773,31 @@ namespace DoW_Mod_Manager
             if (br.ReadInt32() != 0x4550)       //No PE header
                 return result;
 
-            br.BaseStream.Position += 0x12;
+            br.BaseStream.Position += 0x12;     //LAA flag position
             long nFilePos = (int)br.BaseStream.Position;
             Int16 LAAFlag = br.ReadInt16();
+            br.BaseStream.Position += 0x40;     //Checksum position
+            long nSumPos = (int)br.BaseStream.Position;
+            Int16 ChckSum = br.ReadInt16();
             if ((LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) != IMAGE_FILE_LARGE_ADDRESS_AWARE)
             {
-                LAAFlag |= IMAGE_FILE_LARGE_ADDRESS_AWARE;
-                long nFilePos1 = bw.Seek((int)nFilePos, SeekOrigin.Begin);
+                LAAFlag += IMAGE_FILE_LARGE_ADDRESS_AWARE;
+                ChckSum += IMAGE_FILE_LARGE_ADDRESS_AWARE;
+                bw.Seek((int)nFilePos, SeekOrigin.Begin);
                 bw.Write(LAAFlag);
+                bw.Seek((int)nSumPos, SeekOrigin.Begin);
+                bw.Write(ChckSum);
                 bw.Flush();
                 result = true;
             }
             else if ((LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE)
             {
-                LAAFlag ^= IMAGE_FILE_LARGE_ADDRESS_AWARE;
-                long nFilePos1 = bw.Seek((int)nFilePos, SeekOrigin.Begin);
+                LAAFlag -= IMAGE_FILE_LARGE_ADDRESS_AWARE;
+                ChckSum -= IMAGE_FILE_LARGE_ADDRESS_AWARE;
+                bw.Seek((int)nFilePos, SeekOrigin.Begin);
                 bw.Write(LAAFlag);
+                bw.Seek((int)nSumPos, SeekOrigin.Begin);
+                bw.Write(ChckSum);
                 bw.Flush();
                 result = false;
             }

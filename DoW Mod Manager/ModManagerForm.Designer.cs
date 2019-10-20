@@ -113,7 +113,7 @@
             this.InstalledModsList.Margin = new System.Windows.Forms.Padding(10);
             this.InstalledModsList.Name = "InstalledModsList";
             this.InstalledModsList.ScrollAlwaysVisible = true;
-            this.InstalledModsList.Size = new System.Drawing.Size(381, 381);
+            this.InstalledModsList.Size = new System.Drawing.Size(380, 381);
             this.InstalledModsList.TabIndex = 10;
             this.InstalledModsList.SelectedIndexChanged += new System.EventHandler(this.InstalledModsList_SelectedIndexChanged);
             // 
@@ -129,7 +129,7 @@
             this.RequiredModsList.Margin = new System.Windows.Forms.Padding(10);
             this.RequiredModsList.Name = "RequiredModsList";
             this.RequiredModsList.ScrollAlwaysVisible = true;
-            this.RequiredModsList.Size = new System.Drawing.Size(387, 381);
+            this.RequiredModsList.Size = new System.Drawing.Size(388, 381);
             this.RequiredModsList.TabIndex = 10;
             this.RequiredModsList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.RequiredModsList_DrawItem);
             // 
@@ -297,7 +297,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.RequiredModsList);
             this.splitContainer1.Size = new System.Drawing.Size(801, 407);
-            this.splitContainer1.SplitterDistance = 395;
+            this.splitContainer1.SplitterDistance = 394;
             this.splitContainer1.TabIndex = 23;
             // 
             // buttonToggleLAA
@@ -342,7 +342,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "ModManagerForm";
-            this.Text = "DoW Mod Manager v1.5";
+            this.Text = "DoW Mod Manager v1.52";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_Closing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
