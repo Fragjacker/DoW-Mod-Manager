@@ -142,6 +142,18 @@
     <None Include="bin\resource\cross_disabled.png" />
     <None Include="bin\resource\minus_disabled.png" />
     <None Include="bin\resource\plus_disabled.png" />
+    <None Include="DoW Mod Manager Resources\arrow_down.png" />
+    <None Include="DoW Mod Manager Resources\arrow_down_disabled.png" />
+    <None Include="DoW Mod Manager Resources\arrow_up.png" />
+    <None Include="DoW Mod Manager Resources\arrow_up_disabled.png" />
+    <None Include="DoW Mod Manager Resources\Checkmark.png" />
+    <None Include="DoW Mod Manager Resources\Checkmark_disabled.png" />
+    <None Include="DoW Mod Manager Resources\cross.png" />
+    <None Include="DoW Mod Manager Resources\cross_disabled.png" />
+    <None Include="DoW Mod Manager Resources\minus.png" />
+    <None Include="DoW Mod Manager Resources\minus_disabled.png" />
+    <None Include="DoW Mod Manager Resources\plus.png" />
+    <None Include="DoW Mod Manager Resources\plus_disabled.png" />
     <Content Include="MODenizer.ico" />
   </ItemGroup>
   <ItemGroup>
