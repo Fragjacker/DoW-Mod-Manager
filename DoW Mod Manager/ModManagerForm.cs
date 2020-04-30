@@ -1,16 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
-using Microsoft.Win32;
 using System.Diagnostics;
+using System.Security.Permissions;
+
+/// <summary>
+/// Contains the strings for each supported Executbale.
+/// </summary>
+public struct GameExecutable
+{
+    public string Soulstorm, DarkCrusade;
+
+    /// <summary>
+    /// Constructor for the GameExecutable struct.
+    /// </summary>
+    public GameExecutable(string SS, string DC)
+    {
+        Soulstorm = SS;
+        DarkCrusade = DC;
+    }
+}
 
 namespace DoW_Mod_Manager
 {
@@ -19,24 +31,32 @@ namespace DoW_Mod_Manager
     /// </summary>
     public partial class ModManagerForm : Form
     {
-
-        public string currentDir = ""; //Is the current Directory of Soulstorm
-        private string _devMode = ""; //Contains the argument for starting the .exe in dev mode
-        private string _noIntroMode = " -nomovies"; //Contains the argument for starting the .exe with no Intromovies
-        private string _highPolyMode = "";//Contains the argument for starting the .exe in High Poly Mode.
-        public string[] _filePaths; //Stores the paths of the found .module files in the Soulstorm directory
-        public string[] _modFolderPaths;//Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir.
-        public List<string> allFoundModules = null; //Contains the list of all available Mods that will be used by the Mod Merger
-        public List<string> allValidModules = null; //Contains the list of all playable Mods that will be used by the Mod Merger
-        private bool[] _isInstalled; //A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
-        private bool isLAAPatched = false; //Tells if soulstorm is LAA patched or NOT.
+        public string CurrentDir = "";                      //Is the current Directory of Soulstorm
+        private string devMode = "";                        //Contains the argument for starting the .exe in dev mode
+        private string noIntroMode = " -nomovies";          //Contains the argument for starting the .exe with no Intromovies
+        private string highPolyMode = "";                   //Contains the argument for starting the .exe in High Poly Mode.
+        public string[] FilePaths;                          //Stores the paths of the found .module files in the Soulstorm directory
+        public string[] ModFolderPaths;                     //Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir.
+        public List<string> AllFoundModules = null;         //Contains the list of all available Mods that will be used by the Mod Merger
+        public List<string> AllValidModules = null;         //Contains the list of all playable Mods that will be used by the Mod Merger
+        private bool[] isInstalled;                         //A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
+        private bool isGameEXELAAPatched = false;           //Tells if soulstorm is LAA patched or NOT.
+        private bool isGraphicsConfigLAAPatched = false;    //Tells if graphicsconfig is LAA patched or NOT.
+        private GameExecutable gameExe = new GameExecutable("Soulstorm.exe", "DarkCrusade.exe");
+        private string currentGameEXE = "";
 
         /// <summary>
         ///  Initializes all the necessary components used by the GUI
         /// </summary>
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public ModManagerForm()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Closing(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
         }
 
         /// <summary>
@@ -48,101 +68,185 @@ namespace DoW_Mod_Manager
         {
             //TODO: Set proper directory again
             //currentDir = "D:\\THQ\\Dawn of War - Soulstorm";
-            currentDir = Directory.GetCurrentDirectory();
-            _filePaths = Directory.GetFiles(currentDir, "Soulstorm.exe");
-
+            CurrentDir = Directory.GetCurrentDirectory();
+            currentGameEXE = GetCurrentEXE();
+            FilePaths = Directory.GetFiles(CurrentDir, currentGameEXE);
 
             //Check if there was a valid Directory detected previously, then perform getting all the info to populate the lists
-            if (_filePaths.Length != 0)
+            if (FilePaths.Length != 0)
             {
-                textBox1.AppendText(currentDir);
-
-                getMods();
-
-                getModFoldersFromFile();
-                InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
-
-                //Check if the Game is LAA Patched and fill in the Label properly
-                isLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "Soulstorm.exe")[0]);
-                setLAALabelText();
+                textBox1.AppendText(CurrentDir);
+                SetUpAllNecessaryMods();
+                isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(CurrentDir, currentGameEXE)[0]);
+                isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(CurrentDir, "GraphicsConfig.exe")[0]);
+                SetSoulstormLAALabelText();
+                SetGraphicsConfigLAALabelText();
+                AddFileSystemWatcher();
+                // Initialize values with values from previous values or defaults.
+                ReselectSavedMod();
+                checkBox1.Checked = (bool)Properties.Settings.Default["DEV"];
+                checkBox2.Checked = (bool)Properties.Settings.Default["NOMOVIES"];
+                checkBox3.Checked = (bool)Properties.Settings.Default["HIGHPOLY"];
             }
-
-            //TODO: Uncommoment below block and comment try and catch block again!
-
             else
             {
-                MessageBox.Show("ERROR finding Soulstorm on your Computer! Please put the DoW Mod Manager 1.3.exe in the directory that contains the Soulstorm.exe!");
+                MessageBox.Show("ERROR finding " + currentGameEXE + " in this directory! Please put the DoW Mod Manager v1.5.exe in the directory that contains the correct executable!");
                 Application.Exit();
+                return;
             }
 
             // This was implemented to find soulstorm by using the Registry Key Install location. But since the resource folder must be placed in a certain direction i've decided that a local directory scan would suffice.
             // Uncomment this to make the Form Window open up. Since the program will exit if there's no local Soulstorm.exe file be found.
-            //else
+
+            //TODO: Uncommoment below block and comment try and catch block again!
+
+            //try
             //{
-            //    try
+            //    RegistryKey regKey = Registry.LocalMachine;
+            //    regKey = regKey.OpenSubKey(@"Software\\THQ\\Dawn of War - Soulstorm\\");
+
+            //    if (regKey != null)
             //    {
-            //        RegistryKey regKey = Registry.LocalMachine;
-            //        regKey = regKey.OpenSubKey(@"Software\\THQ\\Dawn of War - Soulstorm\\");
-
-            //        if (regKey != null)
-            //        {
-            //            currentDir = regKey.GetValue("InstallLocation").ToString();
-
-            //            textBox1.AppendText(currentDir);
-
-            //            getMods();
-
-            //            //getModFoldersFromFile();
-            //            InstalledModsList.SelectedIndex = 0; //Set default selection to index 0 in order to avoid crashes
-            //        }
-
-            //    }
-            //    catch (Exception eventos)
-            //    {
-            //        throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
+            //        currentDir = regKey.GetValue("InstallLocation").ToString();
             //    }
             //}
+            //catch (Exception eventos)
+            //{
+            //    throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
+            //}
+
+            //textBox1.AppendText(currentDir);
+            //setUpAllNecessaryMods();
+            //isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, currentGameEXE)[0]);
+            //isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
+            //setSoulstormLAALabelText();
+            //setGraphicsConfigLAALabelText();
+            //AddFileSystemWatcher();
+            //// Initialize values with values from previous values or defaults.
+            //InstalledModsList.SelectedIndex = (int)Properties.Settings.Default["ChoiceIndex"]; //Set default selection to index 0 in order to avoid crashes
+            //checkBox1.Checked = (bool)Properties.Settings.Default["DEV"];
+            //checkBox2.Checked = (bool)Properties.Settings.Default["NOMOVIES"];
+            //checkBox3.Checked = (bool)Properties.Settings.Default["HIGHPOLY"];
+        }
+
+        /// <summary>
+        /// This function handles the reselection of a previously selected mod.
+        /// </summary>
+        private void ReselectSavedMod()
+        {
+            int savedIndex = (int)Properties.Settings.Default["ChoiceIndex"];
+            if (InstalledModsList.Items.Count > savedIndex)
+            {
+                InstalledModsList.SelectedIndex = savedIndex;
+            }
+            else
+            {
+                InstalledModsList.SelectedIndex = InstalledModsList.Items.Count - 1;
+            }
+        }
+
+        /// <summary>
+        /// This adds FileSystem watcher to capture any file changes in the game directories.
+        /// </summary>
+        private void AddFileSystemWatcher()
+        {
+            fileSystemWatcher1.Path = CurrentDir;
+
+            // Watch for changes in LastAccess and LastWrite times, and
+            // the renaming of files or directories.
+            fileSystemWatcher1.NotifyFilter = NotifyFilters.LastAccess
+                                    | NotifyFilters.LastWrite
+                                    | NotifyFilters.FileName
+                                    | NotifyFilters.DirectoryName;
+
+            // Add event handlers.
+            fileSystemWatcher1.Changed += OnChanged;
+            fileSystemWatcher1.Created += OnChanged;
+            fileSystemWatcher1.Deleted += OnChanged;
+            fileSystemWatcher1.Renamed += OnRenamed;
+
+            // Begin watching.
+            fileSystemWatcher1.EnableRaisingEvents = true;
+        }
+
+        /// <summary>
+        /// This function defines the event handlers for when some file was changed.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private void OnChanged(object source, FileSystemEventArgs e)
+        {
+            // Specify what is done when a file is changed, created, or deleted.
+            SetUpAllNecessaryMods();
+        }
+
+        /// <summary>
+        /// This function defines the event handlers for when some file was renamed.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private void OnRenamed(object source, RenamedEventArgs e)
+        {
+            // Specify what is done when a file is renamed.
+            SetUpAllNecessaryMods();
+        }
+
+        /// <summary>
+        /// A refactored method that is used to initialize or refresh the Mod Managers main page
+        /// </summary>
+        public void SetUpAllNecessaryMods()
+        {
+            GetMods();
+            GetModFoldersFromFile();
+            ReselectSavedMod();
         }
 
         /// <summary>
         /// Checks if the Mods are actually REALLY installed by checking if their asset folders are present by the name specified within the .module files "Modfolder" tagline
         /// </summary>
-        public void checkforInstalledMods()
+        public void CheckforInstalledMods()
         {
             startButton1.Enabled = true;
 
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\Checkmark.png");
-            pictureBox1.Image = Image.FromFile(str_Path);
+            string str_Path = Path.GetFullPath(CurrentDir + "\\DoW Mod Manager Resources\\Checkmark.png");
+            try
+            {
+                pictureBox1.Image = Image.FromFile(str_Path);
+            }
+            catch
+            {
+                MessageBox.Show("ERROR! COULD NOT FIND FOLDER 'DoW Mod Manager Resources' IN THIS DIRECTORY!");
+                Application.Exit();
+                return;
+            }
 
             int counter = 0;
-            string localstring = "";
-            string folderPath = "";
-            _isInstalled = new bool[RequiredModsList.Items.Count];
+            string localstring;
+            string folderPath;
+            isInstalled = new bool[RequiredModsList.Items.Count];
 
             while (counter < RequiredModsList.Items.Count)
             {
                 //string folderPath = Directory.Exists((_filePaths[counter].ToString() + "\\" + workstring));
-                folderPath = currentDir + "\\" + _modFolderPaths[counter];
+                folderPath = CurrentDir + "\\" + ModFolderPaths[counter];
 
                 if (Directory.Exists(folderPath))
                 {
                     localstring = RequiredModsList.Items[counter].ToString();
                     RequiredModsList.Items.RemoveAt(counter);
                     RequiredModsList.Items.Insert(counter, localstring + "...INSTALLED!");
-                    _isInstalled[counter] = true;
-
+                    isInstalled[counter] = true;
                 }
                 else
                 {
                     localstring = RequiredModsList.Items[counter].ToString();
                     RequiredModsList.Items.RemoveAt(counter);
                     RequiredModsList.Items.Insert(counter, localstring + "...MISSING!");
-                    _isInstalled[counter] = false;
+                    isInstalled[counter] = false;
                     startButton1.Enabled = false;
 
-                    str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\cross.png");
+                    str_Path = Path.GetFullPath(CurrentDir + "\\DoW Mod Manager Resources\\cross.png");
                     pictureBox1.Image = Image.FromFile(str_Path);
-
                 }
                 counter++;
             }
@@ -153,9 +257,8 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="inputstring"></param>
         /// <returns>string</returns>
-        private string getLastEntryFromLine(string inputstring)
+        private string GetLastEntryFromLine(string inputstring)
         {
-
             string text = inputstring;
             string pat = @"\S*\s*$";
             string result = "";
@@ -164,7 +267,6 @@ namespace DoW_Mod_Manager
             Regex require = new Regex(pat, RegexOptions.IgnoreCase);
 
             // Match the regular expression pattern against a text string.
-
             Match match = require.Match(text);
 
             if (match.Success)
@@ -179,7 +281,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        private string regexGetModFolderFromFile(string input)
+        private string RegexGetModFolderFromFile(string input)
         {
             string text = input;
             string pat = @"\S*\s*$";
@@ -189,7 +291,6 @@ namespace DoW_Mod_Manager
             Regex require = new Regex(pat, RegexOptions.IgnoreCase);
 
             // Match the regular expression pattern against a text string.
-
             Match match = require.Match(text);
 
             if (match.Success)
@@ -203,58 +304,58 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Finds all installed .module files and displays them in the Installed Mods Listbox without their .module extension
         /// </summary>
-        private void getMods()
+        private void GetMods()
         {
             List<string> newfilePathsArray = new List<string>(); //Make a new list for the new Pathitems
-            allValidModules = new List<string>();
-            allFoundModules = new List<string>();
+            AllValidModules = new List<string>();
+            AllFoundModules = new List<string>();
 
             int Index = 0;
             InstalledModsList.Items.Clear();
-            string line = "";
+            string line;
 
-            _filePaths = Directory.GetFiles(currentDir, "*.module");
+            FilePaths = Directory.GetFiles(CurrentDir, "*.module");
 
-            if (_filePaths.Length != 0)
+            if (FilePaths.Length != 0)
             {
-                foreach (string s in _filePaths)
+                foreach (string s in FilePaths)
                 {
                     //Find the List of ALL found module files for the Mod Merger available Mods List
-                    allFoundModules.Add(Path.GetFileNameWithoutExtension(s));
+                    AllFoundModules.Add(Path.GetFileNameWithoutExtension(s));
 
                     // Read the .module file to see if the mod is playable
-                    System.IO.StreamReader file = new System.IO.StreamReader(s);
+                    StreamReader file = new StreamReader(s);
 
                     // Filter the unplayable mods and populate the List only with playable mods
 
                     while ((line = file.ReadLine()) != null)
                     {
-                        if (modIsPlayable(line) == true)
+                        if (ModIsPlayable(line) == true)
                         {
-                            newfilePathsArray.Add(_filePaths[Index]);
+                            newfilePathsArray.Add(FilePaths[Index]);
                             InstalledModsList.Items.Add(Path.GetFileNameWithoutExtension(s));
-                            allValidModules.Add(Path.GetFileNameWithoutExtension(s));
+                            AllValidModules.Add(Path.GetFileNameWithoutExtension(s));
                         }
                     }
                     file.Close();
                     Index++;
                 }
-                _filePaths = newfilePathsArray.ToArray(); //Override the old array that contained unplayable mods with the new one.
+                FilePaths = newfilePathsArray.ToArray(); //Override the old array that contained unplayable mods with the new one.
             }
-            else
+            if (FilePaths.Length == 0 || AllFoundModules.Count == 0)
             {
                 MessageBox.Show("No mods were found in the specified directory! Please check your current directory again!");
+                Application.Exit();
+                return;
             }
         }
-
-
 
         /// <summary>
         /// This function returns 'true' if a Mod is set as "Playable = 1" in the .module file 
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        private bool modIsPlayable(string input)
+        private bool ModIsPlayable(string input)
         {
             bool isPlayable = false;
             string textline = input;
@@ -265,7 +366,6 @@ namespace DoW_Mod_Manager
             Regex require = new Regex(pat, RegexOptions.IgnoreCase);
 
             // Match the regular expression pattern against a text string.
-
             Match match = require.Match(textline);
 
             if (match.Success)
@@ -275,15 +375,14 @@ namespace DoW_Mod_Manager
             return isPlayable;
         }
 
-
         /// <summary>
         /// Reads the .module file and scans for "RequiredMods" lines and returns if a line was found or not via true/false. This is used to add the lines to the Form Window.
         /// </summary>
         /// <param name="input"></param>
         /// <returns>bool</returns>
-        private bool regexGetRequiredMod(string input)
+        private bool RegexGetRequiredMod(string input)
         {
-            string text = input;
+            //string text = input;
             string pat = @"\bRequiredMod\b";
             string patCommented1 = @"^[;]+";
             string patCommented2 = @"^[\/]+";
@@ -294,7 +393,6 @@ namespace DoW_Mod_Manager
             //Regex notrequire = new Regex(patCommented1, RegexOptions.IgnoreCase);
 
             // Match the regular expression pattern against a text string.
-
             //Match m = require.Match(text);
 
             foreach (Match match in Regex.Matches(input, pat))
@@ -322,7 +420,7 @@ namespace DoW_Mod_Manager
         /// <returns>bool</returns>
         private bool CheckregexModFolderExist(string input)
         {
-            string text = input;
+            //string text = input;
             string pat = @"ModFolder";
             bool state = false;
 
@@ -330,7 +428,6 @@ namespace DoW_Mod_Manager
             //Regex require = new Regex(pat, RegexOptions.IgnoreCase);
 
             // Match the regular expression pattern against a text string.
-
             //Match m = require.Match(text);
 
             foreach (Match match in Regex.Matches(input, pat))
@@ -350,53 +447,58 @@ namespace DoW_Mod_Manager
             startButton1.Enabled = true;
 
             int index = InstalledModsList.SelectedIndex;
-            string currentPath = _filePaths[index];
-            string line = "";
+            if(index < 0 || index >= InstalledModsList.Items.Count)
+            {
+                index = (int)Properties.Settings.Default["ChoiceIndex"];
+                InstalledModsList.SelectedIndex = index;
+            }
+            Properties.Settings.Default["ChoiceIndex"] = index;
+            string currentPath = FilePaths[index];
+            string line;
 
             RequiredModsList.Items.Clear();
 
             // Read the file and display it line by line.
-            System.IO.StreamReader file = new System.IO.StreamReader(currentPath);
+            StreamReader file = new StreamReader(currentPath);
 
             // Populate the Required Mods List with entries from the .module file
-
             while ((line = file.ReadLine()) != null)
             {
-                if (regexGetRequiredMod(line) == true)
+                if (RegexGetRequiredMod(line) == true)
                 {
                     RequiredModsList.Items.Add(line);
                 }
             }
 
-            getModFoldersFromFile();
-            checkforInstalledMods();
+            GetModFoldersFromFile();
+            CheckforInstalledMods();
             file.Close();
         }
 
         /// <summary>
         ///  This one checks if the Mod Assett folders, specified in each .module file, do actually exist
         /// </summary>
-        private void getModFoldersFromFile()
+        private void GetModFoldersFromFile()
         {
             int index = 0;
             int count = 0;
             string currentPath;
-            string line = "";
-            _modFolderPaths = new string[RequiredModsList.Items.Count];
+            string line;
+            ModFolderPaths = new string[RequiredModsList.Items.Count];
 
             // Read the file and display it line by line.
             while (index < RequiredModsList.Items.Count)
             {
-                currentPath = currentDir + "\\" + getLastEntryFromLine(RequiredModsList.Items[index].ToString()) + ".module";
+                currentPath = CurrentDir + "\\" + GetLastEntryFromLine(RequiredModsList.Items[index].ToString()) + ".module";
                 if (File.Exists(currentPath))
                 {
-                    System.IO.StreamReader file = new System.IO.StreamReader(currentPath);
+                    StreamReader file = new StreamReader(currentPath);
 
                     while ((line = file.ReadLine()) != null)
                     {
                         if (CheckregexModFolderExist(line) == true)
                         {
-                            _modFolderPaths[count] = regexGetModFolderFromFile(line);
+                            ModFolderPaths[count] = RegexGetModFolderFromFile(line);
                             count++;
                         }
                     }
@@ -405,7 +507,7 @@ namespace DoW_Mod_Manager
                 else
                 {
                     //_modFolderPaths[count] = getLastEntryFromLine("MISSING");
-                    _modFolderPaths[count] = "MISSING";
+                    ModFolderPaths[count] = "MISSING";
                     count++;
                 }
                 index++;
@@ -417,59 +519,94 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void startButton1_Click(object sender, EventArgs e)
+        private void StartButton1_Click(object sender, EventArgs e)
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = currentDir + "\\Soulstorm.exe";
-            startInfo.Arguments = @"-modname " + InstalledModsList.SelectedItem + _devMode + _noIntroMode + _highPolyMode;
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = CurrentDir + "\\" + currentGameEXE,
+                Arguments = @"-modname " + InstalledModsList.SelectedItem + devMode + noIntroMode + highPolyMode
+            };
             Process.Start(startInfo);
         }
 
-        private void startVanillaGameButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// This is the button to start the vanilla unmodded base game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StartVanillaGameButton_Click(object sender, EventArgs e)
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = currentDir + "\\Soulstorm.exe";
-            startInfo.Arguments = @"-modname W40k" + _devMode + _noIntroMode + _highPolyMode;
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = CurrentDir + "\\" + currentGameEXE,
+                Arguments = @"-modname W40k" + devMode + noIntroMode + highPolyMode
+            };
             Process.Start(startInfo);
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        /// This is the checkbox that controls the starting option '-dev'. 
+        /// It allows for additional debug options in-game and log files.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true)
             {
-                _devMode = " -dev";
+                devMode = " -dev";
             }
             else
             {
-                _devMode = "";
+                devMode = "";
             }
+            Properties.Settings.Default["DEV"] = checkBox1.Checked;
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        /// This is the checkbox that controls the starting option '-nomovies'. 
+        /// It prevents any movies/intros from being played.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CheckBox2_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox2.Checked == true)
             {
-                _noIntroMode = " -nomovies";
+                noIntroMode = " -nomovies";
             }
             else
             {
-                _noIntroMode = "";
+                noIntroMode = "";
             }
+            Properties.Settings.Default["NOMOVIES"] = checkBox2.Checked;
         }
 
-        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        /// This is the checkbox that controls the starting option '-forcehighpoly'. 
+        /// This disabled the LOD system and will display the highes mesh detail at any distance.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CheckBox3_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox3.Checked == true)
             {
-                _highPolyMode = " -forcehighpoly";
+                highPolyMode = " -forcehighpoly";
             }
             else
             {
-                _highPolyMode = "";
+                highPolyMode = "";
             }
+            Properties.Settings.Default["HIGHPOLY"] = checkBox3.Checked;
         }
 
-        private void RequiredModsList_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e)
+        /// <summary>
+        /// This function collects and displays the list of required mods for a selected mod in order to function correctly.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RequiredModsList_DrawItem(object sender, DrawItemEventArgs e)
         {
             //
             // Draw the background of the ListBox control for each item.
@@ -483,12 +620,11 @@ namespace DoW_Mod_Manager
             //
             Brush myBrush = Brushes.Black;
 
-            switch (_isInstalled[e.Index])
+            switch (isInstalled[e.Index])
             {
                 case true:
                     myBrush = Brushes.Green;
                     break;
-
                 case false:
                     myBrush = Brushes.Red;
                     break;
@@ -506,30 +642,70 @@ namespace DoW_Mod_Manager
             e.DrawFocusRectangle();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// You have to draw it manually for HDPI displays
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InstalledModsList_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+            e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(), e.Font, Brushes.LightGray, e.Bounds, StringFormat.GenericDefault);
+            e.DrawFocusRectangle();
+        }
+
+        /// <summary>
+        /// This is function opens the Mod Merger form when the button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button1_Click(object sender, EventArgs e)
         {
             ModMergerForm mergerWindow = new ModMergerForm(this);
             mergerWindow.Show();
         }
 
-        private void setLAALabelText()
+        /// <summary>
+        /// This function draws the LAA text for the Soulstorm label depending on whether the flag is true (Green) or false (Red).
+        /// </summary>
+        private void SetSoulstormLAALabelText()
         {
-            switch (isLAAPatched)
+            switch (isGameEXELAAPatched)
             {
                 case true:
-                    LAAStatusLabel.Text = "LAA Flag is Active";
-                    LAAStatusLabel.ForeColor = System.Drawing.Color.Green;
+                    SoulstormLAAStatusLabel.Text = currentGameEXE + ": LAA Active";
+                    SoulstormLAAStatusLabel.ForeColor = Color.Green;
                     break;
                 case false:
-                    LAAStatusLabel.Text = "LAA Flag is Inactive";
-                    LAAStatusLabel.ForeColor = System.Drawing.Color.Red;
-                    break;
-                default:
+                    SoulstormLAAStatusLabel.Text = currentGameEXE + ": LAA Inactive";
+                    SoulstormLAAStatusLabel.ForeColor = Color.Red;
                     break;
             }
         }
 
-        //Utility Code for checking if Soulstorm is LAA patched or not
+        /// <summary>
+        /// This function draws the LAA text for the GraphicsConfig label depending on whether the flag is true (Green) or false (Red).
+        /// </summary>
+        private void SetGraphicsConfigLAALabelText()
+        {
+            switch (isGraphicsConfigLAAPatched)
+            {
+                case true:
+                    GraphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Active";
+                    GraphicsConfigLAAStatusLabel.ForeColor = Color.Green;
+                    break;
+                case false:
+                    GraphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Inactive";
+                    GraphicsConfigLAAStatusLabel.ForeColor = Color.Red;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// This function instigates the test if a given EXE is LAA patched or not.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>bool</returns>
         static bool IsLargeAware(string file)
         {
             using (var fs = File.OpenRead(file))
@@ -538,7 +714,11 @@ namespace DoW_Mod_Manager
             }
         }
 
-        // Checks if the stream is a MZ header and if it is large address aware
+        /// <summary>
+        /// This function performs the data probing to determine if a given file is LAA patched or not.
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns>bool</returns>
         static bool IsLargeAware(Stream stream)
         {
             const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;
@@ -556,7 +736,153 @@ namespace DoW_Mod_Manager
                 return false;
 
             br.BaseStream.Position += 0x12;
-            return (br.ReadInt16() & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE;
+            short LAAFlag = br.ReadInt16();
+            br.Close();
+            return (LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE;
+        }
+
+        /// <summary>
+        /// This function performs the necessary data operations in order to toggle the LAA for a given EXE file back and forth.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>bool</returns>
+        static bool ToggleLAA(string file)
+        {
+            bool result = false;
+            var fs = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;
+
+            var br = new BinaryReader(fs);
+            var bw = new BinaryWriter(fs);
+
+            if (br.ReadInt16() != 0x5A4D)       //No MZ Header
+                return result;
+
+            br.BaseStream.Position = 0x3C;
+            int peloc = br.ReadInt32();         //Get the PE header location.
+
+            br.BaseStream.Position = peloc;
+            if (br.ReadInt32() != 0x4550)       //No PE header
+                return result;
+
+            br.BaseStream.Position += 0x12;     //LAA flag position
+            long nFilePos = (int)br.BaseStream.Position;
+            short LAAFlag = br.ReadInt16();
+            br.BaseStream.Position += 0x40;     //Checksum position
+            long nSumPos = (int)br.BaseStream.Position;
+            short ChckSum = br.ReadInt16();
+            if ((LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) != IMAGE_FILE_LARGE_ADDRESS_AWARE)
+            {
+                LAAFlag += IMAGE_FILE_LARGE_ADDRESS_AWARE;
+                ChckSum += IMAGE_FILE_LARGE_ADDRESS_AWARE;
+                bw.Seek((int)nFilePos, SeekOrigin.Begin);
+                bw.Write(LAAFlag);
+                bw.Seek((int)nSumPos, SeekOrigin.Begin);
+                bw.Write(ChckSum);
+                bw.Flush();
+                result = true;
+            }
+            else if ((LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE)
+            {
+                LAAFlag -= IMAGE_FILE_LARGE_ADDRESS_AWARE;
+                ChckSum -= IMAGE_FILE_LARGE_ADDRESS_AWARE;
+                bw.Seek((int)nFilePos, SeekOrigin.Begin);
+                bw.Write(LAAFlag);
+                bw.Seek((int)nSumPos, SeekOrigin.Begin);
+                bw.Write(ChckSum);
+                bw.Flush();
+                result = false;
+            }
+            br.Close();
+            bw.Close();
+            return result;
+        }
+
+        /// <summary>
+        /// This function checks if a file is yet still opened and thus blocked.
+        /// It prevents crashes when attempting to write to files not yet closed.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>bool</returns>
+        private bool IsFileLocked(string file)
+        {
+            FileStream stream = null;
+            try
+            {
+                stream = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+
+            //file is not locked
+            return false;
+        }
+
+        /// <summary>
+        /// This function handles the proper toggling of the LAA flag for the Soulstorm.exe and the GraphicsConfig.exe.
+        /// It can handle the cases when users have previously patched the EXE files only partially.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonToggleLAA_Click(object sender, EventArgs e)
+        {
+            //Check if the Game is LAA Patched and fill in the Label properly
+            string curDirSoul = Directory.GetFiles(CurrentDir, currentGameEXE)[0];
+            string curDirGraph = Directory.GetFiles(CurrentDir, "GraphicsConfig.exe")[0];
+            if (!IsFileLocked(curDirSoul) && !IsFileLocked(curDirGraph))
+            {
+                if ((isGameEXELAAPatched && isGraphicsConfigLAAPatched) || (!isGameEXELAAPatched && !isGraphicsConfigLAAPatched))
+                {
+                    isGameEXELAAPatched = ToggleLAA(curDirSoul);
+                    isGraphicsConfigLAAPatched = ToggleLAA(curDirGraph);
+                }
+                else if (!isGameEXELAAPatched)
+                {
+                    isGameEXELAAPatched = ToggleLAA(curDirSoul);
+                }
+                else if (!isGraphicsConfigLAAPatched)
+                {
+                    isGraphicsConfigLAAPatched = ToggleLAA(curDirGraph);
+                }
+
+                SetSoulstormLAALabelText();
+                SetGraphicsConfigLAALabelText();
+            }
+
+        }
+
+        /// <summary>
+        /// This function scans for either the Soulstorm or the Dark Crusade version of the game.
+        /// </summary>
+        private string GetCurrentEXE()
+        {
+            string[] curDir;
+            curDir = Directory.GetFiles(CurrentDir, gameExe.Soulstorm);
+
+            if (curDir.Length != 0)
+            {
+                return gameExe.Soulstorm;
+            }
+
+            curDir = Directory.GetFiles(CurrentDir, gameExe.DarkCrusade);
+            if (curDir.Length != 0)
+            {
+                return gameExe.DarkCrusade;
+            }
+            MessageBox.Show("ERROR! Neither found the Soulstorm.exe nor the DarkCrusade.exe in this directory!!");
+            Application.Exit();
+            return "";
         }
     }
 }

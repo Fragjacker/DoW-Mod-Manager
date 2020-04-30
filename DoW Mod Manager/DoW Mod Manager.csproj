@@ -8,8 +8,8 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DoW_Mod_Manager</RootNamespace>
-    <AssemblyName>DoW Mod Manager v1.4</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <AssemblyName>DoW Mod Manager v1.53</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>C:\Users\godly_000\Desktop\</PublishUrl>
@@ -27,6 +27,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,7 +48,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\DoW Mod Manager v1.4.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\DoW Mod Manager v1.53.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>MODenizer.ico</ApplicationIcon>
@@ -69,6 +70,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>DoW_Mod_Manager.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -128,20 +132,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="cross.png" />
-    <None Include="Checkmark.png" />
-    <None Include="bin\resource\Checkmark.png" />
-    <None Include="bin\resource\cross.png" />
-    <None Include="bin\resource\minus.png" />
-    <None Include="bin\resource\plus.png" />
-    <None Include="bin\resource\arrow_down.png" />
-    <None Include="bin\resource\arrow_up.png" />
-    <None Include="bin\resource\arrow_down_disabled.png" />
-    <None Include="bin\resource\arrow_up_disabled.png" />
-    <None Include="bin\resource\Checkmark_disabled.png" />
-    <None Include="bin\resource\cross_disabled.png" />
-    <None Include="bin\resource\minus_disabled.png" />
-    <None Include="bin\resource\plus_disabled.png" />
+    <None Include="DoW Mod Manager Resources\arrow_down.png" />
+    <None Include="DoW Mod Manager Resources\arrow_down_disabled.png" />
+    <None Include="DoW Mod Manager Resources\arrow_up.png" />
+    <None Include="DoW Mod Manager Resources\arrow_up_disabled.png" />
+    <None Include="DoW Mod Manager Resources\Checkmark.png" />
+    <None Include="DoW Mod Manager Resources\Checkmark_disabled.png" />
+    <None Include="DoW Mod Manager Resources\cross.png" />
+    <None Include="DoW Mod Manager Resources\cross_disabled.png" />
+    <None Include="DoW Mod Manager Resources\minus.png" />
+    <None Include="DoW Mod Manager Resources\minus_disabled.png" />
+    <None Include="DoW Mod Manager Resources\plus.png" />
+    <None Include="DoW Mod Manager Resources\plus_disabled.png" />
     <Content Include="MODenizer.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -161,7 +163,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="bin\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
