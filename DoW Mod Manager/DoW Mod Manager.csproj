@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DoW_Mod_Manager</RootNamespace>
-    <AssemblyName>DoW Mod Manager v1.4</AssemblyName>
+    <AssemblyName>DoW Mod Manager v1.52</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -47,7 +47,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\DoW Mod Manager v1.4.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\DoW Mod Manager v1.52.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>MODenizer.ico</ApplicationIcon>
@@ -142,6 +142,18 @@
     <None Include="bin\resource\cross_disabled.png" />
     <None Include="bin\resource\minus_disabled.png" />
     <None Include="bin\resource\plus_disabled.png" />
+    <None Include="DoW Mod Manager Resources\arrow_down.png" />
+    <None Include="DoW Mod Manager Resources\arrow_down_disabled.png" />
+    <None Include="DoW Mod Manager Resources\arrow_up.png" />
+    <None Include="DoW Mod Manager Resources\arrow_up_disabled.png" />
+    <None Include="DoW Mod Manager Resources\Checkmark.png" />
+    <None Include="DoW Mod Manager Resources\Checkmark_disabled.png" />
+    <None Include="DoW Mod Manager Resources\cross.png" />
+    <None Include="DoW Mod Manager Resources\cross_disabled.png" />
+    <None Include="DoW Mod Manager Resources\minus.png" />
+    <None Include="DoW Mod Manager Resources\minus_disabled.png" />
+    <None Include="DoW Mod Manager Resources\plus.png" />
+    <None Include="DoW Mod Manager Resources\plus_disabled.png" />
     <Content Include="MODenizer.ico" />
   </ItemGroup>
   <ItemGroup>
