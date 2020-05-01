@@ -144,7 +144,7 @@
             this.buttonSaveFile.TabIndex = 5;
             this.buttonSaveFile.Text = "SAVE";
             this.buttonSaveFile.UseVisualStyleBackColor = false;
-            this.buttonSaveFile.Click += new System.EventHandler(this.buttonSaveFile_Click);
+            this.buttonSaveFile.Click += new System.EventHandler(this.ButtonSaveFile_Click);
             // 
             // buttonAdd
             // 
@@ -161,7 +161,7 @@
             this.AddModTooltip.SetToolTip(this.buttonAdd, "Adds selected mod from below to the above list of active mods to be loaded in-gam" +
         "e.");
             this.buttonAdd.UseVisualStyleBackColor = false;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            this.buttonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // buttonRemove
             // 
@@ -178,7 +178,7 @@
             this.RemoveModTooltip.SetToolTip(this.buttonRemove, "Remove selected mod from the list above and reinsert it to the list of available " +
         "Mods below.");
             this.buttonRemove.UseVisualStyleBackColor = false;
-            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+            this.buttonRemove.Click += new System.EventHandler(this.ButtonRemove_Click);
             // 
             // buttonArrowUp
             // 
@@ -193,7 +193,7 @@
             this.buttonArrowUp.TabIndex = 6;
             this.ArrowUpTooltip.SetToolTip(this.buttonArrowUp, "Move selected Mod one row up in the sort order.");
             this.buttonArrowUp.UseVisualStyleBackColor = false;
-            this.buttonArrowUp.Click += new System.EventHandler(this.buttonArrowUp_Click);
+            this.buttonArrowUp.Click += new System.EventHandler(this.ButtonArrowUp_Click);
             // 
             // buttonArrowDown
             // 
@@ -208,7 +208,7 @@
             this.buttonArrowDown.TabIndex = 6;
             this.ArrowDownTooltip.SetToolTip(this.buttonArrowDown, "Move selected Mod one row down in the sort order.");
             this.buttonArrowDown.UseVisualStyleBackColor = false;
-            this.buttonArrowDown.Click += new System.EventHandler(this.buttonArrowDown_Click);
+            this.buttonArrowDown.Click += new System.EventHandler(this.ButtonArrowDown_Click);
             // 
             // buttonActivate
             // 
@@ -223,7 +223,7 @@
             this.buttonActivate.TabIndex = 6;
             this.ActivationButtonTooltip.SetToolTip(this.buttonActivate, "Set selected Mod as active.");
             this.buttonActivate.UseVisualStyleBackColor = false;
-            this.buttonActivate.Click += new System.EventHandler(this.buttonActivate_Click);
+            this.buttonActivate.Click += new System.EventHandler(this.ButtonActivate_Click);
             // 
             // buttonDeactivate
             // 
@@ -239,7 +239,7 @@
             this.DeactivationButtonTooltip.SetToolTip(this.buttonDeactivate, "Set the selected Mod as inactive. That mod won\'t be loaded in-game but will stay " +
         "inside the module file for later possible activation.");
             this.buttonDeactivate.UseVisualStyleBackColor = false;
-            this.buttonDeactivate.Click += new System.EventHandler(this.buttonDeactivate_Click);
+            this.buttonDeactivate.Click += new System.EventHandler(this.ButtonDeactivate_Click);
             // 
             // loadedModBox
             // 
@@ -253,7 +253,7 @@
             this.loadedModBox.Size = new System.Drawing.Size(330, 21);
             this.loadedModBox.TabIndex = 8;
             this.loadedModBox.Text = "--None--";
-            this.loadedModBox.SelectedIndexChanged += new System.EventHandler(this.loadedModBox_SelectedIndexChanged);
+            this.loadedModBox.SelectedIndexChanged += new System.EventHandler(this.LoadedModBox_SelectedIndexChanged);
             // 
             // label4
             // 
