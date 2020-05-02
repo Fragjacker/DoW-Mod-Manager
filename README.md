@@ -1,5 +1,5 @@
 ![mod_manager_v15_thumbnail](https://user-images.githubusercontent.com/19975052/64079833-f833c000-ccec-11e9-96cb-ed5c01cc0791.png)
-# DoW-Mod-Manager-1.54
+# DoW-Mod-Manager-1.53
 
 This application allows for an easy launch of mods and management of large collections of mods for Warhammer 40K Dawn of War: Soulstorm:tm: and Warhammer 40K Dawn of War: Dark Crusade:tm:.
 This version is supposed to fix some issues from version 1.4 of the Mod Manager while also adding some new functionality.
@@ -73,13 +73,6 @@ somewhere on your computer for later restoration.
 
 # Changelogs
 
-## Version 1.54 (by IgorTheLight):
-
-- I did all the changes that I found in article "High DPI support in Windows Forms" written by Microsoft
-- Upgraded .NET Framework from 4.5.2 to 4.7.2
-- Added DPIAwareness is app.config
-- Uncommented Windows 10 support in app.manifest
-
 ## Version 1.53 (by IgorTheLight):
 
 - Upgraded .NET Framework from 4.5 to 4.5.2 - a lot of small improvements. But also that will add "EnableWindowsFormsHighDpiAutoResizing" feature in app.config
@@ -88,7 +81,7 @@ somewhere on your computer for later restoration.
 
 ## Version 1.52:
 
-- Fixed an issue with the LAA patch where the internal checksum of the executable was not properly updated and thus caused people using the LAA TOGGLE not be able to join multiplayer games.
+- Fixed an issue with the toggle LAA button to not generate proper checksums inside the executables. This rendered people unable to play online, since their executables were rejected.
 
 ## Version 1.51:
 
