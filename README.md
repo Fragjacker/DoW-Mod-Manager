@@ -81,9 +81,20 @@ somewhere on your computer for later restoration.
 
 ## Version 1.54 (by @IgorTheLight):
 
-- Upgraded .NET Framework from 4.5 to 4.5.2 - a lot of small improvements. But also that will add "EnableWindowsFormsHighDpiAutoResizing" feature in app.config
+- Added all the changes suggested by article "High DPI support in
+Windows Forms" written by Microsoft
+- Upgraded .NET Framework from 4.5.2 to 4.7.2
+- Added DPIAwareness is app.config
+- Uncommented Windows 10 support in app.manifest
+
+## Version 1.53 (by @IgorTheLight):
+
+- Upgraded .NET Framework from 4.5 to 4.5.2 - a lot of small improvements.
+But also that will add "EnableWindowsFormsHighDpiAutoResizing" feature in
+app.config
 - Enabled feature stated above
-- Code refactoring - a lot of small tweaks here and there. More "C# friendly" variable names
+- Code refactoring - a lot of small tweaks here and there. More "C#
+friendly" variable names
 
 ## Version 1.52:
 
