@@ -146,7 +146,7 @@
             this.startButton1.TabIndex = 11;
             this.startButton1.Text = "START MOD";
             this.startButton1.UseVisualStyleBackColor = false;
-            this.startButton1.Click += new System.EventHandler(this.startButton1_Click);
+            this.startButton1.Click += new System.EventHandler(this.StartButton1_Click);
             // 
             // pictureBox1
             // 
@@ -191,7 +191,7 @@
             this.checkBox1.TabIndex = 15;
             this.checkBox1.Text = "-dev: Developers Mode";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -205,7 +205,7 @@
             this.checkBox2.TabIndex = 16;
             this.checkBox2.Text = "-nomovies: No Intro Movies";
             this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.CheckBox2_CheckedChanged);
             // 
             // checkBox3
             // 
@@ -217,7 +217,7 @@
             this.checkBox3.TabIndex = 17;
             this.checkBox3.Text = "-forcehighpoly: High Poly models at any Distance";
             this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.CheckBox3_CheckedChanged);
             // 
             // button1
             // 
@@ -232,7 +232,7 @@
             this.button1.TabIndex = 18;
             this.button1.Text = "Merge Mods...";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // startVanillaGameButton
             // 
@@ -246,7 +246,7 @@
             this.startVanillaGameButton.TabIndex = 19;
             this.startVanillaGameButton.Text = "START BASE GAME";
             this.startVanillaGameButton.UseVisualStyleBackColor = false;
-            this.startVanillaGameButton.Click += new System.EventHandler(this.startVanillaGameButton_Click);
+            this.startVanillaGameButton.Click += new System.EventHandler(this.StartVanillaGameButton_Click);
             // 
             // SoulstormLAAStatusLabel
             // 
@@ -342,7 +342,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "ModManagerForm";
-            this.Text = "DoW Mod Manager v1.52";
+            this.Text = "DoW Mod Manager v1.54";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_Closing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
