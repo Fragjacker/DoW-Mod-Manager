@@ -59,14 +59,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBox1
+            // currentDirTextBox
             // 
             this.currentDirTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentDirTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.currentDirTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.currentDirTextBox.Location = new System.Drawing.Point(179, 6);
-            this.currentDirTextBox.Name = "textBox1";
+            this.currentDirTextBox.Name = "currentDirTextBox";
             this.currentDirTextBox.ReadOnly = true;
             this.currentDirTextBox.Size = new System.Drawing.Size(627, 20);
             this.currentDirTextBox.TabIndex = 0;
@@ -181,38 +181,38 @@
             this.label5.TabIndex = 14;
             this.label5.Text = "Advanced Start Options:";
             // 
-            // checkBox1
+            // devCheckBox
             // 
             this.devCheckBox.AutoSize = true;
             this.devCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.devCheckBox.Location = new System.Drawing.Point(18, 69);
-            this.devCheckBox.Name = "checkBox1";
+            this.devCheckBox.Name = "devCheckBox";
             this.devCheckBox.Size = new System.Drawing.Size(137, 17);
             this.devCheckBox.TabIndex = 15;
             this.devCheckBox.Text = "-dev: Developers Mode";
             this.devCheckBox.UseVisualStyleBackColor = true;
             this.devCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
-            // checkBox2
+            // nomoviesCheckBox
             // 
             this.nomoviesCheckBox.AutoSize = true;
             this.nomoviesCheckBox.Checked = true;
             this.nomoviesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.nomoviesCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.nomoviesCheckBox.Location = new System.Drawing.Point(18, 83);
-            this.nomoviesCheckBox.Name = "checkBox2";
+            this.nomoviesCheckBox.Name = "nomoviesCheckBox";
             this.nomoviesCheckBox.Size = new System.Drawing.Size(155, 17);
             this.nomoviesCheckBox.TabIndex = 16;
             this.nomoviesCheckBox.Text = "-nomovies: No Intro Movies";
             this.nomoviesCheckBox.UseVisualStyleBackColor = true;
             this.nomoviesCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox2_CheckedChanged);
             // 
-            // checkBox3
+            // highpolyCheckBox
             // 
             this.highpolyCheckBox.AutoSize = true;
             this.highpolyCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.highpolyCheckBox.Location = new System.Drawing.Point(18, 97);
-            this.highpolyCheckBox.Name = "checkBox3";
+            this.highpolyCheckBox.Name = "highpolyCheckBox";
             this.highpolyCheckBox.Size = new System.Drawing.Size(256, 17);
             this.highpolyCheckBox.TabIndex = 17;
             this.highpolyCheckBox.Text = "-forcehighpoly: High Poly models at any Distance";
