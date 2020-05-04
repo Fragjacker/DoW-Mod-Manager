@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModManagerForm));
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.currentDirTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.InstalledModsList = new System.Windows.Forms.ListBox();
             this.RequiredModsList = new System.Windows.Forms.ListBox();
-            this.startButton1 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.startButton = new System.Windows.Forms.Button();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.devCheckBox = new System.Windows.Forms.CheckBox();
+            this.nomoviesCheckBox = new System.Windows.Forms.CheckBox();
+            this.highpolyCheckBox = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.startVanillaGameButton = new System.Windows.Forms.Button();
             this.SoulstormLAAStatusLabel = new System.Windows.Forms.Label();
@@ -50,7 +50,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.buttonToggleLAA = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -61,15 +61,15 @@
             // 
             // textBox1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.currentDirTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.textBox1.Location = new System.Drawing.Point(179, 6);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(627, 20);
-            this.textBox1.TabIndex = 0;
+            this.currentDirTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.currentDirTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.currentDirTextBox.Location = new System.Drawing.Point(179, 6);
+            this.currentDirTextBox.Name = "textBox1";
+            this.currentDirTextBox.ReadOnly = true;
+            this.currentDirTextBox.Size = new System.Drawing.Size(627, 20);
+            this.currentDirTextBox.TabIndex = 0;
             // 
             // label1
             // 
@@ -133,32 +133,32 @@
             this.RequiredModsList.TabIndex = 10;
             this.RequiredModsList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.RequiredModsList_DrawItem);
             // 
-            // startButton1
+            // startButton
             // 
-            this.startButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.startButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.startButton1.Enabled = false;
-            this.startButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.startButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.startButton1.Location = new System.Drawing.Point(632, 32);
-            this.startButton1.Name = "startButton1";
-            this.startButton1.Size = new System.Drawing.Size(121, 48);
-            this.startButton1.TabIndex = 11;
-            this.startButton1.Text = "START MOD";
-            this.startButton1.UseVisualStyleBackColor = false;
-            this.startButton1.Click += new System.EventHandler(this.StartButton1_Click);
+            this.startButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.startButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.startButton.Enabled = false;
+            this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.startButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.startButton.Location = new System.Drawing.Point(632, 32);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(121, 48);
+            this.startButton.TabIndex = 11;
+            this.startButton.Text = "START MOD";
+            this.startButton.UseVisualStyleBackColor = false;
+            this.startButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
-            // pictureBox1
+            // pictureBox
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.ErrorImage = null;
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(759, 32);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
+            this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox.ErrorImage = null;
+            this.pictureBox.InitialImage = null;
+            this.pictureBox.Location = new System.Drawing.Point(759, 32);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox.TabIndex = 12;
+            this.pictureBox.TabStop = false;
             // 
             // label2
             // 
@@ -183,41 +183,41 @@
             // 
             // checkBox1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.checkBox1.Location = new System.Drawing.Point(18, 69);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(137, 17);
-            this.checkBox1.TabIndex = 15;
-            this.checkBox1.Text = "-dev: Developers Mode";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            this.devCheckBox.AutoSize = true;
+            this.devCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.devCheckBox.Location = new System.Drawing.Point(18, 69);
+            this.devCheckBox.Name = "checkBox1";
+            this.devCheckBox.Size = new System.Drawing.Size(137, 17);
+            this.devCheckBox.TabIndex = 15;
+            this.devCheckBox.Text = "-dev: Developers Mode";
+            this.devCheckBox.UseVisualStyleBackColor = true;
+            this.devCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // checkBox2
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.checkBox2.Location = new System.Drawing.Point(18, 83);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(155, 17);
-            this.checkBox2.TabIndex = 16;
-            this.checkBox2.Text = "-nomovies: No Intro Movies";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.CheckBox2_CheckedChanged);
+            this.nomoviesCheckBox.AutoSize = true;
+            this.nomoviesCheckBox.Checked = true;
+            this.nomoviesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.nomoviesCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.nomoviesCheckBox.Location = new System.Drawing.Point(18, 83);
+            this.nomoviesCheckBox.Name = "checkBox2";
+            this.nomoviesCheckBox.Size = new System.Drawing.Size(155, 17);
+            this.nomoviesCheckBox.TabIndex = 16;
+            this.nomoviesCheckBox.Text = "-nomovies: No Intro Movies";
+            this.nomoviesCheckBox.UseVisualStyleBackColor = true;
+            this.nomoviesCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox2_CheckedChanged);
             // 
             // checkBox3
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.checkBox3.Location = new System.Drawing.Point(18, 97);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(256, 17);
-            this.checkBox3.TabIndex = 17;
-            this.checkBox3.Text = "-forcehighpoly: High Poly models at any Distance";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.CheckBox3_CheckedChanged);
+            this.highpolyCheckBox.AutoSize = true;
+            this.highpolyCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.highpolyCheckBox.Location = new System.Drawing.Point(18, 97);
+            this.highpolyCheckBox.Name = "checkBox3";
+            this.highpolyCheckBox.Size = new System.Drawing.Size(256, 17);
+            this.highpolyCheckBox.TabIndex = 17;
+            this.highpolyCheckBox.Text = "-forcehighpoly: High Poly models at any Distance";
+            this.highpolyCheckBox.UseVisualStyleBackColor = true;
+            this.highpolyCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox3_CheckedChanged);
             // 
             // button1
             // 
@@ -232,7 +232,7 @@
             this.button1.TabIndex = 18;
             this.button1.Text = "Merge Mods...";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.button1.Click += new System.EventHandler(this.ModMergeButton_Click);
             // 
             // startVanillaGameButton
             // 
@@ -330,22 +330,22 @@
             this.Controls.Add(this.GraphicsConfigLAAStatusLabel);
             this.Controls.Add(this.startVanillaGameButton);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.highpolyCheckBox);
+            this.Controls.Add(this.nomoviesCheckBox);
+            this.Controls.Add(this.devCheckBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.startButton1);
+            this.Controls.Add(this.pictureBox);
+            this.Controls.Add(this.startButton);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.currentDirTextBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "ModManagerForm";
-            this.Text = "DoW Mod Manager v1.54";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_Closing);
-            this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Text = "DoW Mod Manager v1.55";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModManagerForm_Closing);
+            this.Load += new System.EventHandler(this.ModManagerForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -361,18 +361,18 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox currentDirTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox RequiredModsList;
-        private System.Windows.Forms.Button startButton1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox devCheckBox;
+        private System.Windows.Forms.CheckBox nomoviesCheckBox;
+        private System.Windows.Forms.CheckBox highpolyCheckBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox InstalledModsList;
         private System.Windows.Forms.Button startVanillaGameButton;
