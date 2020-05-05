@@ -9,22 +9,13 @@ namespace DoW_Mod_Manager
 {
     public partial class ModMergerForm : Form
     {
-        /// <summary>
-        /// Enum for 3 states of a mod
-        /// </summary>
         public enum ModState { Inactive, Active, Pending }
 
-        /// <summary>
-        /// The class Mod contains the Name and the current State of the Mod beeing "Active" "Inactive" or "Pending"
-        /// </summary>
         public class Mod
         {
             public string Name;
             public ModState State;
 
-            /// <summary>
-            /// Creates and instace of the class Mod and initializes it's values Name and State
-            /// </summary>
             public Mod(string name, ModState state)
             {
                 Name = name;

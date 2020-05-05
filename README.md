@@ -14,7 +14,7 @@ This application allows for an easy launch of mods and management of large colle
 
 ## MOD MANAGER USAGE:
 
-1. Once everything is in place launch the "DoW Mod Manager v1.54.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop
+1. Once everything is in place launch the "DoW Mod Manager v1.XX.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop
 for convenience and faster access)
 
 2. Select a Mod from the left listing and it'll show if all necessary dependancy Mods are installed and if that is given, lets you directly launch the desired Mod
@@ -82,6 +82,7 @@ somewhere on your computer for later restoration.
 ## Version 1.55 (by @IgorTheLight):
 
 - More code refactoring
+- Settings are stored in *.ini file now instead of AppData\Local
 
 ## Version 1.54 (by @IgorTheLight):
 
@@ -94,9 +95,7 @@ Windows Forms" written by Microsoft
 ## Version 1.53 (by @IgorTheLight):
 
 - Upgraded .NET Framework from 4.5 to 4.5.2 - a lot of small improvements.
-But also that will add "EnableWindowsFormsHighDpiAutoResizing" feature in
-app.config
-- Enabled feature stated above
+- Now "EnableWindowsFormsHighDpiAutoResizing" is enabled in app.config
 - Code refactoring - a lot of small tweaks here and there. More "C#
 friendly" variable names
 

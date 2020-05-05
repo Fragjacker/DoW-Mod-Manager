@@ -9,21 +9,12 @@ using System.Security.Permissions;
 
 namespace DoW_Mod_Manager
 {
-    /// <summary>
-    ///  Contains all elements necessary for the Form
-    /// </summary>
     public partial class ModManagerForm : Form
     {
-        /// <summary>
-        /// Contains the strings for each supported Executbale.
-        /// </summary>
         public struct GameExecutable
         {
             public string Soulstorm, DarkCrusade;
 
-            /// <summary>
-            /// Constructor for GameExecutable struct
-            /// </summary>
             public GameExecutable(string SS, string DC)
             {
                 Soulstorm = SS;
@@ -31,7 +22,12 @@ namespace DoW_Mod_Manager
             }
         }
 
-        const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;
+        const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;                           //32 in Decimal
+        const string configFileName = "DoW Mod Manager.ini";
+        const string choiceIndex = "ChoiceIndex";
+        const string dev = "Dev";
+        const string noMovies = "NoMovies";
+        const string highPoly = "HighPoly";
 
         private readonly string currentDir = Directory.GetCurrentDirectory();      //Is the current Directory of Soulstorm
         public string[] FilePaths;                                                 //Stores the paths of the found .module files in the Soulstorm directory
@@ -48,6 +44,14 @@ namespace DoW_Mod_Manager
         private GameExecutable gameExe = new GameExecutable("Soulstorm.exe", "DarkCrusade.exe");
         private string currentGameEXE = "";
 
+        readonly Dictionary<string, int> settings = new Dictionary<string, int> 
+        {
+            [choiceIndex] = 0,
+            [dev]         = 0,
+            [noMovies]    = 1,
+            [highPoly]    = 0
+        };
+
         /// <summary>
         ///  Initializes all the necessary components used by the GUI
         /// </summary>
@@ -55,6 +59,29 @@ namespace DoW_Mod_Manager
         public ModManagerForm()
         {
             InitializeComponent();
+
+            if (File.Exists(configFileName))
+            {
+                var lines = File.ReadLines(configFileName);
+                int indexOfEqualSigh;
+                string setting;
+                int value;
+                
+                foreach (string line in lines)
+                {
+                    indexOfEqualSigh = line.IndexOf('=');
+
+                    setting = Convert.ToString(line.Substring(0, indexOfEqualSigh));
+                    value = Convert.ToInt32(line.Substring(indexOfEqualSigh + 1, line.Length - indexOfEqualSigh - 1));
+
+                    settings[setting] = value;
+                }
+            }
+            else
+            {
+                string str = $"{choiceIndex}=0\n{dev}=0\n{noMovies}=1\n{highPoly}=0";
+                File.WriteAllText(configFileName, str);
+            }
         }
 
         /// <summary>
@@ -80,9 +107,20 @@ namespace DoW_Mod_Manager
 
                 // Initialize values with values from previous values or defaults.
                 ReselectSavedMod();
-                devCheckBox.Checked = (bool)Properties.Settings.Default["DEV"];
-                nomoviesCheckBox.Checked = (bool)Properties.Settings.Default["NOMOVIES"];
-                highpolyCheckBox.Checked = (bool)Properties.Settings.Default["HIGHPOLY"];
+                //devCheckBox.Checked = (bool)Properties.Settings.Default["DEV"];
+                //nomoviesCheckBox.Checked = (bool)Properties.Settings.Default["NOMOVIES"];
+                //highpolyCheckBox.Checked = (bool)Properties.Settings.Default["HIGHPOLY"];
+
+                int value;
+
+                settings.TryGetValue(dev, out value);
+                devCheckBox.Checked = Convert.ToBoolean(value);
+
+                settings.TryGetValue(noMovies, out value);
+                nomoviesCheckBox.Checked = Convert.ToBoolean(value);
+
+                settings.TryGetValue(highPoly, out value);
+                highpolyCheckBox.Checked = Convert.ToBoolean(value);
             }
             else
             {
@@ -127,7 +165,12 @@ namespace DoW_Mod_Manager
 
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Save();
+            //Properties.Settings.Default.Save();
+            if (File.Exists(configFileName))
+            {
+                string str = $"{choiceIndex}={settings[choiceIndex]}\n{dev}={settings[dev]}\n{noMovies}={settings[noMovies]}\n{highPoly}={settings[highPoly]}";
+                File.WriteAllText(configFileName, str);
+            }
         }
 
         /// <summary>
@@ -135,7 +178,9 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void ReselectSavedMod()
         {
-            int savedIndex = (int)Properties.Settings.Default["ChoiceIndex"];
+            //int savedIndex = (int)Properties.Settings.Default["ChoiceIndex"];
+            settings.TryGetValue(choiceIndex, out int savedIndex);
+
             if (InstalledModsList.Items.Count > savedIndex)
             {
                 InstalledModsList.SelectedIndex = savedIndex;
@@ -434,10 +479,13 @@ namespace DoW_Mod_Manager
             int index = InstalledModsList.SelectedIndex;
             if (index < 0 || index >= InstalledModsList.Items.Count)
             {
-                index = (int)Properties.Settings.Default["ChoiceIndex"];
+                //index = (int)Properties.Settings.Default["ChoiceIndex"];
+                settings.TryGetValue(choiceIndex, out index);
                 InstalledModsList.SelectedIndex = index;
             }
-            Properties.Settings.Default["ChoiceIndex"] = index;
+            //Properties.Settings.Default["ChoiceIndex"] = index;
+            settings[choiceIndex] = index;
+
             string currentPath = FilePaths[index];
             string line;
 
@@ -537,7 +585,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (devCheckBox.Checked == true)
+            if (devCheckBox.Checked)
             {
                 devMode = " -dev";
             }
@@ -545,7 +593,8 @@ namespace DoW_Mod_Manager
             {
                 devMode = "";
             }
-            Properties.Settings.Default["DEV"] = devCheckBox.Checked;
+            //Properties.Settings.Default["DEV"] = devCheckBox.Checked;
+            settings[dev] = Convert.ToInt32(devCheckBox.Checked);
         }
 
         /// <summary>
@@ -556,7 +605,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void CheckBox2_CheckedChanged(object sender, EventArgs e)
         {
-            if (nomoviesCheckBox.Checked == true)
+            if (nomoviesCheckBox.Checked)
             {
                 noIntroMode = " -nomovies";
             }
@@ -564,7 +613,8 @@ namespace DoW_Mod_Manager
             {
                 noIntroMode = "";
             }
-            Properties.Settings.Default["NOMOVIES"] = nomoviesCheckBox.Checked;
+            //Properties.Settings.Default["NOMOVIES"] = nomoviesCheckBox.Checked;
+            settings[noMovies] = Convert.ToInt32(nomoviesCheckBox.Checked);
         }
 
         /// <summary>
@@ -583,7 +633,8 @@ namespace DoW_Mod_Manager
             {
                 highPolyMode = "";
             }
-            Properties.Settings.Default["HIGHPOLY"] = highpolyCheckBox.Checked;
+            //Properties.Settings.Default["HIGHPOLY"] = highpolyCheckBox.Checked;
+            settings[highPoly] = Convert.ToInt32(highpolyCheckBox.Checked);
         }
 
         /// <summary>
