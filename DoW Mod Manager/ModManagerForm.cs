@@ -75,17 +75,19 @@ namespace DoW_Mod_Manager
                 // Reading every line of config file and trying ignore or correct all the possible mistakes
                 foreach (string line in lines)
                 {
-                    indexOfEqualSign = line.IndexOf('=');
-                    lastIndexOfEqualSign = line.LastIndexOf('=');
+                    string str = line.Replace(" ", "");
+
+                    indexOfEqualSign = str.IndexOf('=');
+                    lastIndexOfEqualSign = str.LastIndexOf('=');
 
                     if (indexOfEqualSign == lastIndexOfEqualSign)
                     {
                         if (indexOfEqualSign > 0)
                         {
-                            setting = Convert.ToString(line.Substring(0, indexOfEqualSign));
+                            setting = Convert.ToString(str.Substring(0, indexOfEqualSign));
                             try
                             {
-                                value = Convert.ToInt32(line.Substring(indexOfEqualSign + 1, line.Length - indexOfEqualSign - 1));
+                                value = Convert.ToInt32(str.Substring(indexOfEqualSign + 1, str.Length - indexOfEqualSign - 1));
                             }
                             catch (Exception)
                             {
