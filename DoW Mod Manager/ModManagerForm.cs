@@ -22,18 +22,17 @@ namespace DoW_Mod_Manager
             }
         }
 
-        const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;                           //32 in Decimal
-        const string configFileName = "DoW Mod Manager.ini";
-        const string choiceIndex = "ChoiceIndex";
-        const string dev = "Dev";
-        const string noMovies = "NoMovies";
-        const string highPoly = "HighPoly";
+        private const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;                   //32 in Decimal
+        private const string CONFIG_FILE_NAME = "DoW Mod Manager.ini";
+        private const string CHOICE_INDEX = "ChoiceIndex";
+        private const string DEV = "Dev";
+        private const string NO_MOVIES = "NoMovies";
+        private const string FORCE_HIGH_POLY = "ForceHighPoly";
+        private const string DEV_COMMAND = " -dev";
+        private const string NO_MOVIES_COMMAND = " -nomovies";
+        private const string FORCE_HIGH_POLY_COMMAND = " -forcehighpoly";
 
         private readonly string currentDir = Directory.GetCurrentDirectory();      //Is the current Directory of Soulstorm
-        public string[] FilePaths;                                                 //Stores the paths of the found .module files in the Soulstorm directory
-        public string[] ModFolderPaths;                                            //Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir.
-        public List<string> AllFoundModules = null;                                //Contains the list of all available Mods that will be used by the Mod Merger
-        public List<string> AllValidModules = null;                                //Contains the list of all playable Mods that will be used by the Mod Merger
 
         private string devMode = "";                                               //Contains the argument for starting the .exe in dev mode
         private string noIntroMode = "";                                           //Contains the argument for starting the .exe with no Intromovies
@@ -44,12 +43,17 @@ namespace DoW_Mod_Manager
         private GameExecutable gameExe = new GameExecutable("Soulstorm.exe", "DarkCrusade.exe");
         private string currentGameEXE = "";
 
+        public string[] FilePaths;                                                 //Stores the paths of the found .module files in the Soulstorm directory
+        public string[] ModFolderPaths;                                            //Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir.
+        public List<string> AllFoundModules = null;                                //Contains the list of all available Mods that will be used by the Mod Merger
+        public List<string> AllValidModules = null;                                //Contains the list of all playable Mods that will be used by the Mod Merger
+
         readonly Dictionary<string, int> settings = new Dictionary<string, int> 
         {
-            [choiceIndex] = 0,
-            [dev]         = 0,
-            [noMovies]    = 1,
-            [highPoly]    = 0
+            [CHOICE_INDEX] = 0,
+            [DEV]         = 0,
+            [NO_MOVIES]    = 1,
+            [FORCE_HIGH_POLY]    = 0
         };
 
         /// <summary>
@@ -60,9 +64,9 @@ namespace DoW_Mod_Manager
         {
             InitializeComponent();
 
-            if (File.Exists(configFileName))
+            if (File.Exists(CONFIG_FILE_NAME))
             {
-                var lines = File.ReadLines(configFileName);
+                var lines = File.ReadLines(CONFIG_FILE_NAME);
                 int indexOfEqualSigh;
                 string setting;
                 int value;
@@ -76,11 +80,23 @@ namespace DoW_Mod_Manager
 
                     settings[setting] = value;
                 }
+
+                if (Convert.ToBoolean(settings[DEV]))
+                {
+                    devMode = DEV_COMMAND;
+                }
+                if (Convert.ToBoolean(settings[NO_MOVIES]))
+                {
+                    noIntroMode = NO_MOVIES_COMMAND;
+                }
+                if (Convert.ToBoolean(settings[FORCE_HIGH_POLY]))
+                {
+                    highPolyMode = FORCE_HIGH_POLY_COMMAND;
+                }
             }
             else
             {
-                string str = $"{choiceIndex}=0\n{dev}=0\n{noMovies}=1\n{highPoly}=0";
-                File.WriteAllText(configFileName, str);
+                WriteAllSettingsInFile();
             }
         }
 
@@ -107,20 +123,10 @@ namespace DoW_Mod_Manager
 
                 // Initialize values with values from previous values or defaults.
                 ReselectSavedMod();
-                //devCheckBox.Checked = (bool)Properties.Settings.Default["DEV"];
-                //nomoviesCheckBox.Checked = (bool)Properties.Settings.Default["NOMOVIES"];
-                //highpolyCheckBox.Checked = (bool)Properties.Settings.Default["HIGHPOLY"];
 
-                int value;
-
-                settings.TryGetValue(dev, out value);
-                devCheckBox.Checked = Convert.ToBoolean(value);
-
-                settings.TryGetValue(noMovies, out value);
-                nomoviesCheckBox.Checked = Convert.ToBoolean(value);
-
-                settings.TryGetValue(highPoly, out value);
-                highpolyCheckBox.Checked = Convert.ToBoolean(value);
+                devCheckBox.Checked = Convert.ToBoolean(settings[DEV]);
+                nomoviesCheckBox.Checked = Convert.ToBoolean(settings[NO_MOVIES]);
+                highpolyCheckBox.Checked = Convert.ToBoolean(settings[FORCE_HIGH_POLY]);
             }
             else
             {
@@ -128,49 +134,20 @@ namespace DoW_Mod_Manager
                 Application.Exit();
                 return;
             }
-
-            // This was implemented to find soulstorm by using the Registry Key Install location. But since the resource folder must be placed in a certain direction i've decided that a local directory scan would suffice.
-            // Uncomment this to make the Form Window open up. Since the program will exit if there's no local Soulstorm.exe file be found.
-
-            //TODO: Uncommoment below block and comment try and catch block again!
-
-            //try
-            //{
-            //    RegistryKey regKey = Registry.LocalMachine;
-            //    regKey = regKey.OpenSubKey(@"Software\\THQ\\Dawn of War - Soulstorm\\");
-
-            //    if (regKey != null)
-            //    {
-            //        currentDir = regKey.GetValue("InstallLocation").ToString();
-            //    }
-            //}
-            //catch (Exception eventos)
-            //{
-            //    throw new FileNotFoundException("ERROR finding Soulstorm on your Computer! If you're using the Disc version please place the .exe in the root directory! Else reinstall on STEAM!", eventos);
-            //}
-
-            //textBox1.AppendText(currentDir);
-            //setUpAllNecessaryMods();
-            //isSoulstormLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, currentGameEXE)[0]);
-            //isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
-            //setSoulstormLAALabelText();
-            //setGraphicsConfigLAALabelText();
-            //AddFileSystemWatcher();
-            //// Initialize values with values from previous values or defaults.
-            //InstalledModsList.SelectedIndex = (int)Properties.Settings.Default["ChoiceIndex"]; //Set default selection to index 0 in order to avoid crashes
-            //checkBox1.Checked = (bool)Properties.Settings.Default["DEV"];
-            //checkBox2.Checked = (bool)Properties.Settings.Default["NOMOVIES"];
-            //checkBox3.Checked = (bool)Properties.Settings.Default["HIGHPOLY"];
         }
 
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
-            //Properties.Settings.Default.Save();
-            if (File.Exists(configFileName))
-            {
-                string str = $"{choiceIndex}={settings[choiceIndex]}\n{dev}={settings[dev]}\n{noMovies}={settings[noMovies]}\n{highPoly}={settings[highPoly]}";
-                File.WriteAllText(configFileName, str);
-            }
+            WriteAllSettingsInFile();
+        }
+
+        private void WriteAllSettingsInFile()
+        {
+            string str = $"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n" +
+                $"{DEV}={settings[DEV]}\n" +
+                $"{NO_MOVIES}={settings[NO_MOVIES]}\n" +
+                $"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}";
+            File.WriteAllText(CONFIG_FILE_NAME, str);
         }
 
         /// <summary>
@@ -178,12 +155,11 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void ReselectSavedMod()
         {
-            //int savedIndex = (int)Properties.Settings.Default["ChoiceIndex"];
-            settings.TryGetValue(choiceIndex, out int savedIndex);
+            int index = settings[CHOICE_INDEX];
 
-            if (InstalledModsList.Items.Count > savedIndex)
+            if (InstalledModsList.Items.Count > index)
             {
-                InstalledModsList.SelectedIndex = savedIndex;
+                InstalledModsList.SelectedIndex = index;
             }
             else
             {
@@ -198,14 +174,11 @@ namespace DoW_Mod_Manager
         {
             fileSystemWatcher1.Path = currentDir;
 
-            // Watch for changes in LastAccess and LastWrite times, and
-            // the renaming of files or directories.
             fileSystemWatcher1.NotifyFilter = NotifyFilters.LastAccess
                                     | NotifyFilters.LastWrite
                                     | NotifyFilters.FileName
                                     | NotifyFilters.DirectoryName;
 
-            // Add event handlers.
             fileSystemWatcher1.Changed += FileSystemWatcherOnChanged;
             fileSystemWatcher1.Created += FileSystemWatcherOnChanged;
             fileSystemWatcher1.Deleted += FileSystemWatcherOnChanged;
@@ -222,12 +195,11 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void FileSystemWatcherOnChanged(object source, FileSystemEventArgs e)
         {
-            // Specify what is done when a file is changed, created, or deleted.
             SetUpAllNecessaryMods();
         }
 
         /// <summary>
-        /// A refactored method that is used to initialize or refresh the Mod Managers main page
+        /// A refactored wrapper method that is used to initialize or refresh the Mod Managers main page
         /// </summary>
         public void SetUpAllNecessaryMods()
         {
@@ -262,7 +234,6 @@ namespace DoW_Mod_Manager
 
             while (counter < RequiredModsList.Items.Count)
             {
-                //string folderPath = Directory.Exists((_filePaths[counter].ToString() + "\\" + workstring));
                 folderPath = currentDir + "\\" + ModFolderPaths[counter];
 
                 if (Directory.Exists(folderPath))
@@ -290,16 +261,15 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This method returns the last word from an inputstring by using regex. For example using "RequiredMod.1 = Yourmod" will result in "Yourmod" beeing returned
         /// </summary>
-        /// <param name="inputstring"></param>
+        /// <param name="text"></param>
         /// <returns>string</returns>
-        private string GetLastEntryFromLine(string inputstring)
+        private string GetLastEntryFromLine(string text)
         {
-            string text = inputstring;
-            string pat = @"\S*\s*$";
+            string pattern = @"\S*\s*$";
             string result = "";
 
             // Instantiate the regular expression object.
-            Regex require = new Regex(pat, RegexOptions.IgnoreCase);
+            Regex require = new Regex(pattern, RegexOptions.IgnoreCase);
 
             // Match the regular expression pattern against a text string.
             Match match = require.Match(text);
@@ -314,16 +284,15 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Returns the name of the Module file without it's extension and all it's whitespaces removed.
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="text"></param>
         /// <returns></returns>
-        private string RegexGetModFolderFromFile(string input)
+        private string GetModFolderFromFile(string text)
         {
-            string text = input;
-            string pat = @"\S*\s*$";
+            string pattern = @"\S*\s*$";
             string result = "";
 
             // Instantiate the regular expression object.
-            Regex require = new Regex(pat, RegexOptions.IgnoreCase);
+            Regex require = new Regex(pattern, RegexOptions.IgnoreCase);
 
             // Match the regular expression pattern against a text string.
             Match match = require.Match(text);
@@ -386,15 +355,14 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This function returns 'true' if a Mod is set as "Playable = 1" in the .module file 
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="textline"></param>
         /// <returns></returns>
-        private bool ModIsPlayable(string input)
+        private bool ModIsPlayable(string textline)
         {
-            string textline = input;
-            string pat = @"Playable = 1";
+            string pattern = @"Playable = 1";
 
             // Instantiate the regular expression object.
-            Regex require = new Regex(pat, RegexOptions.IgnoreCase);
+            Regex require = new Regex(pattern, RegexOptions.IgnoreCase);
 
             // Match the regular expression pattern against a text string.
             Match match = require.Match(textline);
@@ -408,59 +376,41 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Reads the .module file and scans for "RequiredMods" lines and returns if a line was found or not via true/false. This is used to add the lines to the Form Window.
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="text"></param>
         /// <returns>bool</returns>
-        private bool RegexGetRequiredMod(string input)
+        private bool GetRequiredMod(string text)
         {
-            string text = input;
-            string pat = @"\bRequiredMod\b";
-            string patCommented1 = @"^[;]+";
-            string patCommented2 = @"^[\/]+";
+            string pattern = @"\bRequiredMod\b";
+            string patternCommented1 = @"^[;]+";
+            string patternCommented2 = @"^[\/]+";
             bool state = false;
 
-            // Instantiate the regular expression object.
-            //Regex require = new Regex(pat, RegexOptions.IgnoreCase);
-            //Regex notrequire = new Regex(patCommented1, RegexOptions.IgnoreCase);
-
-            // Match the regular expression pattern against a text string.
-            //Match m = require.Match(text);
-
-            foreach (Match match in Regex.Matches(text, pat))
+            foreach (Match match in Regex.Matches(text, pattern))
             {
                 state = true;
             }
-
-            foreach (Match match in Regex.Matches(text, patCommented1))
+            foreach (Match match in Regex.Matches(text, patternCommented1))
             {
                 state = false;
             }
-
-            foreach (Match match in Regex.Matches(text, patCommented2))
+            foreach (Match match in Regex.Matches(text, patternCommented2))
             {
                 state = false;
             }
-
             return state;
         }
 
         /// <summary>
         /// Checks if a line contains the Word "Modfolder" with true/false
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="str"></param>
         /// <returns>bool</returns>
-        private bool CheckregexModFolderExist(string input)
+        private bool CheckRegexModFolderExist(string text)
         {
-            string text = input;
-            string pat = @"ModFolder";
+            string pattern = @"ModFolder";
             bool state = false;
 
-            // Instantiate the regular expression object.
-            //Regex require = new Regex(pat, RegexOptions.IgnoreCase);
-
-            // Match the regular expression pattern against a text string.
-            //Match m = require.Match(text);
-
-            foreach (Match match in Regex.Matches(text, pat))
+            foreach (Match match in Regex.Matches(text, pattern))
             {
                 state = true;
             }
@@ -479,12 +429,10 @@ namespace DoW_Mod_Manager
             int index = InstalledModsList.SelectedIndex;
             if (index < 0 || index >= InstalledModsList.Items.Count)
             {
-                //index = (int)Properties.Settings.Default["ChoiceIndex"];
-                settings.TryGetValue(choiceIndex, out index);
+                index = settings[CHOICE_INDEX];
                 InstalledModsList.SelectedIndex = index;
             }
-            //Properties.Settings.Default["ChoiceIndex"] = index;
-            settings[choiceIndex] = index;
+            settings[CHOICE_INDEX] = index;
 
             string currentPath = FilePaths[index];
             string line;
@@ -497,7 +445,7 @@ namespace DoW_Mod_Manager
                 // Populate the Required Mods List with entries from the .module file
                 while ((line = file.ReadLine()) != null)
                 {
-                    if (RegexGetRequiredMod(line) == true)
+                    if (GetRequiredMod(line) == true)
                     {
                         RequiredModsList.Items.Add(line);
                     }
@@ -529,9 +477,9 @@ namespace DoW_Mod_Manager
                     {
                         while ((line = file.ReadLine()) != null)
                         {
-                            if (CheckregexModFolderExist(line) == true)
+                            if (CheckRegexModFolderExist(line) == true)
                             {
-                                ModFolderPaths[count] = RegexGetModFolderFromFile(line);
+                                ModFolderPaths[count] = GetModFolderFromFile(line);
                                 count++;
                             }
                         }
@@ -539,7 +487,6 @@ namespace DoW_Mod_Manager
                 }
                 else
                 {
-                    //_modFolderPaths[count] = getLastEntryFromLine("MISSING");
                     ModFolderPaths[count] = "MISSING";
                     count++;
                 }
@@ -583,18 +530,17 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        private void DevCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (devCheckBox.Checked)
             {
-                devMode = " -dev";
+                devMode = DEV_COMMAND;
             }
             else
             {
                 devMode = "";
             }
-            //Properties.Settings.Default["DEV"] = devCheckBox.Checked;
-            settings[dev] = Convert.ToInt32(devCheckBox.Checked);
+            settings[DEV] = Convert.ToInt32(devCheckBox.Checked);
         }
 
         /// <summary>
@@ -603,18 +549,17 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CheckBox2_CheckedChanged(object sender, EventArgs e)
+        private void NomoviesCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (nomoviesCheckBox.Checked)
             {
-                noIntroMode = " -nomovies";
+                noIntroMode = NO_MOVIES_COMMAND;
             }
             else
             {
                 noIntroMode = "";
             }
-            //Properties.Settings.Default["NOMOVIES"] = nomoviesCheckBox.Checked;
-            settings[noMovies] = Convert.ToInt32(nomoviesCheckBox.Checked);
+            settings[NO_MOVIES] = Convert.ToInt32(nomoviesCheckBox.Checked);
         }
 
         /// <summary>
@@ -623,18 +568,17 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CheckBox3_CheckedChanged(object sender, EventArgs e)
+        private void HighpolyCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (highpolyCheckBox.Checked == true)
             {
-                highPolyMode = " -forcehighpoly";
+                highPolyMode = FORCE_HIGH_POLY_COMMAND;
             }
             else
             {
                 highPolyMode = "";
             }
-            //Properties.Settings.Default["HIGHPOLY"] = highpolyCheckBox.Checked;
-            settings[highPoly] = Convert.ToInt32(highpolyCheckBox.Checked);
+            settings[FORCE_HIGH_POLY] = Convert.ToInt32(highpolyCheckBox.Checked);
         }
 
         /// <summary>
@@ -642,7 +586,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RequiredModsList_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e)
+        private void RequiredModsList_DrawItem(object sender, DrawItemEventArgs e)
         {
             // Draw the background of the ListBox control for each item.
             // Create a new Brush and initialize to a Black colored brush
@@ -688,16 +632,15 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void SetSoulstormLAALabelText()
         {
-            switch (isGameEXELAAPatched)
+            if (isGameEXELAAPatched)
             {
-                case true:
-                    SoulstormLAAStatusLabel.Text = currentGameEXE + ": LAA Active";
-                    SoulstormLAAStatusLabel.ForeColor = Color.Green;
-                    break;
-                case false:
-                    SoulstormLAAStatusLabel.Text = currentGameEXE + ": LAA Inactive";
-                    SoulstormLAAStatusLabel.ForeColor = Color.Red;
-                    break;
+                SoulstormLAAStatusLabel.Text = currentGameEXE + ": LAA Active";
+                SoulstormLAAStatusLabel.ForeColor = Color.Green;
+            }
+            else
+            {
+                SoulstormLAAStatusLabel.Text = currentGameEXE + ": LAA Inactive";
+                SoulstormLAAStatusLabel.ForeColor = Color.Red;
             }
         }
 
@@ -706,16 +649,15 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void SetGraphicsConfigLAALabelText()
         {
-            switch (isGraphicsConfigLAAPatched)
+            if (isGraphicsConfigLAAPatched)
             {
-                case true:
-                    GraphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Active";
-                    GraphicsConfigLAAStatusLabel.ForeColor = Color.Green;
-                    break;
-                case false:
-                    GraphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Inactive";
-                    GraphicsConfigLAAStatusLabel.ForeColor = Color.Red;
-                    break;
+                GraphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Active";
+                GraphicsConfigLAAStatusLabel.ForeColor = Color.Green;
+            }
+            else
+            {
+                GraphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Inactive";
+                GraphicsConfigLAAStatusLabel.ForeColor = Color.Red;
             }
         }
 
@@ -895,6 +837,7 @@ namespace DoW_Mod_Manager
             {
                 return gameExe.DarkCrusade;
             }
+
             MessageBox.Show("ERROR! Neither found the Soulstorm.exe nor the DarkCrusade.exe in this directory!!");
             Application.Exit();
             return "";

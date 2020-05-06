@@ -191,7 +191,7 @@
             this.devCheckBox.TabIndex = 15;
             this.devCheckBox.Text = "-dev: Developers Mode";
             this.devCheckBox.UseVisualStyleBackColor = true;
-            this.devCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            this.devCheckBox.CheckedChanged += new System.EventHandler(this.DevCheckBox_CheckedChanged);
             // 
             // nomoviesCheckBox
             // 
@@ -205,7 +205,7 @@
             this.nomoviesCheckBox.TabIndex = 16;
             this.nomoviesCheckBox.Text = "-nomovies: No Intro Movies";
             this.nomoviesCheckBox.UseVisualStyleBackColor = true;
-            this.nomoviesCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox2_CheckedChanged);
+            this.nomoviesCheckBox.CheckedChanged += new System.EventHandler(this.NomoviesCheckBox_CheckedChanged);
             // 
             // highpolyCheckBox
             // 
@@ -217,9 +217,9 @@
             this.highpolyCheckBox.TabIndex = 17;
             this.highpolyCheckBox.Text = "-forcehighpoly: High Poly models at any Distance";
             this.highpolyCheckBox.UseVisualStyleBackColor = true;
-            this.highpolyCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox3_CheckedChanged);
+            this.highpolyCheckBox.CheckedChanged += new System.EventHandler(this.HighpolyCheckBox_CheckedChanged);
             // 
-            // button1
+            // modMergeButton
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
@@ -227,7 +227,7 @@
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.button1.Location = new System.Drawing.Point(568, 82);
-            this.button1.Name = "button1";
+            this.button1.Name = "modMergeButton";
             this.button1.Size = new System.Drawing.Size(121, 43);
             this.button1.TabIndex = 18;
             this.button1.Text = "Merge Mods...";
@@ -342,7 +342,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "ModManagerForm";
-            this.Text = "DoW Mod Manager v1.55";
+            this.Text = "DoW Mod Manager v1.551";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModManagerForm_Closing);
             this.Load += new System.EventHandler(this.ModManagerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();

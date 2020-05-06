@@ -79,6 +79,11 @@ somewhere on your computer for later restoration.
 
 # Changelogs
 
+## Version 1.551 (by @IgorTheLight):
+
+- Fixed a bug that prevented config file to be readable in some cases
+- Renamed a few variables
+
 ## Version 1.55 (by @IgorTheLight):
 
 - More code refactoring
