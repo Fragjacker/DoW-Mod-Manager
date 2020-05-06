@@ -342,7 +342,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "ModManagerForm";
-            this.Text = "DoW Mod Manager v1.551";
+            this.Text = "DoW Mod Manager v1.56";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModManagerForm_Closing);
             this.Load += new System.EventHandler(this.ModManagerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();

@@ -67,37 +67,62 @@ namespace DoW_Mod_Manager
             if (File.Exists(CONFIG_FILE_NAME))
             {
                 var lines = File.ReadLines(CONFIG_FILE_NAME);
-                int indexOfEqualSigh;
+                int indexOfEqualSign;
+                int lastIndexOfEqualSign;
                 string setting;
                 int value;
                 
+                // Reading every line of config file and trying ignore or correct all the possible mistakes
                 foreach (string line in lines)
                 {
-                    indexOfEqualSigh = line.IndexOf('=');
+                    indexOfEqualSign = line.IndexOf('=');
+                    lastIndexOfEqualSign = line.LastIndexOf('=');
 
-                    setting = Convert.ToString(line.Substring(0, indexOfEqualSigh));
-                    value = Convert.ToInt32(line.Substring(indexOfEqualSigh + 1, line.Length - indexOfEqualSigh - 1));
+                    if (indexOfEqualSign == lastIndexOfEqualSign)
+                    {
+                        if (indexOfEqualSign > 0)
+                        {
+                            setting = Convert.ToString(line.Substring(0, indexOfEqualSign));
+                            try
+                            {
+                                value = Convert.ToInt32(line.Substring(indexOfEqualSign + 1, line.Length - indexOfEqualSign - 1));
+                            }
+                            catch (Exception)
+                            {
+                                value = 0;
+                            }
 
-                    settings[setting] = value;
-                }
+                            if (setting == CHOICE_INDEX)
+                            {
+                                if (value >= 0)
+                                    settings[setting] = value;
+                                else
+                                    settings[setting] = 0;
+                            }
 
-                if (Convert.ToBoolean(settings[DEV]))
-                {
-                    devMode = DEV_COMMAND;
-                }
-                if (Convert.ToBoolean(settings[NO_MOVIES]))
-                {
-                    noIntroMode = NO_MOVIES_COMMAND;
-                }
-                if (Convert.ToBoolean(settings[FORCE_HIGH_POLY]))
-                {
-                    highPolyMode = FORCE_HIGH_POLY_COMMAND;
+                            if (setting == DEV || setting == NO_MOVIES || setting == FORCE_HIGH_POLY)
+                            {
+                                if (value == 0 || value == 1)
+                                    settings[setting] = value;
+                                else
+                                {
+                                    if (value > 1)
+                                        settings[setting] = 1;
+                                    else
+                                        settings[setting] = 0;
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            else
-            {
-                WriteAllSettingsInFile();
-            }
+
+            if (Convert.ToBoolean(settings[DEV]))
+                devMode = DEV_COMMAND;
+            if (Convert.ToBoolean(settings[NO_MOVIES]))
+                noIntroMode = NO_MOVIES_COMMAND;
+            if (Convert.ToBoolean(settings[FORCE_HIGH_POLY]))
+                highPolyMode = FORCE_HIGH_POLY_COMMAND;
         }
 
         /// <summary>
@@ -107,33 +132,24 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void ModManagerForm_Load(object sender, EventArgs e)
         {
-            currentGameEXE = GetCurrentEXE();
+            currentGameEXE = GetCurrentGameEXE();
+            CheckForGraphicsConfigEXE();
             FilePaths = Directory.GetFiles(currentDir, currentGameEXE);
 
-            //Check if there was a valid Directory detected previously, then perform getting all the info to populate the lists
-            if (FilePaths.Length != 0)
-            {
-                currentDirTextBox.AppendText(currentDir);
-                SetUpAllNecessaryMods();
-                isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(currentDir, currentGameEXE)[0]);
-                isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
-                SetSoulstormLAALabelText();
-                SetGraphicsConfigLAALabelText();
-                AddFileSystemWatcher();
+            currentDirTextBox.AppendText(currentDir);
+            SetUpAllNecessaryMods();
+            isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(currentDir, currentGameEXE)[0]);
+            isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
+            SetSoulstormLAALabelText();
+            SetGraphicsConfigLAALabelText();
+            AddFileSystemWatcher();
 
-                // Initialize values with values from previous values or defaults.
-                ReselectSavedMod();
+            // Initialize values with values from previous values or defaults.
+            ReselectSavedMod();
 
-                devCheckBox.Checked = Convert.ToBoolean(settings[DEV]);
-                nomoviesCheckBox.Checked = Convert.ToBoolean(settings[NO_MOVIES]);
-                highpolyCheckBox.Checked = Convert.ToBoolean(settings[FORCE_HIGH_POLY]);
-            }
-            else
-            {
-                MessageBox.Show("ERROR finding " + currentGameEXE + " in this directory! Please put the DoW Mod Manager v1.5.exe in the directory that contains the correct executable!");
-                Application.Exit();
-                return;
-            }
+            devCheckBox.Checked = Convert.ToBoolean(settings[DEV]);
+            nomoviesCheckBox.Checked = Convert.ToBoolean(settings[NO_MOVIES]);
+            highpolyCheckBox.Checked = Convert.ToBoolean(settings[FORCE_HIGH_POLY]);
         }
 
         private void ModManagerForm_Closing(object sender, EventArgs e)
@@ -824,7 +840,7 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This function scans for either the Soulstorm or the Dark Crusade version of the game.
         /// </summary>
-        private string GetCurrentEXE()
+        private string GetCurrentGameEXE()
         {
             string[] curDir = Directory.GetFiles(currentDir, gameExe.Soulstorm);
             if (curDir.Length != 0)
@@ -838,9 +854,19 @@ namespace DoW_Mod_Manager
                 return gameExe.DarkCrusade;
             }
 
-            MessageBox.Show("ERROR! Neither found the Soulstorm.exe nor the DarkCrusade.exe in this directory!!");
+            MessageBox.Show("ERROR: Neither found the Soulstorm.exe nor the DarkCrusade.exe in this directory!");
             Application.Exit();
             return "";
+        }
+
+        private void CheckForGraphicsConfigEXE()
+        {
+            string[] curDir = Directory.GetFiles(currentDir, "GraphicsConfig.exe");
+            if (curDir.Length == 0)
+            {
+                MessageBox.Show("ERROR: GraphicsConfig.exe was not found!");
+                Application.Exit();
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 ![mod_manager_v15_thumbnail](https://user-images.githubusercontent.com/19975052/64079833-f833c000-ccec-11e9-96cb-ed5c01cc0791.png)
-# DoW Mod Manager v1.55
+# DoW Mod Manager v1.56
 
 This application allows for an easy launch of mods and management of large collections of mods for Warhammer 40K Dawn of War: Soulstorm:tm: and Warhammer 40K Dawn of War: Dark Crusade:tm:.
 
@@ -78,6 +78,11 @@ To restore the previous layout (If you want to rollback) you can either Deactiva
 somewhere on your computer for later restoration.
 
 # Changelogs
+
+## Version 1.56 (by @IgorTheLight):
+
+- Fixed a crash when GraphicsConfig.exe couldn't be found
+- Fixed a crash when Config file has wrong or corrupted entries
 
 ## Version 1.551 (by @IgorTheLight):
 
