@@ -30,25 +30,25 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModManagerForm));
             this.currentDirTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.currentDirectoryLabel = new System.Windows.Forms.Label();
+            this.installedModsLabel = new System.Windows.Forms.Label();
+            this.requiredModsLabel = new System.Windows.Forms.Label();
             this.InstalledModsList = new System.Windows.Forms.ListBox();
             this.RequiredModsList = new System.Windows.Forms.ListBox();
-            this.startButton = new System.Windows.Forms.Button();
+            this.startModButton = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.authorLabel = new System.Windows.Forms.Label();
+            this.AdvancedStartOptionsLabel = new System.Windows.Forms.Label();
             this.devCheckBox = new System.Windows.Forms.CheckBox();
             this.nomoviesCheckBox = new System.Windows.Forms.CheckBox();
             this.highpolyCheckBox = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.startVanillaGameButton = new System.Windows.Forms.Button();
+            this.MergeButton = new System.Windows.Forms.Button();
+            this.startVanillaButton = new System.Windows.Forms.Button();
             this.SoulstormLAAStatusLabel = new System.Windows.Forms.Label();
             this.GraphicsConfigLAAStatusLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.buttonToggleLAA = new System.Windows.Forms.Button();
+            this.toggleLAAButton = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
@@ -71,35 +71,35 @@
             this.currentDirTextBox.Size = new System.Drawing.Size(627, 20);
             this.currentDirTextBox.TabIndex = 0;
             // 
-            // label1
+            // currentDirectoryLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.label1.Location = new System.Drawing.Point(16, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Your current Soulstorm directory";
+            this.currentDirectoryLabel.AutoSize = true;
+            this.currentDirectoryLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.currentDirectoryLabel.Location = new System.Drawing.Point(16, 9);
+            this.currentDirectoryLabel.Name = "currentDirectoryLabel";
+            this.currentDirectoryLabel.Size = new System.Drawing.Size(157, 13);
+            this.currentDirectoryLabel.TabIndex = 1;
+            this.currentDirectoryLabel.Text = "Your current Soulstorm directory";
             // 
-            // label3
+            // installedModsLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.label3.Location = new System.Drawing.Point(3, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(119, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Currently Installed Mods";
+            this.installedModsLabel.AutoSize = true;
+            this.installedModsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.installedModsLabel.Location = new System.Drawing.Point(3, 0);
+            this.installedModsLabel.Name = "installedModsLabel";
+            this.installedModsLabel.Size = new System.Drawing.Size(119, 13);
+            this.installedModsLabel.TabIndex = 5;
+            this.installedModsLabel.Text = "Currently Installed Mods";
             // 
-            // label4
+            // requiredModsLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.label4.Location = new System.Drawing.Point(7, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(79, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Required Mods";
+            this.requiredModsLabel.AutoSize = true;
+            this.requiredModsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.requiredModsLabel.Location = new System.Drawing.Point(7, 0);
+            this.requiredModsLabel.Name = "requiredModsLabel";
+            this.requiredModsLabel.Size = new System.Drawing.Size(79, 13);
+            this.requiredModsLabel.TabIndex = 7;
+            this.requiredModsLabel.Text = "Required Mods";
             // 
             // InstalledModsList
             // 
@@ -133,20 +133,20 @@
             this.RequiredModsList.TabIndex = 10;
             this.RequiredModsList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.RequiredModsList_DrawItem);
             // 
-            // startButton
+            // startModButton
             // 
-            this.startButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.startButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.startButton.Enabled = false;
-            this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.startButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.startButton.Location = new System.Drawing.Point(632, 32);
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(121, 48);
-            this.startButton.TabIndex = 11;
-            this.startButton.Text = "START MOD";
-            this.startButton.UseVisualStyleBackColor = false;
-            this.startButton.Click += new System.EventHandler(this.StartButton_Click);
+            this.startModButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.startModButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.startModButton.Enabled = false;
+            this.startModButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.startModButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.startModButton.Location = new System.Drawing.Point(632, 32);
+            this.startModButton.Name = "startModButton";
+            this.startModButton.Size = new System.Drawing.Size(121, 48);
+            this.startModButton.TabIndex = 11;
+            this.startModButton.Text = "START MOD";
+            this.startModButton.UseVisualStyleBackColor = false;
+            this.startModButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // pictureBox
             // 
@@ -160,26 +160,26 @@
             this.pictureBox.TabIndex = 12;
             this.pictureBox.TabStop = false;
             // 
-            // label2
+            // authorLabel
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.label2.Location = new System.Drawing.Point(16, 544);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 13);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "Written by FragJacker";
+            this.authorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.authorLabel.AutoSize = true;
+            this.authorLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.authorLabel.Location = new System.Drawing.Point(16, 544);
+            this.authorLabel.Name = "authorLabel";
+            this.authorLabel.Size = new System.Drawing.Size(111, 13);
+            this.authorLabel.TabIndex = 13;
+            this.authorLabel.Text = "Written by FragJacker";
             // 
-            // label5
+            // AdvancedStartOptionsLabel
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.label5.Location = new System.Drawing.Point(18, 48);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(123, 13);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "Advanced Start Options:";
+            this.AdvancedStartOptionsLabel.AutoSize = true;
+            this.AdvancedStartOptionsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.AdvancedStartOptionsLabel.Location = new System.Drawing.Point(18, 48);
+            this.AdvancedStartOptionsLabel.Name = "AdvancedStartOptionsLabel";
+            this.AdvancedStartOptionsLabel.Size = new System.Drawing.Size(123, 13);
+            this.AdvancedStartOptionsLabel.TabIndex = 14;
+            this.AdvancedStartOptionsLabel.Text = "Advanced Start Options:";
             // 
             // devCheckBox
             // 
@@ -219,34 +219,34 @@
             this.highpolyCheckBox.UseVisualStyleBackColor = true;
             this.highpolyCheckBox.CheckedChanged += new System.EventHandler(this.HighpolyCheckBox_CheckedChanged);
             // 
-            // modMergeButton
+            // MergeButton
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.button1.Location = new System.Drawing.Point(568, 82);
-            this.button1.Name = "modMergeButton";
-            this.button1.Size = new System.Drawing.Size(121, 43);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Merge Mods...";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.ModMergeButton_Click);
+            this.MergeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MergeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.MergeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MergeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.MergeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.MergeButton.Location = new System.Drawing.Point(568, 82);
+            this.MergeButton.Name = "MergeButton";
+            this.MergeButton.Size = new System.Drawing.Size(121, 43);
+            this.MergeButton.TabIndex = 18;
+            this.MergeButton.Text = "Merge Mods...";
+            this.MergeButton.UseVisualStyleBackColor = false;
+            this.MergeButton.Click += new System.EventHandler(this.ModMergeButton_Click);
             // 
-            // startVanillaGameButton
+            // startVanillaButton
             // 
-            this.startVanillaGameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.startVanillaGameButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.startVanillaGameButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.startVanillaGameButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.startVanillaGameButton.Location = new System.Drawing.Point(505, 32);
-            this.startVanillaGameButton.Name = "startVanillaGameButton";
-            this.startVanillaGameButton.Size = new System.Drawing.Size(121, 48);
-            this.startVanillaGameButton.TabIndex = 19;
-            this.startVanillaGameButton.Text = "START BASE GAME";
-            this.startVanillaGameButton.UseVisualStyleBackColor = false;
-            this.startVanillaGameButton.Click += new System.EventHandler(this.StartVanillaGameButton_Click);
+            this.startVanillaButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.startVanillaButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.startVanillaButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.startVanillaButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.startVanillaButton.Location = new System.Drawing.Point(505, 32);
+            this.startVanillaButton.Name = "startVanillaButton";
+            this.startVanillaButton.Size = new System.Drawing.Size(121, 48);
+            this.startVanillaButton.TabIndex = 19;
+            this.startVanillaButton.Text = "START BASE GAME";
+            this.startVanillaButton.UseVisualStyleBackColor = false;
+            this.startVanillaButton.Click += new System.EventHandler(this.StartVanillaGameButton_Click);
             // 
             // SoulstormLAAStatusLabel
             // 
@@ -273,6 +273,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.AutoSize = true;
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Location = new System.Drawing.Point(12, 131);
             this.panel1.Name = "panel1";
@@ -289,29 +290,29 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.label3);
+            this.splitContainer1.Panel1.Controls.Add(this.installedModsLabel);
             this.splitContainer1.Panel1.Controls.Add(this.InstalledModsList);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.label4);
+            this.splitContainer1.Panel2.Controls.Add(this.requiredModsLabel);
             this.splitContainer1.Panel2.Controls.Add(this.RequiredModsList);
             this.splitContainer1.Size = new System.Drawing.Size(801, 407);
             this.splitContainer1.SplitterDistance = 394;
             this.splitContainer1.TabIndex = 23;
             // 
-            // buttonToggleLAA
+            // toggleLAAButton
             // 
-            this.buttonToggleLAA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.buttonToggleLAA.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonToggleLAA.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonToggleLAA.Location = new System.Drawing.Point(318, 42);
-            this.buttonToggleLAA.Name = "buttonToggleLAA";
-            this.buttonToggleLAA.Size = new System.Drawing.Size(104, 31);
-            this.buttonToggleLAA.TabIndex = 23;
-            this.buttonToggleLAA.Text = "TOGGLE LAA";
-            this.buttonToggleLAA.UseVisualStyleBackColor = false;
-            this.buttonToggleLAA.Click += new System.EventHandler(this.ButtonToggleLAA_Click);
+            this.toggleLAAButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.toggleLAAButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.toggleLAAButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.toggleLAAButton.Location = new System.Drawing.Point(318, 42);
+            this.toggleLAAButton.Name = "toggleLAAButton";
+            this.toggleLAAButton.Size = new System.Drawing.Size(104, 31);
+            this.toggleLAAButton.TabIndex = 23;
+            this.toggleLAAButton.Text = "TOGGLE LAA";
+            this.toggleLAAButton.UseVisualStyleBackColor = false;
+            this.toggleLAAButton.Click += new System.EventHandler(this.ButtonToggleLAA_Click);
             // 
             // fileSystemWatcher1
             // 
@@ -324,20 +325,20 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(828, 561);
-            this.Controls.Add(this.buttonToggleLAA);
+            this.Controls.Add(this.toggleLAAButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.SoulstormLAAStatusLabel);
             this.Controls.Add(this.GraphicsConfigLAAStatusLabel);
-            this.Controls.Add(this.startVanillaGameButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.startVanillaButton);
+            this.Controls.Add(this.MergeButton);
             this.Controls.Add(this.highpolyCheckBox);
             this.Controls.Add(this.nomoviesCheckBox);
             this.Controls.Add(this.devCheckBox);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.AdvancedStartOptionsLabel);
+            this.Controls.Add(this.authorLabel);
             this.Controls.Add(this.pictureBox);
-            this.Controls.Add(this.startButton);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.startModButton);
+            this.Controls.Add(this.currentDirectoryLabel);
             this.Controls.Add(this.currentDirTextBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 600);
@@ -356,31 +357,30 @@
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
 
         private System.Windows.Forms.TextBox currentDirTextBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label currentDirectoryLabel;
+        private System.Windows.Forms.Label installedModsLabel;
+        private System.Windows.Forms.Label requiredModsLabel;
         private System.Windows.Forms.ListBox RequiredModsList;
-        private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Button startModButton;
         private System.Windows.Forms.PictureBox pictureBox;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label authorLabel;
+        private System.Windows.Forms.Label AdvancedStartOptionsLabel;
         private System.Windows.Forms.CheckBox devCheckBox;
         private System.Windows.Forms.CheckBox nomoviesCheckBox;
         private System.Windows.Forms.CheckBox highpolyCheckBox;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button MergeButton;
         private System.Windows.Forms.ListBox InstalledModsList;
-        private System.Windows.Forms.Button startVanillaGameButton;
+        private System.Windows.Forms.Button startVanillaButton;
         private System.Windows.Forms.Label SoulstormLAAStatusLabel;
         private System.Windows.Forms.Label GraphicsConfigLAAStatusLabel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button buttonToggleLAA;
+        private System.Windows.Forms.Button toggleLAAButton;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
     }
 }
