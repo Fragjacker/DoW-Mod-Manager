@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -291,85 +292,109 @@ namespace DoW_Mod_Manager
         private void EnablePlusButton()
         {
             buttonAdd.Enabled = true;
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\plus.png");
-            buttonAdd.BackgroundImage = Image.FromFile(str_Path);
+            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\plus.png");
+            //buttonAdd.BackgroundImage = Image.FromFile(str_Path);
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.plus.png");
+            buttonAdd.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void DisablePlusButton()
         {
             buttonAdd.Enabled = false;
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\plus_disabled.png");
-            buttonAdd.BackgroundImage = Image.FromFile(str_Path);
+            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\plus_disabled.png");
+            //buttonAdd.BackgroundImage = Image.FromFile(str_Path);
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.plus_disabled.png");
+            buttonAdd.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void EnableMinusButton()
         {
             buttonRemove.Enabled = true;
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\minus.png");
-            buttonRemove.BackgroundImage = Image.FromFile(str_Path);
+            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\minus.png");
+            //buttonRemove.BackgroundImage = Image.FromFile(str_Path);
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.minus.png");
+            buttonRemove.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void DisableMinusButton()
         {
             buttonRemove.Enabled = false;
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\minus_disabled.png");
-            buttonRemove.BackgroundImage = Image.FromFile(str_Path);
+            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\minus_disabled.png");
+            //buttonRemove.BackgroundImage = Image.FromFile(str_Path);
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.minus_disabled.png");
+            buttonRemove.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void EnableCheckmarkButton()
         {
             buttonActivate.Enabled = true;
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\checkmark.png");
-            buttonActivate.BackgroundImage = Image.FromFile(str_Path);
+            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\checkmark.png");
+            //buttonActivate.BackgroundImage = Image.FromFile(str_Path);
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark.png");
+            buttonActivate.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void DisableCheckmarkButton()
         {
             buttonActivate.Enabled = false;
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\checkmark_disabled.png");
-            buttonActivate.BackgroundImage = Image.FromFile(str_Path);
+            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\checkmark_disabled.png");
+            //buttonActivate.BackgroundImage = Image.FromFile(str_Path);
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark_disabled.png");
+            buttonActivate.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void EnableCrossButton()
         {
             buttonDeactivate.Enabled = true;
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\cross.png");
-            buttonDeactivate.BackgroundImage = Image.FromFile(str_Path);
+            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\cross.png");
+            //buttonDeactivate.BackgroundImage = Image.FromFile(str_Path);
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross.png");
+            buttonDeactivate.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void DisableCrossButton()
         {
             buttonDeactivate.Enabled = false;
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\cross_disabled.png");
-            buttonDeactivate.BackgroundImage = Image.FromFile(str_Path);
+            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\cross_disabled.png");
+            //buttonDeactivate.BackgroundImage = Image.FromFile(str_Path);
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross_disabled.png");
+            buttonDeactivate.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void EnableArrowUpButton()
         {
             buttonArrowUp.Enabled = true;
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\arrow_up.png");
-            buttonArrowUp.BackgroundImage = Image.FromFile(str_Path);
+            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\arrow_up.png");
+            //buttonArrowUp.BackgroundImage = Image.FromFile(str_Path);
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.arrow_up.png");
+            buttonArrowUp.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void DisableArrowUpButton()
         {
             buttonArrowUp.Enabled = false;
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\arrow_up_disabled.png");
-            buttonArrowUp.BackgroundImage = Image.FromFile(str_Path);
+            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\arrow_up_disabled.png");
+            //buttonArrowUp.BackgroundImage = Image.FromFile(str_Path);
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.arrow_up_disabled.png");
+            buttonArrowUp.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void EnableArrowDownButton()
         {
             buttonArrowDown.Enabled = true;
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\arrow_down.png");
-            buttonArrowDown.BackgroundImage = Image.FromFile(str_Path);
+            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\arrow_down.png");
+            //buttonArrowDown.BackgroundImage = Image.FromFile(str_Path);
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.arrow_down.png");
+            buttonArrowDown.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void DisableArrowDownButton()
         {
             buttonArrowDown.Enabled = false;
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\arrow_down_disabled.png");
-            buttonArrowDown.BackgroundImage = Image.FromFile(str_Path);
+            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\arrow_down_disabled.png");
+            //buttonArrowDown.BackgroundImage = Image.FromFile(str_Path);
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.arrow_down_disabled.png");
+            buttonArrowDown.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void ButtonArrowUp_Click(object sender, EventArgs e)
@@ -530,7 +555,62 @@ namespace DoW_Mod_Manager
 
         private void ButtonDeactivate_Click(object sender, EventArgs e)
         {
-            SetModToInactive();
+            int lastSelectedIndex = 0;
+            //Get the currently selected element from the Used Mods List
+            int selection = UsedModsList.SelectedIndex;
+
+            if (selection != -1)
+            {
+                //Store last position
+                lastSelectedIndex = UsedModsList.SelectedIndex;
+
+                //Toggle it to be active
+                //_Modlist[selection].State = "Inactive";
+                if (selection == 0 && modlist[1].State == ModState.Inactive)
+                {
+                    SetModState(selection, ModState.Active);
+                    DisableCrossButton();
+                }
+                else
+                {
+                    SetModState(selection, ModState.Inactive);
+                }
+            }
+            else if (selection == 1)
+            {
+                lastSelectedIndex = 0;
+                UsedModsList.SelectedIndex = lastSelectedIndex;
+            }
+            //Redraw the List of Items
+            DrawAllRequiredModsFromList();
+
+            //Reselect Elements at the last place
+            if (ModlistContainsNoActiveMods())
+            {
+                UsedModsList.SelectedIndex = lastSelectedIndex;
+                DisableCrossButton();
+            }
+            if (ModlistContainsNoInActiveMods())
+            {
+                UsedModsList.SelectedIndex = lastSelectedIndex;
+                //enableCheckmarkButton();
+            }
+            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Inactive)
+            {
+                UsedModsList.SelectedIndex = lastSelectedIndex - 1;
+            }
+            if (lastSelectedIndex == 0 && modlist[lastSelectedIndex + 1].State == ModState.Inactive)
+            {
+                UsedModsList.SelectedIndex = lastSelectedIndex;
+            }
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != ModState.Inactive)
+            {
+                UsedModsList.SelectedIndex = lastSelectedIndex;
+            }
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Inactive)
+            {
+                UsedModsList.SelectedIndex = lastSelectedIndex - 1;
+            }
         }
 
         private void ButtonAdd_Click(object sender, EventArgs e)
@@ -616,72 +696,12 @@ namespace DoW_Mod_Manager
             return hasNoInActiveMods;
         }
 
-        private void SetModToInactive()
-        {
-            int lastSelectedIndex = 0;
-            //Get the currently selected element from the Used Mods List
-            int selection = UsedModsList.SelectedIndex;
-
-            if (selection != -1)
-            {
-                //Store last position
-                lastSelectedIndex = UsedModsList.SelectedIndex;
-
-                //Toggle it to be active
-                //_Modlist[selection].State = "Inactive";
-                if (selection == 0 && modlist[1].State == ModState.Inactive)
-                {
-                    SetModState(selection, ModState.Active);
-                    DisableCrossButton();
-                }
-                else
-                {
-                    SetModState(selection, ModState.Inactive);
-                }
-            }
-            else if(selection == 1)
-            {
-                lastSelectedIndex = 0;
-                UsedModsList.SelectedIndex = lastSelectedIndex;
-            }
-            //Redraw the List of Items
-            DrawAllRequiredModsFromList();
-
-            //Reselect Elements at the last place
-            if (ModlistContainsNoActiveMods())
-            {
-                UsedModsList.SelectedIndex = lastSelectedIndex;
-                DisableCrossButton();
-            }
-            if (ModlistContainsNoInActiveMods())
-            {
-                UsedModsList.SelectedIndex = lastSelectedIndex;
-                //enableCheckmarkButton();
-            }
-            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Inactive)
-            {
-                UsedModsList.SelectedIndex = lastSelectedIndex - 1;
-            }
-            if (lastSelectedIndex == 0 && modlist[lastSelectedIndex + 1].State == ModState.Inactive)
-            {
-                UsedModsList.SelectedIndex = lastSelectedIndex;
-            }
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != ModState.Inactive)
-            {
-                UsedModsList.SelectedIndex = lastSelectedIndex;
-            }
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Inactive)
-            {
-                UsedModsList.SelectedIndex = lastSelectedIndex - 1;
-            }
-        }
-
         private bool ModlistContainsNoActiveMods()
         {
             hasNoActiveMods = true;
             foreach (Mod item in modlist)
             {
-                if(item.State == ModState.Active)
+                if (item.State == ModState.Active)
                 {
                     hasNoActiveMods = false;
                     break;
@@ -699,7 +719,7 @@ namespace DoW_Mod_Manager
         {
             //Use this if Mod is a class
             modlist[count].State = state;
-            
+
             //Use this if Mod is a struct
             //Mod currentMod = modlist[count];
             //currentMod.State = state;

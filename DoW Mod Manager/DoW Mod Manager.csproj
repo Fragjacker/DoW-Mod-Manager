@@ -93,18 +93,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DoW Mod Manager Resources\arrow_down.png" />
-    <Content Include="DoW Mod Manager Resources\arrow_down_disabled.png" />
-    <Content Include="DoW Mod Manager Resources\arrow_up.png" />
-    <Content Include="DoW Mod Manager Resources\arrow_up_disabled.png" />
-    <Content Include="DoW Mod Manager Resources\Checkmark.png" />
-    <Content Include="DoW Mod Manager Resources\Checkmark_disabled.png" />
-    <Content Include="DoW Mod Manager Resources\cross.png" />
-    <Content Include="DoW Mod Manager Resources\cross_disabled.png" />
-    <Content Include="DoW Mod Manager Resources\minus.png" />
-    <Content Include="DoW Mod Manager Resources\minus_disabled.png" />
-    <Content Include="DoW Mod Manager Resources\plus.png" />
-    <Content Include="DoW Mod Manager Resources\plus_disabled.png" />
+    <EmbeddedResource Include="DoW Mod Manager Resources\arrow_down.png" />
+    <EmbeddedResource Include="DoW Mod Manager Resources\arrow_down_disabled.png" />
+    <EmbeddedResource Include="DoW Mod Manager Resources\arrow_up.png" />
+    <EmbeddedResource Include="DoW Mod Manager Resources\arrow_up_disabled.png" />
+    <EmbeddedResource Include="DoW Mod Manager Resources\Checkmark.png" />
+    <EmbeddedResource Include="DoW Mod Manager Resources\Checkmark_disabled.png" />
+    <EmbeddedResource Include="DoW Mod Manager Resources\cross.png" />
+    <EmbeddedResource Include="DoW Mod Manager Resources\cross_disabled.png" />
+    <EmbeddedResource Include="DoW Mod Manager Resources\minus.png" />
+    <EmbeddedResource Include="DoW Mod Manager Resources\minus_disabled.png" />
+    <EmbeddedResource Include="DoW Mod Manager Resources\plus.png" />
+    <EmbeddedResource Include="DoW Mod Manager Resources\plus_disabled.png" />
     <Content Include="MODenizer.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

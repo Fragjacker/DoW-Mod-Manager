@@ -81,6 +81,7 @@ somewhere on your computer for later restoration.
 ## Version 1.57 (by @IgorTheLight):
 
 - Optimized code a little bit. Now application uses 200 Kb less RAM
+- Now all image resources are embedded in EXE
 
 ## Version 1.56 (by @IgorTheLight):
 

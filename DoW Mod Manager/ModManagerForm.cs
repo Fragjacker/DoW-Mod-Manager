@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Diagnostics;
 using System.Security.Permissions;
+using System.Reflection;
 
 namespace DoW_Mod_Manager
 {
@@ -229,10 +230,12 @@ namespace DoW_Mod_Manager
         {
             startModButton.Enabled = true;
 
-            string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\Checkmark.png");
+            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\Checkmark.png");
             try
             {
-                pictureBox.Image = Image.FromFile(str_Path);
+                //pictureBox.Image = Image.FromFile(str_Path);
+                Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark.png");
+                pictureBox.Image = Image.FromStream(myStream);
             }
             catch
             {
@@ -265,8 +268,10 @@ namespace DoW_Mod_Manager
                     isInstalled[counter] = false;
                     startModButton.Enabled = false;
 
-                    str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\cross.png");
-                    pictureBox.Image = Image.FromFile(str_Path);
+                    //str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\cross.png");
+                    //pictureBox.Image = Image.FromFile(str_Path);
+                    Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross.png");
+                    pictureBox.Image = Image.FromStream(myStream);
                 }
                 counter++;
             }
