@@ -29,8 +29,8 @@ namespace DoW_Mod_Manager
         private readonly string currentDir = Directory.GetCurrentDirectory();
 
         private readonly List<Mod> modlist = new List<Mod>();
-        private bool hasNoActiveMods;
-        private bool hasNoInActiveMods;
+        private bool hasNoActiveMods = false;
+        private bool hasNoInActiveMods = false;
 
         /// <summary>
         /// Creates the Form of the Mod Merger WIndows

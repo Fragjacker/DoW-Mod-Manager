@@ -22,7 +22,7 @@ namespace DoW_Mod_Manager
             }
         }
 
-        private const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;                   //32 in Decimal
+        private const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;                    //32 in Decimal
         private const string CONFIG_FILE_NAME = "DoW Mod Manager.ini";
         private const string CHOICE_INDEX = "ChoiceIndex";
         private const string DEV = "Dev";
@@ -32,14 +32,14 @@ namespace DoW_Mod_Manager
         private const string NO_MOVIES_COMMAND = " -nomovies";
         private const string FORCE_HIGH_POLY_COMMAND = " -forcehighpoly";
 
-        private readonly string currentDir = Directory.GetCurrentDirectory();      //Is the current Directory of Soulstorm
+        private readonly string currentDir = Directory.GetCurrentDirectory();       //Is the current Directory of Soulstorm
 
-        private string devMode = "";                                               //Contains the argument for starting the .exe in dev mode
-        private string noIntroMode = "";                                           //Contains the argument for starting the .exe with no Intromovies
-        private string highPolyMode = "";                                          //Contains the argument for starting the .exe in High Poly Mode.
-        private bool[] isInstalled;                                                //A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
-        private bool isGameEXELAAPatched = false;                                  //Tells if soulstorm is LAA patched or NOT.
-        private bool isGraphicsConfigLAAPatched = false;                           //Tells if graphicsconfig is LAA patched or NOT.
+        private string devMode = "";                                                //Contains the argument for starting the .exe in dev mode
+        private string noIntroMode = "";                                            //Contains the argument for starting the .exe with no Intromovies
+        private string highPolyMode = "";                                           //Contains the argument for starting the .exe in High Poly Mode.
+        private bool[] isInstalled;                                                 //A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
+        private bool isGameEXELAAPatched = false;                                   //Tells if soulstorm is LAA patched or NOT.
+        private bool isGraphicsConfigLAAPatched = false;                            //Tells if graphicsconfig is LAA patched or NOT.
         private GameExecutable gameExe = new GameExecutable("Soulstorm.exe", "DarkCrusade.exe");
         private string currentGameEXE = "";
 
@@ -50,10 +50,10 @@ namespace DoW_Mod_Manager
 
         readonly Dictionary<string, int> settings = new Dictionary<string, int> 
         {
-            [CHOICE_INDEX] = 0,
-            [DEV]         = 0,
-            [NO_MOVIES]    = 1,
-            [FORCE_HIGH_POLY]    = 0
+            [CHOICE_INDEX]    = 0,
+            [DEV]             = 0,
+            [NO_MOVIES]       = 1,
+            [FORCE_HIGH_POLY] = 0
         };
 
         /// <summary>
@@ -176,13 +176,9 @@ namespace DoW_Mod_Manager
             int index = settings[CHOICE_INDEX];
 
             if (InstalledModsList.Items.Count > index)
-            {
                 InstalledModsList.SelectedIndex = index;
-            }
             else
-            {
                 InstalledModsList.SelectedIndex = InstalledModsList.Items.Count - 1;
-            }
         }
 
         /// <summary>
@@ -283,8 +279,7 @@ namespace DoW_Mod_Manager
         /// <returns>string</returns>
         private string GetLastEntryFromLine(string text)
         {
-            string pattern = @"\S*\s*$";
-            string result = "";
+            const string pattern = @"\S*\s*$";
 
             // Instantiate the regular expression object.
             Regex require = new Regex(pattern, RegexOptions.IgnoreCase);
@@ -293,10 +288,9 @@ namespace DoW_Mod_Manager
             Match match = require.Match(text);
 
             if (match.Success)
-            {
-                result = match.Value.Replace(" ", "");
-            }
-            return result;
+                return match.Value.Replace(" ", "");
+            else
+                return "";
         }
 
         /// <summary>
@@ -306,7 +300,7 @@ namespace DoW_Mod_Manager
         /// <returns></returns>
         private string GetModFolderFromFile(string text)
         {
-            string pattern = @"\S*\s*$";
+            const string pattern = @"\S*\s*$";
             string result = "";
 
             // Instantiate the regular expression object.
@@ -315,10 +309,14 @@ namespace DoW_Mod_Manager
             // Match the regular expression pattern against a text string.
             Match match = require.Match(text);
 
+            //if (match.Success)
+            //{
+            //    result = match.Value.Replace(" ", "");
+            //    result = match.Value.Replace(".module", "");
+            //}
             if (match.Success)
             {
-                result = match.Value.Replace(" ", "");
-                result = match.Value.Replace(".module", "");
+                result = match.Value.Replace(" ", "").Replace(".module", "");
             }
             return result;
         }
@@ -377,7 +375,7 @@ namespace DoW_Mod_Manager
         /// <returns></returns>
         private bool ModIsPlayable(string textline)
         {
-            string pattern = @"Playable = 1";
+            const string pattern = @"Playable = 1";
 
             // Instantiate the regular expression object.
             Regex require = new Regex(pattern, RegexOptions.IgnoreCase);
@@ -398,9 +396,9 @@ namespace DoW_Mod_Manager
         /// <returns>bool</returns>
         private bool GetRequiredMod(string text)
         {
-            string pattern = @"\bRequiredMod\b";
-            string patternCommented1 = @"^[;]+";
-            string patternCommented2 = @"^[\/]+";
+            const string pattern = @"\bRequiredMod\b";
+            const string patternCommented1 = @"^[;]+";
+            const string patternCommented2 = @"^[\/]+";
             bool state = false;
 
             foreach (Match match in Regex.Matches(text, pattern))
@@ -421,11 +419,11 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Checks if a line contains the Word "Modfolder" with true/false
         /// </summary>
-        /// <param name="str"></param>
+        /// <param name="text"></param>
         /// <returns>bool</returns>
-        private bool CheckRegexModFolderExist(string text)
+        private bool CheckModFolderExist(string text)
         {
-            string pattern = @"ModFolder";
+            const string pattern = @"ModFolder";
             bool state = false;
 
             foreach (Match match in Regex.Matches(text, pattern))
@@ -495,7 +493,7 @@ namespace DoW_Mod_Manager
                     {
                         while ((line = file.ReadLine()) != null)
                         {
-                            if (CheckRegexModFolderExist(line) == true)
+                            if (CheckModFolderExist(line) == true)
                             {
                                 ModFolderPaths[count] = GetModFolderFromFile(line);
                                 count++;
@@ -553,12 +551,13 @@ namespace DoW_Mod_Manager
             if (devCheckBox.Checked)
             {
                 devMode = DEV_COMMAND;
+                settings[DEV] = 1;
             }
             else
             {
                 devMode = "";
+                settings[DEV] = 0;
             }
-            settings[DEV] = Convert.ToInt32(devCheckBox.Checked);
         }
 
         /// <summary>
@@ -572,12 +571,13 @@ namespace DoW_Mod_Manager
             if (nomoviesCheckBox.Checked)
             {
                 noIntroMode = NO_MOVIES_COMMAND;
+                settings[NO_MOVIES] = 1;
             }
             else
             {
                 noIntroMode = "";
+                settings[NO_MOVIES] = 0;
             }
-            settings[NO_MOVIES] = Convert.ToInt32(nomoviesCheckBox.Checked);
         }
 
         /// <summary>
@@ -591,12 +591,13 @@ namespace DoW_Mod_Manager
             if (highpolyCheckBox.Checked == true)
             {
                 highPolyMode = FORCE_HIGH_POLY_COMMAND;
+                settings[FORCE_HIGH_POLY] = 1;
             }
             else
             {
                 highPolyMode = "";
+                settings[FORCE_HIGH_POLY] = 0;
             }
-            settings[FORCE_HIGH_POLY] = Convert.ToInt32(highpolyCheckBox.Checked);
         }
 
         /// <summary>
@@ -607,23 +608,18 @@ namespace DoW_Mod_Manager
         private void RequiredModsList_DrawItem(object sender, DrawItemEventArgs e)
         {
             // Draw the background of the ListBox control for each item.
+            e.DrawBackground();
+
             // Create a new Brush and initialize to a Black colored brush
             // by default.
-            e.DrawBackground();
+            Brush myBrush = Brushes.Black;
 
             // Determine the color of the brush to draw each item based on 
             // the index of the item to draw. Could be extended for an Orange Brush for indicating outdated Mods.
-            Brush myBrush = Brushes.Black;
-
-            switch (isInstalled[e.Index])
-            {
-                case true:
-                    myBrush = Brushes.Green;
-                    break;
-                case false:
-                    myBrush = Brushes.Red;
-                    break;
-            }
+            if (isInstalled[e.Index])
+                myBrush = Brushes.Green;
+            else
+                myBrush = Brushes.Red;
 
             // Draw the current item text based on the current 
             // Font and the custom brush settings.
@@ -816,22 +812,22 @@ namespace DoW_Mod_Manager
         private void ButtonToggleLAA_Click(object sender, EventArgs e)
         {
             //Check if the Game is LAA Patched and fill in the Label properly
-            string curDirSoul = Directory.GetFiles(currentDir, currentGameEXE)[0];
-            string curDirGraph = Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0];
-            if (!IsFileLocked(curDirSoul) && !IsFileLocked(curDirGraph))
+            string currentGamePath = Directory.GetFiles(currentDir, currentGameEXE)[0];
+            string currentGraphucsConfigPath = Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0];
+            if (!IsFileLocked(currentGamePath) && !IsFileLocked(currentGraphucsConfigPath))
             {
                 if ((isGameEXELAAPatched && isGraphicsConfigLAAPatched) || (!isGameEXELAAPatched && !isGraphicsConfigLAAPatched))
                 {
-                    isGameEXELAAPatched = ToggleLAA(curDirSoul);
-                    isGraphicsConfigLAAPatched = ToggleLAA(curDirGraph);
+                    isGameEXELAAPatched = ToggleLAA(currentGamePath);
+                    isGraphicsConfigLAAPatched = ToggleLAA(currentGraphucsConfigPath);
                 }
                 else if (!isGameEXELAAPatched)
                 {
-                    isGameEXELAAPatched = ToggleLAA(curDirSoul);
+                    isGameEXELAAPatched = ToggleLAA(currentGamePath);
                 }
                 else if (!isGraphicsConfigLAAPatched)
                 {
-                    isGraphicsConfigLAAPatched = ToggleLAA(curDirGraph);
+                    isGraphicsConfigLAAPatched = ToggleLAA(currentGraphucsConfigPath);
                 }
 
                 SetSoulstormLAALabelText();

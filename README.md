@@ -1,5 +1,5 @@
 ![mod_manager_v15_thumbnail](https://user-images.githubusercontent.com/19975052/64079833-f833c000-ccec-11e9-96cb-ed5c01cc0791.png)
-# DoW Mod Manager v1.56
+# DoW Mod Manager v1.57
 
 This application allows for an easy launch of mods and management of large collections of mods for Warhammer 40K Dawn of War: Soulstorm:tm: and Warhammer 40K Dawn of War: Dark Crusade:tm:.
 
@@ -68,7 +68,6 @@ If you want to save your changes click the "SAVE" button. This will overwrite th
 
 With the Mod Manager you can easily Add, Remove or change load orders of ANY desired Mod you want. You can quickly create large combiner Mods with many race mods merged into another Mod.
 
-
 **For Example**:
 
 Selecting *UltimateApocalypse_THB* from the Dropdown list then adding any race Mod that you desire by selecting that race mod and hit "+" and then "SAVE" it, will load this particular race
@@ -78,6 +77,10 @@ To restore the previous layout (If you want to rollback) you can either Deactiva
 somewhere on your computer for later restoration.
 
 # Changelogs
+
+## Version 1.57 (by @IgorTheLight):
+
+- Optimized code a little bit. Now application uses 200 Kb less RAM
 
 ## Version 1.56 (by @IgorTheLight):
 
