@@ -227,7 +227,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         public void CheckforInstalledMods()
         {
-            startButton.Enabled = true;
+            startModButton.Enabled = true;
 
             string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\Checkmark.png");
             try
@@ -263,7 +263,7 @@ namespace DoW_Mod_Manager
                     RequiredModsList.Items.RemoveAt(counter);
                     RequiredModsList.Items.Insert(counter, localstring + "...MISSING!");
                     isInstalled[counter] = false;
-                    startButton.Enabled = false;
+                    startModButton.Enabled = false;
 
                     str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\cross.png");
                     pictureBox.Image = Image.FromFile(str_Path);
@@ -440,7 +440,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void InstalledModsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            startButton.Enabled = true;
+            startModButton.Enabled = true;
 
             int index = InstalledModsList.SelectedIndex;
             if (index < 0 || index >= InstalledModsList.Items.Count)
