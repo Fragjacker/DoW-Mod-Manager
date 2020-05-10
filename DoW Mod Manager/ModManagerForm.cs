@@ -336,7 +336,7 @@ namespace DoW_Mod_Manager
             AllValidModules = new List<string>();
 
             int Index = 0;
-            InstalledModsList.Items.Clear();
+            List<string> itemList = new List<string>();
             string line;
 
             FilePaths = Directory.GetFiles(currentDir, "*.module");
@@ -356,13 +356,15 @@ namespace DoW_Mod_Manager
                             if (ModIsPlayable(line))
                             {
                                 newfilePathsArray.Add(FilePaths[Index]);
-                                InstalledModsList.Items.Add(Path.GetFileNameWithoutExtension(s));
+                                itemList.Add(Path.GetFileNameWithoutExtension(s));
                                 AllValidModules.Add(Path.GetFileNameWithoutExtension(s));
                             }
                         }
                     }
                     Index++;
                 }
+                InstalledModsList.Items.Clear();
+                InstalledModsList.Items.Add(itemList);
                 FilePaths = newfilePathsArray.ToArray();        //Override the old array that contained unplayable mods with the new one.
             }
             if (FilePaths.Length == 0 || AllFoundModules.Count == 0)
