@@ -7,7 +7,8 @@ This application allows for an easy launch of mods and management of large colle
 
 - In order to install the Mod Manager drop the "DoW Mod Manager v1.57.exe" into your primary game directory which is either:
 
-  - "..\Dawn of War - Soulstorm\" or
+  - "..\Dawn of War - Soulstorm\" 
+  or
   - "..\Dawn of War - Dark Crusade\".
 
   Do not put Executable file into a subfolder or it won't work!
