@@ -5,16 +5,16 @@ This application allows for an easy launch of mods and management of large colle
 
 ## INSTALLATION:
 
-- In order to install the Mod Manager drop the "Dow Mod Manager Resources" folder and the "DoW Mod Manager v1.XX.exe" into your primary game directory which is either:
+- In order to install the Mod Manager drop the "DoW Mod Manager v1.57.exe" into your primary game directory which is either:
 
   - "..\Dawn of War - Soulstorm\" or
   - "..\Dawn of War - Dark Crusade\".
 
-  Do not put either Resources Folder nor the Executable file into a subfolder or it won't work!
+  Do not put Executable file into a subfolder or it won't work!
 
 ## MOD MANAGER USAGE:
 
-1. Once everything is in place launch the "DoW Mod Manager v1.XX.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop
+1. Once everything is in place launch the "DoW Mod Manager v1.57.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop
 for convenience and faster access)
 
 2. Select a Mod from the left listing and it'll show if all necessary dependancy Mods are installed and if that is given, lets you directly launch the desired Mod
@@ -38,7 +38,7 @@ matches anyways you'd do yourself a favor applying the LAA patch on said Executa
 
 - Advanced Start Options:
 
-  - **-dev** : Starts the game in developers mode that provides helpful debug tools and enables execution of skripts (such as the autoexec.lua) in skirmish games, which are not available in the base game.
+  - **-dev** : Starts the game in developers mode that provides helpful debug tools and enables execution of scripts (such as the autoexec.lua) in skirmish games, which are not available in the base game.
 	(WARNING: Don't use this in multiplayer as it will not work.)
 
   - **-nomovies** : Skips all movies and directly launches the game with the loading screen for a faster startup (Is checked by default for convenience)
@@ -77,28 +77,29 @@ To restore the previous layout (If you want to rollback) you can either Deactiva
 somewhere on your computer for later restoration.
 
 # Changelogs
+(All changes in 1.53 - 1.57 were made by IgorTheLight)
 
-## Version 1.57 (by @IgorTheLight):
+## Version 1.57:
 
 - Optimized code a little bit. Now application uses 200 Kb less RAM
 - Now all image resources are embedded in EXE
 
-## Version 1.56 (by @IgorTheLight):
+## Version 1.56:
 
 - Fixed a crash when GraphicsConfig.exe couldn't be found
 - Fixed a crash when Config file has wrong or corrupted entries
 
-## Version 1.551 (by @IgorTheLight):
+## Version 1.551:
 
 - Fixed a bug that prevented config file to be readable in some cases
 - Renamed a few variables
 
-## Version 1.55 (by @IgorTheLight):
+## Version 1.55:
 
 - More code refactoring
 - Settings are stored in *.ini file now instead of AppData\Local
 
-## Version 1.54 (by @IgorTheLight):
+## Version 1.54:
 
 - Added all the changes suggested by article "High DPI support in
 Windows Forms" written by Microsoft
@@ -106,7 +107,7 @@ Windows Forms" written by Microsoft
 - Added DPIAwareness is app.config
 - Uncommented Windows 10 support in app.manifest
 
-## Version 1.53 (by @IgorTheLight):
+## Version 1.53:
 
 - Upgraded .NET Framework from 4.5 to 4.5.2 - a lot of small improvements.
 - Now "EnableWindowsFormsHighDpiAutoResizing" is enabled in app.config
