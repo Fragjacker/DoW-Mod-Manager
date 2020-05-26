@@ -74,7 +74,7 @@ namespace DoW_Mod_Manager
                 string setting;
                 int value;
 
-                // Reading every line of config file and trying ignore or correct all the possible mistakes
+                // Reading every line of config file and trying to ignore or correct all the possible mistakes
                 foreach (string line in lines)
                 {
                     string str = line.Replace(" ", "");
@@ -148,10 +148,10 @@ namespace DoW_Mod_Manager
             highpolyCheckBox.Checked = Convert.ToBoolean(settings[FORCE_HIGH_POLY]);
         }
 
-        private void ModManagerForm_Load(object sender, EventArgs e)
-        {
+        //private void ModManagerForm_Load(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
@@ -223,18 +223,8 @@ namespace DoW_Mod_Manager
         {
             startModButton.Enabled = true;
 
-            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\Checkmark.png");
-            try
-            {
-                Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark.png");
-                pictureBox.Image = Image.FromStream(myStream);
-            }
-            catch
-            {
-                MessageBox.Show("ERROR! COULD NOT FIND FOLDER 'DoW Mod Manager Resources' IN THIS DIRECTORY!");
-                Application.Exit();
-                return;
-            }
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark.png");
+            pictureBox.Image = Image.FromStream(myStream);
 
             int counter = 0;
             string localstring;
@@ -260,7 +250,7 @@ namespace DoW_Mod_Manager
                     isInstalled[counter] = false;
                     startModButton.Enabled = false;
 
-                    Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross.png");
+                    myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross.png");
                     pictureBox.Image = Image.FromStream(myStream);
                 }
                 counter++;
@@ -304,11 +294,6 @@ namespace DoW_Mod_Manager
             // Match the regular expression pattern against a text string.
             Match match = require.Match(text);
 
-            //if (match.Success)
-            //{
-            //    result = match.Value.Replace(" ", "");
-            //    result = match.Value.Replace(".module", "");
-            //}
             if (match.Success)
             {
                 result = match.Value.Replace(" ", "").Replace(".module", "");
@@ -519,16 +504,10 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void StartVanillaGameButton_Click(object sender, EventArgs e)
         {
-            string vanilla;
-            if (currentGameEXE == gameExe.WinterAssault)
-                vanilla = @"-modname WXP";
-            else
-                vanilla = @"-modname W40k";
-
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = currentDir + "\\" + currentGameEXE,
-                Arguments = vanilla + devMode + noIntroMode + highPolyMode
+                Arguments = @"-modname W40k" + devMode + noIntroMode + highPolyMode
             };
             Process.Start(startInfo);
         }
@@ -795,10 +774,10 @@ namespace DoW_Mod_Manager
             }
             catch (IOException)
             {
-                //the file is unavailable because it is:
-                //still being written to
-                //or being processed by another thread
-                //or does not exist (has already been processed)
+                // The file is unavailable because it is:
+                // still being written to
+                // or being processed by another thread
+                // or does not exist (has already been processed)
                 return true;
             }
             finally
@@ -860,7 +839,7 @@ namespace DoW_Mod_Manager
             if (curDir.Length != 0)
                 return gameExe.WinterAssault;
 
-            MessageBox.Show("ERROR: Neither found the Soulstorm.exe nor the DarkCrusade.exe in this directory!");
+            MessageBox.Show("ERROR: Neither found the Soulstorm.exe, DarkCrusade.exe nor Winter Assault in this directory!");
             Application.Exit();
             return "";
         }

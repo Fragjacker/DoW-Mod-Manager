@@ -343,7 +343,7 @@
             this.Name = "ModManagerForm";
             this.Text = "DoW Mod Manager v1.60";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModManagerForm_Closing);
-            this.Load += new System.EventHandler(this.ModManagerForm_Load);
+            //this.Load += new System.EventHandler(this.ModManagerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
