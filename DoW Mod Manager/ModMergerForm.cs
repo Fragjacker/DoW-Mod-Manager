@@ -10,14 +10,14 @@ namespace DoW_Mod_Manager
 {
     public partial class ModMergerForm : Form
     {
-        public enum ModState { Inactive, Active, Pending }
+        //public enum ModState { Inactive, Active, Pending }
 
         public class Mod
         {
             public string Name;
-            public ModState State;
+            public string State;
 
-            public Mod(string name, ModState state)
+            public Mod(string name, string state)
             {
                 Name = name;
                 State = state;
@@ -126,7 +126,7 @@ namespace DoW_Mod_Manager
 
             for (int i = 0; i < modlist.Count; i++)
             {
-                if (modlist[i].State == ModState.Inactive)
+                if (modlist[i].State.Equals("Inactive"))
                 {
                     inactiveModsList.Add(modlist[i]);
                     modlist.RemoveAt(i);
@@ -156,7 +156,7 @@ namespace DoW_Mod_Manager
                 {
                     if (CheckForRequiredMods(line) == true)
                     {
-                        modlist.Add(new Mod(GetNameOfRequiredMod(line), RegexGetStateOfRequiredMod(line)));
+                        modlist.Add(new Mod(GetNameOfRequiredMod(line), GetStateOfRequiredMod(line)));
                     }
                 }
 
@@ -194,12 +194,12 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        private ModState RegexGetStateOfRequiredMod(string text)
+        private string GetStateOfRequiredMod(string text)
         {
             const string pattern = @"\bRequiredMod\b";
             const string patCommented1 = @"^[;]+";
             const string patCommented2 = @"^[\/]+";
-            ModState state = ModState.Inactive;
+            string state = "";
 
             // Instantiate the regular expression object.
             //Regex require = new Regex(pat, RegexOptions.IgnoreCase);
@@ -210,17 +210,17 @@ namespace DoW_Mod_Manager
 
             foreach (Match match in Regex.Matches(text, pattern))
             {
-                state = ModState.Active;
+                state = "Active";
             }
 
             foreach (Match match in Regex.Matches(text, patCommented1))
             {
-                state = ModState.Inactive;
+                state = "Inactive";
             }
 
             foreach (Match match in Regex.Matches(text, patCommented2))
             {
-                state = ModState.Inactive;
+                state = "Inactive";
             }
 
             return state;
@@ -266,13 +266,13 @@ namespace DoW_Mod_Manager
             //This switch accesses the Mod Struct and gets the current State of the selected Mod
             switch (modlist[e.Index].State)
             {
-                case ModState.Active:
+                case "Active":
                     myBrush = Brushes.Green;
                     break;
-                case ModState.Inactive:
+                case "Inactive":
                     myBrush = Brushes.Red;
                     break;
-                case ModState.Pending:
+                case "Pending":
                     myBrush = Brushes.Orange;
                     break;
                 default:
@@ -471,12 +471,12 @@ namespace DoW_Mod_Manager
             //Write more info into the list of text
             for (int i = 0; i < modlist.Count; i++)
             {
-                if (modlist[i].State == ModState.Active)
+                if (modlist[i].State.Equals("Active"))
                 {
                     modString = "RequiredMod." + (i + 1) + " = " + modlist[i].Name;
                     listOfMods.Add(modString);
                 }
-                if (modlist[i].State == ModState.Inactive)
+                if (modlist[i].State.Equals("Inactive"))
                 {
                     modString = "//RequiredMod." + (i + 1) + " = " + modlist[i].Name;
                     listOfMods.Add(modString);
@@ -513,7 +513,7 @@ namespace DoW_Mod_Manager
             {
                 //Toggle it to be active
                 //_Modlist[selection].State = "Active";
-                SetModState(selection, ModState.Active);
+                SetModState(selection, "Active");
                 lastSelectedIndex = UsedModsList.SelectedIndex;
             }
             else if (selection == -1)
@@ -535,19 +535,19 @@ namespace DoW_Mod_Manager
                 UsedModsList.SelectedIndex = lastSelectedIndex;
                 DisableCheckmarkButton();
             }
-            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Active)
+            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == "Active")
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
             }
-            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Inactive)
+            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == "Inactive")
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
             }
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != ModState.Active)
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != "Active")
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex + 1;
             }
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Active)
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == "Active")
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex + 1;
             }
@@ -566,14 +566,14 @@ namespace DoW_Mod_Manager
 
                 //Toggle it to be active
                 //_Modlist[selection].State = "Inactive";
-                if (selection == 0 && modlist[1].State == ModState.Inactive)
+                if (selection == 0 && modlist[1].State == "Inactive")
                 {
-                    SetModState(selection, ModState.Active);
+                    SetModState(selection, "Active");
                     DisableCrossButton();
                 }
                 else
                 {
-                    SetModState(selection, ModState.Inactive);
+                    SetModState(selection, "Inactive");
                 }
             }
             else if (selection == 1)
@@ -595,19 +595,19 @@ namespace DoW_Mod_Manager
                 UsedModsList.SelectedIndex = lastSelectedIndex;
                 //enableCheckmarkButton();
             }
-            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Inactive)
+            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == "Inactive")
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex - 1;
             }
-            if (lastSelectedIndex == 0 && modlist[lastSelectedIndex + 1].State == ModState.Inactive)
+            if (lastSelectedIndex == 0 && modlist[lastSelectedIndex + 1].State == "Inactive")
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
             }
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != ModState.Inactive)
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != "Inactive")
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
             }
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Inactive)
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == "Inactive")
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex - 1;
             }
@@ -623,7 +623,7 @@ namespace DoW_Mod_Manager
                 lastSelectedIndex = AvailableModsList.SelectedIndex;
 
                 //Add the Mod to the selection of used Mods
-                modlist.Add(new Mod(newMod, ModState.Active));
+                modlist.Add(new Mod(newMod, "Active"));
             }
 
             //TODO: Make new Mods be pending again on beeing Added
@@ -687,7 +687,7 @@ namespace DoW_Mod_Manager
             hasNoInActiveMods = true;
             foreach (Mod item in modlist)
             {
-                if (item.State == ModState.Inactive)
+                if (item.State == "Inactive")
                 {
                     hasNoInActiveMods = false;
                     break;
@@ -701,7 +701,7 @@ namespace DoW_Mod_Manager
             hasNoActiveMods = true;
             foreach (Mod item in modlist)
             {
-                if (item.State == ModState.Active)
+                if (item.State == "Active")
                 {
                     hasNoActiveMods = false;
                     break;
@@ -715,7 +715,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="count"></param>
         /// <param name="state"></param>
-        private void SetModState(int count, ModState state)
+        private void SetModState(int count, string state)
         {
             //Use this if Mod is a class
             modlist[count].State = state;
