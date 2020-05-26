@@ -1,20 +1,21 @@
 ![mod_manager_v15_thumbnail](https://user-images.githubusercontent.com/19975052/64079833-f833c000-ccec-11e9-96cb-ed5c01cc0791.png)
-# DoW Mod Manager v1.54
+# DoW Mod Manager v1.57
 
 This application allows for an easy launch of mods and management of large collections of mods for Warhammer 40K Dawn of War: Soulstorm:tm: and Warhammer 40K Dawn of War: Dark Crusade:tm:.
 
 ## INSTALLATION:
 
-- In order to install the Mod Manager drop the "Dow Mod Manager Resources" folder and the "DoW Mod Manager v1.54.exe" into your primary game directory which is either:
+- In order to install the Mod Manager drop the "DoW Mod Manager v1.57.exe" into your primary game directory which is either:
 
-  - "..\Dawn of War - Soulstorm\" or
+  - "..\Dawn of War - Soulstorm\" 
+  or
   - "..\Dawn of War - Dark Crusade\".
 
-  Do not put either Resources Folder nor the Executable file into a subfolder or it won't work!
+  Do not put Executable file into a subfolder or it won't work!
 
 ## MOD MANAGER USAGE:
 
-1. Once everything is in place launch the "DoW Mod Manager v1.54.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop
+1. Once everything is in place launch the "DoW Mod Manager v1.57.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop
 for convenience and faster access)
 
 2. Select a Mod from the left listing and it'll show if all necessary dependancy Mods are installed and if that is given, lets you directly launch the desired Mod
@@ -38,7 +39,7 @@ matches anyways you'd do yourself a favor applying the LAA patch on said Executa
 
 - Advanced Start Options:
 
-  - **-dev** : Starts the game in developers mode that provides helpful debug tools and enables execution of skripts (such as the autoexec.lua) in skirmish games, which are not available in the base game.
+  - **-dev** : Starts the game in developers mode that provides helpful debug tools and enables execution of scripts (such as the autoexec.lua) in skirmish games, which are not available in the base game.
 	(WARNING: Don't use this in multiplayer as it will not work.)
 
   - **-nomovies** : Skips all movies and directly launches the game with the loading screen for a faster startup (Is checked by default for convenience)
@@ -68,7 +69,6 @@ If you want to save your changes click the "SAVE" button. This will overwrite th
 
 With the Mod Manager you can easily Add, Remove or change load orders of ANY desired Mod you want. You can quickly create large combiner Mods with many race mods merged into another Mod.
 
-
 **For Example**:
 
 Selecting *UltimateApocalypse_THB* from the Dropdown list then adding any race Mod that you desire by selecting that race mod and hit "+" and then "SAVE" it, will load this particular race
@@ -78,8 +78,29 @@ To restore the previous layout (If you want to rollback) you can either Deactiva
 somewhere on your computer for later restoration.
 
 # Changelogs
+(All changes in 1.53 - 1.57 were made by IgorTheLight)
 
-## Version 1.54 (by @IgorTheLight):
+## Version 1.57:
+
+- Optimized code a little bit. Now application uses 200 Kb less RAM
+- Now all image resources are embedded in EXE
+
+## Version 1.56:
+
+- Fixed a crash when GraphicsConfig.exe couldn't be found
+- Fixed a crash when Config file has wrong or corrupted entries
+
+## Version 1.551:
+
+- Fixed a bug that prevented config file to be readable in some cases
+- Renamed a few variables
+
+## Version 1.55:
+
+- More code refactoring
+- Settings are stored in *.ini file now instead of AppData\Local
+
+## Version 1.54:
 
 - Added all the changes suggested by article "High DPI support in
 Windows Forms" written by Microsoft
@@ -87,12 +108,10 @@ Windows Forms" written by Microsoft
 - Added DPIAwareness is app.config
 - Uncommented Windows 10 support in app.manifest
 
-## Version 1.53 (by @IgorTheLight):
+## Version 1.53:
 
 - Upgraded .NET Framework from 4.5 to 4.5.2 - a lot of small improvements.
-But also that will add "EnableWindowsFormsHighDpiAutoResizing" feature in
-app.config
-- Enabled feature stated above
+- Now "EnableWindowsFormsHighDpiAutoResizing" is enabled in app.config
 - Code refactoring - a lot of small tweaks here and there. More "C#
 friendly" variable names
 

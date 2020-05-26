@@ -22,53 +22,5 @@ namespace DoW_Mod_Manager.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int ChoiceIndex {
-            get {
-                return ((int)(this["ChoiceIndex"]));
-            }
-            set {
-                this["ChoiceIndex"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DEV {
-            get {
-                return ((bool)(this["DEV"]));
-            }
-            set {
-                this["DEV"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool NOMOVIES {
-            get {
-                return ((bool)(this["NOMOVIES"]));
-            }
-            set {
-                this["NOMOVIES"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool HIGHPOLY {
-            get {
-                return ((bool)(this["HIGHPOLY"]));
-            }
-            set {
-                this["HIGHPOLY"] = value;
-            }
-        }
     }
 }
