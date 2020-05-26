@@ -12,6 +12,10 @@ namespace DoW_Mod_Manager
     {
         //public enum ModState { Inactive, Active, Pending }
 
+        private const string MOD_ACTIVE = "Active";
+        private const string MOD_INACTIVE = "Inactive";
+        private const string MOD_PENDING = "Pending";
+
         public class Mod
         {
             public string Name;
@@ -27,7 +31,6 @@ namespace DoW_Mod_Manager
         private readonly ModManagerForm modManager;
         private object lastItem = null;
         private int lastPosition = 0;
-        private readonly string currentDir = Directory.GetCurrentDirectory();
 
         private readonly List<Mod> modlist = new List<Mod>();
         private bool hasNoActiveMods = false;
@@ -126,7 +129,7 @@ namespace DoW_Mod_Manager
 
             for (int i = 0; i < modlist.Count; i++)
             {
-                if (modlist[i].State.Equals("Inactive"))
+                if (modlist[i].State.Equals(MOD_INACTIVE))
                 {
                     inactiveModsList.Add(modlist[i]);
                     modlist.RemoveAt(i);
@@ -210,17 +213,17 @@ namespace DoW_Mod_Manager
 
             foreach (Match match in Regex.Matches(text, pattern))
             {
-                state = "Active";
+                state = MOD_ACTIVE;
             }
 
             foreach (Match match in Regex.Matches(text, patCommented1))
             {
-                state = "Inactive";
+                state = MOD_INACTIVE;
             }
 
             foreach (Match match in Regex.Matches(text, patCommented2))
             {
-                state = "Inactive";
+                state = MOD_INACTIVE;
             }
 
             return state;
@@ -266,13 +269,13 @@ namespace DoW_Mod_Manager
             //This switch accesses the Mod Struct and gets the current State of the selected Mod
             switch (modlist[e.Index].State)
             {
-                case "Active":
+                case MOD_ACTIVE:
                     myBrush = Brushes.Green;
                     break;
-                case "Inactive":
+                case MOD_INACTIVE:
                     myBrush = Brushes.Red;
                     break;
-                case "Pending":
+                case MOD_PENDING:
                     myBrush = Brushes.Orange;
                     break;
                 default:
@@ -292,8 +295,6 @@ namespace DoW_Mod_Manager
         private void EnablePlusButton()
         {
             buttonAdd.Enabled = true;
-            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\plus.png");
-            //buttonAdd.BackgroundImage = Image.FromFile(str_Path);
             Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.plus.png");
             buttonAdd.BackgroundImage = Image.FromStream(myStream);
         }
@@ -301,8 +302,6 @@ namespace DoW_Mod_Manager
         private void DisablePlusButton()
         {
             buttonAdd.Enabled = false;
-            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\plus_disabled.png");
-            //buttonAdd.BackgroundImage = Image.FromFile(str_Path);
             Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.plus_disabled.png");
             buttonAdd.BackgroundImage = Image.FromStream(myStream);
         }
@@ -310,8 +309,6 @@ namespace DoW_Mod_Manager
         private void EnableMinusButton()
         {
             buttonRemove.Enabled = true;
-            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\minus.png");
-            //buttonRemove.BackgroundImage = Image.FromFile(str_Path);
             Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.minus.png");
             buttonRemove.BackgroundImage = Image.FromStream(myStream);
         }
@@ -319,8 +316,6 @@ namespace DoW_Mod_Manager
         private void DisableMinusButton()
         {
             buttonRemove.Enabled = false;
-            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\minus_disabled.png");
-            //buttonRemove.BackgroundImage = Image.FromFile(str_Path);
             Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.minus_disabled.png");
             buttonRemove.BackgroundImage = Image.FromStream(myStream);
         }
@@ -328,8 +323,6 @@ namespace DoW_Mod_Manager
         private void EnableCheckmarkButton()
         {
             buttonActivate.Enabled = true;
-            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\checkmark.png");
-            //buttonActivate.BackgroundImage = Image.FromFile(str_Path);
             Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark.png");
             buttonActivate.BackgroundImage = Image.FromStream(myStream);
         }
@@ -337,8 +330,6 @@ namespace DoW_Mod_Manager
         private void DisableCheckmarkButton()
         {
             buttonActivate.Enabled = false;
-            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\checkmark_disabled.png");
-            //buttonActivate.BackgroundImage = Image.FromFile(str_Path);
             Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark_disabled.png");
             buttonActivate.BackgroundImage = Image.FromStream(myStream);
         }
@@ -346,8 +337,6 @@ namespace DoW_Mod_Manager
         private void EnableCrossButton()
         {
             buttonDeactivate.Enabled = true;
-            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\cross.png");
-            //buttonDeactivate.BackgroundImage = Image.FromFile(str_Path);
             Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross.png");
             buttonDeactivate.BackgroundImage = Image.FromStream(myStream);
         }
@@ -355,8 +344,6 @@ namespace DoW_Mod_Manager
         private void DisableCrossButton()
         {
             buttonDeactivate.Enabled = false;
-            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\cross_disabled.png");
-            //buttonDeactivate.BackgroundImage = Image.FromFile(str_Path);
             Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross_disabled.png");
             buttonDeactivate.BackgroundImage = Image.FromStream(myStream);
         }
@@ -364,8 +351,6 @@ namespace DoW_Mod_Manager
         private void EnableArrowUpButton()
         {
             buttonArrowUp.Enabled = true;
-            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\arrow_up.png");
-            //buttonArrowUp.BackgroundImage = Image.FromFile(str_Path);
             Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.arrow_up.png");
             buttonArrowUp.BackgroundImage = Image.FromStream(myStream);
         }
@@ -373,8 +358,6 @@ namespace DoW_Mod_Manager
         private void DisableArrowUpButton()
         {
             buttonArrowUp.Enabled = false;
-            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\arrow_up_disabled.png");
-            //buttonArrowUp.BackgroundImage = Image.FromFile(str_Path);
             Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.arrow_up_disabled.png");
             buttonArrowUp.BackgroundImage = Image.FromStream(myStream);
         }
@@ -382,8 +365,6 @@ namespace DoW_Mod_Manager
         private void EnableArrowDownButton()
         {
             buttonArrowDown.Enabled = true;
-            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\arrow_down.png");
-            //buttonArrowDown.BackgroundImage = Image.FromFile(str_Path);
             Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.arrow_down.png");
             buttonArrowDown.BackgroundImage = Image.FromStream(myStream);
         }
@@ -391,8 +372,6 @@ namespace DoW_Mod_Manager
         private void DisableArrowDownButton()
         {
             buttonArrowDown.Enabled = false;
-            //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\arrow_down_disabled.png");
-            //buttonArrowDown.BackgroundImage = Image.FromFile(str_Path);
             Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.arrow_down_disabled.png");
             buttonArrowDown.BackgroundImage = Image.FromStream(myStream);
         }
@@ -471,12 +450,12 @@ namespace DoW_Mod_Manager
             //Write more info into the list of text
             for (int i = 0; i < modlist.Count; i++)
             {
-                if (modlist[i].State.Equals("Active"))
+                if (modlist[i].State.Equals(MOD_ACTIVE))
                 {
                     modString = "RequiredMod." + (i + 1) + " = " + modlist[i].Name;
                     listOfMods.Add(modString);
                 }
-                if (modlist[i].State.Equals("Inactive"))
+                if (modlist[i].State.Equals(MOD_INACTIVE))
                 {
                     modString = "//RequiredMod." + (i + 1) + " = " + modlist[i].Name;
                     listOfMods.Add(modString);
@@ -513,7 +492,7 @@ namespace DoW_Mod_Manager
             {
                 //Toggle it to be active
                 //_Modlist[selection].State = "Active";
-                SetModState(selection, "Active");
+                SetModState(selection, MOD_ACTIVE);
                 lastSelectedIndex = UsedModsList.SelectedIndex;
             }
             else if (selection == -1)
@@ -535,19 +514,19 @@ namespace DoW_Mod_Manager
                 UsedModsList.SelectedIndex = lastSelectedIndex;
                 DisableCheckmarkButton();
             }
-            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == "Active")
+            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == MOD_ACTIVE)
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
             }
-            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == "Inactive")
+            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == MOD_INACTIVE)
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
             }
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != "Active")
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != MOD_ACTIVE)
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex + 1;
             }
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == "Active")
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == MOD_ACTIVE)
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex + 1;
             }
@@ -566,14 +545,14 @@ namespace DoW_Mod_Manager
 
                 //Toggle it to be active
                 //_Modlist[selection].State = "Inactive";
-                if (selection == 0 && modlist[1].State == "Inactive")
+                if (selection == 0 && modlist[1].State == MOD_INACTIVE)
                 {
-                    SetModState(selection, "Active");
+                    SetModState(selection, MOD_ACTIVE);
                     DisableCrossButton();
                 }
                 else
                 {
-                    SetModState(selection, "Inactive");
+                    SetModState(selection, MOD_INACTIVE);
                 }
             }
             else if (selection == 1)
@@ -595,19 +574,19 @@ namespace DoW_Mod_Manager
                 UsedModsList.SelectedIndex = lastSelectedIndex;
                 //enableCheckmarkButton();
             }
-            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == "Inactive")
+            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == MOD_INACTIVE)
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex - 1;
             }
-            if (lastSelectedIndex == 0 && modlist[lastSelectedIndex + 1].State == "Inactive")
+            if (lastSelectedIndex == 0 && modlist[lastSelectedIndex + 1].State == MOD_INACTIVE)
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
             }
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != "Inactive")
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != MOD_INACTIVE)
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
             }
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == "Inactive")
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == MOD_INACTIVE)
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex - 1;
             }
@@ -623,7 +602,7 @@ namespace DoW_Mod_Manager
                 lastSelectedIndex = AvailableModsList.SelectedIndex;
 
                 //Add the Mod to the selection of used Mods
-                modlist.Add(new Mod(newMod, "Active"));
+                modlist.Add(new Mod(newMod, MOD_ACTIVE));
             }
 
             //TODO: Make new Mods be pending again on beeing Added
@@ -687,7 +666,7 @@ namespace DoW_Mod_Manager
             hasNoInActiveMods = true;
             foreach (Mod item in modlist)
             {
-                if (item.State == "Inactive")
+                if (item.State == MOD_INACTIVE)
                 {
                     hasNoInActiveMods = false;
                     break;
@@ -701,7 +680,7 @@ namespace DoW_Mod_Manager
             hasNoActiveMods = true;
             foreach (Mod item in modlist)
             {
-                if (item.State == "Active")
+                if (item.State == MOD_ACTIVE)
                 {
                     hasNoActiveMods = false;
                     break;
@@ -710,11 +689,6 @@ namespace DoW_Mod_Manager
             return hasNoActiveMods;
         }
 
-        /// <summary>
-        /// Sets that State of the current Mod beeing namely: "Active" "Inactive" "Pending"-For yet to be determined file clashes. The parameter determines which Mod gets its state changed
-        /// </summary>
-        /// <param name="count"></param>
-        /// <param name="state"></param>
         private void SetModState(int count, string state)
         {
             //Use this if Mod is a class
@@ -773,20 +747,20 @@ namespace DoW_Mod_Manager
                 EnableArrowDownButton();
 
                 //This activates/deactivates that Buttons to toggle Mods active/inactive depending if there's only Active or only Inactive Mods Left
-                if (modlist[UsedModsList.SelectedIndex].State.Equals("Inactive"))
+                if (modlist[UsedModsList.SelectedIndex].State.Equals(MOD_INACTIVE))
                 {
                     EnableCheckmarkButton();
                     DisableCrossButton();
                 }
                 if (modlist.Count > 1)
                 {
-                    if (UsedModsList.SelectedIndex == 0 && modlist[UsedModsList.SelectedIndex + 1].State.Equals("Inactive") && modlist[UsedModsList.SelectedIndex].State.Equals("Active"))
+                    if (UsedModsList.SelectedIndex == 0 && modlist[UsedModsList.SelectedIndex + 1].State.Equals(MOD_INACTIVE) && modlist[UsedModsList.SelectedIndex].State.Equals(MOD_ACTIVE))
                     {
                         DisableCheckmarkButton();
                         DisableCrossButton();
                         DisableMinusButton();
                     }
-                    else if (modlist[UsedModsList.SelectedIndex].State.Equals("Active"))
+                    else if (modlist[UsedModsList.SelectedIndex].State.Equals(MOD_ACTIVE))
                     {
                         DisableCheckmarkButton();
                         EnableCrossButton();
@@ -794,7 +768,7 @@ namespace DoW_Mod_Manager
                 }
                 else if (modlist.Count == 1)
                 {
-                    if (modlist[UsedModsList.SelectedIndex].State.Equals("Active"))
+                    if (modlist[UsedModsList.SelectedIndex].State.Equals(MOD_ACTIVE))
                     {
                         DisableCheckmarkButton();
                         DisableCrossButton();
