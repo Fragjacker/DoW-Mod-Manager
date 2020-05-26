@@ -14,13 +14,12 @@ namespace DoW_Mod_Manager
     {
         public struct GameExecutable
         {
-            public string WinterAssault, DarkCrusade, Soulstorm;
+            public string Soulstorm, DarkCrusade;
 
-            public GameExecutable(string WA, string DC, string SS)
+            public GameExecutable(string SS, string DC)
             {
-                WinterAssault = WA;
-                DarkCrusade = DC;
                 Soulstorm = SS;
+                DarkCrusade = DC;
             }
         }
 
@@ -42,8 +41,8 @@ namespace DoW_Mod_Manager
         private bool[] isInstalled;                                                 //A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
         private bool isGameEXELAAPatched = false;                                   //Tells if soulstorm is LAA patched or NOT.
         private bool isGraphicsConfigLAAPatched = false;                            //Tells if graphicsconfig is LAA patched or NOT.
-        private GameExecutable gameExe = new GameExecutable("W40kWA.exe", "DarkCrusade.exe", "Soulstorm.exe");
-        private readonly string currentGameEXE = "";
+        private GameExecutable gameExe = new GameExecutable("Soulstorm.exe", "DarkCrusade.exe");
+        private string currentGameEXE = "";
 
         public string[] FilePaths;                                                 //Stores the paths of the found .module files in the Soulstorm directory
         public string[] ModFolderPaths;                                            //Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir.
@@ -73,7 +72,7 @@ namespace DoW_Mod_Manager
                 int lastIndexOfEqualSign;
                 string setting;
                 int value;
-
+                
                 // Reading every line of config file and trying ignore or correct all the possible mistakes
                 foreach (string line in lines)
                 {
@@ -127,7 +126,15 @@ namespace DoW_Mod_Manager
                 noIntroMode = NO_MOVIES_COMMAND;
             if (Convert.ToBoolean(settings[FORCE_HIGH_POLY]))
                 highPolyMode = FORCE_HIGH_POLY_COMMAND;
+        }
 
+        /// <summary>
+        /// Performs actions when the Application is started via the .exe file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ModManagerForm_Load(object sender, EventArgs e)
+        {
             currentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
             FilePaths = Directory.GetFiles(currentDir, currentGameEXE);
@@ -136,7 +143,7 @@ namespace DoW_Mod_Manager
             SetUpAllNecessaryMods();
             isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(currentDir, currentGameEXE)[0]);
             isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
-            SetGameLAALabelText();
+            SetSoulstormLAALabelText();
             SetGraphicsConfigLAALabelText();
             AddFileSystemWatcher();
 
@@ -148,12 +155,12 @@ namespace DoW_Mod_Manager
             highpolyCheckBox.Checked = Convert.ToBoolean(settings[FORCE_HIGH_POLY]);
         }
 
-        private void ModManagerForm_Load(object sender, EventArgs e)
+        private void ModManagerForm_Closing(object sender, EventArgs e)
         {
-
+            WriteAllSettingsInFile();
         }
 
-        private void ModManagerForm_Closing(object sender, EventArgs e)
+        private void WriteAllSettingsInFile()
         {
             string str = $"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n" +
                 $"{DEV}={settings[DEV]}\n" +
@@ -169,10 +176,10 @@ namespace DoW_Mod_Manager
         {
             int index = settings[CHOICE_INDEX];
 
-            if (installedModsList.Items.Count > index)
-                installedModsList.SelectedIndex = index;
+            if (InstalledModsList.Items.Count > index)
+                InstalledModsList.SelectedIndex = index;
             else
-                installedModsList.SelectedIndex = installedModsList.Items.Count - 1;
+                InstalledModsList.SelectedIndex = InstalledModsList.Items.Count - 1;
         }
 
         /// <summary>
@@ -226,6 +233,7 @@ namespace DoW_Mod_Manager
             //string str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\Checkmark.png");
             try
             {
+                //pictureBox.Image = Image.FromFile(str_Path);
                 Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark.png");
                 pictureBox.Image = Image.FromStream(myStream);
             }
@@ -239,27 +247,29 @@ namespace DoW_Mod_Manager
             int counter = 0;
             string localstring;
             string folderPath;
-            isInstalled = new bool[requiredModsList.Items.Count];
+            isInstalled = new bool[RequiredModsList.Items.Count];
 
-            while (counter < requiredModsList.Items.Count)
+            while (counter < RequiredModsList.Items.Count)
             {
                 folderPath = currentDir + "\\" + ModFolderPaths[counter];
 
                 if (Directory.Exists(folderPath))
                 {
-                    localstring = requiredModsList.Items[counter].ToString();
-                    requiredModsList.Items.RemoveAt(counter);
-                    requiredModsList.Items.Insert(counter, localstring + "...INSTALLED!");
+                    localstring = RequiredModsList.Items[counter].ToString();
+                    RequiredModsList.Items.RemoveAt(counter);
+                    RequiredModsList.Items.Insert(counter, localstring + "...INSTALLED!");
                     isInstalled[counter] = true;
                 }
                 else
                 {
-                    localstring = requiredModsList.Items[counter].ToString();
-                    requiredModsList.Items.RemoveAt(counter);
-                    requiredModsList.Items.Insert(counter, localstring + "...MISSING!");
+                    localstring = RequiredModsList.Items[counter].ToString();
+                    RequiredModsList.Items.RemoveAt(counter);
+                    RequiredModsList.Items.Insert(counter, localstring + "...MISSING!");
                     isInstalled[counter] = false;
                     startModButton.Enabled = false;
 
+                    //str_Path = Path.GetFullPath(currentDir + "\\DoW Mod Manager Resources\\cross.png");
+                    //pictureBox.Image = Image.FromFile(str_Path);
                     Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross.png");
                     pictureBox.Image = Image.FromStream(myStream);
                 }
@@ -326,19 +336,19 @@ namespace DoW_Mod_Manager
             AllValidModules = new List<string>();
 
             int Index = 0;
-            installedModsList.Items.Clear();
+            InstalledModsList.Items.Clear();
             string line;
 
             FilePaths = Directory.GetFiles(currentDir, "*.module");
             if (FilePaths.Length != 0)
             {
-                foreach (string str in FilePaths)
+                foreach (string s in FilePaths)
                 {
-                    // Find the List of ALL found module files for the Mod Merger available Mods List
-                    AllFoundModules.Add(Path.GetFileNameWithoutExtension(str));
+                    //Find the List of ALL found module files for the Mod Merger available Mods List
+                    AllFoundModules.Add(Path.GetFileNameWithoutExtension(s));
 
-                    // Read the *.module file to see if the mod is playable
-                    using (StreamReader file = new StreamReader(str))
+                    // Read the .module file to see if the mod is playable
+                    using (StreamReader file = new StreamReader(s))
                     {
                         // Filter the unplayable mods and populate the List only with playable mods
                         while ((line = file.ReadLine()) != null)
@@ -346,12 +356,9 @@ namespace DoW_Mod_Manager
                             if (ModIsPlayable(line))
                             {
                                 newfilePathsArray.Add(FilePaths[Index]);
-                                installedModsList.Items.Add(Path.GetFileNameWithoutExtension(str));
-                                AllValidModules.Add(Path.GetFileNameWithoutExtension(str));
+                                InstalledModsList.Items.Add(Path.GetFileNameWithoutExtension(s));
+                                AllValidModules.Add(Path.GetFileNameWithoutExtension(s));
                             }
-
-                            if (currentGameEXE == gameExe.WinterAssault)
-                                break;
                         }
                     }
                     Index++;
@@ -373,10 +380,6 @@ namespace DoW_Mod_Manager
         /// <returns></returns>
         private bool ModIsPlayable(string textline)
         {
-            // Winter Assault module file don't have a "Playable" state
-            if (currentGameEXE == gameExe.WinterAssault)
-                return true;
-
             const string pattern = @"Playable = 1";
 
             // Instantiate the regular expression object.
@@ -444,18 +447,18 @@ namespace DoW_Mod_Manager
         {
             startModButton.Enabled = true;
 
-            int index = installedModsList.SelectedIndex;
-            if (index < 0 || index >= installedModsList.Items.Count)
+            int index = InstalledModsList.SelectedIndex;
+            if (index < 0 || index >= InstalledModsList.Items.Count)
             {
                 index = settings[CHOICE_INDEX];
-                installedModsList.SelectedIndex = index;
+                InstalledModsList.SelectedIndex = index;
             }
             settings[CHOICE_INDEX] = index;
 
             string currentPath = FilePaths[index];
             string line;
 
-            requiredModsList.Items.Clear();
+            RequiredModsList.Items.Clear();
 
             // Read the file and display it line by line.
             using (StreamReader file = new StreamReader(currentPath))
@@ -465,7 +468,7 @@ namespace DoW_Mod_Manager
                 {
                     if (GetRequiredMod(line) == true)
                     {
-                        requiredModsList.Items.Add(line);
+                        RequiredModsList.Items.Add(line);
                     }
                 }
 
@@ -483,12 +486,12 @@ namespace DoW_Mod_Manager
             int count = 0;
             string currentPath;
             string line;
-            ModFolderPaths = new string[requiredModsList.Items.Count];
+            ModFolderPaths = new string[RequiredModsList.Items.Count];
 
             // Read the file and display it line by line.
-            while (index < requiredModsList.Items.Count)
+            while (index < RequiredModsList.Items.Count)
             {
-                currentPath = currentDir + "\\" + GetLastEntryFromLine(requiredModsList.Items[index].ToString()) + ".module";
+                currentPath = currentDir + "\\" + GetLastEntryFromLine(RequiredModsList.Items[index].ToString()) + ".module";
                 if (File.Exists(currentPath))
                 {
                     using (StreamReader file = new StreamReader(currentPath))
@@ -519,16 +522,10 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void StartVanillaGameButton_Click(object sender, EventArgs e)
         {
-            string vanilla;
-            if (currentGameEXE == gameExe.WinterAssault)
-                vanilla = @"-modname WXP";
-            else
-                vanilla = @"-modname W40k";
-
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = currentDir + "\\" + currentGameEXE,
-                Arguments = vanilla + devMode + noIntroMode + highPolyMode
+                Arguments = @"-modname W40k" + devMode + noIntroMode + highPolyMode
             };
             Process.Start(startInfo);
         }
@@ -543,7 +540,7 @@ namespace DoW_Mod_Manager
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = currentDir + "\\" + currentGameEXE,
-                Arguments = @"-modname " + installedModsList.SelectedItem + devMode + noIntroMode + highPolyMode
+                Arguments = @"-modname " + InstalledModsList.SelectedItem + devMode + noIntroMode + highPolyMode
             };
             Process.Start(startInfo);
         }
@@ -652,17 +649,17 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This function draws the LAA text for the Soulstorm label depending on whether the flag is true (Green) or false (Red).
         /// </summary>
-        private void SetGameLAALabelText()
+        private void SetSoulstormLAALabelText()
         {
             if (isGameEXELAAPatched)
             {
-                gameLAAStatusLabel.Text = currentGameEXE + ": LAA Active";
-                gameLAAStatusLabel.ForeColor = Color.Green;
+                SoulstormLAAStatusLabel.Text = currentGameEXE + ": LAA Active";
+                SoulstormLAAStatusLabel.ForeColor = Color.Green;
             }
             else
             {
-                gameLAAStatusLabel.Text = currentGameEXE + ": LAA Inactive";
-                gameLAAStatusLabel.ForeColor = Color.Red;
+                SoulstormLAAStatusLabel.Text = currentGameEXE + ": LAA Inactive";
+                SoulstormLAAStatusLabel.ForeColor = Color.Red;
             }
         }
 
@@ -673,13 +670,13 @@ namespace DoW_Mod_Manager
         {
             if (isGraphicsConfigLAAPatched)
             {
-                graphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Active";
-                graphicsConfigLAAStatusLabel.ForeColor = Color.Green;
+                GraphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Active";
+                GraphicsConfigLAAStatusLabel.ForeColor = Color.Green;
             }
             else
             {
-                graphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Inactive";
-                graphicsConfigLAAStatusLabel.ForeColor = Color.Red;
+                GraphicsConfigLAAStatusLabel.Text = "GraphicsConfig.exe: LAA Inactive";
+                GraphicsConfigLAAStatusLabel.ForeColor = Color.Red;
             }
         }
 
@@ -838,7 +835,7 @@ namespace DoW_Mod_Manager
                     isGraphicsConfigLAAPatched = ToggleLAA(currentGraphucsConfigPath);
                 }
 
-                SetGameLAALabelText();
+                SetSoulstormLAALabelText();
                 SetGraphicsConfigLAALabelText();
             }
         }
@@ -850,15 +847,15 @@ namespace DoW_Mod_Manager
         {
             string[] curDir = Directory.GetFiles(currentDir, gameExe.Soulstorm);
             if (curDir.Length != 0)
+            {
                 return gameExe.Soulstorm;
+            }
 
             curDir = Directory.GetFiles(currentDir, gameExe.DarkCrusade);
             if (curDir.Length != 0)
+            {
                 return gameExe.DarkCrusade;
-
-            curDir = Directory.GetFiles(currentDir, gameExe.WinterAssault);
-            if (curDir.Length != 0)
-                return gameExe.WinterAssault;
+            }
 
             MessageBox.Show("ERROR: Neither found the Soulstorm.exe nor the DarkCrusade.exe in this directory!");
             Application.Exit();
