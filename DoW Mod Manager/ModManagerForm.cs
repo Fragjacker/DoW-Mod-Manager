@@ -26,37 +26,43 @@ namespace DoW_Mod_Manager
         }
 
         private const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;                    //32 in Decimal
+        
         private const string CONFIG_FILE_NAME = "DoW Mod Manager.ini";
         private const string CHOICE_INDEX = "ChoiceIndex";
         private const string DEV = "Dev";
         private const string NO_MOVIES = "NoMovies";
         private const string FORCE_HIGH_POLY = "ForceHighPoly";
+        private const string OPTIMIZATIONS = "Optimizations";
+        
         private const string DEV_COMMAND = " -dev";
         private const string NO_MOVIES_COMMAND = " -nomovies";
         private const string FORCE_HIGH_POLY_COMMAND = " -forcehighpoly";
+        private const string OPTIMIZATIONS_COMMAND = @"%windir%\system32\cmd.exe /c start ""DoW"" /high /affinity 6 ";
 
-        private readonly string currentDir = Directory.GetCurrentDirectory();       //Is the current Directory of Soulstorm
+        private readonly string currentDir = Directory.GetCurrentDirectory();       // Is the current Directory of Soulstorm
 
-        private string devMode = "";                                                //Contains the argument for starting the .exe in dev mode
-        private string noIntroMode = "";                                            //Contains the argument for starting the .exe with no Intromovies
-        private string highPolyMode = "";                                           //Contains the argument for starting the .exe in High Poly Mode.
-        private bool[] isInstalled;                                                 //A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
-        private bool isGameEXELAAPatched = false;                                   //Tells if soulstorm is LAA patched or NOT.
-        private bool isGraphicsConfigLAAPatched = false;                            //Tells if graphicsconfig is LAA patched or NOT.
+        private string devMode = "";                                                // Contains the argument for starting the .exe in dev mode
+        private string noIntroMode = "";                                            // Contains the argument for starting the .exe with no Intromovies
+        private string highPolyMode = "";                                           // Contains the argument for starting the .exe in High Poly Mode.
+        private string optimizationsMode = "";                                      // Contains the argument for starting the .exe with threatd related optimizations
+        private bool[] isInstalled;                                                 // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
+        private bool isGameEXELAAPatched = false;                                   // Tells if soulstorm is LAA patched or NOT.
+        private bool isGraphicsConfigLAAPatched = false;                            // Tells if graphicsconfig is LAA patched or NOT.
         private GameExecutable gameExe = new GameExecutable("W40k.exe", "W40kWA.exe", "DarkCrusade.exe", "Soulstorm.exe");
         private readonly string currentGameEXE = "";
 
-        public string[] FilePaths;                                                 //Stores the paths of the found .module files in the Soulstorm directory
-        public string[] ModFolderPaths;                                            //Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir.
-        public List<string> AllFoundModules = null;                                //Contains the list of all available Mods that will be used by the Mod Merger
-        public List<string> AllValidModules = null;                                //Contains the list of all playable Mods that will be used by the Mod Merger
+        public string[] FilePaths;                                                  // Stores the paths of the found .module files in the Soulstorm directory
+        public string[] ModFolderPaths;                                             // Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir.
+        public List<string> AllFoundModules = null;                                 // Contains the list of all available Mods that will be used by the Mod Merger
+        public List<string> AllValidModules = null;                                 // Contains the list of all playable Mods that will be used by the Mod Merger
 
         readonly Dictionary<string, int> settings = new Dictionary<string, int> 
         {
             [CHOICE_INDEX]    = 0,
             [DEV]             = 0,
             [NO_MOVIES]       = 1,
-            [FORCE_HIGH_POLY] = 0
+            [FORCE_HIGH_POLY] = 0,
+            [OPTIMIZATIONS]   = 0
         };
 
         /// <summary>
@@ -105,7 +111,7 @@ namespace DoW_Mod_Manager
                                     settings[setting] = 0;
                             }
 
-                            if (setting == DEV || setting == NO_MOVIES || setting == FORCE_HIGH_POLY)
+                            if (setting == DEV || setting == NO_MOVIES || setting == FORCE_HIGH_POLY || setting == OPTIMIZATIONS)
                             {
                                 if (value == 0 || value == 1)
                                     settings[setting] = value;
@@ -128,10 +134,12 @@ namespace DoW_Mod_Manager
                 noIntroMode = NO_MOVIES_COMMAND;
             if (Convert.ToBoolean(settings[FORCE_HIGH_POLY]))
                 highPolyMode = FORCE_HIGH_POLY_COMMAND;
+            if (Convert.ToBoolean(settings[OPTIMIZATIONS]))
+                optimizationsMode = OPTIMIZATIONS_COMMAND;
 
             currentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
-            FilePaths = Directory.GetFiles(currentDir, currentGameEXE);
+            FilePaths = Directory.GetFiles(currentDir, currentGameEXE);         // Is this command necessary?
 
             currentDirTextBox.AppendText(currentDir);
             SetUpAllNecessaryMods();
@@ -159,7 +167,8 @@ namespace DoW_Mod_Manager
             string str = $"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n" +
                 $"{DEV}={settings[DEV]}\n" +
                 $"{NO_MOVIES}={settings[NO_MOVIES]}\n" +
-                $"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}";
+                $"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n" +
+                $"{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}";
             File.WriteAllText(CONFIG_FILE_NAME, str);
         }
 
@@ -359,8 +368,8 @@ namespace DoW_Mod_Manager
         /// <returns></returns>
         private bool ModIsPlayable(string textline)
         {
-            // Winter Assault module file don't have a "Playable" state
-            if (currentGameEXE == gameExe.WinterAssault)
+            // Original or Winter Assault module file don't have a "Playable" state
+            if (currentGameEXE == gameExe.WinterAssault || currentGameEXE == gameExe.Original)
                 return true;
 
             const string pattern = @"Playable = 1";
@@ -505,9 +514,11 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void StartVanillaGameButton_Click(object sender, EventArgs e)
         {
+            // "C:\SteamGames\steamapps\common\Dawn of War Soulstorm\Soulstorm.exe" -modname dxp2 -dev -nomovies -forcehighpoly
+            // %windir%\system32\cmd.exe /c start "DoW" /high /affinity 6 "C:\SteamGames\steamapps\common\Dawn of War Soulstorm\Soulstorm.exe" -modname dxp2 -dev -nomovies -forcehighpoly
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = currentDir + "\\" + currentGameEXE,
+                FileName = optimizationsMode + currentDir + "\\" + currentGameEXE,
                 Arguments = @"-modname W40k" + devMode + noIntroMode + highPolyMode
             };
             Process.Start(startInfo);
@@ -576,7 +587,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void HighpolyCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (highpolyCheckBox.Checked == true)
+            if (highpolyCheckBox.Checked)
             {
                 highPolyMode = FORCE_HIGH_POLY_COMMAND;
                 settings[FORCE_HIGH_POLY] = 1;
@@ -585,6 +596,28 @@ namespace DoW_Mod_Manager
             {
                 highPolyMode = "";
                 settings[FORCE_HIGH_POLY] = 0;
+            }
+        }
+
+        /// <summary>
+        /// This is the checkbox that sets the starting options '/high /affinity 6'. 
+        /// This sets Dawn of War executable to High priority and use CPU1 and CPU2 (6 = 0110 in binary)
+        /// You need at least 3 cores to make a difference (DoW would use CPU1 and CPU2, 
+        /// CPU0 would be for any other application)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OptimizationsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (optimizationsCheckBox.Checked)
+            {
+                optimizationsMode = OPTIMIZATIONS_COMMAND;
+                settings[OPTIMIZATIONS] = 1;
+            }
+            else
+            {
+                optimizationsMode = "";
+                settings[OPTIMIZATIONS] = 0;
             }
         }
 
@@ -830,20 +863,32 @@ namespace DoW_Mod_Manager
         {
             string[] curDir = Directory.GetFiles(currentDir, gameExe.Soulstorm);
             if (curDir.Length != 0)
+            {
+                currentDirectoryLabel.Text = "     Your current Soulstorm directory";
                 return gameExe.Soulstorm;
+            }
 
             curDir = Directory.GetFiles(currentDir, gameExe.DarkCrusade);
             if (curDir.Length != 0)
+            {
+                currentDirectoryLabel.Text = "  Your current Dark Crusade directory";
                 return gameExe.DarkCrusade;
+            }
 
             curDir = Directory.GetFiles(currentDir, gameExe.WinterAssault);
             if (curDir.Length != 0)
+            {
+                currentDirectoryLabel.Text = "Your current Winter Assault directory";
                 return gameExe.WinterAssault;
+            }
 
             // That part of the code will never be reached if you have Original + WA
             curDir = Directory.GetFiles(currentDir, gameExe.Original);
             if (curDir.Length != 0)
+            {
+                currentDirectoryLabel.Text = "   Your current Dawn of War directory";
                 return gameExe.Original;
+            }
 
             MessageBox.Show("ERROR: Neither found the Soulstorm.exe, DarkCrusade.exe, Winter Assault nor Original in this directory!");
             Application.Exit();

@@ -42,6 +42,7 @@
             this.devCheckBox = new System.Windows.Forms.CheckBox();
             this.nomoviesCheckBox = new System.Windows.Forms.CheckBox();
             this.highpolyCheckBox = new System.Windows.Forms.CheckBox();
+            this.optimizationsCheckBox = new System.Windows.Forms.CheckBox();
             this.mergeButton = new System.Windows.Forms.Button();
             this.startVanillaButton = new System.Windows.Forms.Button();
             this.gameLAAStatusLabel = new System.Windows.Forms.Label();
@@ -65,10 +66,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentDirTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.currentDirTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.currentDirTextBox.Location = new System.Drawing.Point(179, 6);
+            this.currentDirTextBox.Location = new System.Drawing.Point(199, 6);
             this.currentDirTextBox.Name = "currentDirTextBox";
             this.currentDirTextBox.ReadOnly = true;
-            this.currentDirTextBox.Size = new System.Drawing.Size(627, 20);
+            this.currentDirTextBox.Size = new System.Drawing.Size(607, 20);
             this.currentDirTextBox.TabIndex = 0;
             // 
             // currentDirectoryLabel
@@ -77,7 +78,7 @@
             this.currentDirectoryLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.currentDirectoryLabel.Location = new System.Drawing.Point(16, 9);
             this.currentDirectoryLabel.Name = "currentDirectoryLabel";
-            this.currentDirectoryLabel.Size = new System.Drawing.Size(157, 13);
+            this.currentDirectoryLabel.Size = new System.Drawing.Size(137, 13);
             this.currentDirectoryLabel.TabIndex = 1;
             this.currentDirectoryLabel.Text = "Your current game directory";
             // 
@@ -219,6 +220,18 @@
             this.highpolyCheckBox.UseVisualStyleBackColor = true;
             this.highpolyCheckBox.CheckedChanged += new System.EventHandler(this.HighpolyCheckBox_CheckedChanged);
             // 
+            // optimizationsCheckBox
+            // 
+            this.optimizationsCheckBox.AutoSize = true;
+            this.optimizationsCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.optimizationsCheckBox.Location = new System.Drawing.Point(18, 111);
+            this.optimizationsCheckBox.Name = "optimizationsCheckBox";
+            this.optimizationsCheckBox.Size = new System.Drawing.Size(242, 17);
+            this.optimizationsCheckBox.TabIndex = 24;
+            this.optimizationsCheckBox.Text = "/high /affinity 6: High priority and use only thread 2 and 3";
+            this.optimizationsCheckBox.UseVisualStyleBackColor = true;
+            this.optimizationsCheckBox.CheckedChanged += new System.EventHandler(this.OptimizationsCheckBox_CheckedChanged);
+            // 
             // mergeButton
             // 
             this.mergeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -248,12 +261,12 @@
             this.startVanillaButton.UseVisualStyleBackColor = false;
             this.startVanillaButton.Click += new System.EventHandler(this.StartVanillaGameButton_Click);
             // 
-            // GameLAAStatusLabel
+            // gameLAAStatusLabel
             // 
             this.gameLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gameLAAStatusLabel.Location = new System.Drawing.Point(315, 82);
             this.gameLAAStatusLabel.Margin = new System.Windows.Forms.Padding(3);
-            this.gameLAAStatusLabel.Name = "GameLAAStatusLabel";
+            this.gameLAAStatusLabel.Name = "gameLAAStatusLabel";
             this.gameLAAStatusLabel.Size = new System.Drawing.Size(210, 15);
             this.gameLAAStatusLabel.TabIndex = 20;
             this.gameLAAStatusLabel.Text = "Game: LAA Active";
@@ -315,6 +328,7 @@
             // 
             // fileSystemWatcher1
             // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
             // ModManagerForm
@@ -323,6 +337,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(828, 561);
+            this.Controls.Add(this.optimizationsCheckBox);
             this.Controls.Add(this.toggleLAAButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.gameLAAStatusLabel);
@@ -343,7 +358,6 @@
             this.Name = "ModManagerForm";
             this.Text = "DoW Mod Manager v1.60";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModManagerForm_Closing);
-            //this.Load += new System.EventHandler(this.ModManagerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -355,6 +369,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
@@ -371,6 +386,7 @@
         private System.Windows.Forms.CheckBox devCheckBox;
         private System.Windows.Forms.CheckBox nomoviesCheckBox;
         private System.Windows.Forms.CheckBox highpolyCheckBox;
+        private System.Windows.Forms.CheckBox optimizationsCheckBox;
         private System.Windows.Forms.Button mergeButton;
         private System.Windows.Forms.ListBox installedModsList;
         private System.Windows.Forms.Button startVanillaButton;
