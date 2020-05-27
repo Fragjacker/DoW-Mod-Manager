@@ -14,10 +14,11 @@ namespace DoW_Mod_Manager
     {
         public struct GameExecutable
         {
-            public string WinterAssault, DarkCrusade, Soulstorm;
+            public string Original, WinterAssault, DarkCrusade, Soulstorm;
 
-            public GameExecutable(string WA, string DC, string SS)
+            public GameExecutable(string OG, string WA, string DC, string SS)
             {
+                Original = OG;
                 WinterAssault = WA;
                 DarkCrusade = DC;
                 Soulstorm = SS;
@@ -42,7 +43,7 @@ namespace DoW_Mod_Manager
         private bool[] isInstalled;                                                 //A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
         private bool isGameEXELAAPatched = false;                                   //Tells if soulstorm is LAA patched or NOT.
         private bool isGraphicsConfigLAAPatched = false;                            //Tells if graphicsconfig is LAA patched or NOT.
-        private GameExecutable gameExe = new GameExecutable("W40kWA.exe", "DarkCrusade.exe", "Soulstorm.exe");
+        private GameExecutable gameExe = new GameExecutable("W40k.exe", "W40kWA.exe", "DarkCrusade.exe", "Soulstorm.exe");
         private readonly string currentGameEXE = "";
 
         public string[] FilePaths;                                                 //Stores the paths of the found .module files in the Soulstorm directory
@@ -839,7 +840,12 @@ namespace DoW_Mod_Manager
             if (curDir.Length != 0)
                 return gameExe.WinterAssault;
 
-            MessageBox.Show("ERROR: Neither found the Soulstorm.exe, DarkCrusade.exe nor Winter Assault in this directory!");
+            // That part of the code will never be reached if you have Original + WA
+            curDir = Directory.GetFiles(currentDir, gameExe.Original);
+            if (curDir.Length != 0)
+                return gameExe.Original;
+
+            MessageBox.Show("ERROR: Neither found the Soulstorm.exe, DarkCrusade.exe, Winter Assault nor Original in this directory!");
             Application.Exit();
             return "";
         }
