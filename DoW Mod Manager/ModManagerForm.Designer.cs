@@ -89,7 +89,7 @@
             this.installedModsLabel.Location = new System.Drawing.Point(3, 0);
             this.installedModsLabel.Name = "installedModsLabel";
             this.installedModsLabel.Size = new System.Drawing.Size(119, 13);
-            this.installedModsLabel.TabIndex = 5;
+            this.installedModsLabel.TabIndex = 2;
             this.installedModsLabel.Text = "Currently Installed Mods";
             // 
             // requiredModsLabel
@@ -99,7 +99,7 @@
             this.requiredModsLabel.Location = new System.Drawing.Point(7, 0);
             this.requiredModsLabel.Name = "requiredModsLabel";
             this.requiredModsLabel.Size = new System.Drawing.Size(79, 13);
-            this.requiredModsLabel.TabIndex = 7;
+            this.requiredModsLabel.TabIndex = 3;
             this.requiredModsLabel.Text = "Required Mods";
             // 
             // installedModsList
@@ -115,7 +115,7 @@
             this.installedModsList.Name = "installedModsList";
             this.installedModsList.ScrollAlwaysVisible = true;
             this.installedModsList.Size = new System.Drawing.Size(380, 381);
-            this.installedModsList.TabIndex = 10;
+            this.installedModsList.TabIndex = 4;
             this.installedModsList.SelectedIndexChanged += new System.EventHandler(this.InstalledModsList_SelectedIndexChanged);
             // 
             // requiredModsList
@@ -131,7 +131,7 @@
             this.requiredModsList.Name = "requiredModsList";
             this.requiredModsList.ScrollAlwaysVisible = true;
             this.requiredModsList.Size = new System.Drawing.Size(388, 381);
-            this.requiredModsList.TabIndex = 10;
+            this.requiredModsList.TabIndex = 5;
             this.requiredModsList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.RequiredModsList_DrawItem);
             // 
             // startModButton
@@ -144,7 +144,7 @@
             this.startModButton.Location = new System.Drawing.Point(632, 32);
             this.startModButton.Name = "startModButton";
             this.startModButton.Size = new System.Drawing.Size(121, 48);
-            this.startModButton.TabIndex = 11;
+            this.startModButton.TabIndex = 6;
             this.startModButton.Text = "START MOD";
             this.startModButton.UseVisualStyleBackColor = false;
             this.startModButton.Click += new System.EventHandler(this.StartButton_Click);
@@ -158,7 +158,7 @@
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(50, 50);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox.TabIndex = 12;
+            this.pictureBox.TabIndex = 7;
             this.pictureBox.TabStop = false;
             // 
             // authorLabel
@@ -169,7 +169,7 @@
             this.authorLabel.Location = new System.Drawing.Point(16, 544);
             this.authorLabel.Name = "authorLabel";
             this.authorLabel.Size = new System.Drawing.Size(111, 13);
-            this.authorLabel.TabIndex = 13;
+            this.authorLabel.TabIndex = 8;
             this.authorLabel.Text = "Written by FragJacker";
             // 
             // advancedStartOptionsLabel
@@ -179,7 +179,7 @@
             this.advancedStartOptionsLabel.Location = new System.Drawing.Point(18, 48);
             this.advancedStartOptionsLabel.Name = "advancedStartOptionsLabel";
             this.advancedStartOptionsLabel.Size = new System.Drawing.Size(123, 13);
-            this.advancedStartOptionsLabel.TabIndex = 14;
+            this.advancedStartOptionsLabel.TabIndex = 9;
             this.advancedStartOptionsLabel.Text = "Advanced Start Options:";
             // 
             // devCheckBox
@@ -189,7 +189,7 @@
             this.devCheckBox.Location = new System.Drawing.Point(18, 69);
             this.devCheckBox.Name = "devCheckBox";
             this.devCheckBox.Size = new System.Drawing.Size(137, 17);
-            this.devCheckBox.TabIndex = 15;
+            this.devCheckBox.TabIndex = 10;
             this.devCheckBox.Text = "-dev: Developers Mode";
             this.devCheckBox.UseVisualStyleBackColor = true;
             this.devCheckBox.CheckedChanged += new System.EventHandler(this.DevCheckBox_CheckedChanged);
@@ -203,7 +203,7 @@
             this.nomoviesCheckBox.Location = new System.Drawing.Point(18, 83);
             this.nomoviesCheckBox.Name = "nomoviesCheckBox";
             this.nomoviesCheckBox.Size = new System.Drawing.Size(155, 17);
-            this.nomoviesCheckBox.TabIndex = 16;
+            this.nomoviesCheckBox.TabIndex = 11;
             this.nomoviesCheckBox.Text = "-nomovies: No Intro Movies";
             this.nomoviesCheckBox.UseVisualStyleBackColor = true;
             this.nomoviesCheckBox.CheckedChanged += new System.EventHandler(this.NomoviesCheckBox_CheckedChanged);
@@ -215,7 +215,7 @@
             this.highpolyCheckBox.Location = new System.Drawing.Point(18, 97);
             this.highpolyCheckBox.Name = "highpolyCheckBox";
             this.highpolyCheckBox.Size = new System.Drawing.Size(256, 17);
-            this.highpolyCheckBox.TabIndex = 17;
+            this.highpolyCheckBox.TabIndex = 12;
             this.highpolyCheckBox.Text = "-forcehighpoly: High Poly models at any Distance";
             this.highpolyCheckBox.UseVisualStyleBackColor = true;
             this.highpolyCheckBox.CheckedChanged += new System.EventHandler(this.HighpolyCheckBox_CheckedChanged);
@@ -227,7 +227,7 @@
             this.optimizationsCheckBox.Location = new System.Drawing.Point(18, 111);
             this.optimizationsCheckBox.Name = "optimizationsCheckBox";
             this.optimizationsCheckBox.Size = new System.Drawing.Size(242, 17);
-            this.optimizationsCheckBox.TabIndex = 24;
+            this.optimizationsCheckBox.TabIndex = 13;
             this.optimizationsCheckBox.Text = "/high /affinity 6: High priority and use only thread 2 and 3";
             this.optimizationsCheckBox.UseVisualStyleBackColor = true;
             this.optimizationsCheckBox.CheckedChanged += new System.EventHandler(this.OptimizationsCheckBox_CheckedChanged);
@@ -242,7 +242,7 @@
             this.mergeButton.Location = new System.Drawing.Point(568, 82);
             this.mergeButton.Name = "mergeButton";
             this.mergeButton.Size = new System.Drawing.Size(121, 43);
-            this.mergeButton.TabIndex = 18;
+            this.mergeButton.TabIndex = 14;
             this.mergeButton.Text = "Merge Mods...";
             this.mergeButton.UseVisualStyleBackColor = false;
             this.mergeButton.Click += new System.EventHandler(this.ModMergeButton_Click);
@@ -256,7 +256,7 @@
             this.startVanillaButton.Location = new System.Drawing.Point(505, 32);
             this.startVanillaButton.Name = "startVanillaButton";
             this.startVanillaButton.Size = new System.Drawing.Size(121, 48);
-            this.startVanillaButton.TabIndex = 19;
+            this.startVanillaButton.TabIndex = 15;
             this.startVanillaButton.Text = "START BASE GAME";
             this.startVanillaButton.UseVisualStyleBackColor = false;
             this.startVanillaButton.Click += new System.EventHandler(this.StartVanillaGameButton_Click);
@@ -268,7 +268,7 @@
             this.gameLAAStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.gameLAAStatusLabel.Name = "gameLAAStatusLabel";
             this.gameLAAStatusLabel.Size = new System.Drawing.Size(210, 15);
-            this.gameLAAStatusLabel.TabIndex = 20;
+            this.gameLAAStatusLabel.TabIndex = 16;
             this.gameLAAStatusLabel.Text = "Game: LAA Active";
             // 
             // graphicsConfigLAAStatusLabel
@@ -278,7 +278,7 @@
             this.graphicsConfigLAAStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.graphicsConfigLAAStatusLabel.Name = "graphicsConfigLAAStatusLabel";
             this.graphicsConfigLAAStatusLabel.Size = new System.Drawing.Size(210, 15);
-            this.graphicsConfigLAAStatusLabel.TabIndex = 21;
+            this.graphicsConfigLAAStatusLabel.TabIndex = 17;
             this.graphicsConfigLAAStatusLabel.Text = "Graphics Config: LAA Active";
             // 
             // panel1
@@ -290,7 +290,7 @@
             this.panel1.Location = new System.Drawing.Point(12, 131);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(804, 413);
-            this.panel1.TabIndex = 22;
+            this.panel1.TabIndex = 18;
             // 
             // splitContainer1
             // 
@@ -311,7 +311,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.requiredModsList);
             this.splitContainer1.Size = new System.Drawing.Size(801, 407);
             this.splitContainer1.SplitterDistance = 394;
-            this.splitContainer1.TabIndex = 23;
+            this.splitContainer1.TabIndex = 19;
             // 
             // toggleLAAButton
             // 
@@ -321,7 +321,7 @@
             this.toggleLAAButton.Location = new System.Drawing.Point(318, 42);
             this.toggleLAAButton.Name = "toggleLAAButton";
             this.toggleLAAButton.Size = new System.Drawing.Size(104, 31);
-            this.toggleLAAButton.TabIndex = 23;
+            this.toggleLAAButton.TabIndex = 20;
             this.toggleLAAButton.Text = "TOGGLE LAA";
             this.toggleLAAButton.UseVisualStyleBackColor = false;
             this.toggleLAAButton.Click += new System.EventHandler(this.ButtonToggleLAA_Click);

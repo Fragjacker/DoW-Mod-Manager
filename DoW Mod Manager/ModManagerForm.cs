@@ -7,6 +7,8 @@ using System.IO;
 using System.Diagnostics;
 using System.Security.Permissions;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DoW_Mod_Manager
 {
@@ -39,24 +41,25 @@ namespace DoW_Mod_Manager
         private const string FORCE_HIGH_POLY_COMMAND = " -forcehighpoly";
         private const string OPTIMIZATIONS_COMMAND = @"%windir%\system32\cmd.exe /c start ""DoW"" /high /affinity 6 ";
 
-        private readonly string currentDir = Directory.GetCurrentDirectory();       // Is the current Directory of Soulstorm
+        private readonly string currentDir = Directory.GetCurrentDirectory();       // Is the current Directory of Dawn oif War
+        private readonly GameExecutable gameExe = new GameExecutable("W40k.exe", "W40kWA.exe", "DarkCrusade.exe", "Soulstorm.exe");
 
-        private string devMode = "";                                                // Contains the argument for starting the .exe in dev mode
-        private string noIntroMode = "";                                            // Contains the argument for starting the .exe with no Intromovies
-        private string highPolyMode = "";                                           // Contains the argument for starting the .exe in High Poly Mode.
-        private string optimizationsMode = "";                                      // Contains the argument for starting the .exe with threatd related optimizations
+        private string devMode;                                                     // Contains the argument for starting the .exe in dev mode
+        private string noIntroMode;                                                 // Contains the argument for starting the .exe with no Intromovies
+        private string highPolyMode;                                                // Contains the argument for starting the .exe in High Poly Mode.
+        private string optimizationsMode;                                           // Contains the argument for starting the .exe with threatd related optimizations
         private bool[] isInstalled;                                                 // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
         private bool isGameEXELAAPatched = false;                                   // Tells if soulstorm is LAA patched or NOT.
         private bool isGraphicsConfigLAAPatched = false;                            // Tells if graphicsconfig is LAA patched or NOT.
-        private GameExecutable gameExe = new GameExecutable("W40k.exe", "W40kWA.exe", "DarkCrusade.exe", "Soulstorm.exe");
         private readonly string currentGameEXE = "";
+        private readonly string graphicsConfigEXE = "GraphicsConfig.exe";
 
         public string[] FilePaths;                                                  // Stores the paths of the found .module files in the Soulstorm directory
         public string[] ModFolderPaths;                                             // Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir.
         public List<string> AllFoundModules = null;                                 // Contains the list of all available Mods that will be used by the Mod Merger
         public List<string> AllValidModules = null;                                 // Contains the list of all playable Mods that will be used by the Mod Merger
 
-        readonly Dictionary<string, int> settings = new Dictionary<string, int> 
+        private readonly Dictionary<string, int> settings = new Dictionary<string, int>
         {
             [CHOICE_INDEX]    = 0,
             [DEV]             = 0,
@@ -73,6 +76,7 @@ namespace DoW_Mod_Manager
         {
             InitializeComponent();
 
+            // Read *.ini file and load settings in memory
             if (File.Exists(CONFIG_FILE_NAME))
             {
                 var lines = File.ReadLines(CONFIG_FILE_NAME);
@@ -81,7 +85,7 @@ namespace DoW_Mod_Manager
                 string setting;
                 int value;
 
-                // Reading every line of config file and trying to ignore or correct all the possible mistakes
+                // Read every line of config file and try to ignore or correct all the possible mistakes
                 foreach (string line in lines)
                 {
                     string str = line.Replace(" ", "");
@@ -89,6 +93,7 @@ namespace DoW_Mod_Manager
                     indexOfEqualSign = str.IndexOf('=');
                     lastIndexOfEqualSign = str.LastIndexOf('=');
 
+                    // There must be only one "=" in the line!
                     if (indexOfEqualSign == lastIndexOfEqualSign)
                     {
                         if (indexOfEqualSign > 0)
@@ -128,47 +133,76 @@ namespace DoW_Mod_Manager
                 }
             }
 
+            // Initialize values with values from saved values or defaults.
+            ReselectSavedMod();
             if (Convert.ToBoolean(settings[DEV]))
+            {
                 devMode = DEV_COMMAND;
+                devCheckBox.Checked = true;
+            }
+            else
+            {
+                devMode = "";
+                devCheckBox.Checked = false;
+            }
+
             if (Convert.ToBoolean(settings[NO_MOVIES]))
+            {
                 noIntroMode = NO_MOVIES_COMMAND;
+                nomoviesCheckBox.Checked = true;
+            }
+            else
+            {
+                noIntroMode = "";
+                nomoviesCheckBox.Checked = false;
+            }
+
             if (Convert.ToBoolean(settings[FORCE_HIGH_POLY]))
+            {
                 highPolyMode = FORCE_HIGH_POLY_COMMAND;
+                highpolyCheckBox.Checked = true;
+            }
+            else
+            {
+                highPolyMode = "";
+                highpolyCheckBox.Checked = false;
+            }
+
             if (Convert.ToBoolean(settings[OPTIMIZATIONS]))
+            {
                 optimizationsMode = OPTIMIZATIONS_COMMAND;
+                optimizationsCheckBox.Checked = true;
+            }
+            else
+            {
+                optimizationsMode = "";
+                optimizationsCheckBox.Checked = false;
+            }
 
             currentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
-            FilePaths = Directory.GetFiles(currentDir, currentGameEXE);         // Is this command necessary?
 
-            currentDirTextBox.AppendText(currentDir);
+            currentDirTextBox.Text = currentDir;
             SetUpAllNecessaryMods();
             isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(currentDir, currentGameEXE)[0]);
-            isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0]);
             SetGameLAALabelText();
+            isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, graphicsConfigEXE)[0]);
             SetGraphicsConfigLAALabelText();
+
+            // Watch for any changes in game directory
             AddFileSystemWatcher();
 
-            // Initialize values with values from previous values or defaults.
-            ReselectSavedMod();
-
-            devCheckBox.Checked = Convert.ToBoolean(settings[DEV]);
-            nomoviesCheckBox.Checked = Convert.ToBoolean(settings[NO_MOVIES]);
-            highpolyCheckBox.Checked = Convert.ToBoolean(settings[FORCE_HIGH_POLY]);
+            // Sets the focus to the mod list
+            installedModsList.Select();
         }
-
-        //private void ModManagerForm_Load(object sender, EventArgs e)
-        //{
-
-        //}
 
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
-            string str = $"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n" +
-                $"{DEV}={settings[DEV]}\n" +
-                $"{NO_MOVIES}={settings[NO_MOVIES]}\n" +
-                $"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n" +
-                $"{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}";
+            string str = $@"{CHOICE_INDEX}={settings[CHOICE_INDEX]}
+{DEV}={settings[DEV]}
+{NO_MOVIES}={settings[NO_MOVIES]}
+{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}
+{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}";
             File.WriteAllText(CONFIG_FILE_NAME, str);
         }
 
@@ -265,6 +299,7 @@ namespace DoW_Mod_Manager
                 }
                 counter++;
             }
+            myStream.Close();
         }
 
         /// <summary>
@@ -296,7 +331,6 @@ namespace DoW_Mod_Manager
         private string GetModFolderFromFile(string text)
         {
             const string pattern = @"\S*\s*$";
-            string result = "";
 
             // Instantiate the regular expression object.
             Regex require = new Regex(pattern, RegexOptions.IgnoreCase);
@@ -305,10 +339,9 @@ namespace DoW_Mod_Manager
             Match match = require.Match(text);
 
             if (match.Success)
-            {
-                result = match.Value.Replace(" ", "").Replace(".module", "");
-            }
-            return result;
+                return match.Value.Replace(" ", "").Replace(".module", "");
+            else
+                return "";
         }
 
         /// <summary>
@@ -345,7 +378,7 @@ namespace DoW_Mod_Manager
                                 AllValidModules.Add(Path.GetFileNameWithoutExtension(str));
                             }
 
-                            if (currentGameEXE == gameExe.WinterAssault)
+                            if (currentGameEXE == gameExe.WinterAssault || currentGameEXE == gameExe.Original)
                                 break;
                         }
                     }
@@ -418,7 +451,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="text"></param>
         /// <returns>bool</returns>
-        private bool CheckModFolderExist(string text)
+        private bool IsModFolderExist(string text)
         {
             const string pattern = @"ModFolder";
             bool state = false;
@@ -458,10 +491,8 @@ namespace DoW_Mod_Manager
                 // Populate the Required Mods List with entries from the .module file
                 while ((line = file.ReadLine()) != null)
                 {
-                    if (GetRequiredMod(line) == true)
-                    {
+                    if (GetRequiredMod(line))
                         requiredModsList.Items.Add(line);
-                    }
                 }
 
                 GetModFoldersFromFile();
@@ -490,7 +521,7 @@ namespace DoW_Mod_Manager
                     {
                         while ((line = file.ReadLine()) != null)
                         {
-                            if (CheckModFolderExist(line) == true)
+                            if (IsModFolderExist(line))
                             {
                                 ModFolderPaths[count] = GetModFolderFromFile(line);
                                 count++;
@@ -514,14 +545,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void StartVanillaGameButton_Click(object sender, EventArgs e)
         {
-            // "C:\SteamGames\steamapps\common\Dawn of War Soulstorm\Soulstorm.exe" -modname dxp2 -dev -nomovies -forcehighpoly
-            // %windir%\system32\cmd.exe /c start "DoW" /high /affinity 6 "C:\SteamGames\steamapps\common\Dawn of War Soulstorm\Soulstorm.exe" -modname dxp2 -dev -nomovies -forcehighpoly
-            ProcessStartInfo startInfo = new ProcessStartInfo
-            {
-                FileName = optimizationsMode + currentDir + "\\" + currentGameEXE,
-                Arguments = @"-modname W40k" + devMode + noIntroMode + highPolyMode
-            };
-            Process.Start(startInfo);
+            StartGameWithOptions("W40k");
         }
 
         /// <summary>
@@ -531,12 +555,32 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void StartButton_Click(object sender, EventArgs e)
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo
+            StartGameWithOptions(installedModsList.SelectedItem.ToString());
+        }
+
+        private void StartGameWithOptions(string modName)
+        {
+            Process proc = new Process();
+            proc.StartInfo.FileName = currentGameEXE;
+            proc.StartInfo.Arguments = @"-modname " + modName + devMode + noIntroMode + highPolyMode;
+            proc.Start();
+
+            string procName = proc.ProcessName;
+
+            if (settings[OPTIMIZATIONS] == 1)
             {
-                FileName = currentDir + "\\" + currentGameEXE,
-                Arguments = @"-modname " + installedModsList.SelectedItem + devMode + noIntroMode + highPolyMode
-            };
-            Process.Start(startInfo);
+                // Threads could work even if application would be closed
+                new Thread(() =>
+                {
+                    // We can't change priority or affinity of the game right after it starts
+                    Thread.Sleep(10000);
+
+                    Process[] dow = Process.GetProcessesByName(procName);
+                    dow[0].PriorityClass = ProcessPriorityClass.High;
+                    dow[0].ProcessorAffinity = (IntPtr)0x0006;
+                })
+                .Start();
+            }
         }
 
         /// <summary>
@@ -705,33 +749,23 @@ namespace DoW_Mod_Manager
         {
             using (FileStream fs = File.OpenRead(file))
             {
-                return IsLargeAware(fs);
-            }
-        }
+                using (BinaryReader br = new BinaryReader(fs))
+                {
+                    if (br.ReadInt16() != 0x5A4D)       // No MZ Header
+                        return false;
 
-        /// <summary>
-        /// This function performs the data probing to determine if a given file is LAA patched or not.
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <returns>bool</returns>
-        static bool IsLargeAware(Stream stream)
-        {
-            using (BinaryReader br = new BinaryReader(stream))
-            {
-                if (br.ReadInt16() != 0x5A4D)       //No MZ Header
-                    return false;
+                    br.BaseStream.Position = 0x3C;
+                    int peloc = br.ReadInt32();         // Get the PE header location.
 
-                br.BaseStream.Position = 0x3C;
-                int peloc = br.ReadInt32();         //Get the PE header location.
+                    br.BaseStream.Position = peloc;
+                    if (br.ReadInt32() != 0x4550)       // No PE header
+                        return false;
 
-                br.BaseStream.Position = peloc;
-                if (br.ReadInt32() != 0x4550)       //No PE header
-                    return false;
+                    br.BaseStream.Position += 0x12;     // LAA flag position
+                    short LAAFlag = br.ReadInt16();
 
-                br.BaseStream.Position += 0x12;
-                short LAAFlag = br.ReadInt16();
-
-                return (LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE;
+                    return (LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE;
+                }
             }
         }
 
@@ -745,25 +779,27 @@ namespace DoW_Mod_Manager
             bool result = false;
             using (FileStream fs = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
             {
-                BinaryReader br = new BinaryReader(fs); 
-                BinaryWriter bw = new BinaryWriter(fs);
+                BinaryReader br = new BinaryReader(fs);
 
-                if (br.ReadInt16() != 0x5A4D)       //No MZ Header
-                    return result;
+                if (br.ReadInt16() != 0x5A4D)       // No MZ Header
+                    return false;
 
                 br.BaseStream.Position = 0x3C;
-                int peloc = br.ReadInt32();         //Get the PE header location.
+                int peloc = br.ReadInt32();         // Get the PE header location.
 
                 br.BaseStream.Position = peloc;
-                if (br.ReadInt32() != 0x4550)       //No PE header
-                    return result;
+                if (br.ReadInt32() != 0x4550)       // No PE header
+                    return false;
 
-                br.BaseStream.Position += 0x12;     //LAA flag position
+                br.BaseStream.Position += 0x12;     // LAA flag position
                 long nFilePos = (int)br.BaseStream.Position;
                 short LAAFlag = br.ReadInt16();
-                br.BaseStream.Position += 0x40;     //Checksum position
+
+                br.BaseStream.Position += 0x40;     // Checksum position
                 long nSumPos = (int)br.BaseStream.Position;
                 short ChckSum = br.ReadInt16();
+
+                BinaryWriter bw = new BinaryWriter(fs);
 
                 if ((LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) != IMAGE_FILE_LARGE_ADDRESS_AWARE)
                 {
@@ -787,8 +823,8 @@ namespace DoW_Mod_Manager
                     bw.Flush();
                     result = false;
                 }
-                br.Close();
                 bw.Close();
+                br.Close();
             }
             return result;
         }
@@ -890,17 +926,17 @@ namespace DoW_Mod_Manager
                 return gameExe.Original;
             }
 
-            MessageBox.Show("ERROR: Neither found the Soulstorm.exe, DarkCrusade.exe, Winter Assault nor Original in this directory!");
+            MessageBox.Show("ERROR: Neither found the Soulstorm, Dark Crusade, Winter Assault nor Original in this directory!");
             Application.Exit();
             return "";
         }
 
         private void CheckForGraphicsConfigEXE()
         {
-            string[] curDir = Directory.GetFiles(currentDir, "GraphicsConfig.exe");
+            string[] curDir = Directory.GetFiles(currentDir, graphicsConfigEXE);
             if (curDir.Length == 0)
             {
-                MessageBox.Show("ERROR: GraphicsConfig.exe was not found!");
+                MessageBox.Show("ERROR: " + graphicsConfigEXE + " was not found!");
                 Application.Exit();
             }
         }
