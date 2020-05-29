@@ -89,8 +89,9 @@ somewhere on your computer for later restoration.
 
 First of all - application versions will be a little more consistent now:
 1. First value is a major version.
-2. Second value is a feature version
-3. Third value is a bugfix version
+2. Second value is a feature version.
+3. Third value is a bugfix version.
+
 So 1.6.0 means "major version 1, feature version 6, bugfix version 0"
 
 - Added support for mods for Winter Assault and Original. Gold Edition is also supported but if you want to play with mods for Original - you have to temporary rename your Winter Assault executable. That could be simplified in future releases
