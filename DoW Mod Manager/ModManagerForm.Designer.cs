@@ -228,7 +228,7 @@
             this.optimizationsCheckBox.Name = "optimizationsCheckBox";
             this.optimizationsCheckBox.Size = new System.Drawing.Size(242, 17);
             this.optimizationsCheckBox.TabIndex = 13;
-            this.optimizationsCheckBox.Text = "/high /affinity 6: High priority and use only thread 2 and 3";
+            this.optimizationsCheckBox.Text = "/high /affinity 6: Sets high prioruty and custom affinity";
             this.optimizationsCheckBox.UseVisualStyleBackColor = true;
             this.optimizationsCheckBox.CheckedChanged += new System.EventHandler(this.OptimizationsCheckBox_CheckedChanged);
             // 
