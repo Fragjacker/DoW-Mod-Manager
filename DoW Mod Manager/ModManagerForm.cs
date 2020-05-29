@@ -76,29 +76,27 @@ namespace DoW_Mod_Manager
             // Read *.ini file and load settings in memory
             if (File.Exists(CONFIG_FILE_NAME))
             {
-                var lines = File.ReadLines(CONFIG_FILE_NAME);
-                int indexOfEqualSign;
-                int lastIndexOfEqualSign;
-                string setting;
-                int value;
-
                 // Read every line of config file and try to ignore or correct all the possible mistakes
-                foreach (string line in lines)
+                string[] lines = File.ReadAllLines(CONFIG_FILE_NAME);
+                for (int i = 0; i < lines.Length; i++)
                 {
-                    string str = line.Replace(" ", "");
+                    string line = lines[i];
+                    line = line.Replace(" ", "");
 
-                    indexOfEqualSign = str.IndexOf('=');
-                    lastIndexOfEqualSign = str.LastIndexOf('=');
+                    int indexOfEqualSign = line.IndexOf('=');
+                    int lastIndexOfEqualSign = line.LastIndexOf('=');
 
                     // There must be only one "=" in the line!
                     if (indexOfEqualSign == lastIndexOfEqualSign)
                     {
                         if (indexOfEqualSign > 0)
                         {
-                            setting = Convert.ToString(str.Substring(0, indexOfEqualSign));
+                            string setting = Convert.ToString(line.Substring(0, indexOfEqualSign));
+                            int value;
+
                             try
                             {
-                                value = Convert.ToInt32(str.Substring(indexOfEqualSign + 1, str.Length - indexOfEqualSign - 1));
+                                value = Convert.ToInt32(line.Substring(indexOfEqualSign + 1, line.Length - indexOfEqualSign - 1));
                             }
                             catch (Exception)
                             {
