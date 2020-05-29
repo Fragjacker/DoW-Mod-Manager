@@ -94,6 +94,8 @@ First of all - application versions will be a little more consistent now:
 
 So 1.6.0 means "major version 1, feature version 6, bugfix version 0"
 
+Here are the changes for version 1.6.0:
+
 - Added support for mods for Winter Assault and Original. Gold Edition is also supported but if you want to play with mods for Original - you have to temporary rename your Winter Assault executable. That could be simplified in future releases
 - Added new Advanced Start Option - "/high /affinity 6". It sets priority to "High" and forces game to use only threads 2 and 3 for performance reasons.
 - A lot of code refactoring. That will help to maintain a healthy and readable code for any future contributors ;-)
