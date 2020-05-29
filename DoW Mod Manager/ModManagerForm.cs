@@ -546,12 +546,20 @@ namespace DoW_Mod_Manager
                 // Threads could work even if application would be closed
                 new Thread(() =>
                 {
-                    // We can't change priority or affinity of the game right after it starts
-                    Thread.Sleep(10000);
+                    TRY_AGAIN:
 
-                    Process[] dow = Process.GetProcessesByName(procName);
-                    dow[0].PriorityClass = ProcessPriorityClass.High;
-                    dow[0].ProcessorAffinity = (IntPtr)0x0006;
+                    // We can't change priority or affinity of the game right after it starts
+                    Thread.Sleep(1000);
+                    try
+                    {
+                        Process[] dow = Process.GetProcessesByName(procName);
+                        dow[0].PriorityClass = ProcessPriorityClass.High;
+                        dow[0].ProcessorAffinity = (IntPtr)0x0006;
+                    }
+                    catch (Exception)
+                    {
+                        goto TRY_AGAIN;
+                    }
                 })
                 .Start();
             }
