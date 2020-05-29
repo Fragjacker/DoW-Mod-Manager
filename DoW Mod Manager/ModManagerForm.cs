@@ -344,19 +344,19 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void GetMods()
         {
-            List<string> newfilePathsArray = new List<string>();        //Make a new list for the new Pathitems
+            List<string> newfilePathsList = new List<string>();        // Make a new list for the new Pathitems
             AllFoundModules = new List<string>();
             AllValidModules = new List<string>();
 
-            int Index = 0;
             installedModsList.Items.Clear();
-            string line;
 
             FilePaths = Directory.GetFiles(currentDir, "*.module");
             if (FilePaths.Length > 0)
             {
-                foreach (string filePath in FilePaths)
+                for (int i = 0; i < FilePaths.Length; i++)
                 {
+                    string filePath = FilePaths[i];
+
                     // There is no point of adding base module to the list
                     if (filePath.Contains("W40k.module"))
                         continue;
@@ -367,23 +367,25 @@ namespace DoW_Mod_Manager
                     // Read the *.module file to see if the mod is playable
                     using (StreamReader file = new StreamReader(filePath))
                     {
+                        string line;
+                        
                         // Filter the unplayable mods and populate the List only with playable mods
                         while ((line = file.ReadLine()) != null)
                         {
                             if (ModIsPlayable(line))
                             {
-                                newfilePathsArray.Add(FilePaths[Index]);
+                                newfilePathsList.Add(FilePaths[i]);
                                 installedModsList.Items.Add(Path.GetFileNameWithoutExtension(filePath));
                                 AllValidModules.Add(Path.GetFileNameWithoutExtension(filePath));
                             }
 
+                            // We will not find unplayable mods in Original or Winter Assault - there was no "Playable" state
                             if (currentGameEXE == gameExe.WinterAssault || currentGameEXE == gameExe.Original)
                                 break;
                         }
                     }
-                    Index++;
                 }
-                FilePaths = newfilePathsArray.ToArray();        //Override the old array that contained unplayable mods with the new one.
+                FilePaths = newfilePathsList.ToArray();        //Override the old array that contained unplayable mods with the new one.
             }
             else
             {
