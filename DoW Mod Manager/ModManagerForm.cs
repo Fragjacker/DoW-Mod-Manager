@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.Security.Permissions;
 using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace DoW_Mod_Manager
 {
@@ -39,7 +38,6 @@ namespace DoW_Mod_Manager
         private const string DEV_COMMAND = " -dev";
         private const string NO_MOVIES_COMMAND = " -nomovies";
         private const string FORCE_HIGH_POLY_COMMAND = " -forcehighpoly";
-        private const string OPTIMIZATIONS_COMMAND = @"%windir%\system32\cmd.exe /c start ""DoW"" /high /affinity 6 ";
 
         private readonly string currentDir = Directory.GetCurrentDirectory();       // Is the current Directory of Dawn oif War
         private readonly GameExecutable gameExe = new GameExecutable("W40k.exe", "W40kWA.exe", "DarkCrusade.exe", "Soulstorm.exe");
@@ -47,7 +45,6 @@ namespace DoW_Mod_Manager
         private string devMode;                                                     // Contains the argument for starting the .exe in dev mode
         private string noIntroMode;                                                 // Contains the argument for starting the .exe with no Intromovies
         private string highPolyMode;                                                // Contains the argument for starting the .exe in High Poly Mode.
-        private string optimizationsMode;                                           // Contains the argument for starting the .exe with threatd related optimizations
         private bool[] isInstalled;                                                 // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
         private bool isGameEXELAAPatched = false;                                   // Tells if soulstorm is LAA patched or NOT.
         private bool isGraphicsConfigLAAPatched = false;                            // Tells if graphicsconfig is LAA patched or NOT.
@@ -170,12 +167,10 @@ namespace DoW_Mod_Manager
 
             if (Convert.ToBoolean(settings[OPTIMIZATIONS]))
             {
-                optimizationsMode = OPTIMIZATIONS_COMMAND;
                 optimizationsCheckBox.Checked = true;
             }
             else
             {
-                optimizationsMode = "";
                 optimizationsCheckBox.Checked = false;
             }
 
@@ -358,15 +353,19 @@ namespace DoW_Mod_Manager
             string line;
 
             FilePaths = Directory.GetFiles(currentDir, "*.module");
-            if (FilePaths.Length != 0)
+            if (FilePaths.Length > 0)
             {
-                foreach (string str in FilePaths)
+                foreach (string filePath in FilePaths)
                 {
+                    // There is no point of adding base module to the list
+                    if (filePath.Contains("W40k.module"))
+                        continue;
+
                     // Find the List of ALL found module files for the Mod Merger available Mods List
-                    AllFoundModules.Add(Path.GetFileNameWithoutExtension(str));
+                    AllFoundModules.Add(Path.GetFileNameWithoutExtension(filePath));
 
                     // Read the *.module file to see if the mod is playable
-                    using (StreamReader file = new StreamReader(str))
+                    using (StreamReader file = new StreamReader(filePath))
                     {
                         // Filter the unplayable mods and populate the List only with playable mods
                         while ((line = file.ReadLine()) != null)
@@ -374,8 +373,8 @@ namespace DoW_Mod_Manager
                             if (ModIsPlayable(line))
                             {
                                 newfilePathsArray.Add(FilePaths[Index]);
-                                installedModsList.Items.Add(Path.GetFileNameWithoutExtension(str));
-                                AllValidModules.Add(Path.GetFileNameWithoutExtension(str));
+                                installedModsList.Items.Add(Path.GetFileNameWithoutExtension(filePath));
+                                AllValidModules.Add(Path.GetFileNameWithoutExtension(filePath));
                             }
 
                             if (currentGameEXE == gameExe.WinterAssault || currentGameEXE == gameExe.Original)
@@ -386,7 +385,7 @@ namespace DoW_Mod_Manager
                 }
                 FilePaths = newfilePathsArray.ToArray();        //Override the old array that contained unplayable mods with the new one.
             }
-            if (FilePaths.Length == 0 || AllFoundModules.Count == 0)
+            else
             {
                 MessageBox.Show("No mods were found in the specified directory! Please check your current directory again!");
                 Application.Exit();
@@ -655,12 +654,10 @@ namespace DoW_Mod_Manager
         {
             if (optimizationsCheckBox.Checked)
             {
-                optimizationsMode = OPTIMIZATIONS_COMMAND;
                 settings[OPTIMIZATIONS] = 1;
             }
             else
             {
-                optimizationsMode = "";
                 settings[OPTIMIZATIONS] = 0;
             }
         }
@@ -856,7 +853,7 @@ namespace DoW_Mod_Manager
                     stream.Close();
             }
 
-            //file is not locked
+            // File is not locked
             return false;
         }
 
@@ -868,9 +865,10 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void ButtonToggleLAA_Click(object sender, EventArgs e)
         {
-            //Check if the Game is LAA Patched and fill in the Label properly
+            // Check if the Game is LAA Patched and fill in the Label properly
             string currentGamePath = Directory.GetFiles(currentDir, currentGameEXE)[0];
-            string currentGraphucsConfigPath = Directory.GetFiles(currentDir, "GraphicsConfig.exe")[0];
+            string currentGraphucsConfigPath = Directory.GetFiles(currentDir, graphicsConfigEXE)[0];
+
             if (!IsFileLocked(currentGamePath) && !IsFileLocked(currentGraphucsConfigPath))
             {
                 if ((isGameEXELAAPatched && isGraphicsConfigLAAPatched) || (!isGameEXELAAPatched && !isGraphicsConfigLAAPatched))
