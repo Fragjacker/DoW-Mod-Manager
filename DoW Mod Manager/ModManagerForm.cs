@@ -353,7 +353,6 @@ namespace DoW_Mod_Manager
             {
                 MessageBox.Show("No mods were found in the specified directory! Please check your current directory again!");
                 Application.Exit();
-                return;
             }
         }
 
