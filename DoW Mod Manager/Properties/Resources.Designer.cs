@@ -8,10 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoW_Mod_Manager.Properties {
-    using System;
-    
-    
+namespace DoW_Mod_Manager.Properties
+{
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
