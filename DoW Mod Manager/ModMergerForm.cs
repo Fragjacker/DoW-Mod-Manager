@@ -30,7 +30,9 @@ namespace DoW_Mod_Manager
 
         private readonly ModManagerForm modManager;
         private object lastItem = null;
-        private int lastPosition = 0;
+        private int lastSelectedDropDownItem = 0;
+        private int lastSelectedUsedMod = 0;
+        private int lastSelectedAvailableMod = 0;
 
         private readonly List<Mod> modlist = new List<Mod>();
         private bool hasNoActiveMods = false;
@@ -89,10 +91,10 @@ namespace DoW_Mod_Manager
         private void HideOrReinsertLastSelectedMod()
         {
             if (lastItem != null && !AvailableModsList.Items.Contains(lastItem))
-                AvailableModsList.Items.Insert(lastPosition, lastItem);
+                AvailableModsList.Items.Insert(lastSelectedDropDownItem, lastItem);
 
             lastItem = loadedModBox.SelectedItem;           //Stores the last selected item in order to reinsert it once the selection changes again.
-            lastPosition = AvailableModsList.Items.IndexOf(lastItem);
+            lastSelectedDropDownItem = AvailableModsList.Items.IndexOf(lastItem);
 
             AvailableModsList.Items.Remove(loadedModBox.SelectedItem);
         }
@@ -476,10 +478,48 @@ namespace DoW_Mod_Manager
 
             //Update the Dropdown list with the new entries
             GetLoadableMods();
-            loadedModBox.SelectedItem = lastItem;
+            reselectLastItems();
 
             //Show a Succesprompt
             MessageBox.Show("Module file changes were successfully applied!", "Saving successful");
+        }
+
+        /// <summary>
+        /// This function reselects the last selected available mod, used mod and loaded mod.
+        /// </summary>
+        private void reselectLastItems()
+        {
+            //Safety checks for the mods list since they can change in size during runtime
+            int numAvailableMods = AvailableModsList.Items.Count;
+            int numLoadedMods = UsedModsList.Items.Count;
+            if (numAvailableMods > 0)
+            {
+                if (lastSelectedAvailableMod < numAvailableMods)
+                {
+                    AvailableModsList.SelectedIndex = lastSelectedAvailableMod;
+                }
+                else
+                {
+                    lastSelectedAvailableMod = numAvailableMods - 1;
+                    AvailableModsList.SelectedIndex = lastSelectedAvailableMod;
+                }
+            }
+            if (numLoadedMods > 0)
+            {
+                if (lastSelectedUsedMod < numLoadedMods)
+                {
+                    UsedModsList.SelectedIndex = lastSelectedUsedMod;
+                }
+                else
+                {
+                    lastSelectedUsedMod = numLoadedMods - 1;
+                    UsedModsList.SelectedIndex = lastSelectedUsedMod;
+                }
+            }
+            if(lastItem != null)
+            {
+                loadedModBox.SelectedItem = lastItem;
+            }
         }
 
         private void ButtonActivate_Click(object sender, EventArgs e)
@@ -735,6 +775,7 @@ namespace DoW_Mod_Manager
                 GetAvailableMods();
                 HideOrReinsertLastSelectedMod();
             }
+            reselectLastItems();
         }
 
         private void UsedModsList_SelectedIndexChanged(object sender, EventArgs e)
@@ -745,6 +786,7 @@ namespace DoW_Mod_Manager
                 EnableMinusButton();
                 EnableArrowUpButton();
                 EnableArrowDownButton();
+                lastSelectedUsedMod = UsedModsList.SelectedIndex;
 
                 //This activates/deactivates that Buttons to toggle Mods active/inactive depending if there's only Active or only Inactive Mods Left
                 if (modlist[UsedModsList.SelectedIndex].State.Equals(MOD_INACTIVE))
@@ -788,6 +830,7 @@ namespace DoW_Mod_Manager
                 DisableArrowUpButton();
                 DisableArrowDownButton();
                 DisableCrossButton();
+                lastSelectedAvailableMod = AvailableModsList.SelectedIndex;
             }
         }
 
