@@ -35,6 +35,7 @@ namespace DoW_Mod_Manager
         private bool[] isInstalled;                                                 // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
         private bool isGameEXELAAPatched = false;                                   // Tells if soulstorm is LAA patched or NOT.
         private bool isGraphicsConfigLAAPatched = false;                            // Tells if graphicsconfig is LAA patched or NOT.
+        private bool isMessageBoxOnScreen = false;
         private readonly string currentGameEXE = "";
         private readonly string graphicsConfigEXE = "GraphicsConfig.exe";
 
@@ -351,8 +352,12 @@ namespace DoW_Mod_Manager
             }
             else
             {
-                MessageBox.Show("No mods were found in the specified directory! Please check your current directory again!");
-                Application.Exit();
+                if (!isMessageBoxOnScreen)
+                {
+                    MessageBox.Show("No mods were found in the specified directory! Please check your current directory again!");
+                    isMessageBoxOnScreen = true;
+                    Application.Exit();
+                }
             }
         }
 
@@ -883,8 +888,12 @@ namespace DoW_Mod_Manager
                 return GameExecutable.ORIGINAL;
             }
 
-            MessageBox.Show("ERROR: Neither found the Soulstorm, Dark Crusade, Winter Assault nor Original in this directory!");
-            Application.Exit();
+            if (!isMessageBoxOnScreen)
+            {
+                MessageBox.Show("ERROR: Neither found the Soulstorm, Dark Crusade, Winter Assault nor Original in this directory!");
+                isMessageBoxOnScreen = true;
+                Application.Exit();
+            }
             return "";
         }
 
@@ -893,8 +902,12 @@ namespace DoW_Mod_Manager
             string[] curDir = Directory.GetFiles(currentDir, graphicsConfigEXE);
             if (curDir.Length == 0)
             {
-                MessageBox.Show("ERROR: " + graphicsConfigEXE + " was not found!");
-                Application.Exit();
+                if (!isMessageBoxOnScreen)
+                {
+                    MessageBox.Show("ERROR: " + graphicsConfigEXE + " was not found!");
+                    isMessageBoxOnScreen = true;
+                    Application.Exit();
+                }
             }
         }
     }
