@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModDownloaderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModDownloaderForm.Designer.cs">
+      <DependentUpon>ModDownloaderForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +69,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ModDownloaderForm.resx">
+      <DependentUpon>ModDownloaderForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ModManagerForm.resx">
       <DependentUpon>ModManagerForm.cs</DependentUpon>
     </EmbeddedResource>

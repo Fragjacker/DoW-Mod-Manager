@@ -152,7 +152,7 @@ namespace DoW_Mod_Manager
             AddFileSystemWatcher();
 
             // Sets the focus to the mod list
-            installedModsList.Select();
+            installedModsListBox.Select();
         }
 
         private void ModManagerForm_Closing(object sender, EventArgs e)
@@ -172,10 +172,10 @@ namespace DoW_Mod_Manager
         {
             int index = settings[CHOICE_INDEX];
 
-            if (installedModsList.Items.Count > index)
-                installedModsList.SelectedIndex = index;
+            if (installedModsListBox.Items.Count > index)
+                installedModsListBox.SelectedIndex = index;
             else
-                installedModsList.SelectedIndex = installedModsList.Items.Count - 1;
+                installedModsListBox.SelectedIndex = installedModsListBox.Items.Count - 1;
         }
 
         /// <summary>
@@ -311,7 +311,7 @@ namespace DoW_Mod_Manager
             AllFoundModules = new List<string>();
             AllValidModules = new List<string>();
 
-            installedModsList.Items.Clear();
+            installedModsListBox.Items.Clear();
 
             FilePaths = Directory.GetFiles(currentDir, "*.module");
             if (FilePaths.Length > 0)
@@ -338,7 +338,7 @@ namespace DoW_Mod_Manager
                             if (ModIsPlayable(line))
                             {
                                 newfilePathsList.Add(FilePaths[i]);
-                                installedModsList.Items.Add(Path.GetFileNameWithoutExtension(filePath));
+                                installedModsListBox.Items.Add(Path.GetFileNameWithoutExtension(filePath));
                                 AllValidModules.Add(Path.GetFileNameWithoutExtension(filePath));
                             }
 
@@ -439,11 +439,11 @@ namespace DoW_Mod_Manager
         {
             startModButton.Enabled = true;
 
-            int index = installedModsList.SelectedIndex;
-            if (index < 0 || index >= installedModsList.Items.Count)
+            int index = installedModsListBox.SelectedIndex;
+            if (index < 0 || index >= installedModsListBox.Items.Count)
             {
                 index = settings[CHOICE_INDEX];
-                installedModsList.SelectedIndex = index;
+                installedModsListBox.SelectedIndex = index;
             }
             else
                 settings[CHOICE_INDEX] = index;
@@ -523,7 +523,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void StartButton_Click(object sender, EventArgs e)
         {
-            StartGameWithOptions(installedModsList.SelectedItem.ToString());
+            StartGameWithOptions(installedModsListBox.SelectedItem.ToString());
         }
 
         private void StartGameWithOptions(string modName)
@@ -657,14 +657,25 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This is function opens the Mod Merger form when the button is clicked.
+        /// This method opens the Mod Downloader form when the button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DownloadButton_Click(object sender, EventArgs e)
+        {
+            ModDownloaderForm downloaderForm = new ModDownloaderForm();
+            downloaderForm.Show();
+        }
+
+        /// <summary>
+        /// This method opens the Mod Merger form when the button is clicked.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ModMergeButton_Click(object sender, EventArgs e)
         {
-            ModMergerForm mergerWindow = new ModMergerForm(this);
-            mergerWindow.Show();
+            ModMergerForm mergerForm = new ModMergerForm(this);
+            mergerForm.Show();
         }
 
         /// <summary>
