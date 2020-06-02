@@ -99,6 +99,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(572, 450);
+            this.MinimumSize = new System.Drawing.Size(572, 450);
             this.Controls.Add(this.openModPageButton);
             this.Controls.Add(this.openModDBButton);
             this.Controls.Add(this.downloadModButton);
