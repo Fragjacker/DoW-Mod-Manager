@@ -46,11 +46,11 @@ namespace DoW_Mod_Manager
 
         private readonly Dictionary<string, int> settings = new Dictionary<string, int>
         {
-            [CHOICE_INDEX]    = 0,
-            [DEV]             = 0,
-            [NO_MOVIES]       = 1,
+            [CHOICE_INDEX] = 0,
+            [DEV] = 0,
+            [NO_MOVIES] = 1,
             [FORCE_HIGH_POLY] = 0,
-            [OPTIMIZATIONS]   = 0
+            [OPTIMIZATIONS] = 0
         };
 
         /// <summary>
@@ -157,11 +157,11 @@ namespace DoW_Mod_Manager
 
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
-            string str = $@"{CHOICE_INDEX}={settings[CHOICE_INDEX]}
-{DEV}={settings[DEV]}
-{NO_MOVIES}={settings[NO_MOVIES]}
-{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}
-{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}";
+            string str = $"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n" +
+                         $"{DEV}={settings[DEV]}\n" +
+                         $"{NO_MOVIES}={settings[NO_MOVIES]}\n" +
+                         $"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n" +
+                         $"{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}";
             File.WriteAllText(CONFIG_FILE_NAME, str);
         }
 
@@ -331,7 +331,7 @@ namespace DoW_Mod_Manager
                     using (StreamReader file = new StreamReader(filePath))
                     {
                         string line;
-                        
+
                         // Filter the unplayable mods and populate the List only with playable mods
                         while ((line = file.ReadLine()) != null)
                         {
@@ -481,7 +481,7 @@ namespace DoW_Mod_Manager
             for (int i = 0; i < itemsCount; i++)
             {
                 string currentPath = currentDir + "\\" + GetLastEntryFromLine(requiredModsList.Items[i].ToString()) + ".module";
-                
+
                 if (File.Exists(currentPath))
                 {
                     using (StreamReader file = new StreamReader(currentPath))
