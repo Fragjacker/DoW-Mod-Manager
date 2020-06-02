@@ -36,9 +36,9 @@ namespace DoW_Mod_Manager
         private bool isGameEXELAAPatched = false;                                   // Tells if soulstorm is LAA patched or NOT.
         private bool isGraphicsConfigLAAPatched = false;                            // Tells if graphicsconfig is LAA patched or NOT.
         private bool isMessageBoxOnScreen = false;
-        private readonly string currentGameEXE = "";
-        private readonly string graphicsConfigEXE = "GraphicsConfig.exe";
 
+        public readonly string CurrentGameEXE = "";
+        public readonly string GraphicsConfigEXE = "GraphicsConfig.exe";
         public string[] FilePaths;                                                  // Stores the paths of the found .module files in the Soulstorm directory
         public string[] ModFolderPaths;                                             // Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir.
         public List<string> AllFoundModules;                                        // Contains the list of all available Mods that will be used by the Mod Merger
@@ -138,14 +138,14 @@ namespace DoW_Mod_Manager
             else
                 optimizationsCheckBox.Checked = false;
 
-            currentGameEXE = GetCurrentGameEXE();
+            CurrentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
 
             currentDirTextBox.Text = currentDir;
             SetUpAllNecessaryMods();
-            isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(currentDir, currentGameEXE)[0]);
+            isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(currentDir, CurrentGameEXE)[0]);
             SetGameLAALabelText();
-            isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, graphicsConfigEXE)[0]);
+            isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, GraphicsConfigEXE)[0]);
             SetGraphicsConfigLAALabelText();
 
             // Watch for any changes in game directory
@@ -343,7 +343,7 @@ namespace DoW_Mod_Manager
                             }
 
                             // We will not find unplayable mods in Original or Winter Assault - there was no "Playable" state
-                            if (currentGameEXE == GameExecutable.WINTER_ASSAULT || currentGameEXE == GameExecutable.ORIGINAL)
+                            if (CurrentGameEXE == GameExecutable.WINTER_ASSAULT || CurrentGameEXE == GameExecutable.ORIGINAL)
                                 break;
                         }
                     }
@@ -369,7 +369,7 @@ namespace DoW_Mod_Manager
         private bool ModIsPlayable(string textline)
         {
             // Original or Winter Assault module file don't have a "Playable" state
-            if (currentGameEXE == GameExecutable.WINTER_ASSAULT || currentGameEXE == GameExecutable.ORIGINAL)
+            if (CurrentGameEXE == GameExecutable.WINTER_ASSAULT || CurrentGameEXE == GameExecutable.ORIGINAL)
                 return true;
 
             const string pattern = @"Playable = 1";
@@ -539,7 +539,7 @@ namespace DoW_Mod_Manager
                 arguments += " -forcehighpoly";
 
             Process proc = new Process();
-            proc.StartInfo.FileName = currentGameEXE;
+            proc.StartInfo.FileName = CurrentGameEXE;
             proc.StartInfo.Arguments = arguments;
             proc.Start();
 
@@ -663,7 +663,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void DownloadButton_Click(object sender, EventArgs e)
         {
-            ModDownloaderForm downloaderForm = new ModDownloaderForm();
+            ModDownloaderForm downloaderForm = new ModDownloaderForm(this);
             downloaderForm.Show();
         }
 
@@ -685,12 +685,12 @@ namespace DoW_Mod_Manager
         {
             if (isGameEXELAAPatched)
             {
-                gameLAAStatusLabel.Text = currentGameEXE + ": LAA Active";
+                gameLAAStatusLabel.Text = CurrentGameEXE + ": LAA Active";
                 gameLAAStatusLabel.ForeColor = Color.Green;
             }
             else
             {
-                gameLAAStatusLabel.Text = currentGameEXE + ": LAA Inactive";
+                gameLAAStatusLabel.Text = CurrentGameEXE + ": LAA Inactive";
                 gameLAAStatusLabel.ForeColor = Color.Red;
             }
         }
@@ -702,12 +702,12 @@ namespace DoW_Mod_Manager
         {
             if (isGraphicsConfigLAAPatched)
             {
-                graphicsConfigLAAStatusLabel.Text = graphicsConfigEXE + ": LAA Active";
+                graphicsConfigLAAStatusLabel.Text = GraphicsConfigEXE + ": LAA Active";
                 graphicsConfigLAAStatusLabel.ForeColor = Color.Green;
             }
             else
             {
-                graphicsConfigLAAStatusLabel.Text = graphicsConfigEXE + ": LAA Inactive";
+                graphicsConfigLAAStatusLabel.Text = GraphicsConfigEXE + ": LAA Inactive";
                 graphicsConfigLAAStatusLabel.ForeColor = Color.Red;
             }
         }
@@ -841,8 +841,8 @@ namespace DoW_Mod_Manager
         private void ButtonToggleLAA_Click(object sender, EventArgs e)
         {
             // Check if the Game is LAA Patched and fill in the Label properly
-            string currentGamePath = Directory.GetFiles(currentDir, currentGameEXE)[0];
-            string currentGraphucsConfigPath = Directory.GetFiles(currentDir, graphicsConfigEXE)[0];
+            string currentGamePath = Directory.GetFiles(currentDir, CurrentGameEXE)[0];
+            string currentGraphucsConfigPath = Directory.GetFiles(currentDir, GraphicsConfigEXE)[0];
 
             if (!IsFileLocked(currentGamePath) && !IsFileLocked(currentGraphucsConfigPath))
             {
@@ -910,12 +910,12 @@ namespace DoW_Mod_Manager
 
         private void CheckForGraphicsConfigEXE()
         {
-            string[] curDir = Directory.GetFiles(currentDir, graphicsConfigEXE);
+            string[] curDir = Directory.GetFiles(currentDir, GraphicsConfigEXE);
             if (curDir.Length == 0)
             {
                 if (!isMessageBoxOnScreen)
                 {
-                    MessageBox.Show("ERROR: " + graphicsConfigEXE + " was not found!");
+                    MessageBox.Show("ERROR: " + GraphicsConfigEXE + " was not found!");
                     isMessageBoxOnScreen = true;
                     Application.Exit();
                 }
