@@ -51,27 +51,6 @@
             this.modListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.modListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.modListBox.FormattingEnabled = true;
-            this.modListBox.Items.AddRange(new object[] {
-            "DoW40k: Firestorm over Kaurava",
-            "Ultimate Apocalypse Mod",
-            "Black Templars - No Remorse! No Fear!",
-            "DoWPro",
-            "CornCobMan\'s Fun Mod",
-            "Soulstorm Bugfix Mod",
-            "Titanium Wars Mod for Soulstorm",
-            "Dark Angels mod: Repent! For tomorrow you die!",
-            "Redux Mod",
-            "HD Dawn Of War",
-            "Dawn of War: Strongholds",
-            "Witch Hunters: Adepta Sororitas",
-            "Steel Legion - Armageddon",
-            "Inquisition: Daemonhunt",
-            "Unification Mod",
-            "Thousand Sons mod: Knowledge Is Power!",
-            "Emperor\'s Children mod:For the Glory of Slaanesh!",
-            "Salamanders mod REFORGED: Unto the Anvil of War!",
-            "Adeptus Mechanicus: Explorators mod",
-            "Tyranid Mod"});
             this.modListBox.Location = new System.Drawing.Point(16, 30);
             this.modListBox.Name = "modListBox";
             this.modListBox.ScrollAlwaysVisible = true;
@@ -121,13 +100,13 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(572, 450);
             this.Controls.Add(this.openModPageButton);
-            this.Controls.Add(this.downloadModButton);
             this.Controls.Add(this.openModDBButton);
+            this.Controls.Add(this.downloadModButton);
             this.Controls.Add(this.modListBox);
             this.Controls.Add(this.popularModsLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ModDownloaderForm";
-            this.Text = "ModDownloaderForm";
+            this.Text = "Mod Downloader";
             this.ResumeLayout(false);
             this.PerformLayout();
 
