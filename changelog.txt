@@ -1,6 +1,12 @@
 # Changelog
 (All changes in 1.53 - 1.6.0 were made by IgorTheLight)
 
+## Version 1.6.1:
+
+- Improved the usability of the Mod Merger.
+- Changed the Mod Merger dropdown list not to accept user text input anymore but be a pure dropdown list now.
+- Selection of Mod Merger items is now only one per time, to make it less confusing which element is currently active.
+
 ## Version 1.6.0:
 
 First of all - application versions will be a little more consistent now:
