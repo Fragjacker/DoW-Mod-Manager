@@ -48,7 +48,7 @@ namespace DoW_Mod_Manager
             modManager = Form;
             GetLoadableMods();
 
-            //Disable All buttons at first
+            // Disable All buttons at first
             DisableArrowDownButton();
             DisableArrowUpButton();
             DisableCheckmarkButton();
@@ -56,7 +56,7 @@ namespace DoW_Mod_Manager
             DisableMinusButton();
             DisablePlusButton();
 
-            //Disable the simpler textboxes
+            // Disable the simpler textboxes
             UsedModsList.Enabled = false;
             AvailableModsList.Enabled = false;
             //deleteButton.Enabled = false;
@@ -78,13 +78,21 @@ namespace DoW_Mod_Manager
         {
             loadedModBox.Items.Clear();
 
-            string[] modsList = new string[modManager.AllValidModules.Count];
-            int counter = 0;
-            foreach (string listBoxItem in modManager.AllValidModules)
+            int modCount = modManager.AllValidModules.Count;
+            string[] modsList = new string[modCount];
+
+            for (int i = 0; i < modCount; i++)
             {
-                modsList[counter] = listBoxItem.ToString();
-                counter++;
+                modsList[i] = modManager.AllValidModules[i];
             }
+
+            //int counter = 0;
+            //foreach (string listBoxItem in modManager.AllValidModules)
+            //{
+            //    modsList[counter] = listBoxItem.ToString();
+            //    counter++;
+            //}
+
             loadedModBox.Items.AddRange(modsList);
         }
 
@@ -105,9 +113,9 @@ namespace DoW_Mod_Manager
             SortInactiveModsToBottom();
 
             string entry;
-            foreach (Mod item in modlist)
+            foreach (Mod mod in modlist)
             {
-                entry = item.Name + " ..." + item.State;
+                entry = mod.Name + " ..." + mod.State;
                 UsedModsList.Items.Add(entry);
             }
             HideUnavailableMods();
@@ -115,13 +123,13 @@ namespace DoW_Mod_Manager
 
         private void HideUnavailableMods()
         {
-            GetAvailableMods();                             //Get a Fresh new List everytime
+            GetAvailableMods();                             // Get a Fresh new List everytime
             HideOrReinsertLastSelectedMod();
 
-            foreach (Mod item in modlist)
+            foreach (Mod mod in modlist)
             {
-                if (AvailableModsList.Items.Contains(item.Name))
-                    AvailableModsList.Items.Remove(item.Name);
+                if (AvailableModsList.Items.Contains(mod.Name))
+                    AvailableModsList.Items.Remove(mod.Name);
             }
         }
 
@@ -135,7 +143,7 @@ namespace DoW_Mod_Manager
                 {
                     inactiveModsList.Add(modlist[i]);
                     modlist.RemoveAt(i);
-                    i--;                                    //Go one step Back to stay in place for enxt entry
+                    i--;                                    // Go one step Back to stay in place for enxt entry
                 }
             }
             modlist.AddRange(inactiveModsList);
@@ -159,7 +167,7 @@ namespace DoW_Mod_Manager
                 // Populate the Required Mods List with entries from the .module file
                 while ((line = file.ReadLine()) != null)
                 {
-                    if (CheckForRequiredMods(line) == true)
+                    if (CheckForRequiredMods(line))
                     {
                         modlist.Add(new Mod(GetNameOfRequiredMod(line), GetStateOfRequiredMod(line)));
                     }
@@ -383,7 +391,7 @@ namespace DoW_Mod_Manager
             Mod topItem, bottomItem;
             int topPos, bottomPos;
 
-            //Copy Old Entries that will be Swapped
+            // Copy Old Entries that will be swapped
             topPos = UsedModsList.SelectedIndex - 1;
             bottomPos = UsedModsList.SelectedIndex;
 
@@ -392,14 +400,14 @@ namespace DoW_Mod_Manager
                 topItem = modlist[topPos];
                 bottomItem = modlist[bottomPos];
 
-                //Swap the Items
+                // Swap the Items
                 modlist[bottomPos] = topItem;
                 modlist[topPos] = bottomItem;
 
-                //Redraw the list
+                // Redraw the list
                 DrawAllRequiredModsFromList();
 
-                //Reselect the newly placed item to allow for quick traverse through the list
+                // Reselect the newly placed item to allow for quick traverse through the list
                 UsedModsList.SelectedIndex = topPos;
             }
         }
@@ -411,7 +419,7 @@ namespace DoW_Mod_Manager
 
             if (UsedModsList.SelectedIndex != -1)
             {
-                //Copy Old Entries that will be Swapped
+                // Copy Old Entries that will be swapped
                 topPos = UsedModsList.SelectedIndex;
                 bottomPos = UsedModsList.SelectedIndex + 1;
 
@@ -420,14 +428,14 @@ namespace DoW_Mod_Manager
                     topItem = modlist[topPos];
                     bottomItem = modlist[bottomPos];
 
-                    //Swap the Items
+                    // Swap the Items
                     modlist[bottomPos] = topItem;
                     modlist[topPos] = bottomItem;
 
-                    //Redraw the list
+                    // Redraw the list
                     DrawAllRequiredModsFromList();
 
-                    //Reselect the newly placed item to allow for quick traverse through the list
+                    // Reselect the newly placed item to allow for quick traverse through the list
                     UsedModsList.SelectedIndex = bottomPos;
                 }
             }
@@ -449,7 +457,7 @@ namespace DoW_Mod_Manager
                 }
             }
 
-            //Write more info into the list of text
+            // Write more info into the list of text
             for (int i = 0; i < modlist.Count; i++)
             {
                 if (modlist[i].State.Equals(MOD_ACTIVE))
@@ -464,7 +472,7 @@ namespace DoW_Mod_Manager
                 }
             }
 
-            //Finally write the stuff
+            // Finally write the stuff
             using (StreamWriter sw = new StreamWriter(filePath))
             {
                 foreach (string line2 in listOfMods)
@@ -473,27 +481,27 @@ namespace DoW_Mod_Manager
                 }
             }
 
-            //Update the Main Mod Manager List with possible new entries
+            // Update the Main Mod Manager List with possible new entries
             modManager.SetUpAllNecessaryMods();
 
-            //Update the Dropdown list with the new entries
+            // Update the Dropdown list with the new entries
             GetLoadableMods();
-            reselectLastItems();
+            ReselectLastItems();
 
-            //Show a Succesprompt
+            // Show a Succesprompt
             MessageBox.Show("Module file changes were successfully applied!", "Saving successful");
         }
 
         private void ButtonActivate_Click(object sender, EventArgs e)
         {
             int lastSelectedIndex = 0;
-            //Get the currently selected element from the Used Mods List
+
+            // Get the currently selected element from the Used Mods List
             int selection = UsedModsList.SelectedIndex;
 
             if (selection != -1)
             {
-                //Toggle it to be active
-                //_Modlist[selection].State = "Active";
+                // Toggle it to be active
                 SetModState(selection, MOD_ACTIVE);
                 lastSelectedIndex = UsedModsList.SelectedIndex;
             }
@@ -502,10 +510,11 @@ namespace DoW_Mod_Manager
                 lastSelectedIndex = 0;
                 UsedModsList.SelectedIndex = lastSelectedIndex;
             }
-            //Redraw the List of Items
+
+            // Redraw the List of Items
             DrawAllRequiredModsFromList();
 
-            //Reselect Elements at the last place
+            // Reselect Elements at the last place
             if (ModlistContainsNoActiveMods())
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
@@ -537,16 +546,16 @@ namespace DoW_Mod_Manager
         private void ButtonDeactivate_Click(object sender, EventArgs e)
         {
             int lastSelectedIndex = 0;
-            //Get the currently selected element from the Used Mods List
+
+            // Get the currently selected element from the Used Mods List
             int selection = UsedModsList.SelectedIndex;
 
             if (selection != -1)
             {
-                //Store last position
+                // Store last position
                 lastSelectedIndex = UsedModsList.SelectedIndex;
 
-                //Toggle it to be active
-                //_Modlist[selection].State = "Inactive";
+                // Toggle it to be inactive
                 if (selection == 0 && modlist[1].State == MOD_INACTIVE)
                 {
                     SetModState(selection, MOD_ACTIVE);
@@ -562,10 +571,11 @@ namespace DoW_Mod_Manager
                 lastSelectedIndex = 0;
                 UsedModsList.SelectedIndex = lastSelectedIndex;
             }
-            //Redraw the List of Items
+
+            // Redraw the List of Items
             DrawAllRequiredModsFromList();
 
-            //Reselect Elements at the last place
+            // Reselect Elements at the last place
             if (ModlistContainsNoActiveMods())
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
@@ -597,23 +607,24 @@ namespace DoW_Mod_Manager
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
             int lastSelectedIndex = 0;
+
             if (AvailableModsList.SelectedItem != null)
             {
-                //Get the new addable Mod candidate
+                // Get the new addable Mod candidate
                 string newMod = AvailableModsList.SelectedItem.ToString();
                 lastSelectedIndex = AvailableModsList.SelectedIndex;
 
-                //Add the Mod to the selection of used Mods
+                // Add the Mod to the selection of used Mods
                 modlist.Add(new Mod(newMod, MOD_ACTIVE));
             }
 
-            //TODO: Make new Mods be pending again on beeing Added
+            // TODO: Make new Mods be pending again on beeing Added
             //Modlist.Add(new Mod(newMod, "Pending"));
 
-            //Redraw the List to display the added candidate
+            // Redraw the List to display the added candidate
             DrawAllRequiredModsFromList();
 
-            //Reselect Elements at the last place
+            // Reselect Elements at the last place
             if (lastSelectedIndex < AvailableModsList.Items.Count)
             {
                 AvailableModsList.SelectedIndex = lastSelectedIndex;
@@ -631,20 +642,21 @@ namespace DoW_Mod_Manager
         private void ButtonRemove_Click(object sender, EventArgs e)
         {
             int lastSelectedIndex = 0;
-            //Get the new addable Mod candidate
+
+            // Get the new addable Mod candidate
             int delMod = UsedModsList.SelectedIndex;
 
             if (delMod != -1)
             {
-                //Add the Mod to the selection of used Mods
+                // Add the Mod to the selection of used Mods
                 modlist.RemoveAt(delMod);
                 lastSelectedIndex = UsedModsList.SelectedIndex;
             }
 
-            //Redraw the List to display the added candidate
+            // Redraw the List to display the added candidate
             DrawAllRequiredModsFromList();
 
-            //Reselect Elements at the last place
+            // Reselect Elements at the last place
             if (lastSelectedIndex < UsedModsList.Items.Count)
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
@@ -666,9 +678,9 @@ namespace DoW_Mod_Manager
         private bool ModlistContainsNoInActiveMods()
         {
             hasNoInActiveMods = true;
-            foreach (Mod item in modlist)
+            foreach (Mod mod in modlist)
             {
-                if (item.State == MOD_INACTIVE)
+                if (mod.State == MOD_INACTIVE)
                 {
                     hasNoInActiveMods = false;
                     break;
@@ -680,9 +692,9 @@ namespace DoW_Mod_Manager
         private bool ModlistContainsNoActiveMods()
         {
             hasNoActiveMods = true;
-            foreach (Mod item in modlist)
+            foreach (Mod mod in modlist)
             {
-                if (item.State == MOD_ACTIVE)
+                if (mod.State == MOD_ACTIVE)
                 {
                     hasNoActiveMods = false;
                     break;
@@ -693,10 +705,10 @@ namespace DoW_Mod_Manager
 
         private void SetModState(int count, string state)
         {
-            //Use this if Mod is a class
+            // Use this if Mod is a class
             modlist[count].State = state;
 
-            //Use this if Mod is a struct
+            // Use this if Mod is a struct
             //Mod currentMod = modlist[count];
             //currentMod.State = state;
             //modlist[count] = currentMod;
@@ -726,7 +738,7 @@ namespace DoW_Mod_Manager
                 DrawAllRequiredModsFromList();
                 buttonSaveFile.Enabled = true;
 
-                //enable UI Elements
+                // Enable UI Elements
                 UsedModsList.Enabled = true;
                 AvailableModsList.Enabled = true;
                 //deleteButton.Enabled = true;
@@ -737,7 +749,7 @@ namespace DoW_Mod_Manager
                 GetAvailableMods();
                 HideOrReinsertLastSelectedMod();
             }
-            reselectLastItems();
+            ReselectLastItems();
         }
 
         private void UsedModsList_SelectedIndexChanged(object sender, EventArgs e)
@@ -752,7 +764,7 @@ namespace DoW_Mod_Manager
                 AvailableModsList.ClearSelected();
                 lastAvailableModIndex = -1;
 
-                //This activates/deactivates that Buttons to toggle Mods active/inactive depending if there's only Active or only Inactive Mods Left
+                // This activates/deactivates that Buttons to toggle Mods active/inactive depending if there's only Active or only Inactive Mods Left
                 if (modlist[UsedModsList.SelectedIndex].State.Equals(MOD_INACTIVE))
                 {
                     EnableCheckmarkButton();
@@ -803,9 +815,9 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This function reselects the last selected available mod, used mod and loaded mod.
         /// </summary>
-        private void reselectLastItems()
+        private void ReselectLastItems() 
         {
-            //Safety checks for the mods list since they can change in size during runtime
+            // Safety checks for the mods list since they can change in size during runtime
             int numAvailableMods = AvailableModsList.Items.Count;
             int numLoadedMods = UsedModsList.Items.Count;
             if (lastAvailableModIndex != -1 && numAvailableMods > 0)
