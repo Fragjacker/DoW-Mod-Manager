@@ -680,12 +680,12 @@ namespace DoW_Mod_Manager
         {
             if (isGameEXELAAPatched)
             {
-                gameLAAStatusLabel.Text = currentGameEXE + ": LAA Active";
+                gameLAAStatusLabel.Text = CurrentGameEXE + ": LAA Active";
                 gameLAAStatusLabel.ForeColor = Color.Green;
             }
             else
             {
-                gameLAAStatusLabel.Text = currentGameEXE + ": LAA Inactive";
+                gameLAAStatusLabel.Text = CurrentGameEXE + ": LAA Inactive";
                 gameLAAStatusLabel.ForeColor = Color.Red;
             }
         }
@@ -697,12 +697,12 @@ namespace DoW_Mod_Manager
         {
             if (isGraphicsConfigLAAPatched)
             {
-                graphicsConfigLAAStatusLabel.Text = graphicsConfigEXE + ": LAA Active";
+                graphicsConfigLAAStatusLabel.Text = GraphicsConfigEXE + ": LAA Active";
                 graphicsConfigLAAStatusLabel.ForeColor = Color.Green;
             }
             else
             {
-                graphicsConfigLAAStatusLabel.Text = graphicsConfigEXE + ": LAA Inactive";
+                graphicsConfigLAAStatusLabel.Text = GraphicsConfigEXE + ": LAA Inactive";
                 graphicsConfigLAAStatusLabel.ForeColor = Color.Red;
             }
         }
@@ -836,8 +836,8 @@ namespace DoW_Mod_Manager
         private void ButtonToggleLAA_Click(object sender, EventArgs e)
         {
             // Check if the Game is LAA Patched and fill in the Label properly
-            string currentGamePath = Directory.GetFiles(currentDir, currentGameEXE)[0];
-            string currentGraphucsConfigPath = Directory.GetFiles(currentDir, graphicsConfigEXE)[0];
+            string currentGamePath = Directory.GetFiles(currentDir, CurrentGameEXE)[0];
+            string currentGraphucsConfigPath = Directory.GetFiles(currentDir, GraphicsConfigEXE)[0];
 
             if (!IsFileLocked(currentGamePath) && !IsFileLocked(currentGraphucsConfigPath))
             {
@@ -905,12 +905,12 @@ namespace DoW_Mod_Manager
 
         private void CheckForGraphicsConfigEXE()
         {
-            string[] curDir = Directory.GetFiles(currentDir, graphicsConfigEXE);
+            string[] curDir = Directory.GetFiles(currentDir, GraphicsConfigEXE);
             if (curDir.Length == 0)
             {
                 if (!isMessageBoxOnScreen)
                 {
-                    MessageBox.Show("ERROR: " + graphicsConfigEXE + " was not found!");
+                    MessageBox.Show("ERROR: " + GraphicsConfigEXE + " was not found!");
                     isMessageBoxOnScreen = true;
                     Application.Exit();
                 }
