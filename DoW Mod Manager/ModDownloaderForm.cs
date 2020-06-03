@@ -166,21 +166,26 @@ namespace DoW_Mod_Manager
             {
                 modListBox.Items.AddRange(new object[]
                 {
-                    ""
+                    "DoWPro",
+                    "Dawn of Steel",
+                    "Tabletop Round-up",
+                    "Necrons Mod - Mike's version",
+                    "WXP Necron Mod",
+                    "Total War: Winter Assault"
                 });
 
-                modWebAddresses[0, 0] = "";
-                modWebAddresses[0, 1] = "";
-                modWebAddresses[1, 0] = "";
-                modWebAddresses[1, 1] = "";
-                modWebAddresses[2, 0] = "";
-                modWebAddresses[2, 1] = "";
-                modWebAddresses[3, 0] = "";
-                modWebAddresses[3, 1] = "";
-                modWebAddresses[4, 0] = "";
-                modWebAddresses[4, 1] = "";
-                modWebAddresses[5, 0] = "";
-                modWebAddresses[5, 1] = "";
+                modWebAddresses[0, 0] = "https://www.moddb.com/mods/dowpro";
+                modWebAddresses[0, 1] = "https://www.moddb.com/downloads/mirror/6548/120/8788be1e3afd31874b5fe8bdcfcfc01d/?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fdowpro%2Fdownloads";
+                modWebAddresses[1, 0] = "https://www.moddb.com/mods/steel-legion-armageddon";
+                modWebAddresses[1, 1] = "https://www.moddb.com/downloads/mirror/165510/124/9c8d5711e7a8a3e06ee86da48c95f34f/?referer=https%3A%2F%2Fwww.google.com%2F";
+                modWebAddresses[2, 0] = "https://www.moddb.com/mods/tabletop-round-up";
+                modWebAddresses[2, 1] = "https://www.moddb.com/downloads/mirror/5311/121/a19cf9b5ef9ddb70829897805df44c47/?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Ftabletop-round-up%2Fdownloads";
+                modWebAddresses[3, 0] = "https://www.moddb.com/mods/necrons-mod";
+                modWebAddresses[3, 1] = "https://www.moddb.com/downloads/mirror/64724/126/a0c40bd12cabc09c88a131131942a340/?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fnecrons-mod%2Fdownloads";
+                modWebAddresses[4, 0] = "https://www.moddb.com/mods/wxp-necron-mod";
+                modWebAddresses[4, 1] = "https://www.moddb.com/downloads/mirror/76841/121/a3c0124133005765fbea9c4d425841a6/?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fwxp-necron-mod%2Fdownloads";
+                modWebAddresses[5, 0] = "https://www.moddb.com/mods/total-war-winter-assault";
+                modWebAddresses[5, 1] = "https://www.moddb.com/downloads/mirror/1266/123/c364f5e488add7b541dab73f434f5964/?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Ftotal-war-winter-assault%2Fdownloads";
                 modWebAddresses[6, 0] = "";
                 modWebAddresses[6, 1] = "";
                 modWebAddresses[7, 0] = "";
@@ -193,6 +198,9 @@ namespace DoW_Mod_Manager
             else if (modManager.CurrentGameEXE == ModManagerForm.GameExecutable.ORIGINAL)
             {
                 // I have to find a few mods for Original first :-)
+
+                openModPageButton.Enabled = false;
+                downloadModButton.Enabled = false;
             }
 
             modListBox.Select();
@@ -203,16 +211,16 @@ namespace DoW_Mod_Manager
             Process.Start("https://www.moddb.com/games/dawn-of-war/mods?sort=rating-desc");
         }
 
-        private void DownloadModButton_Click(object sender, EventArgs e)
+        private void OpenModPageButton_Click(object sender, EventArgs e)
         {
-            string address = modWebAddresses[modListBox.SelectedIndex, 1];
+            string address = modWebAddresses[modListBox.SelectedIndex, 0];
             if (address.Length > 0)
                 Process.Start(address);
         }
 
-        private void OpenModPageButton_Click(object sender, EventArgs e)
+        private void DownloadModButton_Click(object sender, EventArgs e)
         {
-            string address = modWebAddresses[modListBox.SelectedIndex, 0];
+            string address = modWebAddresses[modListBox.SelectedIndex, 1];
             if (address.Length > 0)
                 Process.Start(address);
         }
