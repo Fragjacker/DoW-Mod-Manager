@@ -44,7 +44,7 @@
             this.popularModsLabel.Name = "popularModsLabel";
             this.popularModsLabel.Size = new System.Drawing.Size(74, 13);
             this.popularModsLabel.TabIndex = 0;
-            this.popularModsLabel.Text = "Popular mods:";
+            this.popularModsLabel.Text = "Popular mods for ";
             // 
             // modListBox
             // 
