@@ -157,11 +157,11 @@ namespace DoW_Mod_Manager
 
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
-            string str = $@"{CHOICE_INDEX}={settings[CHOICE_INDEX]}
-                {DEV}={settings[DEV]}
-                {NO_MOVIES}={settings[NO_MOVIES]}
-                {FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}
-                {OPTIMIZATIONS}={settings[OPTIMIZATIONS]}";
+            string str = $"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n"+
+                        $"{DEV}={settings[DEV]}\n"+
+                        $"{NO_MOVIES}={settings[NO_MOVIES]}\n"+
+                        $"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n"+
+                        $"{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}";
             File.WriteAllText(CONFIG_FILE_NAME, str);
         }
 
