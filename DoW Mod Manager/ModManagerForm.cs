@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -667,15 +667,10 @@ namespace DoW_Mod_Manager
             downloaderForm.Show();
         }
 
-        /// <summary>
-        /// This method opens the Mod Merger form when the button is clicked.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ModMergeButton_Click(object sender, EventArgs e)
         {
-            ModMergerForm mergerForm = new ModMergerForm(this);
-            mergerForm.Show();
+            ModMergerForm mergerWindow = new ModMergerForm(this);
+            mergerWindow.Show();
         }
 
         /// <summary>
@@ -685,12 +680,12 @@ namespace DoW_Mod_Manager
         {
             if (isGameEXELAAPatched)
             {
-                gameLAAStatusLabel.Text = CurrentGameEXE + ": LAA Active";
+                gameLAAStatusLabel.Text = currentGameEXE + ": LAA Active";
                 gameLAAStatusLabel.ForeColor = Color.Green;
             }
             else
             {
-                gameLAAStatusLabel.Text = CurrentGameEXE + ": LAA Inactive";
+                gameLAAStatusLabel.Text = currentGameEXE + ": LAA Inactive";
                 gameLAAStatusLabel.ForeColor = Color.Red;
             }
         }
@@ -702,12 +697,12 @@ namespace DoW_Mod_Manager
         {
             if (isGraphicsConfigLAAPatched)
             {
-                graphicsConfigLAAStatusLabel.Text = GraphicsConfigEXE + ": LAA Active";
+                graphicsConfigLAAStatusLabel.Text = graphicsConfigEXE + ": LAA Active";
                 graphicsConfigLAAStatusLabel.ForeColor = Color.Green;
             }
             else
             {
-                graphicsConfigLAAStatusLabel.Text = GraphicsConfigEXE + ": LAA Inactive";
+                graphicsConfigLAAStatusLabel.Text = graphicsConfigEXE + ": LAA Inactive";
                 graphicsConfigLAAStatusLabel.ForeColor = Color.Red;
             }
         }
@@ -841,8 +836,8 @@ namespace DoW_Mod_Manager
         private void ButtonToggleLAA_Click(object sender, EventArgs e)
         {
             // Check if the Game is LAA Patched and fill in the Label properly
-            string currentGamePath = Directory.GetFiles(currentDir, CurrentGameEXE)[0];
-            string currentGraphucsConfigPath = Directory.GetFiles(currentDir, GraphicsConfigEXE)[0];
+            string currentGamePath = Directory.GetFiles(currentDir, currentGameEXE)[0];
+            string currentGraphucsConfigPath = Directory.GetFiles(currentDir, graphicsConfigEXE)[0];
 
             if (!IsFileLocked(currentGamePath) && !IsFileLocked(currentGraphucsConfigPath))
             {
@@ -910,12 +905,12 @@ namespace DoW_Mod_Manager
 
         private void CheckForGraphicsConfigEXE()
         {
-            string[] curDir = Directory.GetFiles(currentDir, GraphicsConfigEXE);
+            string[] curDir = Directory.GetFiles(currentDir, graphicsConfigEXE);
             if (curDir.Length == 0)
             {
                 if (!isMessageBoxOnScreen)
                 {
-                    MessageBox.Show("ERROR: " + GraphicsConfigEXE + " was not found!");
+                    MessageBox.Show("ERROR: " + graphicsConfigEXE + " was not found!");
                     isMessageBoxOnScreen = true;
                     Application.Exit();
                 }

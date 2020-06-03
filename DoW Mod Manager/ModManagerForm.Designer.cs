@@ -1,4 +1,4 @@
-﻿namespace DoW_Mod_Manager
+namespace DoW_Mod_Manager
 {
     partial class ModManagerForm
     {

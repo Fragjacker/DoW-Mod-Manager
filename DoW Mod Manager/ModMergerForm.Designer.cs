@@ -246,13 +246,13 @@
             this.loadedModBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.loadedModBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.loadedModBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.loadedModBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.loadedModBox.FormattingEnabled = true;
             this.loadedModBox.Location = new System.Drawing.Point(18, 72);
             this.loadedModBox.Name = "loadedModBox";
             this.loadedModBox.Size = new System.Drawing.Size(330, 21);
             this.loadedModBox.TabIndex = 8;
-            this.loadedModBox.Text = "--None--";
             this.loadedModBox.SelectedIndexChanged += new System.EventHandler(this.LoadedModBox_SelectedIndexChanged);
             // 
             // authorLabel
@@ -309,7 +309,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(505, 622);
             this.Name = "ModMergerForm";
-            this.Text = "Mod Merger v1.2";
+            this.Text = "Mod Merger v1.3.0";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
