@@ -61,6 +61,9 @@ namespace DoW_Mod_Manager
         {
             InitializeComponent();
 
+            // Sets Title of the form to be the same as Assembly Name
+            Text = Assembly.GetExecutingAssembly().GetName().Name;
+
             // Read *.ini file and load settings in memory
             if (File.Exists(CONFIG_FILE_NAME))
             {
@@ -671,6 +674,12 @@ namespace DoW_Mod_Manager
         {
             ModMergerForm mergerWindow = new ModMergerForm(this);
             mergerWindow.Show();
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            SettingsManagerForm settingsForm = new SettingsManagerForm();
+            settingsForm.Show();
         }
 
         /// <summary>
