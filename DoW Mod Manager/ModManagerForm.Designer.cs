@@ -1,4 +1,4 @@
-﻿namespace DoW_Mod_Manager
+namespace DoW_Mod_Manager
 {
     partial class ModManagerForm
     {
@@ -33,7 +33,7 @@
             this.currentDirectoryLabel = new System.Windows.Forms.Label();
             this.installedModsLabel = new System.Windows.Forms.Label();
             this.requiredModsLabel = new System.Windows.Forms.Label();
-            this.installedModsList = new System.Windows.Forms.ListBox();
+            this.installedModsListBox = new System.Windows.Forms.ListBox();
             this.requiredModsList = new System.Windows.Forms.ListBox();
             this.startModButton = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
@@ -51,6 +51,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toggleLAAButton = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.downloadButton = new System.Windows.Forms.Button();
+            this.settingsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -102,21 +104,21 @@
             this.requiredModsLabel.TabIndex = 3;
             this.requiredModsLabel.Text = "Required Mods";
             // 
-            // installedModsList
+            // installedModsListBox
             // 
-            this.installedModsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.installedModsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.installedModsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.installedModsList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.installedModsList.FormattingEnabled = true;
-            this.installedModsList.Location = new System.Drawing.Point(6, 23);
-            this.installedModsList.Margin = new System.Windows.Forms.Padding(10);
-            this.installedModsList.Name = "installedModsList";
-            this.installedModsList.ScrollAlwaysVisible = true;
-            this.installedModsList.Size = new System.Drawing.Size(380, 381);
-            this.installedModsList.TabIndex = 4;
-            this.installedModsList.SelectedIndexChanged += new System.EventHandler(this.InstalledModsList_SelectedIndexChanged);
+            this.installedModsListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.installedModsListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.installedModsListBox.FormattingEnabled = true;
+            this.installedModsListBox.Location = new System.Drawing.Point(6, 23);
+            this.installedModsListBox.Margin = new System.Windows.Forms.Padding(10);
+            this.installedModsListBox.Name = "installedModsListBox";
+            this.installedModsListBox.ScrollAlwaysVisible = true;
+            this.installedModsListBox.Size = new System.Drawing.Size(380, 381);
+            this.installedModsListBox.TabIndex = 4;
+            this.installedModsListBox.SelectedIndexChanged += new System.EventHandler(this.InstalledModsList_SelectedIndexChanged);
             // 
             // requiredModsList
             // 
@@ -226,7 +228,7 @@
             this.optimizationsCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.optimizationsCheckBox.Location = new System.Drawing.Point(18, 111);
             this.optimizationsCheckBox.Name = "optimizationsCheckBox";
-            this.optimizationsCheckBox.Size = new System.Drawing.Size(242, 17);
+            this.optimizationsCheckBox.Size = new System.Drawing.Size(314, 17);
             this.optimizationsCheckBox.TabIndex = 13;
             this.optimizationsCheckBox.Text = "/high /affinity 6: Set to highest thread priority and CPU affinity";
             this.optimizationsCheckBox.UseVisualStyleBackColor = true;
@@ -239,7 +241,7 @@
             this.mergeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mergeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.mergeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.mergeButton.Location = new System.Drawing.Point(568, 82);
+            this.mergeButton.Location = new System.Drawing.Point(632, 83);
             this.mergeButton.Name = "mergeButton";
             this.mergeButton.Size = new System.Drawing.Size(121, 43);
             this.mergeButton.TabIndex = 14;
@@ -303,7 +305,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.installedModsLabel);
-            this.splitContainer1.Panel1.Controls.Add(this.installedModsList);
+            this.splitContainer1.Panel1.Controls.Add(this.installedModsListBox);
             // 
             // splitContainer1.Panel2
             // 
@@ -331,12 +333,42 @@
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
+            // downloadButton
+            // 
+            this.downloadButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.downloadButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.downloadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.downloadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.downloadButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.downloadButton.Location = new System.Drawing.Point(505, 83);
+            this.downloadButton.Name = "downloadButton";
+            this.downloadButton.Size = new System.Drawing.Size(121, 43);
+            this.downloadButton.TabIndex = 21;
+            this.downloadButton.Text = "Download Mod...";
+            this.downloadButton.UseVisualStyleBackColor = false;
+            this.downloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
+            // 
+            // settingsButton
+            // 
+            this.settingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.settingsButton.Location = new System.Drawing.Point(199, 42);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(104, 31);
+            this.settingsButton.TabIndex = 22;
+            this.settingsButton.Text = "SETTINGS";
+            this.settingsButton.UseVisualStyleBackColor = false;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+            // 
             // ModManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(828, 561);
+            this.Controls.Add(this.settingsButton);
+            this.Controls.Add(this.downloadButton);
             this.Controls.Add(this.optimizationsCheckBox);
             this.Controls.Add(this.toggleLAAButton);
             this.Controls.Add(this.panel1);
@@ -356,7 +388,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "ModManagerForm";
-            this.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+            this.Text = "DoW Mod Manager";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModManagerForm_Closing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -388,7 +420,7 @@
         private System.Windows.Forms.CheckBox highpolyCheckBox;
         private System.Windows.Forms.CheckBox optimizationsCheckBox;
         private System.Windows.Forms.Button mergeButton;
-        private System.Windows.Forms.ListBox installedModsList;
+        private System.Windows.Forms.ListBox installedModsListBox;
         private System.Windows.Forms.Button startVanillaButton;
         private System.Windows.Forms.Label gameLAAStatusLabel;
         private System.Windows.Forms.Label graphicsConfigLAAStatusLabel;
@@ -396,5 +428,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button toggleLAAButton;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.Button downloadButton;
+        private System.Windows.Forms.Button settingsButton;
     }
 }
