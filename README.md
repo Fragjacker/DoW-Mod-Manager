@@ -36,6 +36,8 @@ This application allows for an easy launch of mods and management of large colle
 
 - **SETTINGS**: You could change game settings without launching the game. It also let's you change some HIDDEN game settings!
 
+- **Download Mod...**: This button will open the new Download Manager window where you could download one (or how much you like) of popular mods. If mod has a patch - it will be downloaded too!
+
 - **TOGGLE LAA**: This button allows for convenient activation and deactivation of the LAA flag for the Soulstorm.exe and GraphicsConfig.exe
 
 - **LAA Labels** : These two labels will show if both the Soulstorm.exe and GraphicsConfig.exe are LAA patched. Since the UA Mod and many other mods push the game engine really hard towards it's limits
