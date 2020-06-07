@@ -52,7 +52,6 @@ namespace DoW_Mod_Manager
             this.toggleLAAButton = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.downloadButton = new System.Windows.Forms.Button();
-            this.settingsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -348,26 +347,12 @@ namespace DoW_Mod_Manager
             this.downloadButton.UseVisualStyleBackColor = false;
             this.downloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
             // 
-            // settingsButton
-            // 
-            this.settingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settingsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.settingsButton.Location = new System.Drawing.Point(199, 42);
-            this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Size = new System.Drawing.Size(104, 31);
-            this.settingsButton.TabIndex = 22;
-            this.settingsButton.Text = "SETTINGS";
-            this.settingsButton.UseVisualStyleBackColor = false;
-            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
-            // 
             // ModManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(828, 561);
-            this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.downloadButton);
             this.Controls.Add(this.optimizationsCheckBox);
             this.Controls.Add(this.toggleLAAButton);
@@ -429,6 +414,5 @@ namespace DoW_Mod_Manager
         private System.Windows.Forms.Button toggleLAAButton;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.Button downloadButton;
-        private System.Windows.Forms.Button settingsButton;
     }
 }

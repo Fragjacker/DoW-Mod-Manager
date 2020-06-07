@@ -676,12 +676,6 @@ namespace DoW_Mod_Manager
             mergerWindow.Show();
         }
 
-        private void settingsButton_Click(object sender, EventArgs e)
-        {
-            SettingsManagerForm settingsForm = new SettingsManagerForm();
-            settingsForm.Show();
-        }
-
         /// <summary>
         /// This function draws the LAA text for the Soulstorm label depending on whether the flag is true (Green) or false (Red).
         /// </summary>

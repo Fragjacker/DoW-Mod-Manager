@@ -1,9 +1,5 @@
 # Changelog
-(All changes in 1.53 - 1.8.0 were made by IgorTheLight, excluding patch 1.6.1)
-
-## Version 1.8.0:
-
-- Added new form - Settings Manager. It could change game settings (including hidden ones!)
+(All changes in 1.53 - 1.7.0 were made by IgorTheLight, excluding patch 1.6.1)
 
 ## Version 1.7.0:
 
