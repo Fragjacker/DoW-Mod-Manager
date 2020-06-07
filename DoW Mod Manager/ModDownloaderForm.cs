@@ -8,7 +8,7 @@ namespace DoW_Mod_Manager
     public partial class ModDownloaderForm : Form
     {
         private readonly ModManagerForm modManager;
-        private readonly string[,] modWebAddresses = new string[30, 3];
+        private readonly string[,] modWebAddresses = new string[32, 3];
 
         public ModDownloaderForm(ModManagerForm form)
         {
@@ -51,7 +51,9 @@ namespace DoW_Mod_Manager
                     "Vostroyan Firstborn Modification for Soulstorm",
                     "Chaos Daemons Mod",
                     "Blood Angels mod: By the Blood of Sanguinius!",
-                    "Renegade Guard"
+                    "Renegade Guard",
+                    "Objective Points SS",
+                    "FreeUI"
                 });
 
                 byte i = 0;
@@ -174,6 +176,14 @@ namespace DoW_Mod_Manager
                 
                 modWebAddresses[i  , 0] = "https://www.moddb.com/mods/renegade-guard";
                 modWebAddresses[i  , 1] = "https://www.moddb.com/downloads/start/135315?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Frenegade-guard%2Fdownloads";
+                modWebAddresses[i++, 2] = "";
+
+                modWebAddresses[i, 0] = "https://www.moddb.com/mods/unification-mod-dawn-of-war-soulstorm/downloads/objective-points-ss-v1742020-for-dowdc-and-dowss";
+                modWebAddresses[i, 1] = "https://www.moddb.com/downloads/start/192702?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Funification-mod-dawn-of-war-soulstorm%2Fdownloads";
+                modWebAddresses[i++, 2] = "";
+
+                modWebAddresses[i, 0] = "https://www.moddb.com/mods/unification-mod-dawn-of-war-soulstorm/downloads/freeui";
+                modWebAddresses[i, 1] = "https://www.moddb.com/downloads/start/132081?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Funification-mod-dawn-of-war-soulstorm%2Fdownloads";
                 modWebAddresses[i++, 2] = "";
             }
             else if (modManager.CurrentGameEXE == ModManagerForm.GameExecutable.DARK_CRUSADE)
