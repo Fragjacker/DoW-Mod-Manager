@@ -8,7 +8,7 @@ namespace DoW_Mod_Manager
     public partial class ModDownloaderForm : Form
     {
         private readonly ModManagerForm modManager;
-        private readonly string[,] modWebAddresses = new string[32, 3];
+        private readonly string[,] modWebAddresses = new string[32, 3];         // Maybe I change that to List<string> in future
 
         public ModDownloaderForm(ModManagerForm form)
         {
@@ -57,6 +57,10 @@ namespace DoW_Mod_Manager
                 });
 
                 byte i = 0;
+
+                // modWebAddresses[i  , 0] - Mod page address
+                // modWebAddresses[i  , 1] - Mod download address
+                // modWebAddresses[i++, 2] - Mod patch address (and incrementing counter for the next mod)
 
                 modWebAddresses[i  , 0] = "https://www.moddb.com/mods/dawn-of-warhammer-40k-firestorm-over-kronus";
                 modWebAddresses[i  , 1] = "https://www.moddb.com/downloads/start/82196?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fdawn-of-warhammer-40k-firestorm-over-kronus%2Fdownloads";

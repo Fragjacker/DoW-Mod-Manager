@@ -42,7 +42,7 @@
             this.popularModsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.popularModsLabel.Location = new System.Drawing.Point(13, 13);
             this.popularModsLabel.Name = "popularModsLabel";
-            this.popularModsLabel.Size = new System.Drawing.Size(74, 13);
+            this.popularModsLabel.Size = new System.Drawing.Size(89, 13);
             this.popularModsLabel.TabIndex = 0;
             this.popularModsLabel.Text = "Popular mods for ";
             // 
@@ -59,6 +59,7 @@
             // 
             // openModDBButton
             // 
+            this.openModDBButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.openModDBButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openModDBButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.openModDBButton.Location = new System.Drawing.Point(436, 30);
@@ -71,6 +72,7 @@
             // 
             // openModPageButton
             // 
+            this.openModPageButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.openModPageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openModPageButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.openModPageButton.Location = new System.Drawing.Point(436, 74);
@@ -83,6 +85,7 @@
             // 
             // downloadModButton
             // 
+            this.downloadModButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.downloadModButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.downloadModButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.downloadModButton.Location = new System.Drawing.Point(436, 118);
@@ -99,13 +102,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(572, 450);
-            this.MinimumSize = new System.Drawing.Size(572, 450);
             this.Controls.Add(this.openModPageButton);
             this.Controls.Add(this.openModDBButton);
             this.Controls.Add(this.downloadModButton);
             this.Controls.Add(this.modListBox);
             this.Controls.Add(this.popularModsLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(572, 450);
             this.Name = "ModDownloaderForm";
             this.Text = "Mod Downloader";
             this.ResumeLayout(false);
