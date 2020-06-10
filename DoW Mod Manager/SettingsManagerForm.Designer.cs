@@ -39,7 +39,7 @@
             this.cyanLabel = new System.Windows.Forms.Label();
             this.watchMoviesCheckBox = new System.Windows.Forms.CheckBox();
             this.watchMoviesLabel = new System.Windows.Forms.Label();
-            this.dynamicLightComboBox = new System.Windows.Forms.ComboBox();
+            this.dynamicLightsComboBox = new System.Windows.Forms.ComboBox();
             this.dynamicLightLabel = new System.Windows.Forms.Label();
             this.effectsDetailComboBox = new System.Windows.Forms.ComboBox();
             this.effectsDetailLabel = new System.Windows.Forms.Label();
@@ -47,7 +47,7 @@
             this.worldEventsLabel = new System.Windows.Forms.Label();
             this.shadowsDetailComboBox = new System.Windows.Forms.ComboBox();
             this.shadowsLabel = new System.Windows.Forms.Label();
-            this.full3DCameraChackBox = new System.Windows.Forms.CheckBox();
+            this.full3DCameraCheckBox = new System.Windows.Forms.CheckBox();
             this.full3DCameraLabel = new System.Windows.Forms.Label();
             this.persistentScarringComboBox = new System.Windows.Forms.ComboBox();
             this.persistentScarringLabel = new System.Windows.Forms.Label();
@@ -220,7 +220,7 @@
             this.videoTabPage.Controls.Add(this.cyanLabel);
             this.videoTabPage.Controls.Add(this.watchMoviesCheckBox);
             this.videoTabPage.Controls.Add(this.watchMoviesLabel);
-            this.videoTabPage.Controls.Add(this.dynamicLightComboBox);
+            this.videoTabPage.Controls.Add(this.dynamicLightsComboBox);
             this.videoTabPage.Controls.Add(this.dynamicLightLabel);
             this.videoTabPage.Controls.Add(this.effectsDetailComboBox);
             this.videoTabPage.Controls.Add(this.effectsDetailLabel);
@@ -228,7 +228,7 @@
             this.videoTabPage.Controls.Add(this.worldEventsLabel);
             this.videoTabPage.Controls.Add(this.shadowsDetailComboBox);
             this.videoTabPage.Controls.Add(this.shadowsLabel);
-            this.videoTabPage.Controls.Add(this.full3DCameraChackBox);
+            this.videoTabPage.Controls.Add(this.full3DCameraCheckBox);
             this.videoTabPage.Controls.Add(this.full3DCameraLabel);
             this.videoTabPage.Controls.Add(this.persistentScarringComboBox);
             this.videoTabPage.Controls.Add(this.persistentScarringLabel);
@@ -304,17 +304,17 @@
             // 
             // dynamicLightComboBox
             // 
-            this.dynamicLightComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dynamicLightComboBox.FormattingEnabled = true;
-            this.dynamicLightComboBox.Items.AddRange(new object[] {
+            this.dynamicLightsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dynamicLightsComboBox.FormattingEnabled = true;
+            this.dynamicLightsComboBox.Items.AddRange(new object[] {
             "High",
             "Medium",
             "Low"});
-            this.dynamicLightComboBox.Location = new System.Drawing.Point(484, 295);
-            this.dynamicLightComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.dynamicLightComboBox.Name = "dynamicLightComboBox";
-            this.dynamicLightComboBox.Size = new System.Drawing.Size(160, 24);
-            this.dynamicLightComboBox.TabIndex = 42;
+            this.dynamicLightsComboBox.Location = new System.Drawing.Point(484, 295);
+            this.dynamicLightsComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.dynamicLightsComboBox.Name = "dynamicLightComboBox";
+            this.dynamicLightsComboBox.Size = new System.Drawing.Size(160, 24);
+            this.dynamicLightsComboBox.TabIndex = 42;
             // 
             // dynamicLightLabel
             // 
@@ -405,13 +405,13 @@
             // 
             // full3DCameraChackBox
             // 
-            this.full3DCameraChackBox.AutoSize = true;
-            this.full3DCameraChackBox.Location = new System.Drawing.Point(478, 342);
-            this.full3DCameraChackBox.Margin = new System.Windows.Forms.Padding(4);
-            this.full3DCameraChackBox.Name = "full3DCameraChackBox";
-            this.full3DCameraChackBox.Size = new System.Drawing.Size(15, 14);
-            this.full3DCameraChackBox.TabIndex = 34;
-            this.full3DCameraChackBox.UseVisualStyleBackColor = true;
+            this.full3DCameraCheckBox.AutoSize = true;
+            this.full3DCameraCheckBox.Location = new System.Drawing.Point(478, 342);
+            this.full3DCameraCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.full3DCameraCheckBox.Name = "full3DCameraChackBox";
+            this.full3DCameraCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.full3DCameraCheckBox.TabIndex = 34;
+            this.full3DCameraCheckBox.UseVisualStyleBackColor = true;
             // 
             // full3DCameraLabel
             // 
@@ -1299,7 +1299,7 @@
         private System.Windows.Forms.Label betterTeamcoloredTexturesLabel;
         private System.Windows.Forms.ComboBox persistentScarringComboBox;
         private System.Windows.Forms.Label persistentScarringLabel;
-        private System.Windows.Forms.CheckBox full3DCameraChackBox;
+        private System.Windows.Forms.CheckBox full3DCameraCheckBox;
         private System.Windows.Forms.Label full3DCameraLabel;
         private System.Windows.Forms.ComboBox shadowsDetailComboBox;
         private System.Windows.Forms.Label shadowsLabel;
@@ -1307,7 +1307,7 @@
         private System.Windows.Forms.Label worldEventsLabel;
         private System.Windows.Forms.ComboBox effectsDetailComboBox;
         private System.Windows.Forms.Label effectsDetailLabel;
-        private System.Windows.Forms.ComboBox dynamicLightComboBox;
+        private System.Windows.Forms.ComboBox dynamicLightsComboBox;
         private System.Windows.Forms.Label dynamicLightLabel;
         private System.Windows.Forms.CheckBox watchMoviesCheckBox;
         private System.Windows.Forms.Label watchMoviesLabel;
