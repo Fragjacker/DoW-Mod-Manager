@@ -1,5 +1,10 @@
 # Changelog
-(All changes in 1.53 - 1.6.0 were made by IgorTheLight)
+(All changes in 1.53 - 1.7.0 were made by IgorTheLight, excluding patch 1.6.1)
+
+## Version 1.7.0:
+
+- Added new form - Mod Downloader. It could download most popular mods using your default web browser
+- Some code improvements
 
 ## Version 1.6.1:
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -36,9 +36,9 @@ namespace DoW_Mod_Manager
         private bool isGameEXELAAPatched = false;                                   // Tells if soulstorm is LAA patched or NOT.
         private bool isGraphicsConfigLAAPatched = false;                            // Tells if graphicsconfig is LAA patched or NOT.
         private bool isMessageBoxOnScreen = false;
-        private readonly string currentGameEXE = "";
-        private readonly string graphicsConfigEXE = "GraphicsConfig.exe";
 
+        public readonly string CurrentGameEXE = "";
+        public readonly string GraphicsConfigEXE = "GraphicsConfig.exe";
         public string[] FilePaths;                                                  // Stores the paths of the found .module files in the Soulstorm directory
         public string[] ModFolderPaths;                                             // Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir.
         public List<string> AllFoundModules;                                        // Contains the list of all available Mods that will be used by the Mod Merger
@@ -60,6 +60,9 @@ namespace DoW_Mod_Manager
         public ModManagerForm()
         {
             InitializeComponent();
+
+            // Sets Title of the form to be the same as Assembly Name
+            Text = Assembly.GetExecutingAssembly().GetName().Name;
 
             // Read *.ini file and load settings in memory
             if (File.Exists(CONFIG_FILE_NAME))
@@ -138,30 +141,30 @@ namespace DoW_Mod_Manager
             else
                 optimizationsCheckBox.Checked = false;
 
-            currentGameEXE = GetCurrentGameEXE();
+            CurrentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
 
             currentDirTextBox.Text = currentDir;
             SetUpAllNecessaryMods();
-            isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(currentDir, currentGameEXE)[0]);
+            isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(currentDir, CurrentGameEXE)[0]);
             SetGameLAALabelText();
-            isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, graphicsConfigEXE)[0]);
+            isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, GraphicsConfigEXE)[0]);
             SetGraphicsConfigLAALabelText();
 
             // Watch for any changes in game directory
             AddFileSystemWatcher();
 
             // Sets the focus to the mod list
-            installedModsList.Select();
+            installedModsListBox.Select();
         }
 
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
-            string str = $"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n"+
-                        $"{DEV}={settings[DEV]}\n"+
-                        $"{NO_MOVIES}={settings[NO_MOVIES]}\n"+
-                        $"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n"+
-                        $"{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}";
+            string str = $"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n" +
+                         $"{DEV}={settings[DEV]}\n" +
+                         $"{NO_MOVIES}={settings[NO_MOVIES]}\n" +
+                         $"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n" +
+                         $"{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}";
             File.WriteAllText(CONFIG_FILE_NAME, str);
         }
 
@@ -172,10 +175,10 @@ namespace DoW_Mod_Manager
         {
             int index = settings[CHOICE_INDEX];
 
-            if (installedModsList.Items.Count > index)
-                installedModsList.SelectedIndex = index;
+            if (installedModsListBox.Items.Count > index)
+                installedModsListBox.SelectedIndex = index;
             else
-                installedModsList.SelectedIndex = installedModsList.Items.Count - 1;
+                installedModsListBox.SelectedIndex = installedModsListBox.Items.Count - 1;
         }
 
         /// <summary>
@@ -311,7 +314,7 @@ namespace DoW_Mod_Manager
             AllFoundModules = new List<string>();
             AllValidModules = new List<string>();
 
-            installedModsList.Items.Clear();
+            installedModsListBox.Items.Clear();
 
             FilePaths = Directory.GetFiles(currentDir, "*.module");
             if (FilePaths.Length > 0)
@@ -338,12 +341,12 @@ namespace DoW_Mod_Manager
                             if (ModIsPlayable(line))
                             {
                                 newfilePathsList.Add(FilePaths[i]);
-                                installedModsList.Items.Add(Path.GetFileNameWithoutExtension(filePath));
+                                installedModsListBox.Items.Add(Path.GetFileNameWithoutExtension(filePath));
                                 AllValidModules.Add(Path.GetFileNameWithoutExtension(filePath));
                             }
 
                             // We will not find unplayable mods in Original or Winter Assault - there was no "Playable" state
-                            if (currentGameEXE == GameExecutable.WINTER_ASSAULT || currentGameEXE == GameExecutable.ORIGINAL)
+                            if (CurrentGameEXE == GameExecutable.WINTER_ASSAULT || CurrentGameEXE == GameExecutable.ORIGINAL)
                                 break;
                         }
                     }
@@ -369,7 +372,7 @@ namespace DoW_Mod_Manager
         private bool ModIsPlayable(string textline)
         {
             // Original or Winter Assault module file don't have a "Playable" state
-            if (currentGameEXE == GameExecutable.WINTER_ASSAULT || currentGameEXE == GameExecutable.ORIGINAL)
+            if (CurrentGameEXE == GameExecutable.WINTER_ASSAULT || CurrentGameEXE == GameExecutable.ORIGINAL)
                 return true;
 
             const string pattern = @"Playable = 1";
@@ -439,11 +442,11 @@ namespace DoW_Mod_Manager
         {
             startModButton.Enabled = true;
 
-            int index = installedModsList.SelectedIndex;
-            if (index < 0 || index >= installedModsList.Items.Count)
+            int index = installedModsListBox.SelectedIndex;
+            if (index < 0 || index >= installedModsListBox.Items.Count)
             {
                 index = settings[CHOICE_INDEX];
-                installedModsList.SelectedIndex = index;
+                installedModsListBox.SelectedIndex = index;
             }
             else
                 settings[CHOICE_INDEX] = index;
@@ -523,7 +526,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void StartButton_Click(object sender, EventArgs e)
         {
-            StartGameWithOptions(installedModsList.SelectedItem.ToString());
+            StartGameWithOptions(installedModsListBox.SelectedItem.ToString());
         }
 
         private void StartGameWithOptions(string modName)
@@ -539,7 +542,7 @@ namespace DoW_Mod_Manager
                 arguments += " -forcehighpoly";
 
             Process proc = new Process();
-            proc.StartInfo.FileName = currentGameEXE;
+            proc.StartInfo.FileName = CurrentGameEXE;
             proc.StartInfo.Arguments = arguments;
             proc.Start();
 
@@ -657,10 +660,16 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This is function opens the Mod Merger form when the button is clicked.
+        /// This method opens the Mod Downloader form when the button is clicked.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void DownloadButton_Click(object sender, EventArgs e)
+        {
+            ModDownloaderForm downloaderForm = new ModDownloaderForm(this);
+            downloaderForm.Show();
+        }
+
         private void ModMergeButton_Click(object sender, EventArgs e)
         {
             ModMergerForm mergerWindow = new ModMergerForm(this);
@@ -674,12 +683,12 @@ namespace DoW_Mod_Manager
         {
             if (isGameEXELAAPatched)
             {
-                gameLAAStatusLabel.Text = currentGameEXE + ": LAA Active";
+                gameLAAStatusLabel.Text = CurrentGameEXE + ": LAA Active";
                 gameLAAStatusLabel.ForeColor = Color.Green;
             }
             else
             {
-                gameLAAStatusLabel.Text = currentGameEXE + ": LAA Inactive";
+                gameLAAStatusLabel.Text = CurrentGameEXE + ": LAA Inactive";
                 gameLAAStatusLabel.ForeColor = Color.Red;
             }
         }
@@ -691,12 +700,12 @@ namespace DoW_Mod_Manager
         {
             if (isGraphicsConfigLAAPatched)
             {
-                graphicsConfigLAAStatusLabel.Text = graphicsConfigEXE + ": LAA Active";
+                graphicsConfigLAAStatusLabel.Text = GraphicsConfigEXE + ": LAA Active";
                 graphicsConfigLAAStatusLabel.ForeColor = Color.Green;
             }
             else
             {
-                graphicsConfigLAAStatusLabel.Text = graphicsConfigEXE + ": LAA Inactive";
+                graphicsConfigLAAStatusLabel.Text = GraphicsConfigEXE + ": LAA Inactive";
                 graphicsConfigLAAStatusLabel.ForeColor = Color.Red;
             }
         }
@@ -830,8 +839,8 @@ namespace DoW_Mod_Manager
         private void ButtonToggleLAA_Click(object sender, EventArgs e)
         {
             // Check if the Game is LAA Patched and fill in the Label properly
-            string currentGamePath = Directory.GetFiles(currentDir, currentGameEXE)[0];
-            string currentGraphucsConfigPath = Directory.GetFiles(currentDir, graphicsConfigEXE)[0];
+            string currentGamePath = Directory.GetFiles(currentDir, CurrentGameEXE)[0];
+            string currentGraphucsConfigPath = Directory.GetFiles(currentDir, GraphicsConfigEXE)[0];
 
             if (!IsFileLocked(currentGamePath) && !IsFileLocked(currentGraphucsConfigPath))
             {
@@ -899,12 +908,12 @@ namespace DoW_Mod_Manager
 
         private void CheckForGraphicsConfigEXE()
         {
-            string[] curDir = Directory.GetFiles(currentDir, graphicsConfigEXE);
+            string[] curDir = Directory.GetFiles(currentDir, GraphicsConfigEXE);
             if (curDir.Length == 0)
             {
                 if (!isMessageBoxOnScreen)
                 {
-                    MessageBox.Show("ERROR: " + graphicsConfigEXE + " was not found!");
+                    MessageBox.Show("ERROR: " + GraphicsConfigEXE + " was not found!");
                     isMessageBoxOnScreen = true;
                     Application.Exit();
                 }
