@@ -307,9 +307,10 @@
             this.dynamicLightsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicLightsComboBox.FormattingEnabled = true;
             this.dynamicLightsComboBox.Items.AddRange(new object[] {
-            "High",
+            "None",
+            "Low",
             "Medium",
-            "Low"});
+            "High"});
             this.dynamicLightsComboBox.Location = new System.Drawing.Point(484, 295);
             this.dynamicLightsComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.dynamicLightsComboBox.Name = "dynamicLightComboBox";
@@ -332,9 +333,9 @@
             this.effectsDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.effectsDetailComboBox.FormattingEnabled = true;
             this.effectsDetailComboBox.Items.AddRange(new object[] {
-            "High",
+            "Low",
             "Medium",
-            "Low"});
+            "High"});
             this.effectsDetailComboBox.Location = new System.Drawing.Point(486, 159);
             this.effectsDetailComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.effectsDetailComboBox.Name = "effectsDetailComboBox";
@@ -357,9 +358,9 @@
             this.worldEventsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.worldEventsComboBox.FormattingEnabled = true;
             this.worldEventsComboBox.Items.AddRange(new object[] {
-            "High",
+            "Low",
             "Medium",
-            "Low"});
+            "High"});
             this.worldEventsComboBox.Location = new System.Drawing.Point(484, 114);
             this.worldEventsComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.worldEventsComboBox.Name = "worldEventsComboBox";
@@ -382,10 +383,10 @@
             this.shadowsDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.shadowsDetailComboBox.FormattingEnabled = true;
             this.shadowsDetailComboBox.Items.AddRange(new object[] {
-            "High",
-            "Medium",
-            "Low",
-            "None"});
+            "None",
+            "Low (Blob)",
+            "Medium (Blob + Map)",
+            "High (Blob + Map + Volume)"});
             this.shadowsDetailComboBox.Location = new System.Drawing.Point(484, 68);
             this.shadowsDetailComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.shadowsDetailComboBox.Name = "shadowsDetailComboBox";
@@ -429,9 +430,9 @@
             this.persistentScarringComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.persistentScarringComboBox.FormattingEnabled = true;
             this.persistentScarringComboBox.Items.AddRange(new object[] {
-            "High",
+            "Low",
             "Medium",
-            "Low"});
+            "High"});
             this.persistentScarringComboBox.Location = new System.Drawing.Point(486, 250);
             this.persistentScarringComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.persistentScarringComboBox.Name = "persistentScarringComboBox";
@@ -496,10 +497,10 @@
             this.persistentBodiesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.persistentBodiesComboBox.FormattingEnabled = true;
             this.persistentBodiesComboBox.Items.AddRange(new object[] {
-            "High",
-            "Medium",
+            "None",
             "Low",
-            "None"});
+            "Medium",
+            "High"});
             this.persistentBodiesComboBox.Location = new System.Drawing.Point(486, 205);
             this.persistentBodiesComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.persistentBodiesComboBox.Name = "persistentBodiesComboBox";
@@ -522,9 +523,9 @@
             this.terrainDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.terrainDetailComboBox.FormattingEnabled = true;
             this.terrainDetailComboBox.Items.AddRange(new object[] {
-            "High",
+            "Low",
             "Medium",
-            "Low"});
+            "High"});
             this.terrainDetailComboBox.Location = new System.Drawing.Point(151, 522);
             this.terrainDetailComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.terrainDetailComboBox.Name = "terrainDetailComboBox";
@@ -547,9 +548,9 @@
             this.modelDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.modelDetailComboBox.FormattingEnabled = true;
             this.modelDetailComboBox.Items.AddRange(new object[] {
-            "High",
+            "Low",
             "Medium",
-            "Low"});
+            "High"});
             this.modelDetailComboBox.Location = new System.Drawing.Point(151, 475);
             this.modelDetailComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.modelDetailComboBox.Name = "modelDetailComboBox";
@@ -572,9 +573,9 @@
             this.textureDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.textureDetailComboBox.FormattingEnabled = true;
             this.textureDetailComboBox.Items.AddRange(new object[] {
-            "High",
+            "Low",
             "Medium",
-            "Low"});
+            "High"});
             this.textureDetailComboBox.Location = new System.Drawing.Point(151, 426);
             this.textureDetailComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.textureDetailComboBox.Name = "textureDetailComboBox";
@@ -620,9 +621,9 @@
             this.colorDepthComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.colorDepthComboBox.FormattingEnabled = true;
             this.colorDepthComboBox.Items.AddRange(new object[] {
-            "32 bit (TrueColor)",
+            "16 bit",
             "24 bit (HighColor - experimental)",
-            "16 bit"});
+            "32 bit (TrueColor)"});
             this.colorDepthComboBox.Location = new System.Drawing.Point(151, 205);
             this.colorDepthComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.colorDepthComboBox.Name = "colorDepthComboBox";
@@ -692,6 +693,7 @@
             this.refreshRateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.refreshRateComboBox.FormattingEnabled = true;
             this.refreshRateComboBox.Items.AddRange(new object[] {
+            "Auto",
             "144 Hz",
             "120 Hz",
             "90 Hz",
@@ -889,9 +891,9 @@
             this.soundQualityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.soundQualityComboBox.FormattingEnabled = true;
             this.soundQualityComboBox.Items.AddRange(new object[] {
-            "High",
+            "Low",
             "Medium",
-            "Low"});
+            "High"});
             this.soundQualityComboBox.Location = new System.Drawing.Point(164, 109);
             this.soundQualityComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.soundQualityComboBox.Name = "soundQualityComboBox";
@@ -914,9 +916,9 @@
             this.soundChannelsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.soundChannelsComboBox.FormattingEnabled = true;
             this.soundChannelsComboBox.Items.AddRange(new object[] {
-            "High",
-            "Medium",
-            "Low"});
+            "Low (16)",
+            "Medium (32)",
+            "High (64)"});
             this.soundChannelsComboBox.Location = new System.Drawing.Point(164, 156);
             this.soundChannelsComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.soundChannelsComboBox.Name = "soundChannelsComboBox";
@@ -1063,7 +1065,10 @@
             this.currentPlayerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.currentPlayerComboBox.FormattingEnabled = true;
             this.currentPlayerComboBox.Items.AddRange(new object[] {
-            "Profile1"});
+            "Profile1",
+            "Profile2",
+            "Profile3",
+            "Profile4"});
             this.currentPlayerComboBox.Location = new System.Drawing.Point(168, 29);
             this.currentPlayerComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.currentPlayerComboBox.Name = "currentPlayerComboBox";

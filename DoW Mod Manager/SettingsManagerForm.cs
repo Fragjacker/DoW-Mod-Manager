@@ -93,18 +93,18 @@ namespace DoW_Mod_Manager
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i];
-                line = line.Replace(" ", "");
+                line = line.Trim();
 
-                int indexOfEqualSign = line.IndexOf('=');
+                int firstIndexOfEqualSign = line.IndexOf('=');
                 int lastIndexOfEqualSign = line.LastIndexOf('=');
 
                 // There must be only one "=" in the line!
-                if (indexOfEqualSign == lastIndexOfEqualSign)
+                if (firstIndexOfEqualSign == lastIndexOfEqualSign)
                 {
-                    if (indexOfEqualSign > 0)
+                    if (firstIndexOfEqualSign > 0)
                     {
-                        string setting = line.Substring(0, indexOfEqualSign);
-                        string value = line.Substring(indexOfEqualSign + 1, line.Length - indexOfEqualSign - 1);
+                        string setting = line.Substring(0, firstIndexOfEqualSign);
+                        string value = line.Substring(firstIndexOfEqualSign + 1, line.Length - firstIndexOfEqualSign - 1);
 
                         switch (setting)
                         {
@@ -188,7 +188,7 @@ namespace DoW_Mod_Manager
                                     settings[SCREEN_NO_VSYNC] = value;
                                 break;
                             case SCREEN_REFRESH:
-                                if (value == "59" || value == "60" || value == "120" || value == "144")
+                                if (value == "0" || value == "59" || value == "60" || value == "120" || value == "144")
                                     settings[SCREEN_REFRESH] = value;
                                 break;
                             case SCREEN_WIDTH:
@@ -254,48 +254,119 @@ namespace DoW_Mod_Manager
             string text = "Parsed pairs of key=value\n\n";
             foreach (var kvp in settings)
             {
-                text += kvp.Key +  "=" + kvp.Value + "\n";
+                text += kvp.Key + "=" + kvp.Value + "\n";
             }
             MessageBox.Show(text, "Debug Info");
 
             // Now we could set all ComboBoxes (METALLBAWHKSESS!!!) and CheckBoxes in our Form
-            // Fun fact: Convert.ToBoolean("true") works but Convert.ToBoolean("1") fails
-            //full3DCameraCheckBox.Checked = Convert.ToBoolean(settings[CAMERA_DETAIL]);
-            // Skipping CurrtentMod
-            dynamicLightsComboBox.SelectedItem = settings[DYNAMIC_LIGHTS];
-            worldEventsComboBox.SelectedItem = settings[EVENT_DETAIL_LEVEL];
-            //watchMoviesCheckBox.Checked = Convert.ToBoolean(settings[FORCE_WATCH_MOVIES]);
-            //betterTeamcoloredTexturexCheckBox.Checked = Convert.ToBoolean(settings[FULLRES_TEAMCOLOUR]);
-            effectsDetailComboBox.SelectedItem = settings[FX_DETAIL_LEVEL];
-            modelDetailComboBox.SelectedItem = settings[MODEL_DETAIL];
-            //parentalControlCheckBox.Checked = Convert.ToBoolean(settings[PARENTAL_CONTROL]);
-            persistentBodiesComboBox.SelectedItem = settings[PERSISTENT_BODIES];
-            persistentScarringComboBox.SelectedItem = settings[PERSISTENT_DECALS];
-            ////currentPlayerComboBox.SelectedItem = settings[PLAYER_PROFILE];
+            // Fun fact: Convert.ToBoolean("true") works but Convert.ToBoolean("1") fails. Only Convert.ToBoolean(1) is a good alternative
+            full3DCameraCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[CAMERA_DETAIL]));
+            // Skipp CurrtentMod setting
+            dynamicLightsComboBox.SelectedIndex = Convert.ToInt32(settings[DYNAMIC_LIGHTS]);
+            worldEventsComboBox.SelectedIndex = Convert.ToInt32(settings[EVENT_DETAIL_LEVEL]);
+            watchMoviesCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[FORCE_WATCH_MOVIES]));
+            betterTeamcoloredTexturexCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[FULLRES_TEAMCOLOUR]));
+            effectsDetailComboBox.SelectedIndex = Convert.ToInt32(settings[FX_DETAIL_LEVEL]);
+            modelDetailComboBox.SelectedIndex = Convert.ToInt32(settings[MODEL_DETAIL]);
+            parentalControlCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[PARENTAL_CONTROL]));
+            persistentBodiesComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_BODIES]);
+            persistentScarringComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_DECALS]);
+            currentPlayerComboBox.SelectedItem = settings[PLAYER_PROFILE];
             unknownSettingComboBox.SelectedItem = settings[RL_SSO_NUM_TIMES_SHOWN];
             activeVideocardComboBox.SelectedItem = settings[SCREEN_ADAPTER];
-            //antialiasingCheckBox.Checked = Convert.ToBoolean(settings[SCREEN_ANIALIAS]);
-            ////colorDepthComboBox.SelectedItem = settings[SCREEN_DEPTH];
-            //rendererComboBox.SelectedItem = settings[SCREEN_DEVICE];
-            //gammaTrackBar.Value = Convert.ToInt32(settings[SCREEN_GAMMA]);
-            screenResolutionComboBox.SelectedItem = "1920×1080";                    // Hardcoded! Please change!
-            //vSyncCheckBox.Checked = Convert.ToBoolean(settings[SCREEN_NO_VSYNC]);
-            refreshRateComboBox.SelectedItem = "60 Hz";                             // Hardcoded! Please change!
-            //windowedCheckBox.Checked = Convert.ToBoolean(settings[SCREEN_WINDOWED]);
-            shadowsDetailComboBox.SelectedItem = "High";                            // Hardcoded! Please change!
-            //soundEnabledChackBox.Checked = Convert.ToBoolean(settings[SOUND_ENABLED]);
-            //randomizedSoundsCheckBox.Checked = Convert.ToBoolean(settings[SOUND_LIMIT_SAMPLES]);
-            soundChannelsComboBox.SelectedItem = settings[SOUND_NR_CHANNELS];
-            soundQualityComboBox.SelectedItem = settings[SOUND_QUALITY];
-            terrainDetailComboBox.SelectedItem = settings[TERRAIN_ENABLE_FOW_BLUR];
-            textureDetailComboBox.SelectedItem = settings[TEXTURE_DETAIL];
-            // Skip TotalMatchces
-            //unitsOcclusionCheckBox.Checked = Convert.ToBoolean(settings[UNIT_OCCLUSION]);
+            antialiasingCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_ANIALIAS]));
+            switch (settings[SCREEN_DEPTH])
+            {
+                case "32":
+                    colorDepthComboBox.SelectedIndex = 2;
+                    break;
+                case "24":
+                    colorDepthComboBox.SelectedIndex = 1;
+                    break;
+                case "16":
+                    colorDepthComboBox.SelectedIndex = 0;
+                    break;
+            }
+            rendererComboBox.SelectedItem = settings[SCREEN_DEVICE];
+            gammaTrackBar.Value = Convert.ToInt32(settings[SCREEN_GAMMA]);
+            screenResolutionComboBox.SelectedItem = settings[SCREEN_WIDTH] + "×" + settings[SCREEN_HEIGHT];
+            vSyncCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_NO_VSYNC]));
+            if (settings[SCREEN_REFRESH] == "0")
+                refreshRateComboBox.SelectedItem = "Auto";
+            else
+                refreshRateComboBox.SelectedItem = settings[SCREEN_REFRESH] + " Hz";
+            windowedCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_WINDOWED]));
+            int index = 0;
+            if (settings[SHADOW_BLOB] == "1")
+            {
+                index = 1;
+                if (settings[SHADOW_MAP] == "1")
+                {
+                    index = 2;
+                    if (settings[SHADOW_VOLUME] == "1")
+                        index = 3;
+                }
+            }
+            shadowsDetailComboBox.SelectedIndex = index;
+            soundEnabledChackBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SOUND_ENABLED]));
+            randomizedSoundsCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SOUND_LIMIT_SAMPLES]));
+            switch (settings[SOUND_NR_CHANNELS])
+            {
+                case "64":
+                    soundChannelsComboBox.SelectedIndex = 2;
+                    break;
+                case "32":
+                    soundChannelsComboBox.SelectedIndex = 1;
+                    break;
+                case "16":
+                    soundChannelsComboBox.SelectedIndex = 0;
+                    break;
+            }
+            soundQualityComboBox.SelectedIndex = Convert.ToInt32(settings[SOUND_QUALITY]);
+            terrainDetailComboBox.SelectedIndex = Convert.ToInt32(settings[TERRAIN_ENABLE_FOW_BLUR]);
+            textureDetailComboBox.SelectedIndex = Convert.ToInt32(settings[TEXTURE_DETAIL]);
+            // Skip TotalMatchces setting
+            unitsOcclusionCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[UNIT_OCCLUSION]));
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-
+            string str = $"[global]\n" +
+             $"{CAMERA_DETAIL}={settings[CAMERA_DETAIL]}\n" +
+             $"{CURRENT_MOD}={settings[CURRENT_MOD]}\n" +
+             $"{DYNAMIC_LIGHTS}={settings[DYNAMIC_LIGHTS]}\n" +
+             $"{EVENT_DETAIL_LEVEL}={settings[EVENT_DETAIL_LEVEL]}\n" +
+             $"{FORCE_WATCH_MOVIES}={settings[FORCE_WATCH_MOVIES]}\n" +
+             $"{FULLRES_TEAMCOLOUR}={settings[FULLRES_TEAMCOLOUR]}\n" +
+             $"{FX_DETAIL_LEVEL}={settings[FX_DETAIL_LEVEL]}\n" +
+             $"{MODEL_DETAIL}={settings[MODEL_DETAIL]}\n" +
+             $"{PARENTAL_CONTROL}={settings[PARENTAL_CONTROL]}\n" +
+             $"{PERSISTENT_BODIES}={settings[PERSISTENT_BODIES]}\n" +
+             $"{PERSISTENT_DECALS}={settings[PERSISTENT_DECALS]}\n" +
+             $"{PLAYER_PROFILE}={settings[PLAYER_PROFILE]}\n" +
+             $"{RL_SSO_NUM_TIMES_SHOWN}={settings[RL_SSO_NUM_TIMES_SHOWN]}\n" +
+             $"{SCREEN_ADAPTER}={settings[SCREEN_ADAPTER]}\n" +
+             $"{SCREEN_ANIALIAS}={settings[SCREEN_ANIALIAS]}\n" +
+             $"{SCREEN_DEPTH}={settings[SCREEN_DEPTH]}\n" +
+             $"{SCREEN_DEVICE}={settings[SCREEN_DEVICE]}\n" +
+             $"{SCREEN_GAMMA}={settings[SCREEN_GAMMA]}\n" +
+             $"{SCREEN_HEIGHT}={settings[SCREEN_HEIGHT]}\n" +
+             $"{SCREEN_NO_VSYNC}={settings[SCREEN_NO_VSYNC]}\n" +
+             $"{SCREEN_REFRESH}={settings[SCREEN_REFRESH]}\n" +
+             $"{SCREEN_WIDTH}={settings[SCREEN_WIDTH]}\n" +
+             $"{SCREEN_WINDOWED}={settings[SCREEN_WINDOWED]}\n" +
+             $"{SHADOW_BLOB}={settings[SHADOW_BLOB]}\n" +
+             $"{SHADOW_MAP}={settings[SHADOW_MAP]}\n" +
+             $"{SHADOW_VOLUME}={settings[SHADOW_VOLUME]}\n" +
+             $"{SOUND_ENABLED}={settings[SOUND_ENABLED]}\n" +
+             $"{SOUND_LIMIT_SAMPLES}={settings[SOUND_LIMIT_SAMPLES]}\n" +
+             $"{SOUND_NR_CHANNELS}={settings[SOUND_NR_CHANNELS]}\n" +
+             $"{SOUND_QUALITY}={settings[SOUND_QUALITY]}\n" +
+             $"{TERRAIN_ENABLE_FOW_BLUR}={settings[TERRAIN_ENABLE_FOW_BLUR]}\n" +
+             $"{TEXTURE_DETAIL}={settings[TEXTURE_DETAIL]}\n" +
+             $"{TOTAL_MATCHES}={settings[TOTAL_MATCHES]}\n" +
+             $"{UNIT_OCCLUSION}={settings[UNIT_OCCLUSION]}";
+            File.WriteAllText(SETTINGS_FILE, str);
         }
 
         private void DefaultsButton_Click(object sender, EventArgs e)
