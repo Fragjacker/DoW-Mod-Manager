@@ -308,7 +308,7 @@ namespace DoW_Mod_Manager
                 }
             }
             shadowsDetailComboBox.SelectedIndex = index;
-            soundEnabledChackBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SOUND_ENABLED]));
+            soundEnabledCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SOUND_ENABLED]));
             randomizedSoundsCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SOUND_LIMIT_SAMPLES]));
             switch (settings[SOUND_NR_CHANNELS])
             {
@@ -377,6 +377,265 @@ namespace DoW_Mod_Manager
         private void CancelButton_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void CurrentPlayerComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings[PLAYER_PROFILE] = currentPlayerComboBox.SelectedItem.ToString();
+        }
+
+        private void ParentalControlCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (parentalControlCheckBox.Checked)
+                settings[PARENTAL_CONTROL] = "1";
+            else
+                settings[PARENTAL_CONTROL] = "0";
+        }
+
+        private void InversePanCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            // Can't find this setting!
+        }
+
+        private void InverseDeclinationCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            // Can't find this setting!
+        }
+
+        private void ScrollRateTrackBar_Scroll(object sender, EventArgs e)
+        {
+            // Can't find this setting!
+        }
+
+        private void UnknownSettingComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings[RL_SSO_NUM_TIMES_SHOWN] = unknownSettingComboBox.SelectedItem.ToString();
+        }
+
+        private void ActiveVideocardComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings[SCREEN_ADAPTER] = activeVideocardComboBox.SelectedItem.ToString();
+        }
+
+        private void RendererComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings[SCREEN_DEVICE] = rendererComboBox.SelectedItem.ToString();
+        }
+
+        private void ScreenResolutionComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string str = screenResolutionComboBox.SelectedItem.ToString();
+            int x = str.IndexOf('×');
+
+            settings[SCREEN_WIDTH] = str.Substring(0, x);
+            settings[SCREEN_HEIGHT] = str.Substring(x + 1, str.Length - x - 1);
+        }
+
+        private void RefreshRateComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string str = refreshRateComboBox.SelectedItem.ToString();
+            int indexOfSpace = str.IndexOf(" ");
+
+            if (str == "Auto")
+                settings[SCREEN_REFRESH] = "0";
+            else
+                settings[SCREEN_REFRESH] = str.Substring(0, indexOfSpace);
+        }
+
+        private void ColorDepthComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (colorDepthComboBox.SelectedIndex)
+            {
+                case 2:
+                    settings[SCREEN_DEPTH] = "32";
+                    break;
+                case 1:
+                    settings[SCREEN_DEPTH] = "24";
+                    break;
+                case 0:
+                    settings[SCREEN_DEPTH] = "16";
+                    break;
+            }
+        }
+
+        private void GammaTrackBar_Scroll(object sender, EventArgs e)
+        {
+            settings[SCREEN_GAMMA] = gammaTrackBar.Value.ToString();
+        }
+
+        private void VSyncCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (vSyncCheckBox.Checked)
+                settings[SCREEN_NO_VSYNC] = "1";
+            else
+                settings[SCREEN_NO_VSYNC] = "0";
+        }
+
+        private void WindowedCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (windowedCheckBox.Checked)
+                settings[SCREEN_WINDOWED] = "1";
+            else
+                settings[SCREEN_WINDOWED] = "0";
+        }
+
+        private void AntialiasingCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (antialiasingCheckBox.Checked)
+                settings[SCREEN_ANIALIAS] = "1";
+            else
+                settings[SCREEN_ANIALIAS] = "0";
+        }
+
+        private void TextureDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings[TEXTURE_DETAIL] = textureDetailComboBox.SelectedIndex.ToString();
+        }
+
+        private void ModelDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings[MODEL_DETAIL] = modelDetailComboBox.SelectedIndex.ToString();
+        }
+
+        private void TerrainDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings[TERRAIN_ENABLE_FOW_BLUR] = terrainDetailComboBox.SelectedIndex.ToString();
+        }
+
+        private void BetterTeamcoloredTexturexCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (betterTeamcoloredTexturexCheckBox.Checked)
+                settings[FULLRES_TEAMCOLOUR] = "1";
+            else
+                settings[FULLRES_TEAMCOLOUR] = "0";
+        }
+
+        private void ShadowsDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Using goto we could fall through even if case is not empty!
+            switch (shadowsDetailComboBox.SelectedIndex)
+            {
+                case 0:
+                    settings[SHADOW_BLOB] = "0";
+                    settings[SHADOW_MAP] = "0";
+                    settings[SHADOW_VOLUME] = "0";
+                    break;
+                case 3:
+                    settings[SHADOW_VOLUME] = "1";
+                    goto case 2;
+                case 2:
+                    settings[SHADOW_MAP] = "1";
+                    goto case 1;
+                case 1:
+                    settings[SHADOW_BLOB] = "1";
+                    break;
+            }
+        }
+
+        private void WorldEventsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings[EVENT_DETAIL_LEVEL] = worldEventsComboBox.SelectedIndex.ToString();
+        }
+
+        private void EffectsDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings[FX_DETAIL_LEVEL] = effectsDetailComboBox.SelectedIndex.ToString();
+        }
+
+        private void PersistentBodiesComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings[PERSISTENT_BODIES] = persistentBodiesComboBox.SelectedIndex.ToString();
+        }
+
+        private void PersistentScarringComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings[PERSISTENT_DECALS] = persistentScarringComboBox.SelectedIndex.ToString();
+        }
+
+        private void DynamicLightsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings[DYNAMIC_LIGHTS] = dynamicLightsComboBox.SelectedIndex.ToString();
+        }
+
+        private void Full3DCameraCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (full3DCameraCheckBox.Checked)
+                settings[CAMERA_DETAIL] = "1";
+            else
+                settings[CAMERA_DETAIL] = "0";
+        }
+
+        private void UnitsOcclusionCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (unitsOcclusionCheckBox.Checked)
+                settings[UNIT_OCCLUSION] = "1";
+            else
+                settings[UNIT_OCCLUSION] = "0";
+        }
+
+        private void WatchMoviesCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (watchMoviesCheckBox.Checked)
+                settings[FORCE_WATCH_MOVIES] = "1";
+            else
+                settings[FORCE_WATCH_MOVIES] = "0";
+        }
+
+        private void SoundEnabledCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (soundEnabledCheckBox.Checked)
+                settings[SOUND_ENABLED] = "1";
+            else
+                settings[SOUND_ENABLED] = "0";
+        }
+
+        private void RandomizedSoundsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (randomizedSoundsCheckBox.Checked)
+                settings[SOUND_LIMIT_SAMPLES] = "1";
+            else
+                settings[SOUND_LIMIT_SAMPLES] = "0";
+        }
+
+        private void SoundQualityComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings[SOUND_QUALITY] = soundQualityComboBox.SelectedIndex.ToString();
+        }
+
+        private void SoundChannelsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (soundChannelsComboBox.SelectedIndex)
+            {
+                case 2:
+                    settings[SOUND_NR_CHANNELS] = "64";
+                    break;
+                case 1:
+                    settings[SOUND_NR_CHANNELS] = "32";
+                    break;
+                case 0:
+                    settings[SOUND_NR_CHANNELS] = "16";
+                    break;
+            }
+        }
+
+        private void AmbientVolumeTarckBar_Scroll(object sender, EventArgs e)
+        {
+            // Can't find this setting!
+        }
+
+        private void EffectsVolumeTrackBar_Scroll(object sender, EventArgs e)
+        {
+            // Can't find this setting!
+        }
+
+        private void VoiceVolumeTrackBar_Scroll(object sender, EventArgs e)
+        {
+            // Can't find this setting!
+        }
+
+        private void MusicVolumeTrackBar_Scroll(object sender, EventArgs e)
+        {
+            // Can't find this setting!
         }
     }
 }

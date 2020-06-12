@@ -35,6 +35,17 @@
             this.defaultsButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.generalTabPage = new System.Windows.Forms.TabPage();
+            this.scrollRateTrackBar = new System.Windows.Forms.TrackBar();
+            this.scrollRateLabel = new System.Windows.Forms.Label();
+            this.inverseDeclinationCheckBox = new System.Windows.Forms.CheckBox();
+            this.inverseDeclinationLabel = new System.Windows.Forms.Label();
+            this.inversePanCheckBox = new System.Windows.Forms.CheckBox();
+            this.inversePanLabel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.parentalControlCheckBox = new System.Windows.Forms.CheckBox();
+            this.parentalControlLabel = new System.Windows.Forms.Label();
+            this.currentPlayerComboBox = new System.Windows.Forms.ComboBox();
+            this.currentPlayerLabel = new System.Windows.Forms.Label();
             this.videoTabPage = new System.Windows.Forms.TabPage();
             this.cyanLabel = new System.Windows.Forms.Label();
             this.watchMoviesCheckBox = new System.Windows.Forms.CheckBox();
@@ -82,49 +93,35 @@
             this.screenResolutionComboBox = new System.Windows.Forms.ComboBox();
             this.screenResolutionLabel = new System.Windows.Forms.Label();
             this.audioTabPage = new System.Windows.Forms.TabPage();
-            this.networkTabPage = new System.Windows.Forms.TabPage();
-            this.randomizedSoundsCheckBox = new System.Windows.Forms.CheckBox();
-            this.randomizedSoundsLabel = new System.Windows.Forms.Label();
-            this.soundQualityComboBox = new System.Windows.Forms.ComboBox();
-            this.soundQualityLabel = new System.Windows.Forms.Label();
-            this.soundChannelsComboBox = new System.Windows.Forms.ComboBox();
-            this.soundChannelsLabel = new System.Windows.Forms.Label();
-            this.ambientVolumeTarckBar = new System.Windows.Forms.TrackBar();
-            this.ambientVolumeLabel = new System.Windows.Forms.Label();
-            this.effectsVolumeTrackBar = new System.Windows.Forms.TrackBar();
-            this.effectsVolumeLabel = new System.Windows.Forms.Label();
-            this.voiceVolumeTrackBar = new System.Windows.Forms.TrackBar();
-            this.voiceVolumeLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.soundEnabledCheckBox = new System.Windows.Forms.CheckBox();
+            this.soundEnabledLabel = new System.Windows.Forms.Label();
             this.musicVolumeTrackBar = new System.Windows.Forms.TrackBar();
             this.musicVolumeLabel = new System.Windows.Forms.Label();
-            this.soundEnabledChackBox = new System.Windows.Forms.CheckBox();
-            this.soundEnabledLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.currentPlayerComboBox = new System.Windows.Forms.ComboBox();
-            this.currentPlayerLabel = new System.Windows.Forms.Label();
-            this.parentalControlCheckBox = new System.Windows.Forms.CheckBox();
-            this.parentalControlLabel = new System.Windows.Forms.Label();
+            this.voiceVolumeTrackBar = new System.Windows.Forms.TrackBar();
+            this.voiceVolumeLabel = new System.Windows.Forms.Label();
+            this.effectsVolumeTrackBar = new System.Windows.Forms.TrackBar();
+            this.effectsVolumeLabel = new System.Windows.Forms.Label();
+            this.ambientVolumeTarckBar = new System.Windows.Forms.TrackBar();
+            this.ambientVolumeLabel = new System.Windows.Forms.Label();
+            this.soundChannelsComboBox = new System.Windows.Forms.ComboBox();
+            this.soundChannelsLabel = new System.Windows.Forms.Label();
+            this.soundQualityComboBox = new System.Windows.Forms.ComboBox();
+            this.soundQualityLabel = new System.Windows.Forms.Label();
+            this.randomizedSoundsCheckBox = new System.Windows.Forms.CheckBox();
+            this.randomizedSoundsLabel = new System.Windows.Forms.Label();
             this.unknownSettingComboBox = new System.Windows.Forms.ComboBox();
             this.unknownSettingLabel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.inversePanCheckBox = new System.Windows.Forms.CheckBox();
-            this.inversePanLabel = new System.Windows.Forms.Label();
-            this.inverseDeclinationCheckBox = new System.Windows.Forms.CheckBox();
-            this.inverseDeclinationLabel = new System.Windows.Forms.Label();
-            this.scrollRateTrackBar = new System.Windows.Forms.TrackBar();
-            this.scrollRateLabel = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.generalTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scrollRateTrackBar)).BeginInit();
             this.videoTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gammaTrackBar)).BeginInit();
             this.audioTabPage.SuspendLayout();
-            this.networkTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ambientVolumeTarckBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.effectsVolumeTrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.voiceVolumeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.musicVolumeTrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scrollRateTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.voiceVolumeTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.effectsVolumeTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ambientVolumeTarckBar)).BeginInit();
             this.SuspendLayout();
             // 
             // settingsLabel
@@ -185,7 +182,6 @@
             this.tabControl1.Controls.Add(this.generalTabPage);
             this.tabControl1.Controls.Add(this.videoTabPage);
             this.tabControl1.Controls.Add(this.audioTabPage);
-            this.tabControl1.Controls.Add(this.networkTabPage);
             this.tabControl1.Location = new System.Drawing.Point(21, 37);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
@@ -196,6 +192,8 @@
             // generalTabPage
             // 
             this.generalTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.generalTabPage.Controls.Add(this.unknownSettingComboBox);
+            this.generalTabPage.Controls.Add(this.unknownSettingLabel);
             this.generalTabPage.Controls.Add(this.scrollRateTrackBar);
             this.generalTabPage.Controls.Add(this.scrollRateLabel);
             this.generalTabPage.Controls.Add(this.inverseDeclinationCheckBox);
@@ -213,6 +211,134 @@
             this.generalTabPage.Size = new System.Drawing.Size(697, 574);
             this.generalTabPage.TabIndex = 3;
             this.generalTabPage.Text = "General";
+            // 
+            // scrollRateTrackBar
+            // 
+            this.scrollRateTrackBar.LargeChange = 1;
+            this.scrollRateTrackBar.Location = new System.Drawing.Point(168, 216);
+            this.scrollRateTrackBar.Margin = new System.Windows.Forms.Padding(4);
+            this.scrollRateTrackBar.Maximum = 15;
+            this.scrollRateTrackBar.Minimum = 5;
+            this.scrollRateTrackBar.Name = "scrollRateTrackBar";
+            this.scrollRateTrackBar.Size = new System.Drawing.Size(161, 45);
+            this.scrollRateTrackBar.TabIndex = 52;
+            this.scrollRateTrackBar.Value = 10;
+            this.scrollRateTrackBar.Scroll += new System.EventHandler(this.ScrollRateTrackBar_Scroll);
+            // 
+            // scrollRateLabel
+            // 
+            this.scrollRateLabel.AutoSize = true;
+            this.scrollRateLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.scrollRateLabel.Location = new System.Drawing.Point(30, 220);
+            this.scrollRateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.scrollRateLabel.Name = "scrollRateLabel";
+            this.scrollRateLabel.Size = new System.Drawing.Size(77, 16);
+            this.scrollRateLabel.TabIndex = 51;
+            this.scrollRateLabel.Text = "Scroll Rate:";
+            // 
+            // inverseDeclinationCheckBox
+            // 
+            this.inverseDeclinationCheckBox.AutoSize = true;
+            this.inverseDeclinationCheckBox.Location = new System.Drawing.Point(168, 174);
+            this.inverseDeclinationCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.inverseDeclinationCheckBox.Name = "inverseDeclinationCheckBox";
+            this.inverseDeclinationCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.inverseDeclinationCheckBox.TabIndex = 50;
+            this.inverseDeclinationCheckBox.UseVisualStyleBackColor = true;
+            this.inverseDeclinationCheckBox.CheckedChanged += new System.EventHandler(this.InverseDeclinationCheckBox_CheckedChanged);
+            // 
+            // inverseDeclinationLabel
+            // 
+            this.inverseDeclinationLabel.AutoSize = true;
+            this.inverseDeclinationLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.inverseDeclinationLabel.Location = new System.Drawing.Point(30, 172);
+            this.inverseDeclinationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.inverseDeclinationLabel.Name = "inverseDeclinationLabel";
+            this.inverseDeclinationLabel.Size = new System.Drawing.Size(125, 16);
+            this.inverseDeclinationLabel.TabIndex = 49;
+            this.inverseDeclinationLabel.Text = "Inverse Declination:";
+            // 
+            // inversePanCheckBox
+            // 
+            this.inversePanCheckBox.AutoSize = true;
+            this.inversePanCheckBox.Location = new System.Drawing.Point(168, 127);
+            this.inversePanCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.inversePanCheckBox.Name = "inversePanCheckBox";
+            this.inversePanCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.inversePanCheckBox.TabIndex = 48;
+            this.inversePanCheckBox.UseVisualStyleBackColor = true;
+            this.inversePanCheckBox.CheckedChanged += new System.EventHandler(this.InversePanCheckBox_CheckedChanged);
+            // 
+            // inversePanLabel
+            // 
+            this.inversePanLabel.AutoSize = true;
+            this.inversePanLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.inversePanLabel.Location = new System.Drawing.Point(30, 125);
+            this.inversePanLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.inversePanLabel.Name = "inversePanLabel";
+            this.inversePanLabel.Size = new System.Drawing.Size(82, 16);
+            this.inversePanLabel.TabIndex = 47;
+            this.inversePanLabel.Text = "Inverse Pan:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.Cyan;
+            this.label3.Location = new System.Drawing.Point(457, 552);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(230, 16);
+            this.label3.TabIndex = 46;
+            this.label3.Text = "* All cyan settings are hidden in game";
+            // 
+            // parentalControlCheckBox
+            // 
+            this.parentalControlCheckBox.AutoSize = true;
+            this.parentalControlCheckBox.Location = new System.Drawing.Point(168, 78);
+            this.parentalControlCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.parentalControlCheckBox.Name = "parentalControlCheckBox";
+            this.parentalControlCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.parentalControlCheckBox.TabIndex = 22;
+            this.parentalControlCheckBox.UseVisualStyleBackColor = true;
+            this.parentalControlCheckBox.CheckedChanged += new System.EventHandler(this.ParentalControlCheckBox_CheckedChanged);
+            // 
+            // parentalControlLabel
+            // 
+            this.parentalControlLabel.AutoSize = true;
+            this.parentalControlLabel.ForeColor = System.Drawing.Color.Cyan;
+            this.parentalControlLabel.Location = new System.Drawing.Point(30, 79);
+            this.parentalControlLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.parentalControlLabel.Name = "parentalControlLabel";
+            this.parentalControlLabel.Size = new System.Drawing.Size(106, 16);
+            this.parentalControlLabel.TabIndex = 21;
+            this.parentalControlLabel.Text = "Parental Control:";
+            // 
+            // currentPlayerComboBox
+            // 
+            this.currentPlayerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.currentPlayerComboBox.FormattingEnabled = true;
+            this.currentPlayerComboBox.Items.AddRange(new object[] {
+            "Profile1",
+            "Profile2",
+            "Profile3",
+            "Profile4"});
+            this.currentPlayerComboBox.Location = new System.Drawing.Point(168, 29);
+            this.currentPlayerComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.currentPlayerComboBox.Name = "currentPlayerComboBox";
+            this.currentPlayerComboBox.Size = new System.Drawing.Size(160, 24);
+            this.currentPlayerComboBox.TabIndex = 20;
+            this.currentPlayerComboBox.SelectedIndexChanged += new System.EventHandler(this.CurrentPlayerComboBox_SelectedIndexChanged);
+            // 
+            // currentPlayerLabel
+            // 
+            this.currentPlayerLabel.AutoSize = true;
+            this.currentPlayerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.currentPlayerLabel.Location = new System.Drawing.Point(30, 32);
+            this.currentPlayerLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.currentPlayerLabel.Name = "currentPlayerLabel";
+            this.currentPlayerLabel.Size = new System.Drawing.Size(95, 16);
+            this.currentPlayerLabel.TabIndex = 19;
+            this.currentPlayerLabel.Text = "Current Player:";
             // 
             // videoTabPage
             // 
@@ -290,6 +416,7 @@
             this.watchMoviesCheckBox.Size = new System.Drawing.Size(15, 14);
             this.watchMoviesCheckBox.TabIndex = 44;
             this.watchMoviesCheckBox.UseVisualStyleBackColor = true;
+            this.watchMoviesCheckBox.CheckedChanged += new System.EventHandler(this.WatchMoviesCheckBox_CheckedChanged);
             // 
             // watchMoviesLabel
             // 
@@ -302,7 +429,7 @@
             this.watchMoviesLabel.TabIndex = 43;
             this.watchMoviesLabel.Text = "Watch Movies:";
             // 
-            // dynamicLightComboBox
+            // dynamicLightsComboBox
             // 
             this.dynamicLightsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dynamicLightsComboBox.FormattingEnabled = true;
@@ -313,9 +440,10 @@
             "High"});
             this.dynamicLightsComboBox.Location = new System.Drawing.Point(484, 295);
             this.dynamicLightsComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.dynamicLightsComboBox.Name = "dynamicLightComboBox";
+            this.dynamicLightsComboBox.Name = "dynamicLightsComboBox";
             this.dynamicLightsComboBox.Size = new System.Drawing.Size(160, 24);
             this.dynamicLightsComboBox.TabIndex = 42;
+            this.dynamicLightsComboBox.SelectedIndexChanged += new System.EventHandler(this.DynamicLightsComboBox_SelectedIndexChanged);
             // 
             // dynamicLightLabel
             // 
@@ -341,6 +469,7 @@
             this.effectsDetailComboBox.Name = "effectsDetailComboBox";
             this.effectsDetailComboBox.Size = new System.Drawing.Size(160, 24);
             this.effectsDetailComboBox.TabIndex = 40;
+            this.effectsDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.EffectsDetailComboBox_SelectedIndexChanged);
             // 
             // effectsDetailLabel
             // 
@@ -366,6 +495,7 @@
             this.worldEventsComboBox.Name = "worldEventsComboBox";
             this.worldEventsComboBox.Size = new System.Drawing.Size(160, 24);
             this.worldEventsComboBox.TabIndex = 38;
+            this.worldEventsComboBox.SelectedIndexChanged += new System.EventHandler(this.WorldEventsComboBox_SelectedIndexChanged);
             // 
             // worldEventsLabel
             // 
@@ -392,6 +522,7 @@
             this.shadowsDetailComboBox.Name = "shadowsDetailComboBox";
             this.shadowsDetailComboBox.Size = new System.Drawing.Size(160, 24);
             this.shadowsDetailComboBox.TabIndex = 36;
+            this.shadowsDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.ShadowsDetailComboBox_SelectedIndexChanged);
             // 
             // shadowsLabel
             // 
@@ -404,15 +535,16 @@
             this.shadowsLabel.TabIndex = 35;
             this.shadowsLabel.Text = "Shadows Detail:";
             // 
-            // full3DCameraChackBox
+            // full3DCameraCheckBox
             // 
             this.full3DCameraCheckBox.AutoSize = true;
             this.full3DCameraCheckBox.Location = new System.Drawing.Point(478, 342);
             this.full3DCameraCheckBox.Margin = new System.Windows.Forms.Padding(4);
-            this.full3DCameraCheckBox.Name = "full3DCameraChackBox";
+            this.full3DCameraCheckBox.Name = "full3DCameraCheckBox";
             this.full3DCameraCheckBox.Size = new System.Drawing.Size(15, 14);
             this.full3DCameraCheckBox.TabIndex = 34;
             this.full3DCameraCheckBox.UseVisualStyleBackColor = true;
+            this.full3DCameraCheckBox.CheckedChanged += new System.EventHandler(this.Full3DCameraCheckBox_CheckedChanged);
             // 
             // full3DCameraLabel
             // 
@@ -438,6 +570,7 @@
             this.persistentScarringComboBox.Name = "persistentScarringComboBox";
             this.persistentScarringComboBox.Size = new System.Drawing.Size(160, 24);
             this.persistentScarringComboBox.TabIndex = 32;
+            this.persistentScarringComboBox.SelectedIndexChanged += new System.EventHandler(this.PersistentScarringComboBox_SelectedIndexChanged);
             // 
             // persistentScarringLabel
             // 
@@ -459,6 +592,7 @@
             this.betterTeamcoloredTexturexCheckBox.Size = new System.Drawing.Size(15, 14);
             this.betterTeamcoloredTexturexCheckBox.TabIndex = 30;
             this.betterTeamcoloredTexturexCheckBox.UseVisualStyleBackColor = true;
+            this.betterTeamcoloredTexturexCheckBox.CheckedChanged += new System.EventHandler(this.BetterTeamcoloredTexturexCheckBox_CheckedChanged);
             // 
             // betterTeamcoloredTexturesLabel
             // 
@@ -480,6 +614,7 @@
             this.unitsOcclusionCheckBox.Size = new System.Drawing.Size(15, 14);
             this.unitsOcclusionCheckBox.TabIndex = 28;
             this.unitsOcclusionCheckBox.UseVisualStyleBackColor = true;
+            this.unitsOcclusionCheckBox.CheckedChanged += new System.EventHandler(this.UnitsOcclusionCheckBox_CheckedChanged);
             // 
             // unitsOcclusionLabel
             // 
@@ -506,6 +641,7 @@
             this.persistentBodiesComboBox.Name = "persistentBodiesComboBox";
             this.persistentBodiesComboBox.Size = new System.Drawing.Size(160, 24);
             this.persistentBodiesComboBox.TabIndex = 26;
+            this.persistentBodiesComboBox.SelectedIndexChanged += new System.EventHandler(this.PersistentBodiesComboBox_SelectedIndexChanged);
             // 
             // persistentBodiesLabel
             // 
@@ -531,6 +667,7 @@
             this.terrainDetailComboBox.Name = "terrainDetailComboBox";
             this.terrainDetailComboBox.Size = new System.Drawing.Size(160, 24);
             this.terrainDetailComboBox.TabIndex = 24;
+            this.terrainDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.TerrainDetailComboBox_SelectedIndexChanged);
             // 
             // terrainDetailLabel
             // 
@@ -556,6 +693,7 @@
             this.modelDetailComboBox.Name = "modelDetailComboBox";
             this.modelDetailComboBox.Size = new System.Drawing.Size(160, 24);
             this.modelDetailComboBox.TabIndex = 22;
+            this.modelDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.ModelDetailComboBox_SelectedIndexChanged);
             // 
             // modelDetailLabel
             // 
@@ -581,6 +719,7 @@
             this.textureDetailComboBox.Name = "textureDetailComboBox";
             this.textureDetailComboBox.Size = new System.Drawing.Size(160, 24);
             this.textureDetailComboBox.TabIndex = 20;
+            this.textureDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.TextureDetailComboBox_SelectedIndexChanged);
             // 
             // textureDetailLabel
             // 
@@ -604,6 +743,7 @@
             this.rendererComboBox.Name = "rendererComboBox";
             this.rendererComboBox.Size = new System.Drawing.Size(160, 24);
             this.rendererComboBox.TabIndex = 18;
+            this.rendererComboBox.SelectedIndexChanged += new System.EventHandler(this.RendererComboBox_SelectedIndexChanged);
             // 
             // rendererLabel
             // 
@@ -629,6 +769,7 @@
             this.colorDepthComboBox.Name = "colorDepthComboBox";
             this.colorDepthComboBox.Size = new System.Drawing.Size(160, 24);
             this.colorDepthComboBox.TabIndex = 16;
+            this.colorDepthComboBox.SelectedIndexChanged += new System.EventHandler(this.ColorDepthComboBox_SelectedIndexChanged);
             // 
             // colorDepthLabel
             // 
@@ -655,6 +796,7 @@
             this.activeVideocardComboBox.Name = "activeVideocardComboBox";
             this.activeVideocardComboBox.Size = new System.Drawing.Size(160, 24);
             this.activeVideocardComboBox.TabIndex = 14;
+            this.activeVideocardComboBox.SelectedIndexChanged += new System.EventHandler(this.ActiveVideocardComboBox_SelectedIndexChanged);
             // 
             // activeVideocardLabel
             // 
@@ -676,6 +818,7 @@
             this.antialiasingCheckBox.Size = new System.Drawing.Size(15, 14);
             this.antialiasingCheckBox.TabIndex = 12;
             this.antialiasingCheckBox.UseVisualStyleBackColor = true;
+            this.antialiasingCheckBox.CheckedChanged += new System.EventHandler(this.AntialiasingCheckBox_CheckedChanged);
             // 
             // antialiasingLabel
             // 
@@ -706,6 +849,7 @@
             this.refreshRateComboBox.Name = "refreshRateComboBox";
             this.refreshRateComboBox.Size = new System.Drawing.Size(160, 24);
             this.refreshRateComboBox.TabIndex = 10;
+            this.refreshRateComboBox.SelectedIndexChanged += new System.EventHandler(this.RefreshRateComboBox_SelectedIndexChanged);
             // 
             // refreshRateLabel
             // 
@@ -727,6 +871,7 @@
             this.windowedCheckBox.Size = new System.Drawing.Size(15, 14);
             this.windowedCheckBox.TabIndex = 8;
             this.windowedCheckBox.UseVisualStyleBackColor = true;
+            this.windowedCheckBox.CheckedChanged += new System.EventHandler(this.WindowedCheckBox_CheckedChanged);
             // 
             // windowedLabel
             // 
@@ -748,6 +893,7 @@
             this.vSyncCheckBox.Size = new System.Drawing.Size(15, 14);
             this.vSyncCheckBox.TabIndex = 6;
             this.vSyncCheckBox.UseVisualStyleBackColor = true;
+            this.vSyncCheckBox.CheckedChanged += new System.EventHandler(this.VSyncCheckBox_CheckedChanged);
             // 
             // vSyncLabel
             // 
@@ -771,6 +917,7 @@
             this.gammaTrackBar.Size = new System.Drawing.Size(161, 45);
             this.gammaTrackBar.TabIndex = 4;
             this.gammaTrackBar.Value = 10;
+            this.gammaTrackBar.Scroll += new System.EventHandler(this.GammaTrackBar_Scroll);
             // 
             // gammaLabel
             // 
@@ -812,6 +959,7 @@
             this.screenResolutionComboBox.Name = "screenResolutionComboBox";
             this.screenResolutionComboBox.Size = new System.Drawing.Size(160, 24);
             this.screenResolutionComboBox.TabIndex = 1;
+            this.screenResolutionComboBox.SelectedIndexChanged += new System.EventHandler(this.ScreenResolutionComboBox_SelectedIndexChanged);
             // 
             // screenResolutionLabel
             // 
@@ -828,7 +976,7 @@
             // 
             this.audioTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.audioTabPage.Controls.Add(this.label1);
-            this.audioTabPage.Controls.Add(this.soundEnabledChackBox);
+            this.audioTabPage.Controls.Add(this.soundEnabledCheckBox);
             this.audioTabPage.Controls.Add(this.soundEnabledLabel);
             this.audioTabPage.Controls.Add(this.musicVolumeTrackBar);
             this.audioTabPage.Controls.Add(this.musicVolumeLabel);
@@ -852,39 +1000,160 @@
             this.audioTabPage.TabIndex = 1;
             this.audioTabPage.Text = "Audio";
             // 
-            // networkTabPage
+            // label1
             // 
-            this.networkTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.networkTabPage.Controls.Add(this.label2);
-            this.networkTabPage.Controls.Add(this.unknownSettingComboBox);
-            this.networkTabPage.Controls.Add(this.unknownSettingLabel);
-            this.networkTabPage.Location = new System.Drawing.Point(4, 25);
-            this.networkTabPage.Margin = new System.Windows.Forms.Padding(4);
-            this.networkTabPage.Name = "networkTabPage";
-            this.networkTabPage.Size = new System.Drawing.Size(697, 574);
-            this.networkTabPage.TabIndex = 2;
-            this.networkTabPage.Text = "Network";
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Cyan;
+            this.label1.Location = new System.Drawing.Point(455, 550);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(230, 16);
+            this.label1.TabIndex = 51;
+            this.label1.Text = "* All cyan settings are hidden in game";
             // 
-            // randomizedSoundsCheckBox
+            // soundEnabledChackBox
             // 
-            this.randomizedSoundsCheckBox.AutoSize = true;
-            this.randomizedSoundsCheckBox.Location = new System.Drawing.Point(170, 72);
-            this.randomizedSoundsCheckBox.Margin = new System.Windows.Forms.Padding(4);
-            this.randomizedSoundsCheckBox.Name = "randomizedSoundsCheckBox";
-            this.randomizedSoundsCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.randomizedSoundsCheckBox.TabIndex = 36;
-            this.randomizedSoundsCheckBox.UseVisualStyleBackColor = true;
+            this.soundEnabledCheckBox.AutoSize = true;
+            this.soundEnabledCheckBox.Location = new System.Drawing.Point(170, 31);
+            this.soundEnabledCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.soundEnabledCheckBox.Name = "soundEnabledChackBox";
+            this.soundEnabledCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.soundEnabledCheckBox.TabIndex = 50;
+            this.soundEnabledCheckBox.UseVisualStyleBackColor = true;
+            this.soundEnabledCheckBox.CheckedChanged += new System.EventHandler(this.SoundEnabledCheckBox_CheckedChanged);
             // 
-            // randomizedSoundsLabel
+            // soundEnabledLabel
             // 
-            this.randomizedSoundsLabel.AutoSize = true;
-            this.randomizedSoundsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.randomizedSoundsLabel.Location = new System.Drawing.Point(26, 70);
-            this.randomizedSoundsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.randomizedSoundsLabel.Name = "randomizedSoundsLabel";
-            this.randomizedSoundsLabel.Size = new System.Drawing.Size(136, 16);
-            this.randomizedSoundsLabel.TabIndex = 35;
-            this.randomizedSoundsLabel.Text = "Randomizes Sounds:";
+            this.soundEnabledLabel.AutoSize = true;
+            this.soundEnabledLabel.ForeColor = System.Drawing.Color.Cyan;
+            this.soundEnabledLabel.Location = new System.Drawing.Point(26, 29);
+            this.soundEnabledLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.soundEnabledLabel.Name = "soundEnabledLabel";
+            this.soundEnabledLabel.Size = new System.Drawing.Size(104, 16);
+            this.soundEnabledLabel.TabIndex = 49;
+            this.soundEnabledLabel.Text = "Sound Enabled:";
+            // 
+            // musicVolumeTrackBar
+            // 
+            this.musicVolumeTrackBar.LargeChange = 1;
+            this.musicVolumeTrackBar.Location = new System.Drawing.Point(164, 368);
+            this.musicVolumeTrackBar.Margin = new System.Windows.Forms.Padding(4);
+            this.musicVolumeTrackBar.Maximum = 15;
+            this.musicVolumeTrackBar.Minimum = 5;
+            this.musicVolumeTrackBar.Name = "musicVolumeTrackBar";
+            this.musicVolumeTrackBar.Size = new System.Drawing.Size(161, 45);
+            this.musicVolumeTrackBar.TabIndex = 48;
+            this.musicVolumeTrackBar.Value = 10;
+            this.musicVolumeTrackBar.Scroll += new System.EventHandler(this.MusicVolumeTrackBar_Scroll);
+            // 
+            // musicVolumeLabel
+            // 
+            this.musicVolumeLabel.AutoSize = true;
+            this.musicVolumeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.musicVolumeLabel.Location = new System.Drawing.Point(26, 372);
+            this.musicVolumeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.musicVolumeLabel.Name = "musicVolumeLabel";
+            this.musicVolumeLabel.Size = new System.Drawing.Size(95, 16);
+            this.musicVolumeLabel.TabIndex = 47;
+            this.musicVolumeLabel.Text = "Music Volume:";
+            // 
+            // voiceVolumeTrackBar
+            // 
+            this.voiceVolumeTrackBar.LargeChange = 1;
+            this.voiceVolumeTrackBar.Location = new System.Drawing.Point(164, 316);
+            this.voiceVolumeTrackBar.Margin = new System.Windows.Forms.Padding(4);
+            this.voiceVolumeTrackBar.Maximum = 15;
+            this.voiceVolumeTrackBar.Minimum = 5;
+            this.voiceVolumeTrackBar.Name = "voiceVolumeTrackBar";
+            this.voiceVolumeTrackBar.Size = new System.Drawing.Size(161, 45);
+            this.voiceVolumeTrackBar.TabIndex = 46;
+            this.voiceVolumeTrackBar.Value = 10;
+            this.voiceVolumeTrackBar.Scroll += new System.EventHandler(this.VoiceVolumeTrackBar_Scroll);
+            // 
+            // voiceVolumeLabel
+            // 
+            this.voiceVolumeLabel.AutoSize = true;
+            this.voiceVolumeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.voiceVolumeLabel.Location = new System.Drawing.Point(26, 320);
+            this.voiceVolumeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.voiceVolumeLabel.Name = "voiceVolumeLabel";
+            this.voiceVolumeLabel.Size = new System.Drawing.Size(92, 16);
+            this.voiceVolumeLabel.TabIndex = 45;
+            this.voiceVolumeLabel.Text = "VoiceVolume:";
+            // 
+            // effectsVolumeTrackBar
+            // 
+            this.effectsVolumeTrackBar.LargeChange = 1;
+            this.effectsVolumeTrackBar.Location = new System.Drawing.Point(164, 260);
+            this.effectsVolumeTrackBar.Margin = new System.Windows.Forms.Padding(4);
+            this.effectsVolumeTrackBar.Maximum = 15;
+            this.effectsVolumeTrackBar.Minimum = 5;
+            this.effectsVolumeTrackBar.Name = "effectsVolumeTrackBar";
+            this.effectsVolumeTrackBar.Size = new System.Drawing.Size(161, 45);
+            this.effectsVolumeTrackBar.TabIndex = 44;
+            this.effectsVolumeTrackBar.Value = 10;
+            this.effectsVolumeTrackBar.Scroll += new System.EventHandler(this.EffectsVolumeTrackBar_Scroll);
+            // 
+            // effectsVolumeLabel
+            // 
+            this.effectsVolumeLabel.AutoSize = true;
+            this.effectsVolumeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.effectsVolumeLabel.Location = new System.Drawing.Point(26, 264);
+            this.effectsVolumeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.effectsVolumeLabel.Name = "effectsVolumeLabel";
+            this.effectsVolumeLabel.Size = new System.Drawing.Size(100, 16);
+            this.effectsVolumeLabel.TabIndex = 43;
+            this.effectsVolumeLabel.Text = "Effects Volume:";
+            // 
+            // ambientVolumeTarckBar
+            // 
+            this.ambientVolumeTarckBar.LargeChange = 1;
+            this.ambientVolumeTarckBar.Location = new System.Drawing.Point(164, 207);
+            this.ambientVolumeTarckBar.Margin = new System.Windows.Forms.Padding(4);
+            this.ambientVolumeTarckBar.Maximum = 15;
+            this.ambientVolumeTarckBar.Minimum = 5;
+            this.ambientVolumeTarckBar.Name = "ambientVolumeTarckBar";
+            this.ambientVolumeTarckBar.Size = new System.Drawing.Size(161, 45);
+            this.ambientVolumeTarckBar.TabIndex = 42;
+            this.ambientVolumeTarckBar.Value = 10;
+            this.ambientVolumeTarckBar.Scroll += new System.EventHandler(this.AmbientVolumeTarckBar_Scroll);
+            // 
+            // ambientVolumeLabel
+            // 
+            this.ambientVolumeLabel.AutoSize = true;
+            this.ambientVolumeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.ambientVolumeLabel.Location = new System.Drawing.Point(26, 211);
+            this.ambientVolumeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ambientVolumeLabel.Name = "ambientVolumeLabel";
+            this.ambientVolumeLabel.Size = new System.Drawing.Size(109, 16);
+            this.ambientVolumeLabel.TabIndex = 41;
+            this.ambientVolumeLabel.Text = "Ambient Volume:";
+            // 
+            // soundChannelsComboBox
+            // 
+            this.soundChannelsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.soundChannelsComboBox.FormattingEnabled = true;
+            this.soundChannelsComboBox.Items.AddRange(new object[] {
+            "Low (16)",
+            "Medium (32)",
+            "High (64)"});
+            this.soundChannelsComboBox.Location = new System.Drawing.Point(164, 158);
+            this.soundChannelsComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.soundChannelsComboBox.Name = "soundChannelsComboBox";
+            this.soundChannelsComboBox.Size = new System.Drawing.Size(160, 24);
+            this.soundChannelsComboBox.TabIndex = 40;
+            this.soundChannelsComboBox.SelectedIndexChanged += new System.EventHandler(this.SoundChannelsComboBox_SelectedIndexChanged);
+            // 
+            // soundChannelsLabel
+            // 
+            this.soundChannelsLabel.AutoSize = true;
+            this.soundChannelsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.soundChannelsLabel.Location = new System.Drawing.Point(26, 162);
+            this.soundChannelsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.soundChannelsLabel.Name = "soundChannelsLabel";
+            this.soundChannelsLabel.Size = new System.Drawing.Size(109, 16);
+            this.soundChannelsLabel.TabIndex = 39;
+            this.soundChannelsLabel.Text = "Sound Channels:";
             // 
             // soundQualityComboBox
             // 
@@ -899,6 +1168,7 @@
             this.soundQualityComboBox.Name = "soundQualityComboBox";
             this.soundQualityComboBox.Size = new System.Drawing.Size(160, 24);
             this.soundQualityComboBox.TabIndex = 38;
+            this.soundQualityComboBox.SelectedIndexChanged += new System.EventHandler(this.SoundQualityComboBox_SelectedIndexChanged);
             // 
             // soundQualityLabel
             // 
@@ -911,201 +1181,27 @@
             this.soundQualityLabel.TabIndex = 37;
             this.soundQualityLabel.Text = "Sound Quality:";
             // 
-            // soundChannelsComboBox
+            // randomizedSoundsCheckBox
             // 
-            this.soundChannelsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.soundChannelsComboBox.FormattingEnabled = true;
-            this.soundChannelsComboBox.Items.AddRange(new object[] {
-            "Low (16)",
-            "Medium (32)",
-            "High (64)"});
-            this.soundChannelsComboBox.Location = new System.Drawing.Point(164, 156);
-            this.soundChannelsComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.soundChannelsComboBox.Name = "soundChannelsComboBox";
-            this.soundChannelsComboBox.Size = new System.Drawing.Size(160, 24);
-            this.soundChannelsComboBox.TabIndex = 40;
+            this.randomizedSoundsCheckBox.AutoSize = true;
+            this.randomizedSoundsCheckBox.Location = new System.Drawing.Point(170, 72);
+            this.randomizedSoundsCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.randomizedSoundsCheckBox.Name = "randomizedSoundsCheckBox";
+            this.randomizedSoundsCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.randomizedSoundsCheckBox.TabIndex = 36;
+            this.randomizedSoundsCheckBox.UseVisualStyleBackColor = true;
+            this.randomizedSoundsCheckBox.CheckedChanged += new System.EventHandler(this.RandomizedSoundsCheckBox_CheckedChanged);
             // 
-            // soundChannelsLabel
+            // randomizedSoundsLabel
             // 
-            this.soundChannelsLabel.AutoSize = true;
-            this.soundChannelsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.soundChannelsLabel.Location = new System.Drawing.Point(26, 160);
-            this.soundChannelsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.soundChannelsLabel.Name = "soundChannelsLabel";
-            this.soundChannelsLabel.Size = new System.Drawing.Size(109, 16);
-            this.soundChannelsLabel.TabIndex = 39;
-            this.soundChannelsLabel.Text = "Sound Channels:";
-            // 
-            // ambientVolumeTarckBar
-            // 
-            this.ambientVolumeTarckBar.LargeChange = 1;
-            this.ambientVolumeTarckBar.Location = new System.Drawing.Point(164, 205);
-            this.ambientVolumeTarckBar.Margin = new System.Windows.Forms.Padding(4);
-            this.ambientVolumeTarckBar.Maximum = 15;
-            this.ambientVolumeTarckBar.Minimum = 5;
-            this.ambientVolumeTarckBar.Name = "ambientVolumeTarckBar";
-            this.ambientVolumeTarckBar.Size = new System.Drawing.Size(161, 45);
-            this.ambientVolumeTarckBar.TabIndex = 42;
-            this.ambientVolumeTarckBar.Value = 10;
-            // 
-            // ambientVolumeLabel
-            // 
-            this.ambientVolumeLabel.AutoSize = true;
-            this.ambientVolumeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.ambientVolumeLabel.Location = new System.Drawing.Point(26, 209);
-            this.ambientVolumeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.ambientVolumeLabel.Name = "ambientVolumeLabel";
-            this.ambientVolumeLabel.Size = new System.Drawing.Size(109, 16);
-            this.ambientVolumeLabel.TabIndex = 41;
-            this.ambientVolumeLabel.Text = "Ambient Volume:";
-            // 
-            // effectsVolumeTrackBar
-            // 
-            this.effectsVolumeTrackBar.LargeChange = 1;
-            this.effectsVolumeTrackBar.Location = new System.Drawing.Point(164, 258);
-            this.effectsVolumeTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.effectsVolumeTrackBar.Maximum = 15;
-            this.effectsVolumeTrackBar.Minimum = 5;
-            this.effectsVolumeTrackBar.Name = "effectsVolumeTrackBar";
-            this.effectsVolumeTrackBar.Size = new System.Drawing.Size(161, 45);
-            this.effectsVolumeTrackBar.TabIndex = 44;
-            this.effectsVolumeTrackBar.Value = 10;
-            // 
-            // effectsVolumeLabel
-            // 
-            this.effectsVolumeLabel.AutoSize = true;
-            this.effectsVolumeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.effectsVolumeLabel.Location = new System.Drawing.Point(26, 262);
-            this.effectsVolumeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.effectsVolumeLabel.Name = "effectsVolumeLabel";
-            this.effectsVolumeLabel.Size = new System.Drawing.Size(100, 16);
-            this.effectsVolumeLabel.TabIndex = 43;
-            this.effectsVolumeLabel.Text = "Effects Volume:";
-            // 
-            // voiceVolumeTrackBar
-            // 
-            this.voiceVolumeTrackBar.LargeChange = 1;
-            this.voiceVolumeTrackBar.Location = new System.Drawing.Point(164, 314);
-            this.voiceVolumeTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.voiceVolumeTrackBar.Maximum = 15;
-            this.voiceVolumeTrackBar.Minimum = 5;
-            this.voiceVolumeTrackBar.Name = "voiceVolumeTrackBar";
-            this.voiceVolumeTrackBar.Size = new System.Drawing.Size(161, 45);
-            this.voiceVolumeTrackBar.TabIndex = 46;
-            this.voiceVolumeTrackBar.Value = 10;
-            // 
-            // voiceVolumeLabel
-            // 
-            this.voiceVolumeLabel.AutoSize = true;
-            this.voiceVolumeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.voiceVolumeLabel.Location = new System.Drawing.Point(26, 318);
-            this.voiceVolumeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.voiceVolumeLabel.Name = "voiceVolumeLabel";
-            this.voiceVolumeLabel.Size = new System.Drawing.Size(92, 16);
-            this.voiceVolumeLabel.TabIndex = 45;
-            this.voiceVolumeLabel.Text = "VoiceVolume:";
-            // 
-            // musicVolumeTrackBar
-            // 
-            this.musicVolumeTrackBar.LargeChange = 1;
-            this.musicVolumeTrackBar.Location = new System.Drawing.Point(164, 366);
-            this.musicVolumeTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.musicVolumeTrackBar.Maximum = 15;
-            this.musicVolumeTrackBar.Minimum = 5;
-            this.musicVolumeTrackBar.Name = "musicVolumeTrackBar";
-            this.musicVolumeTrackBar.Size = new System.Drawing.Size(161, 45);
-            this.musicVolumeTrackBar.TabIndex = 48;
-            this.musicVolumeTrackBar.Value = 10;
-            // 
-            // musicVolumeLabel
-            // 
-            this.musicVolumeLabel.AutoSize = true;
-            this.musicVolumeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.musicVolumeLabel.Location = new System.Drawing.Point(26, 370);
-            this.musicVolumeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.musicVolumeLabel.Name = "musicVolumeLabel";
-            this.musicVolumeLabel.Size = new System.Drawing.Size(95, 16);
-            this.musicVolumeLabel.TabIndex = 47;
-            this.musicVolumeLabel.Text = "Music Volume:";
-            // 
-            // soundEnabledChackBox
-            // 
-            this.soundEnabledChackBox.AutoSize = true;
-            this.soundEnabledChackBox.Location = new System.Drawing.Point(170, 31);
-            this.soundEnabledChackBox.Margin = new System.Windows.Forms.Padding(4);
-            this.soundEnabledChackBox.Name = "soundEnabledChackBox";
-            this.soundEnabledChackBox.Size = new System.Drawing.Size(15, 14);
-            this.soundEnabledChackBox.TabIndex = 50;
-            this.soundEnabledChackBox.UseVisualStyleBackColor = true;
-            // 
-            // soundEnabledLabel
-            // 
-            this.soundEnabledLabel.AutoSize = true;
-            this.soundEnabledLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.soundEnabledLabel.Location = new System.Drawing.Point(26, 29);
-            this.soundEnabledLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.soundEnabledLabel.Name = "soundEnabledLabel";
-            this.soundEnabledLabel.Size = new System.Drawing.Size(104, 16);
-            this.soundEnabledLabel.TabIndex = 49;
-            this.soundEnabledLabel.Text = "Sound Enabled:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Cyan;
-            this.label1.Location = new System.Drawing.Point(455, 550);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(230, 16);
-            this.label1.TabIndex = 51;
-            this.label1.Text = "* All cyan settings are hidden in game";
-            // 
-            // currentPlayerComboBox
-            // 
-            this.currentPlayerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.currentPlayerComboBox.FormattingEnabled = true;
-            this.currentPlayerComboBox.Items.AddRange(new object[] {
-            "Profile1",
-            "Profile2",
-            "Profile3",
-            "Profile4"});
-            this.currentPlayerComboBox.Location = new System.Drawing.Point(168, 29);
-            this.currentPlayerComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.currentPlayerComboBox.Name = "currentPlayerComboBox";
-            this.currentPlayerComboBox.Size = new System.Drawing.Size(160, 24);
-            this.currentPlayerComboBox.TabIndex = 20;
-            // 
-            // currentPlayerLabel
-            // 
-            this.currentPlayerLabel.AutoSize = true;
-            this.currentPlayerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.currentPlayerLabel.Location = new System.Drawing.Point(30, 32);
-            this.currentPlayerLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.currentPlayerLabel.Name = "currentPlayerLabel";
-            this.currentPlayerLabel.Size = new System.Drawing.Size(95, 16);
-            this.currentPlayerLabel.TabIndex = 19;
-            this.currentPlayerLabel.Text = "Current Player:";
-            // 
-            // parentalControlCheckBox
-            // 
-            this.parentalControlCheckBox.AutoSize = true;
-            this.parentalControlCheckBox.Location = new System.Drawing.Point(168, 78);
-            this.parentalControlCheckBox.Margin = new System.Windows.Forms.Padding(4);
-            this.parentalControlCheckBox.Name = "parentalControlCheckBox";
-            this.parentalControlCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.parentalControlCheckBox.TabIndex = 22;
-            this.parentalControlCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // parentalControlLabel
-            // 
-            this.parentalControlLabel.AutoSize = true;
-            this.parentalControlLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.parentalControlLabel.Location = new System.Drawing.Point(30, 79);
-            this.parentalControlLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.parentalControlLabel.Name = "parentalControlLabel";
-            this.parentalControlLabel.Size = new System.Drawing.Size(106, 16);
-            this.parentalControlLabel.TabIndex = 21;
-            this.parentalControlLabel.Text = "Parental Control:";
+            this.randomizedSoundsLabel.AutoSize = true;
+            this.randomizedSoundsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.randomizedSoundsLabel.Location = new System.Drawing.Point(26, 70);
+            this.randomizedSoundsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.randomizedSoundsLabel.Name = "randomizedSoundsLabel";
+            this.randomizedSoundsLabel.Size = new System.Drawing.Size(136, 16);
+            this.randomizedSoundsLabel.TabIndex = 35;
+            this.randomizedSoundsLabel.Text = "Randomizes Sounds:";
             // 
             // unknownSettingComboBox
             // 
@@ -1119,109 +1215,23 @@
             "4",
             "5",
             "6"});
-            this.unknownSettingComboBox.Location = new System.Drawing.Point(209, 27);
+            this.unknownSettingComboBox.Location = new System.Drawing.Point(208, 262);
             this.unknownSettingComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.unknownSettingComboBox.Name = "unknownSettingComboBox";
             this.unknownSettingComboBox.Size = new System.Drawing.Size(160, 24);
-            this.unknownSettingComboBox.TabIndex = 20;
+            this.unknownSettingComboBox.TabIndex = 54;
+            this.unknownSettingComboBox.SelectedIndexChanged += new System.EventHandler(this.UnknownSettingComboBox_SelectedIndexChanged);
             // 
             // unknownSettingLabel
             // 
             this.unknownSettingLabel.AutoSize = true;
             this.unknownSettingLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.unknownSettingLabel.Location = new System.Drawing.Point(31, 30);
+            this.unknownSettingLabel.Location = new System.Drawing.Point(30, 265);
             this.unknownSettingLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.unknownSettingLabel.Name = "unknownSettingLabel";
             this.unknownSettingLabel.Size = new System.Drawing.Size(160, 16);
-            this.unknownSettingLabel.TabIndex = 19;
+            this.unknownSettingLabel.TabIndex = 53;
             this.unknownSettingLabel.Text = "rl_sso_num_times_shown";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Cyan;
-            this.label2.Location = new System.Drawing.Point(455, 550);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(230, 16);
-            this.label2.TabIndex = 52;
-            this.label2.Text = "* All cyan settings are hidden in game";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.Cyan;
-            this.label3.Location = new System.Drawing.Point(457, 552);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(230, 16);
-            this.label3.TabIndex = 46;
-            this.label3.Text = "* All cyan settings are hidden in game";
-            // 
-            // inversePanCheckBox
-            // 
-            this.inversePanCheckBox.AutoSize = true;
-            this.inversePanCheckBox.Location = new System.Drawing.Point(168, 127);
-            this.inversePanCheckBox.Margin = new System.Windows.Forms.Padding(4);
-            this.inversePanCheckBox.Name = "inversePanCheckBox";
-            this.inversePanCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.inversePanCheckBox.TabIndex = 48;
-            this.inversePanCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // inversePanLabel
-            // 
-            this.inversePanLabel.AutoSize = true;
-            this.inversePanLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.inversePanLabel.Location = new System.Drawing.Point(30, 125);
-            this.inversePanLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.inversePanLabel.Name = "inversePanLabel";
-            this.inversePanLabel.Size = new System.Drawing.Size(82, 16);
-            this.inversePanLabel.TabIndex = 47;
-            this.inversePanLabel.Text = "Inverse Pan:";
-            // 
-            // inverseDeclinationCheckBox
-            // 
-            this.inverseDeclinationCheckBox.AutoSize = true;
-            this.inverseDeclinationCheckBox.Location = new System.Drawing.Point(168, 174);
-            this.inverseDeclinationCheckBox.Margin = new System.Windows.Forms.Padding(4);
-            this.inverseDeclinationCheckBox.Name = "inverseDeclinationCheckBox";
-            this.inverseDeclinationCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.inverseDeclinationCheckBox.TabIndex = 50;
-            this.inverseDeclinationCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // inverseDeclinationLabel
-            // 
-            this.inverseDeclinationLabel.AutoSize = true;
-            this.inverseDeclinationLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.inverseDeclinationLabel.Location = new System.Drawing.Point(30, 172);
-            this.inverseDeclinationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.inverseDeclinationLabel.Name = "inverseDeclinationLabel";
-            this.inverseDeclinationLabel.Size = new System.Drawing.Size(125, 16);
-            this.inverseDeclinationLabel.TabIndex = 49;
-            this.inverseDeclinationLabel.Text = "Inverse Declination:";
-            // 
-            // scrollRateTrackBar
-            // 
-            this.scrollRateTrackBar.LargeChange = 1;
-            this.scrollRateTrackBar.Location = new System.Drawing.Point(168, 216);
-            this.scrollRateTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.scrollRateTrackBar.Maximum = 15;
-            this.scrollRateTrackBar.Minimum = 5;
-            this.scrollRateTrackBar.Name = "scrollRateTrackBar";
-            this.scrollRateTrackBar.Size = new System.Drawing.Size(161, 45);
-            this.scrollRateTrackBar.TabIndex = 52;
-            this.scrollRateTrackBar.Value = 10;
-            // 
-            // scrollRateLabel
-            // 
-            this.scrollRateLabel.AutoSize = true;
-            this.scrollRateLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.scrollRateLabel.Location = new System.Drawing.Point(30, 220);
-            this.scrollRateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.scrollRateLabel.Name = "scrollRateLabel";
-            this.scrollRateLabel.Size = new System.Drawing.Size(77, 16);
-            this.scrollRateLabel.TabIndex = 51;
-            this.scrollRateLabel.Text = "Scroll Rate:";
             // 
             // SettingsManagerForm
             // 
@@ -1244,18 +1254,16 @@
             this.tabControl1.ResumeLayout(false);
             this.generalTabPage.ResumeLayout(false);
             this.generalTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scrollRateTrackBar)).EndInit();
             this.videoTabPage.ResumeLayout(false);
             this.videoTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gammaTrackBar)).EndInit();
             this.audioTabPage.ResumeLayout(false);
             this.audioTabPage.PerformLayout();
-            this.networkTabPage.ResumeLayout(false);
-            this.networkTabPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ambientVolumeTarckBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.effectsVolumeTrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.voiceVolumeTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.musicVolumeTrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scrollRateTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.voiceVolumeTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.effectsVolumeTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ambientVolumeTarckBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1271,7 +1279,6 @@
         private System.Windows.Forms.TabPage videoTabPage;
         private System.Windows.Forms.TabPage audioTabPage;
         private System.Windows.Forms.TabPage generalTabPage;
-        private System.Windows.Forms.TabPage networkTabPage;
         private System.Windows.Forms.CheckBox antialiasingCheckBox;
         private System.Windows.Forms.Label antialiasingLabel;
         private System.Windows.Forms.ComboBox refreshRateComboBox;
@@ -1332,21 +1339,20 @@
         private System.Windows.Forms.ComboBox soundChannelsComboBox;
         private System.Windows.Forms.Label soundChannelsLabel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox soundEnabledChackBox;
+        private System.Windows.Forms.CheckBox soundEnabledCheckBox;
         private System.Windows.Forms.Label soundEnabledLabel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox parentalControlCheckBox;
         private System.Windows.Forms.Label parentalControlLabel;
         private System.Windows.Forms.ComboBox currentPlayerComboBox;
         private System.Windows.Forms.Label currentPlayerLabel;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox unknownSettingComboBox;
-        private System.Windows.Forms.Label unknownSettingLabel;
         private System.Windows.Forms.TrackBar scrollRateTrackBar;
         private System.Windows.Forms.Label scrollRateLabel;
         private System.Windows.Forms.CheckBox inverseDeclinationCheckBox;
         private System.Windows.Forms.Label inverseDeclinationLabel;
         private System.Windows.Forms.CheckBox inversePanCheckBox;
         private System.Windows.Forms.Label inversePanLabel;
+        private System.Windows.Forms.ComboBox unknownSettingComboBox;
+        private System.Windows.Forms.Label unknownSettingLabel;
     }
 }
