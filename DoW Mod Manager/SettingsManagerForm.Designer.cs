@@ -935,8 +935,8 @@
             this.screenResolutionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.screenResolutionComboBox.FormattingEnabled = true;
             this.screenResolutionComboBox.Items.AddRange(new object[] {
-            "4096×2160 (experimental)",
-            "2560×1440 (experimental)",
+            "4096×2160",
+            "2560×1440",
             "1920×1080",
             "1680×1050",
             "1600×1024",
