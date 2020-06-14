@@ -9,6 +9,9 @@ namespace DoW_Mod_Manager
     {
         private const string SETTINGS_FILE = "Local.ini";
 
+        private const string CANCEL_LABEL = "CANCEL";
+        private const string CLOSE_LABEL = "CLOSE";
+
         // Here are all settings from Local.ini in right order
         private const string CAMERA_DETAIL = "cameradetail";
         private const string CURRENT_MOD = "currentmoddc";
@@ -224,6 +227,8 @@ namespace DoW_Mod_Manager
             //MessageBox.Show(text, "Debug Info");
 
             InitializeGUIWithSettings();
+
+            cancelButton.Text = CLOSE_LABEL;
         }
 
         private void InitializeSettings()
@@ -302,7 +307,10 @@ namespace DoW_Mod_Manager
             rendererComboBox.SelectedItem = settings[SCREEN_DEVICE];
             gammaTrackBar.Value = Convert.ToInt32(settings[SCREEN_GAMMA]);
             screenResolutionComboBox.SelectedItem = settings[SCREEN_WIDTH] + "×" + settings[SCREEN_HEIGHT];
-            vSyncCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_NO_VSYNC]));
+            if (settings[SCREEN_NO_VSYNC] == "1")       // We have to invert it for covienience
+                vSyncCheckBox.Checked = false;
+            else
+                vSyncCheckBox.Checked = true;
             if (settings[SCREEN_REFRESH] == "0")
                 refreshRateComboBox.SelectedItem = "Auto";
             else
@@ -321,7 +329,10 @@ namespace DoW_Mod_Manager
             }
             shadowsDetailComboBox.SelectedIndex = index;
             soundEnabledCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SOUND_ENABLED]));
-            randomizedSoundsCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SOUND_LIMIT_SAMPLES]));
+            if (settings[SOUND_LIMIT_SAMPLES] == "1")       // We have to invert it for covienience
+                randomizedSoundsCheckBox.Checked = false;
+            else
+                randomizedSoundsCheckBox.Checked = false;
             switch (settings[SOUND_NR_CHANNELS])
             {
                 case "64":
@@ -345,41 +356,43 @@ namespace DoW_Mod_Manager
         {
             // You have to use \r\n instead of \n or Dawn of War will NOT recognise the end of the line!
             string str = $"[global]\r\n" +
-             $"{CAMERA_DETAIL}={settings[CAMERA_DETAIL]}\r\n" +
-             $"{CURRENT_MOD}={settings[CURRENT_MOD]}\r\n" +
-             $"{DYNAMIC_LIGHTS}={settings[DYNAMIC_LIGHTS]}\r\n" +
-             $"{EVENT_DETAIL_LEVEL}={settings[EVENT_DETAIL_LEVEL]}\r\n" +
-             $"{FORCE_WATCH_MOVIES}={settings[FORCE_WATCH_MOVIES]}\r\n" +
-             $"{FULLRES_TEAMCOLOUR}={settings[FULLRES_TEAMCOLOUR]}\r\n" +
-             $"{FX_DETAIL_LEVEL}={settings[FX_DETAIL_LEVEL]}\r\n" +
-             $"{MODEL_DETAIL}={settings[MODEL_DETAIL]}\r\n" +
-             $"{PARENTAL_CONTROL}={settings[PARENTAL_CONTROL]}\r\n" +
-             $"{PERSISTENT_BODIES}={settings[PERSISTENT_BODIES]}\r\n" +
-             $"{PERSISTENT_DECALS}={settings[PERSISTENT_DECALS]}\r\n" +
-             $"{PLAYER_PROFILE}={settings[PLAYER_PROFILE]}\r\n" +
-             $"{RL_SSO_NUM_TIMES_SHOWN}={settings[RL_SSO_NUM_TIMES_SHOWN]}\r\n" +
-             $"{SCREEN_ADAPTER}={settings[SCREEN_ADAPTER]}\r\n" +
-             $"{SCREEN_ANIALIAS}={settings[SCREEN_ANIALIAS]}\r\n" +
-             $"{SCREEN_DEPTH}={settings[SCREEN_DEPTH]}\r\n" +
-             $"{SCREEN_DEVICE}={settings[SCREEN_DEVICE]}\r\n" +
-             $"{SCREEN_GAMMA}={settings[SCREEN_GAMMA]}\r\n" +
-             $"{SCREEN_HEIGHT}={settings[SCREEN_HEIGHT]}\r\n" +
-             $"{SCREEN_NO_VSYNC}={settings[SCREEN_NO_VSYNC]}\r\n" +
-             $"{SCREEN_REFRESH}={settings[SCREEN_REFRESH]}\r\n" +
-             $"{SCREEN_WIDTH}={settings[SCREEN_WIDTH]}\r\n" +
-             $"{SCREEN_WINDOWED}={settings[SCREEN_WINDOWED]}\r\n" +
-             $"{SHADOW_BLOB}={settings[SHADOW_BLOB]}\r\n" +
-             $"{SHADOW_MAP}={settings[SHADOW_MAP]}\r\n" +
-             $"{SHADOW_VOLUME}={settings[SHADOW_VOLUME]}\r\n" +
-             $"{SOUND_ENABLED}={settings[SOUND_ENABLED]}\r\n" +
-             $"{SOUND_LIMIT_SAMPLES}={settings[SOUND_LIMIT_SAMPLES]}\r\n" +
-             $"{SOUND_NR_CHANNELS}={settings[SOUND_NR_CHANNELS]}\r\n" +
-             $"{SOUND_QUALITY}={settings[SOUND_QUALITY]}\r\n" +
-             $"{TERRAIN_ENABLE_FOW_BLUR}={settings[TERRAIN_ENABLE_FOW_BLUR]}\r\n" +
-             $"{TEXTURE_DETAIL}={settings[TEXTURE_DETAIL]}\r\n" +
-             $"{TOTAL_MATCHES}={settings[TOTAL_MATCHES]}\r\n" +
-             $"{UNIT_OCCLUSION}={settings[UNIT_OCCLUSION]}";
+                         $"{CAMERA_DETAIL}={settings[CAMERA_DETAIL]}\r\n" +
+                         $"{CURRENT_MOD}={settings[CURRENT_MOD]}\r\n" +
+                         $"{DYNAMIC_LIGHTS}={settings[DYNAMIC_LIGHTS]}\r\n" +
+                         $"{EVENT_DETAIL_LEVEL}={settings[EVENT_DETAIL_LEVEL]}\r\n" +
+                         $"{FORCE_WATCH_MOVIES}={settings[FORCE_WATCH_MOVIES]}\r\n" +
+                         $"{FULLRES_TEAMCOLOUR}={settings[FULLRES_TEAMCOLOUR]}\r\n" +
+                         $"{FX_DETAIL_LEVEL}={settings[FX_DETAIL_LEVEL]}\r\n" +
+                         $"{MODEL_DETAIL}={settings[MODEL_DETAIL]}\r\n" +
+                         $"{PARENTAL_CONTROL}={settings[PARENTAL_CONTROL]}\r\n" +
+                         $"{PERSISTENT_BODIES}={settings[PERSISTENT_BODIES]}\r\n" +
+                         $"{PERSISTENT_DECALS}={settings[PERSISTENT_DECALS]}\r\n" +
+                         $"{PLAYER_PROFILE}={settings[PLAYER_PROFILE]}\r\n" +
+                         $"{RL_SSO_NUM_TIMES_SHOWN}={settings[RL_SSO_NUM_TIMES_SHOWN]}\r\n" +
+                         $"{SCREEN_ADAPTER}={settings[SCREEN_ADAPTER]}\r\n" +
+                         $"{SCREEN_ANIALIAS}={settings[SCREEN_ANIALIAS]}\r\n" +
+                         $"{SCREEN_DEPTH}={settings[SCREEN_DEPTH]}\r\n" +
+                         $"{SCREEN_DEVICE}={settings[SCREEN_DEVICE]}\r\n" +
+                         $"{SCREEN_GAMMA}={settings[SCREEN_GAMMA]}\r\n" +
+                         $"{SCREEN_HEIGHT}={settings[SCREEN_HEIGHT]}\r\n" +
+                         $"{SCREEN_NO_VSYNC}={settings[SCREEN_NO_VSYNC]}\r\n" +
+                         $"{SCREEN_REFRESH}={settings[SCREEN_REFRESH]}\r\n" +
+                         $"{SCREEN_WIDTH}={settings[SCREEN_WIDTH]}\r\n" +
+                         $"{SCREEN_WINDOWED}={settings[SCREEN_WINDOWED]}\r\n" +
+                         $"{SHADOW_BLOB}={settings[SHADOW_BLOB]}\r\n" +
+                         $"{SHADOW_MAP}={settings[SHADOW_MAP]}\r\n" +
+                         $"{SHADOW_VOLUME}={settings[SHADOW_VOLUME]}\r\n" +
+                         $"{SOUND_ENABLED}={settings[SOUND_ENABLED]}\r\n" +
+                         $"{SOUND_LIMIT_SAMPLES}={settings[SOUND_LIMIT_SAMPLES]}\r\n" +
+                         $"{SOUND_NR_CHANNELS}={settings[SOUND_NR_CHANNELS]}\r\n" +
+                         $"{SOUND_QUALITY}={settings[SOUND_QUALITY]}\r\n" +
+                         $"{TERRAIN_ENABLE_FOW_BLUR}={settings[TERRAIN_ENABLE_FOW_BLUR]}\r\n" +
+                         $"{TEXTURE_DETAIL}={settings[TEXTURE_DETAIL]}\r\n" +
+                         $"{TOTAL_MATCHES}={settings[TOTAL_MATCHES]}\r\n" +
+                         $"{UNIT_OCCLUSION}={settings[UNIT_OCCLUSION]}";
             File.WriteAllText(SETTINGS_FILE, str);
+
+            cancelButton.Text = CLOSE_LABEL;
         }
 
         private void DefaultsButton_Click(object sender, EventArgs e)
@@ -396,6 +409,8 @@ namespace DoW_Mod_Manager
         private void CurrentPlayerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[PLAYER_PROFILE] = currentPlayerComboBox.SelectedItem.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void ParentalControlCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -404,6 +419,8 @@ namespace DoW_Mod_Manager
                 settings[PARENTAL_CONTROL] = "1";
             else
                 settings[PARENTAL_CONTROL] = "0";
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void InversePanCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -424,16 +441,22 @@ namespace DoW_Mod_Manager
         private void UnknownSettingComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[RL_SSO_NUM_TIMES_SHOWN] = unknownSettingComboBox.SelectedItem.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void ActiveVideocardComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[SCREEN_ADAPTER] = activeVideocardComboBox.SelectedItem.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void RendererComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[SCREEN_DEVICE] = rendererComboBox.SelectedItem.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void ScreenResolutionComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -443,6 +466,8 @@ namespace DoW_Mod_Manager
 
             settings[SCREEN_WIDTH] = str.Substring(0, x);
             settings[SCREEN_HEIGHT] = str.Substring(x + 1, str.Length - x - 1);
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void RefreshRateComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -454,6 +479,8 @@ namespace DoW_Mod_Manager
                 settings[SCREEN_REFRESH] = "0";
             else
                 settings[SCREEN_REFRESH] = str.Substring(0, indexOfSpace);
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void ColorDepthComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -470,19 +497,25 @@ namespace DoW_Mod_Manager
                     settings[SCREEN_DEPTH] = "16";
                     break;
             }
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void GammaTrackBar_Scroll(object sender, EventArgs e)
         {
             settings[SCREEN_GAMMA] = gammaTrackBar.Value.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void VSyncCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (vSyncCheckBox.Checked)
-                settings[SCREEN_NO_VSYNC] = "1";
-            else
+            if (vSyncCheckBox.Checked)      // We have to invert this for convienience
                 settings[SCREEN_NO_VSYNC] = "0";
+            else
+                settings[SCREEN_NO_VSYNC] = "1";
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void WindowedCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -491,6 +524,8 @@ namespace DoW_Mod_Manager
                 settings[SCREEN_WINDOWED] = "1";
             else
                 settings[SCREEN_WINDOWED] = "0";
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void AntialiasingCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -499,21 +534,29 @@ namespace DoW_Mod_Manager
                 settings[SCREEN_ANIALIAS] = "1";
             else
                 settings[SCREEN_ANIALIAS] = "0";
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void TextureDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[TEXTURE_DETAIL] = textureDetailComboBox.SelectedIndex.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void ModelDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[MODEL_DETAIL] = modelDetailComboBox.SelectedIndex.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void TerrainDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[TERRAIN_ENABLE_FOW_BLUR] = terrainDetailComboBox.SelectedIndex.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void BetterTeamcoloredTexturexCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -522,6 +565,8 @@ namespace DoW_Mod_Manager
                 settings[FULLRES_TEAMCOLOUR] = "1";
             else
                 settings[FULLRES_TEAMCOLOUR] = "0";
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void ShadowsDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -544,31 +589,43 @@ namespace DoW_Mod_Manager
                     settings[SHADOW_BLOB] = "1";
                     break;
             }
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void WorldEventsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[EVENT_DETAIL_LEVEL] = worldEventsComboBox.SelectedIndex.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void EffectsDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[FX_DETAIL_LEVEL] = effectsDetailComboBox.SelectedIndex.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void PersistentBodiesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[PERSISTENT_BODIES] = persistentBodiesComboBox.SelectedIndex.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void PersistentScarringComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[PERSISTENT_DECALS] = persistentScarringComboBox.SelectedIndex.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void DynamicLightsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[DYNAMIC_LIGHTS] = dynamicLightsComboBox.SelectedIndex.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void Full3DCameraCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -577,6 +634,8 @@ namespace DoW_Mod_Manager
                 settings[CAMERA_DETAIL] = "1";
             else
                 settings[CAMERA_DETAIL] = "0";
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void UnitsOcclusionCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -585,6 +644,8 @@ namespace DoW_Mod_Manager
                 settings[UNIT_OCCLUSION] = "1";
             else
                 settings[UNIT_OCCLUSION] = "0";
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void WatchMoviesCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -593,6 +654,8 @@ namespace DoW_Mod_Manager
                 settings[FORCE_WATCH_MOVIES] = "1";
             else
                 settings[FORCE_WATCH_MOVIES] = "0";
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void SoundEnabledCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -601,19 +664,25 @@ namespace DoW_Mod_Manager
                 settings[SOUND_ENABLED] = "1";
             else
                 settings[SOUND_ENABLED] = "0";
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void RandomizedSoundsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (randomizedSoundsCheckBox.Checked)
-                settings[SOUND_LIMIT_SAMPLES] = "1";
-            else
+            if (randomizedSoundsCheckBox.Checked)       // We have to invert it for covienience
                 settings[SOUND_LIMIT_SAMPLES] = "0";
+            else
+                settings[SOUND_LIMIT_SAMPLES] = "1";
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void SoundQualityComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[SOUND_QUALITY] = soundQualityComboBox.SelectedIndex.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void SoundChannelsComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -630,6 +699,8 @@ namespace DoW_Mod_Manager
                     settings[SOUND_NR_CHANNELS] = "16";
                     break;
             }
+
+            cancelButton.Text = CANCEL_LABEL;
         }
 
         private void AmbientVolumeTarckBar_Scroll(object sender, EventArgs e)
@@ -650,6 +721,135 @@ namespace DoW_Mod_Manager
         private void MusicVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
             // Can't find this setting!
+        }
+
+        private void LowGraphicsButton_Click(object sender, EventArgs e)
+        {
+            settings[CAMERA_DETAIL] = "0";
+            settings[DYNAMIC_LIGHTS] = "0";
+            settings[EVENT_DETAIL_LEVEL] = "0";
+            settings[FULLRES_TEAMCOLOUR] = "0";
+            settings[FX_DETAIL_LEVEL] = "0";
+            settings[MODEL_DETAIL] = "0";
+            settings[PERSISTENT_BODIES] = "0";
+            settings[PERSISTENT_DECALS] = "0";
+            settings[SCREEN_ANIALIAS] = "0";
+            settings[SCREEN_DEPTH] = "16";
+            settings[SHADOW_BLOB] = "0";
+            settings[SHADOW_MAP] = "0";
+            settings[SHADOW_VOLUME] = "0";
+            settings[TERRAIN_ENABLE_FOW_BLUR] = "0";
+            settings[TEXTURE_DETAIL] = "0";
+
+            InitializeGUIWithSettings();
+
+            cancelButton.Text = CANCEL_LABEL;
+        }
+
+        private void MediumButtomGraphics_Click(object sender, EventArgs e)
+        {
+            settings[CAMERA_DETAIL] = "1";
+            settings[DYNAMIC_LIGHTS] = "2";
+            settings[EVENT_DETAIL_LEVEL] = "1";
+            settings[FULLRES_TEAMCOLOUR] = "0";
+            settings[FX_DETAIL_LEVEL] = "1";
+            settings[MODEL_DETAIL] = "1";
+            settings[PERSISTENT_BODIES] = "2";
+            settings[PERSISTENT_DECALS] = "1";
+            settings[SCREEN_ANIALIAS] = "0";
+            settings[SCREEN_DEPTH] = "32";
+            settings[SHADOW_BLOB] = "1";
+            settings[SHADOW_MAP] = "1";
+            settings[SHADOW_VOLUME] = "0";
+            settings[TERRAIN_ENABLE_FOW_BLUR] = "1";
+            settings[TEXTURE_DETAIL] = "1";
+
+            InitializeGUIWithSettings();
+
+            cancelButton.Text = CANCEL_LABEL;
+        }
+
+        private void HighGraphicsButton_Click(object sender, EventArgs e)
+        {
+            settings[CAMERA_DETAIL] = "1";
+            settings[DYNAMIC_LIGHTS] = "3";
+            settings[EVENT_DETAIL_LEVEL] = "2";
+            settings[FULLRES_TEAMCOLOUR] = "0";
+            settings[FX_DETAIL_LEVEL] = "2";
+            settings[MODEL_DETAIL] = "2";
+            settings[PERSISTENT_BODIES] = "3";
+            settings[PERSISTENT_DECALS] = "2";
+            settings[SCREEN_ANIALIAS] = "0";
+            settings[SCREEN_DEPTH] = "32";
+            settings[SHADOW_BLOB] = "1";
+            settings[SHADOW_MAP] = "1";
+            settings[SHADOW_VOLUME] = "1";
+            settings[TERRAIN_ENABLE_FOW_BLUR] = "2";
+            settings[TEXTURE_DETAIL] = "2";
+
+            InitializeGUIWithSettings();
+
+            cancelButton.Text = CANCEL_LABEL;
+        }
+
+        private void UltraGraphicsButton_Click(object sender, EventArgs e)
+        {
+            settings[CAMERA_DETAIL] = "1";
+            settings[DYNAMIC_LIGHTS] = "3";
+            settings[EVENT_DETAIL_LEVEL] = "2";
+            settings[FULLRES_TEAMCOLOUR] = "1";
+            settings[FX_DETAIL_LEVEL] = "2";
+            settings[MODEL_DETAIL] = "2";
+            settings[PERSISTENT_BODIES] = "3";
+            settings[PERSISTENT_DECALS] = "2";
+            settings[SCREEN_ANIALIAS] = "1";        // Testing needed!
+            settings[SCREEN_DEPTH] = "32";
+            settings[SHADOW_BLOB] = "1";
+            settings[SHADOW_MAP] = "1";
+            settings[SHADOW_VOLUME] = "1";
+            settings[TERRAIN_ENABLE_FOW_BLUR] = "2";
+            settings[TEXTURE_DETAIL] = "2";
+            // Adding -forcehighpoly would be a good idea!
+
+            InitializeGUIWithSettings();
+
+            cancelButton.Text = CANCEL_LABEL;
+        }
+
+        private void LowAudioButton_Click(object sender, EventArgs e)
+        {
+            settings[SOUND_ENABLED] = "1";
+            settings[SOUND_LIMIT_SAMPLES] = "1";
+            settings[SOUND_NR_CHANNELS] = "16";
+            settings[SOUND_QUALITY] = "0";
+
+            InitializeGUIWithSettings();
+
+            cancelButton.Text = CANCEL_LABEL;
+        }
+
+        private void MediumAudioButton_Click(object sender, EventArgs e)
+        {
+            settings[SOUND_ENABLED] = "1";
+            settings[SOUND_LIMIT_SAMPLES] = "0";
+            settings[SOUND_NR_CHANNELS] = "32";
+            settings[SOUND_QUALITY] = "1";
+
+            InitializeGUIWithSettings();
+
+            cancelButton.Text = CANCEL_LABEL;
+        }
+
+        private void HighAudioButton_Click(object sender, EventArgs e)
+        {
+            settings[SOUND_ENABLED] = "1";
+            settings[SOUND_LIMIT_SAMPLES] = "0";
+            settings[SOUND_NR_CHANNELS] = "64";
+            settings[SOUND_QUALITY] = "2";
+
+            InitializeGUIWithSettings();
+
+            cancelButton.Text = CANCEL_LABEL;
         }
     }
 }
