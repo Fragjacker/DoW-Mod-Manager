@@ -359,7 +359,7 @@ namespace DoW_Mod_Manager
             this.settingsButton.TabIndex = 22;
             this.settingsButton.Text = "SETTINGS";
             this.settingsButton.UseVisualStyleBackColor = false;
-            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+            this.settingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
             // ModManagerForm
             // 

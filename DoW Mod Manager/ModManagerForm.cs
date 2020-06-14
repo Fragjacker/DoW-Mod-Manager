@@ -23,13 +23,6 @@ namespace DoW_Mod_Manager
 
         private const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;                    // 32 in Decimal
 
-        private const string CONFIG_FILE_NAME = "DoW Mod Manager.ini";
-        private const string CHOICE_INDEX = "ChoiceIndex";
-        private const string DEV = "Dev";
-        private const string NO_MOVIES = "NoMovies";
-        private const string FORCE_HIGH_POLY = "ForceHighPoly";
-        private const string OPTIMIZATIONS = "Optimizations";
-
         private readonly string currentDir = Directory.GetCurrentDirectory();       // Is the current Directory of Dawn oif War
 
         private bool[] isInstalled;                                                 // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
@@ -44,7 +37,17 @@ namespace DoW_Mod_Manager
         public List<string> AllFoundModules;                                        // Contains the list of all available Mods that will be used by the Mod Merger
         public List<string> AllValidModules;                                        // Contains the list of all playable Mods that will be used by the Mod Merger
 
-        private readonly Dictionary<string, int> settings = new Dictionary<string, int>
+        private const string CONFIG_FILE_NAME = "DoW Mod Manager.ini";
+
+        private const string CHOICE_INDEX = "ChoiceIndex";
+        public const string DEV = "Dev";
+        public const string NO_MOVIES = "NoMovies";
+        public const string FORCE_HIGH_POLY = "ForceHighPoly";
+        public const string OPTIMIZATIONS = "Optimizations";
+
+        // Don't make Settings readonly or it couldn't be changed from outside the class!
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "<Pending>")]
+        private Dictionary<string, int> settings = new Dictionary<string, int>
         {
             [CHOICE_INDEX]    = 0,
             [DEV]             = 0,
@@ -676,9 +679,9 @@ namespace DoW_Mod_Manager
             mergerWindow.Show();
         }
 
-        private void settingsButton_Click(object sender, EventArgs e)
+        private void SettingsButton_Click(object sender, EventArgs e)
         {
-            SettingsManagerForm settingsForm = new SettingsManagerForm();
+            SettingsManagerForm settingsForm = new SettingsManagerForm(this);
             settingsForm.Show();
         }
 
@@ -923,6 +926,41 @@ namespace DoW_Mod_Manager
                     isMessageBoxOnScreen = true;
                     Application.Exit();
                 }
+            }
+        }
+
+        /// <summary>
+        /// This method can be used ouside this class to change a setting and update the GUI
+        /// Use this instead of changing a setting directly!
+        /// </summary>
+        /// <param name="setting"></param>
+        /// <param name="newValue"></param>
+        public void ChangeSetting(string setting, int newValue)
+        {
+            // Makes sure that newValue is in range of acceptable values
+            if (newValue < 0)
+                newValue = 0;
+            else if (newValue > 1)
+                newValue = 1;
+
+            switch (setting)
+            {
+                case DEV:
+                    settings[DEV] = newValue;
+                    devCheckBox.Checked = Convert.ToBoolean(newValue);
+                    break;
+                case NO_MOVIES:
+                    settings[NO_MOVIES] = newValue;
+                    nomoviesCheckBox.Checked = Convert.ToBoolean(newValue);
+                    break;
+                case FORCE_HIGH_POLY:
+                    settings[FORCE_HIGH_POLY] = newValue;
+                    highpolyCheckBox.Checked = Convert.ToBoolean(newValue);
+                    break;
+                case OPTIMIZATIONS:
+                    settings[OPTIMIZATIONS] = newValue;
+                    optimizationsCheckBox.Checked = Convert.ToBoolean(newValue);
+                    break;
             }
         }
     }

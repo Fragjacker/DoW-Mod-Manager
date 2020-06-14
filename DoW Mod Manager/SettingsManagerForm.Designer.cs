@@ -452,7 +452,7 @@
             this.ultraGraphicsButton.Name = "ultraGraphicsButton";
             this.ultraGraphicsButton.Size = new System.Drawing.Size(125, 47);
             this.ultraGraphicsButton.TabIndex = 48;
-            this.ultraGraphicsButton.Text = "HIGH+";
+            this.ultraGraphicsButton.Text = "ULTRA";
             this.ultraGraphicsButton.UseVisualStyleBackColor = false;
             this.ultraGraphicsButton.Click += new System.EventHandler(this.UltraGraphicsButton_Click);
             // 

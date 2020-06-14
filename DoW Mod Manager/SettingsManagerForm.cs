@@ -48,11 +48,18 @@ namespace DoW_Mod_Manager
         private const string TOTAL_MATCHES = "total_matches";
         private const string UNIT_OCCLUSION = "unit_occlusion";
 
+        private readonly ModManagerForm modManager;
+
+        private bool enableHighPoly = false;
+        private bool disableHighPoly = false;
+
         private Dictionary<string, string> settings;
 
-        public SettingsManagerForm()
+        public SettingsManagerForm(ModManagerForm form)
         {
             InitializeComponent();
+
+            modManager = form;
 
             InitializeSettings();
 
@@ -391,6 +398,17 @@ namespace DoW_Mod_Manager
                          $"{TOTAL_MATCHES}={settings[TOTAL_MATCHES]}\r\n" +
                          $"{UNIT_OCCLUSION}={settings[UNIT_OCCLUSION]}";
             File.WriteAllText(SETTINGS_FILE, str);
+
+            if (enableHighPoly)
+            {
+                modManager.ChangeSetting(ModManagerForm.FORCE_HIGH_POLY, 1);
+                enableHighPoly = false;
+            }
+            else if (disableHighPoly)
+            {
+                modManager.ChangeSetting(ModManagerForm.FORCE_HIGH_POLY, 0);
+                disableHighPoly = false;
+            }
 
             cancelButton.Text = CLOSE_LABEL;
         }
@@ -741,6 +759,8 @@ namespace DoW_Mod_Manager
             settings[TERRAIN_ENABLE_FOW_BLUR] = "0";
             settings[TEXTURE_DETAIL] = "0";
 
+            disableHighPoly = true;
+
             InitializeGUIWithSettings();
 
             cancelButton.Text = CANCEL_LABEL;
@@ -749,17 +769,17 @@ namespace DoW_Mod_Manager
         private void MediumButtomGraphics_Click(object sender, EventArgs e)
         {
             settings[CAMERA_DETAIL] = "1";
-            settings[DYNAMIC_LIGHTS] = "2";
+            settings[DYNAMIC_LIGHTS] = "1";
             settings[EVENT_DETAIL_LEVEL] = "1";
             settings[FULLRES_TEAMCOLOUR] = "0";
             settings[FX_DETAIL_LEVEL] = "1";
             settings[MODEL_DETAIL] = "1";
-            settings[PERSISTENT_BODIES] = "2";
+            settings[PERSISTENT_BODIES] = "1";
             settings[PERSISTENT_DECALS] = "1";
             settings[SCREEN_ANIALIAS] = "0";
             settings[SCREEN_DEPTH] = "32";
             settings[SHADOW_BLOB] = "1";
-            settings[SHADOW_MAP] = "1";
+            settings[SHADOW_MAP] = "0";
             settings[SHADOW_VOLUME] = "0";
             settings[TERRAIN_ENABLE_FOW_BLUR] = "1";
             settings[TEXTURE_DETAIL] = "1";
@@ -772,18 +792,18 @@ namespace DoW_Mod_Manager
         private void HighGraphicsButton_Click(object sender, EventArgs e)
         {
             settings[CAMERA_DETAIL] = "1";
-            settings[DYNAMIC_LIGHTS] = "3";
+            settings[DYNAMIC_LIGHTS] = "2";
             settings[EVENT_DETAIL_LEVEL] = "2";
             settings[FULLRES_TEAMCOLOUR] = "0";
             settings[FX_DETAIL_LEVEL] = "2";
             settings[MODEL_DETAIL] = "2";
-            settings[PERSISTENT_BODIES] = "3";
+            settings[PERSISTENT_BODIES] = "2";
             settings[PERSISTENT_DECALS] = "2";
             settings[SCREEN_ANIALIAS] = "0";
             settings[SCREEN_DEPTH] = "32";
             settings[SHADOW_BLOB] = "1";
             settings[SHADOW_MAP] = "1";
-            settings[SHADOW_VOLUME] = "1";
+            settings[SHADOW_VOLUME] = "0";
             settings[TERRAIN_ENABLE_FOW_BLUR] = "2";
             settings[TEXTURE_DETAIL] = "2";
 
@@ -802,14 +822,15 @@ namespace DoW_Mod_Manager
             settings[MODEL_DETAIL] = "2";
             settings[PERSISTENT_BODIES] = "3";
             settings[PERSISTENT_DECALS] = "2";
-            settings[SCREEN_ANIALIAS] = "1";        // Testing needed!
+            settings[SCREEN_ANIALIAS] = "1";                            // Testing needed!
             settings[SCREEN_DEPTH] = "32";
             settings[SHADOW_BLOB] = "1";
             settings[SHADOW_MAP] = "1";
             settings[SHADOW_VOLUME] = "1";
             settings[TERRAIN_ENABLE_FOW_BLUR] = "2";
             settings[TEXTURE_DETAIL] = "2";
-            // Adding -forcehighpoly would be a good idea!
+
+            enableHighPoly = true;
 
             InitializeGUIWithSettings();
 
