@@ -422,6 +422,7 @@ namespace DoW_Mod_Manager
             InitializeSettings();
             InitializeGUIWithSettings();
             saveButton.Enabled = true;
+            defaultsButton.Enabled = false;
             saveButton.Focus();
         }
 
@@ -436,6 +437,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void ParentalControlCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -447,6 +449,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void InversePanCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -470,6 +473,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void ActiveVideocardComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -478,6 +482,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void RendererComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -486,6 +491,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void ScreenResolutionComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -498,6 +504,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void RefreshRateComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -512,6 +519,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void ColorDepthComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -531,6 +539,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void GammaTrackBar_Scroll(object sender, EventArgs e)
@@ -539,6 +548,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void VSyncCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -550,6 +560,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void WindowedCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -561,6 +572,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void AntialiasingCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -572,6 +584,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void TextureDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -580,6 +593,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void ModelDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -588,6 +602,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void TerrainDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -596,6 +611,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void BetterTeamcoloredTexturexCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -607,6 +623,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void ShadowsDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -632,6 +649,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void WorldEventsComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -640,6 +658,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void EffectsDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -648,6 +667,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void PersistentBodiesComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -656,6 +676,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void PersistentScarringComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -664,6 +685,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void DynamicLightsComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -672,6 +694,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void Full3DCameraCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -683,6 +706,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void UnitsOcclusionCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -694,6 +718,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void WatchMoviesCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -705,6 +730,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void SoundEnabledCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -716,6 +742,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void RandomizedSoundsCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -727,6 +754,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void SoundQualityComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -735,6 +763,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void SoundChannelsComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -754,6 +783,7 @@ namespace DoW_Mod_Manager
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void AmbientVolumeTarckBar_Scroll(object sender, EventArgs e)
@@ -801,6 +831,7 @@ namespace DoW_Mod_Manager
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
+            defaultsButton.Enabled = true;
         }
 
         private void MediumButtomGraphics_Click(object sender, EventArgs e)
@@ -826,6 +857,7 @@ namespace DoW_Mod_Manager
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
+            defaultsButton.Enabled = true;
         }
 
         private void HighGraphicsButton_Click(object sender, EventArgs e)
@@ -851,6 +883,7 @@ namespace DoW_Mod_Manager
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
+            defaultsButton.Enabled = true;
         }
 
         private void UltraGraphicsButton_Click(object sender, EventArgs e)
@@ -878,6 +911,7 @@ namespace DoW_Mod_Manager
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
+            defaultsButton.Enabled = true;
         }
 
         private void LowAudioButton_Click(object sender, EventArgs e)
@@ -892,6 +926,7 @@ namespace DoW_Mod_Manager
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
+            defaultsButton.Enabled = true;
         }
 
         private void MediumAudioButton_Click(object sender, EventArgs e)
@@ -906,6 +941,7 @@ namespace DoW_Mod_Manager
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
+            defaultsButton.Enabled = true;
         }
 
         private void HighAudioButton_Click(object sender, EventArgs e)
@@ -920,6 +956,7 @@ namespace DoW_Mod_Manager
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
+            defaultsButton.Enabled = true;
         }
     }
 }
