@@ -224,6 +224,8 @@ namespace DoW_Mod_Manager
                     }
                 }
             }
+            else
+                saveButton.Enabled = true;
 
             // This is for debuging
             //string text = "Parsed pairs of key=value\n\n";
@@ -236,6 +238,7 @@ namespace DoW_Mod_Manager
             InitializeGUIWithSettings();
 
             cancelButton.Text = CLOSE_LABEL;
+            saveButton.Enabled = false;
         }
 
         private void InitializeSettings()
@@ -411,12 +414,15 @@ namespace DoW_Mod_Manager
             }
 
             cancelButton.Text = CLOSE_LABEL;
+            saveButton.Enabled = false;
         }
 
         private void DefaultsButton_Click(object sender, EventArgs e)
         {
             InitializeSettings();
             InitializeGUIWithSettings();
+            saveButton.Enabled = true;
+            saveButton.Focus();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -429,6 +435,7 @@ namespace DoW_Mod_Manager
             settings[PLAYER_PROFILE] = currentPlayerComboBox.SelectedItem.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void ParentalControlCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -439,6 +446,7 @@ namespace DoW_Mod_Manager
                 settings[PARENTAL_CONTROL] = "0";
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void InversePanCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -461,6 +469,7 @@ namespace DoW_Mod_Manager
             settings[RL_SSO_NUM_TIMES_SHOWN] = unknownSettingComboBox.SelectedItem.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void ActiveVideocardComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -468,6 +477,7 @@ namespace DoW_Mod_Manager
             settings[SCREEN_ADAPTER] = activeVideocardComboBox.SelectedItem.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void RendererComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -475,6 +485,7 @@ namespace DoW_Mod_Manager
             settings[SCREEN_DEVICE] = rendererComboBox.SelectedItem.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void ScreenResolutionComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -486,6 +497,7 @@ namespace DoW_Mod_Manager
             settings[SCREEN_HEIGHT] = str.Substring(x + 1, str.Length - x - 1);
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void RefreshRateComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -499,6 +511,7 @@ namespace DoW_Mod_Manager
                 settings[SCREEN_REFRESH] = str.Substring(0, indexOfSpace);
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void ColorDepthComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -517,6 +530,7 @@ namespace DoW_Mod_Manager
             }
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void GammaTrackBar_Scroll(object sender, EventArgs e)
@@ -524,6 +538,7 @@ namespace DoW_Mod_Manager
             settings[SCREEN_GAMMA] = gammaTrackBar.Value.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void VSyncCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -534,6 +549,7 @@ namespace DoW_Mod_Manager
                 settings[SCREEN_NO_VSYNC] = "1";
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void WindowedCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -544,6 +560,7 @@ namespace DoW_Mod_Manager
                 settings[SCREEN_WINDOWED] = "0";
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void AntialiasingCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -554,6 +571,7 @@ namespace DoW_Mod_Manager
                 settings[SCREEN_ANIALIAS] = "0";
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void TextureDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -561,6 +579,7 @@ namespace DoW_Mod_Manager
             settings[TEXTURE_DETAIL] = textureDetailComboBox.SelectedIndex.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void ModelDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -568,6 +587,7 @@ namespace DoW_Mod_Manager
             settings[MODEL_DETAIL] = modelDetailComboBox.SelectedIndex.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void TerrainDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -575,6 +595,7 @@ namespace DoW_Mod_Manager
             settings[TERRAIN_ENABLE_FOW_BLUR] = terrainDetailComboBox.SelectedIndex.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void BetterTeamcoloredTexturexCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -585,6 +606,7 @@ namespace DoW_Mod_Manager
                 settings[FULLRES_TEAMCOLOUR] = "0";
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void ShadowsDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -609,6 +631,7 @@ namespace DoW_Mod_Manager
             }
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void WorldEventsComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -616,6 +639,7 @@ namespace DoW_Mod_Manager
             settings[EVENT_DETAIL_LEVEL] = worldEventsComboBox.SelectedIndex.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void EffectsDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -623,6 +647,7 @@ namespace DoW_Mod_Manager
             settings[FX_DETAIL_LEVEL] = effectsDetailComboBox.SelectedIndex.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void PersistentBodiesComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -630,6 +655,7 @@ namespace DoW_Mod_Manager
             settings[PERSISTENT_BODIES] = persistentBodiesComboBox.SelectedIndex.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void PersistentScarringComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -637,6 +663,7 @@ namespace DoW_Mod_Manager
             settings[PERSISTENT_DECALS] = persistentScarringComboBox.SelectedIndex.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void DynamicLightsComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -644,6 +671,7 @@ namespace DoW_Mod_Manager
             settings[DYNAMIC_LIGHTS] = dynamicLightsComboBox.SelectedIndex.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void Full3DCameraCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -654,6 +682,7 @@ namespace DoW_Mod_Manager
                 settings[CAMERA_DETAIL] = "0";
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void UnitsOcclusionCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -664,6 +693,7 @@ namespace DoW_Mod_Manager
                 settings[UNIT_OCCLUSION] = "0";
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void WatchMoviesCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -674,6 +704,7 @@ namespace DoW_Mod_Manager
                 settings[FORCE_WATCH_MOVIES] = "0";
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void SoundEnabledCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -684,6 +715,7 @@ namespace DoW_Mod_Manager
                 settings[SOUND_ENABLED] = "0";
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void RandomizedSoundsCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -694,6 +726,7 @@ namespace DoW_Mod_Manager
                 settings[SOUND_LIMIT_SAMPLES] = "1";
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void SoundQualityComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -701,6 +734,7 @@ namespace DoW_Mod_Manager
             settings[SOUND_QUALITY] = soundQualityComboBox.SelectedIndex.ToString();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void SoundChannelsComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -719,6 +753,7 @@ namespace DoW_Mod_Manager
             }
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
         }
 
         private void AmbientVolumeTarckBar_Scroll(object sender, EventArgs e)
@@ -764,6 +799,8 @@ namespace DoW_Mod_Manager
             InitializeGUIWithSettings();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            saveButton.Focus();
         }
 
         private void MediumButtomGraphics_Click(object sender, EventArgs e)
@@ -787,6 +824,8 @@ namespace DoW_Mod_Manager
             InitializeGUIWithSettings();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            saveButton.Focus();
         }
 
         private void HighGraphicsButton_Click(object sender, EventArgs e)
@@ -810,6 +849,8 @@ namespace DoW_Mod_Manager
             InitializeGUIWithSettings();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            saveButton.Focus();
         }
 
         private void UltraGraphicsButton_Click(object sender, EventArgs e)
@@ -835,6 +876,8 @@ namespace DoW_Mod_Manager
             InitializeGUIWithSettings();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            saveButton.Focus();
         }
 
         private void LowAudioButton_Click(object sender, EventArgs e)
@@ -847,6 +890,8 @@ namespace DoW_Mod_Manager
             InitializeGUIWithSettings();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            saveButton.Focus();
         }
 
         private void MediumAudioButton_Click(object sender, EventArgs e)
@@ -859,6 +904,8 @@ namespace DoW_Mod_Manager
             InitializeGUIWithSettings();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            saveButton.Focus();
         }
 
         private void HighAudioButton_Click(object sender, EventArgs e)
@@ -871,6 +918,8 @@ namespace DoW_Mod_Manager
             InitializeGUIWithSettings();
 
             cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            saveButton.Focus();
         }
     }
 }

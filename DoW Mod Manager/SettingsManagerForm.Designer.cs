@@ -154,6 +154,7 @@
             this.saveButton.TabIndex = 2;
             this.saveButton.Text = "SAVE";
             this.saveButton.UseVisualStyleBackColor = false;
+            this.saveButton.Enabled = false;
             this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // cancelButton
@@ -165,7 +166,7 @@
             this.cancelButton.Margin = new System.Windows.Forms.Padding(4);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(145, 47);
-            this.cancelButton.TabIndex = 4;
+            this.cancelButton.TabIndex = 3;
             this.cancelButton.Text = "CLOSE";
             this.cancelButton.UseVisualStyleBackColor = false;
             this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -180,7 +181,7 @@
             this.defaultsButton.Margin = new System.Windows.Forms.Padding(4);
             this.defaultsButton.Name = "defaultsButton";
             this.defaultsButton.Size = new System.Drawing.Size(145, 47);
-            this.defaultsButton.TabIndex = 3;
+            this.defaultsButton.TabIndex = 1;
             this.defaultsButton.Text = "DEFAULTS";
             this.defaultsButton.UseVisualStyleBackColor = false;
             this.defaultsButton.Click += new System.EventHandler(this.DefaultsButton_Click);
