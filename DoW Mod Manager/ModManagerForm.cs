@@ -77,20 +77,20 @@ namespace DoW_Mod_Manager
                     string line = lines[i];
                     line = line.Replace(" ", "");
 
-                    int indexOfEqualSign = line.IndexOf('=');
+                    int firstIndexOfEqualSign = line.IndexOf('=');
                     int lastIndexOfEqualSign = line.LastIndexOf('=');
 
                     // There must be only one "=" in the line!
-                    if (indexOfEqualSign == lastIndexOfEqualSign)
+                    if (firstIndexOfEqualSign == lastIndexOfEqualSign)
                     {
-                        if (indexOfEqualSign > 0)
+                        if (firstIndexOfEqualSign > 0)
                         {
-                            string setting = Convert.ToString(line.Substring(0, indexOfEqualSign));
+                            string setting = Convert.ToString(line.Substring(0, firstIndexOfEqualSign));
                             int value;
 
                             try
                             {
-                                value = Convert.ToInt32(line.Substring(indexOfEqualSign + 1, line.Length - indexOfEqualSign - 1));
+                                value = Convert.ToInt32(line.Substring(firstIndexOfEqualSign + 1, line.Length - firstIndexOfEqualSign - 1));
                             }
                             catch (Exception)
                             {
@@ -122,8 +122,9 @@ namespace DoW_Mod_Manager
                 }
             }
 
-            // Initialize values with values from saved values or defaults.
             ReselectSavedMod();
+
+            // Initialize values from saved values or defaults.
             if (Convert.ToBoolean(settings[DEV]))
                 devCheckBox.Checked = true;
             else

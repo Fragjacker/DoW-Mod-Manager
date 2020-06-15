@@ -99,6 +99,9 @@
             this.screenResolutionComboBox = new System.Windows.Forms.ComboBox();
             this.screenResolutionLabel = new System.Windows.Forms.Label();
             this.audioTabPage = new System.Windows.Forms.TabPage();
+            this.highAudioButton = new System.Windows.Forms.Button();
+            this.mediumAudioButton = new System.Windows.Forms.Button();
+            this.lowAudioButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.soundEnabledCheckBox = new System.Windows.Forms.CheckBox();
             this.soundEnabledLabel = new System.Windows.Forms.Label();
@@ -116,9 +119,6 @@
             this.soundQualityLabel = new System.Windows.Forms.Label();
             this.randomizedSoundsCheckBox = new System.Windows.Forms.CheckBox();
             this.randomizedSoundsLabel = new System.Windows.Forms.Label();
-            this.lowAudioButton = new System.Windows.Forms.Button();
-            this.mediumAudioButton = new System.Windows.Forms.Button();
-            this.highAudioButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.generalTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scrollRateTrackBar)).BeginInit();
@@ -145,6 +145,7 @@
             // saveButton
             // 
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.saveButton.Enabled = false;
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.saveButton.Location = new System.Drawing.Point(21, 764);
@@ -154,7 +155,6 @@
             this.saveButton.TabIndex = 2;
             this.saveButton.Text = "SAVE";
             this.saveButton.UseVisualStyleBackColor = false;
-            this.saveButton.Enabled = false;
             this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // cancelButton
@@ -1109,6 +1109,50 @@
             this.audioTabPage.TabIndex = 1;
             this.audioTabPage.Text = "Audio";
             // 
+            // highAudioButton
+            // 
+            this.highAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.highAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.highAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.highAudioButton.Location = new System.Drawing.Point(499, 597);
+            this.highAudioButton.Margin = new System.Windows.Forms.Padding(4);
+            this.highAudioButton.Name = "highAudioButton";
+            this.highAudioButton.Size = new System.Drawing.Size(125, 47);
+            this.highAudioButton.TabIndex = 54;
+            this.highAudioButton.Text = "HIGH";
+            this.highAudioButton.UseVisualStyleBackColor = false;
+            this.highAudioButton.Click += new System.EventHandler(this.HighAudioButton_Click);
+            // 
+            // mediumAudioButton
+            // 
+            this.mediumAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mediumAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mediumAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.mediumAudioButton.Location = new System.Drawing.Point(286, 597);
+            this.mediumAudioButton.Margin = new System.Windows.Forms.Padding(4);
+            this.mediumAudioButton.Name = "mediumAudioButton";
+            this.mediumAudioButton.Size = new System.Drawing.Size(125, 47);
+            this.mediumAudioButton.TabIndex = 53;
+            this.mediumAudioButton.Text = "MEDIUM";
+            this.mediumAudioButton.UseVisualStyleBackColor = false;
+            this.mediumAudioButton.Click += new System.EventHandler(this.MediumAudioButton_Click);
+            // 
+            // lowAudioButton
+            // 
+            this.lowAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lowAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lowAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.lowAudioButton.Location = new System.Drawing.Point(78, 597);
+            this.lowAudioButton.Margin = new System.Windows.Forms.Padding(4);
+            this.lowAudioButton.Name = "lowAudioButton";
+            this.lowAudioButton.Size = new System.Drawing.Size(125, 47);
+            this.lowAudioButton.TabIndex = 52;
+            this.lowAudioButton.Text = "LOW";
+            this.lowAudioButton.UseVisualStyleBackColor = false;
+            this.lowAudioButton.Click += new System.EventHandler(this.LowAudioButton_Click);
+            // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1312,50 +1356,6 @@
             this.randomizedSoundsLabel.Size = new System.Drawing.Size(136, 16);
             this.randomizedSoundsLabel.TabIndex = 35;
             this.randomizedSoundsLabel.Text = "Randomizes Sounds:";
-            // 
-            // lowAudioButton
-            // 
-            this.lowAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lowAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lowAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.lowAudioButton.Location = new System.Drawing.Point(78, 597);
-            this.lowAudioButton.Margin = new System.Windows.Forms.Padding(4);
-            this.lowAudioButton.Name = "lowAudioButton";
-            this.lowAudioButton.Size = new System.Drawing.Size(125, 47);
-            this.lowAudioButton.TabIndex = 52;
-            this.lowAudioButton.Text = "LOW";
-            this.lowAudioButton.UseVisualStyleBackColor = false;
-            this.lowAudioButton.Click += new System.EventHandler(this.LowAudioButton_Click);
-            // 
-            // mediumAudioButton
-            // 
-            this.mediumAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.mediumAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mediumAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.mediumAudioButton.Location = new System.Drawing.Point(286, 597);
-            this.mediumAudioButton.Margin = new System.Windows.Forms.Padding(4);
-            this.mediumAudioButton.Name = "mediumAudioButton";
-            this.mediumAudioButton.Size = new System.Drawing.Size(125, 47);
-            this.mediumAudioButton.TabIndex = 53;
-            this.mediumAudioButton.Text = "MEDIUM";
-            this.mediumAudioButton.UseVisualStyleBackColor = false;
-            this.mediumAudioButton.Click += new System.EventHandler(this.MediumAudioButton_Click);
-            // 
-            // highAudioButton
-            // 
-            this.highAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.highAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.highAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.highAudioButton.Location = new System.Drawing.Point(499, 597);
-            this.highAudioButton.Margin = new System.Windows.Forms.Padding(4);
-            this.highAudioButton.Name = "highAudioButton";
-            this.highAudioButton.Size = new System.Drawing.Size(125, 47);
-            this.highAudioButton.TabIndex = 54;
-            this.highAudioButton.Text = "HIGH";
-            this.highAudioButton.UseVisualStyleBackColor = false;
-            this.highAudioButton.Click += new System.EventHandler(this.HighAudioButton_Click);
             // 
             // SettingsManagerForm
             // 
