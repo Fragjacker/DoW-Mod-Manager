@@ -49,11 +49,11 @@ namespace DoW_Mod_Manager
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "<Pending>")]
         private Dictionary<string, int> settings = new Dictionary<string, int>
         {
-            [CHOICE_INDEX] = 0,
-            [DEV] = 0,
-            [NO_MOVIES] = 1,
+            [CHOICE_INDEX]    = 0,
+            [DEV]             = 0,
+            [NO_MOVIES]       = 1,
             [FORCE_HIGH_POLY] = 0,
-            [OPTIMIZATIONS] = 0
+            [OPTIMIZATIONS]   = 0
         };
 
         /// <summary>
@@ -338,7 +338,7 @@ namespace DoW_Mod_Manager
                     using (StreamReader file = new StreamReader(filePath))
                     {
                         string line;
-
+                        
                         // Filter the unplayable mods and populate the List only with playable mods
                         while ((line = file.ReadLine()) != null)
                         {
@@ -488,7 +488,7 @@ namespace DoW_Mod_Manager
             for (int i = 0; i < itemsCount; i++)
             {
                 string currentPath = currentDir + "\\" + GetLastEntryFromLine(requiredModsList.Items[i].ToString()) + ".module";
-
+                
                 if (File.Exists(currentPath))
                 {
                     using (StreamReader file = new StreamReader(currentPath))
