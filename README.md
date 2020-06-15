@@ -34,7 +34,10 @@ This application allows for an easy launch of mods and management of large colle
 
 - **START MOD**: Starts the Game with the selected Advanced Start Options and the selected Mod if all dependency mods are installed.
 
-- **Download Mod...**: This button will open the new Download Manager window where you could download one (or how much you like) of popular mods. If mod has a patch - it will be downloaded too!
+- **SETTINGS**: You could change game settings without launching the game. It also let's you change some HIDDEN game settings!
+Some sliders don't work yet.
+
+- **Download Mod...**: This button will open the new Download Manager window where you could download one (or how much you like) of popular mods. If mod has a patch - it will be downloaded too! Wait 5 seconds and mod will start downloading.
 
 - **TOGGLE LAA**: This button allows for convenient activation and deactivation of the LAA flag for the Soulstorm.exe and GraphicsConfig.exe
 
