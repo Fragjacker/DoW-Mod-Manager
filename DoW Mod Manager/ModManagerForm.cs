@@ -21,36 +21,39 @@ namespace DoW_Mod_Manager
             public const string SOULSTORM = "Soulstorm.exe";
         }
 
-        private const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;                    // 32 in Decimal
+        private const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;
 
-        private const string CONFIG_FILE_NAME = "DoW Mod Manager.ini";
-        private const string CHOICE_INDEX = "ChoiceIndex";
-        private const string DEV = "Dev";
-        private const string NO_MOVIES = "NoMovies";
-        private const string FORCE_HIGH_POLY = "ForceHighPoly";
-        private const string OPTIMIZATIONS = "Optimizations";
+        private readonly string currentDir = Directory.GetCurrentDirectory();
 
-        private readonly string currentDir = Directory.GetCurrentDirectory();       // Is the current Directory of Dawn oif War
-
-        private bool[] isInstalled;                                                 // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the _filepaths is installed or not.
-        private bool isGameEXELAAPatched = false;                                   // Tells if soulstorm is LAA patched or NOT.
-        private bool isGraphicsConfigLAAPatched = false;                            // Tells if graphicsconfig is LAA patched or NOT.
+        private bool[] isInstalled;                                                 // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the FilePaths is installed or not.
+        private bool isGameEXELAAPatched = false;
+        private bool isGraphicsConfigLAAPatched = false;
         private bool isMessageBoxOnScreen = false;
 
         public readonly string CurrentGameEXE = "";
         public readonly string GraphicsConfigEXE = "GraphicsConfig.exe";
-        public string[] FilePaths;                                                  // Stores the paths of the found .module files in the Soulstorm directory
-        public string[] ModFolderPaths;                                             // Stores the paths of the Required Mods stored within the .module files. This will be used to check for their actual presence/absence in the Soulstorm Dir.
+        public string[] ModuleFilePaths;
+        public string[] ModFolderPaths;
         public List<string> AllFoundModules;                                        // Contains the list of all available Mods that will be used by the Mod Merger
         public List<string> AllValidModules;                                        // Contains the list of all playable Mods that will be used by the Mod Merger
 
-        private readonly Dictionary<string, int> settings = new Dictionary<string, int>
+        private const string CONFIG_FILE_NAME = "DoW Mod Manager.ini";
+
+        private const string CHOICE_INDEX = "ChoiceIndex";
+        public const string DEV = "Dev";
+        public const string NO_MOVIES = "NoMovies";
+        public const string FORCE_HIGH_POLY = "ForceHighPoly";
+        public const string OPTIMIZATIONS = "Optimizations";
+
+        // Don't make Settings readonly or it couldn't be changed from outside the class!
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "<Pending>")]
+        private Dictionary<string, int> settings = new Dictionary<string, int>
         {
-            [CHOICE_INDEX] = 0,
-            [DEV] = 0,
-            [NO_MOVIES] = 1,
+            [CHOICE_INDEX]    = 0,
+            [DEV]             = 0,
+            [NO_MOVIES]       = 1,
             [FORCE_HIGH_POLY] = 0,
-            [OPTIMIZATIONS] = 0
+            [OPTIMIZATIONS]   = 0
         };
 
         /// <summary>
@@ -64,6 +67,9 @@ namespace DoW_Mod_Manager
             // Sets Title of the form to be the same as Assembly Name
             Text = Assembly.GetExecutingAssembly().GetName().Name;
 
+            // Use the same icon as executable
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
             // Read *.ini file and load settings in memory
             if (File.Exists(CONFIG_FILE_NAME))
             {
@@ -74,20 +80,20 @@ namespace DoW_Mod_Manager
                     string line = lines[i];
                     line = line.Replace(" ", "");
 
-                    int indexOfEqualSign = line.IndexOf('=');
+                    int firstIndexOfEqualSign = line.IndexOf('=');
                     int lastIndexOfEqualSign = line.LastIndexOf('=');
 
                     // There must be only one "=" in the line!
-                    if (indexOfEqualSign == lastIndexOfEqualSign)
+                    if (firstIndexOfEqualSign == lastIndexOfEqualSign)
                     {
-                        if (indexOfEqualSign > 0)
+                        if (firstIndexOfEqualSign > 0)
                         {
-                            string setting = Convert.ToString(line.Substring(0, indexOfEqualSign));
+                            string setting = Convert.ToString(line.Substring(0, firstIndexOfEqualSign));
                             int value;
 
                             try
                             {
-                                value = Convert.ToInt32(line.Substring(indexOfEqualSign + 1, line.Length - indexOfEqualSign - 1));
+                                value = Convert.ToInt32(line.Substring(firstIndexOfEqualSign + 1, line.Length - firstIndexOfEqualSign - 1));
                             }
                             catch (Exception)
                             {
@@ -119,8 +125,9 @@ namespace DoW_Mod_Manager
                 }
             }
 
-            // Initialize values with values from saved values or defaults.
             ReselectSavedMod();
+
+            // Initialize values from saved values or defaults.
             if (Convert.ToBoolean(settings[DEV]))
                 devCheckBox.Checked = true;
             else
@@ -316,12 +323,12 @@ namespace DoW_Mod_Manager
 
             installedModsListBox.Items.Clear();
 
-            FilePaths = Directory.GetFiles(currentDir, "*.module");
-            if (FilePaths.Length > 0)
+            ModuleFilePaths = Directory.GetFiles(currentDir, "*.module");
+            if (ModuleFilePaths.Length > 0)
             {
-                for (int i = 0; i < FilePaths.Length; i++)
+                for (int i = 0; i < ModuleFilePaths.Length; i++)
                 {
-                    string filePath = FilePaths[i];
+                    string filePath = ModuleFilePaths[i];
 
                     // There is no point of adding base module to the list
                     if (filePath.Contains("W40k.module"))
@@ -334,13 +341,13 @@ namespace DoW_Mod_Manager
                     using (StreamReader file = new StreamReader(filePath))
                     {
                         string line;
-
+                        
                         // Filter the unplayable mods and populate the List only with playable mods
                         while ((line = file.ReadLine()) != null)
                         {
                             if (ModIsPlayable(line))
                             {
-                                newfilePathsList.Add(FilePaths[i]);
+                                newfilePathsList.Add(ModuleFilePaths[i]);
                                 installedModsListBox.Items.Add(Path.GetFileNameWithoutExtension(filePath));
                                 AllValidModules.Add(Path.GetFileNameWithoutExtension(filePath));
                             }
@@ -351,7 +358,7 @@ namespace DoW_Mod_Manager
                         }
                     }
                 }
-                FilePaths = newfilePathsList.ToArray();        //Override the old array that contained unplayable mods with the new one.
+                ModuleFilePaths = newfilePathsList.ToArray();        //Override the old array that contained unplayable mods with the new one.
             }
             else
             {
@@ -377,10 +384,7 @@ namespace DoW_Mod_Manager
 
             const string pattern = @"Playable = 1";
 
-            // Instantiate the regular expression object.
             Regex require = new Regex(pattern, RegexOptions.IgnoreCase);
-
-            // Match the regular expression pattern against a text string.
             Match match = require.Match(textline);
 
             if (match.Success)
@@ -451,7 +455,7 @@ namespace DoW_Mod_Manager
             else
                 settings[CHOICE_INDEX] = index;
 
-            string currentPath = FilePaths[index];
+            string currentPath = ModuleFilePaths[index];
             string line;
 
             requiredModsList.Items.Clear();
@@ -484,7 +488,7 @@ namespace DoW_Mod_Manager
             for (int i = 0; i < itemsCount; i++)
             {
                 string currentPath = currentDir + "\\" + GetLastEntryFromLine(requiredModsList.Items[i].ToString()) + ".module";
-
+                
                 if (File.Exists(currentPath))
                 {
                     using (StreamReader file = new StreamReader(currentPath))
@@ -553,7 +557,9 @@ namespace DoW_Mod_Manager
                 // Threads could work even if application would be closed
                 new Thread(() =>
                 {
+                    int triesCount = 0;
                     TRY_AGAIN:
+                    triesCount++;
 
                     // We can't change priority or affinity of the game right after it starts
                     Thread.Sleep(1000);
@@ -561,11 +567,13 @@ namespace DoW_Mod_Manager
                     {
                         Process[] dow = Process.GetProcessesByName(procName);
                         dow[0].PriorityClass = ProcessPriorityClass.High;
-                        dow[0].ProcessorAffinity = (IntPtr)0x0006;
+                        dow[0].ProcessorAffinity = (IntPtr)0x0006;          // Affinity 6 means using only CPU threads 2 and 3 (6 = 0110)
                     }
                     catch (Exception)
                     {
-                        goto TRY_AGAIN;
+                        // We will try 60 times and then Thread will be terminated regardless
+                        if (triesCount < 61)
+                            goto TRY_AGAIN;
                     }
                 })
                 .Start();
@@ -640,11 +648,8 @@ namespace DoW_Mod_Manager
             // Draw the background of the ListBox control for each item.
             e.DrawBackground();
 
-            // Create a new Brush
             Brush myBrush;
 
-            // Determine the color of the brush to draw each item based on 
-            // the index of the item to draw. Could be extended for an Orange Brush for indicating outdated Mods.
             if (isInstalled[e.Index])
                 myBrush = Brushes.Green;
             else
@@ -679,6 +684,13 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This function draws the LAA text for the Soulstorm label depending on whether the flag is true (Green) or false (Red).
         /// </summary>
+
+        private void SettingsButton_Click(object sender, EventArgs e)
+        {
+            SettingsManagerForm settingsForm = new SettingsManagerForm(this);
+            settingsForm.Show();
+        }
+
         private void SetGameLAALabelText()
         {
             if (isGameEXELAAPatched)
@@ -831,7 +843,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function handles the proper toggling of the LAA flag for the Soulstorm.exe and the GraphicsConfig.exe.
+        /// This method handles the proper toggling of the LAA flag for the Soulstorm.exe and the GraphicsConfig.exe.
         /// It can handle the cases when users have previously patched the EXE files only partially.
         /// </summary>
         /// <param name="sender"></param>
@@ -917,6 +929,38 @@ namespace DoW_Mod_Manager
                     isMessageBoxOnScreen = true;
                     Application.Exit();
                 }
+            }
+        }
+
+        /// <summary>
+        /// This method can be used ouside this class to change a setting and update the GUI
+        /// </summary>
+        public void ChangeSetting(string setting, int newValue)
+        {
+            // Makes sure that newValue is in range of acceptable values
+            if (newValue < 0)
+                newValue = 0;
+            else if (newValue > 1)
+                newValue = 1;
+
+            switch (setting)
+            {
+                case DEV:
+                    settings[DEV] = newValue;
+                    devCheckBox.Checked = Convert.ToBoolean(newValue);
+                    break;
+                case NO_MOVIES:
+                    settings[NO_MOVIES] = newValue;
+                    nomoviesCheckBox.Checked = Convert.ToBoolean(newValue);
+                    break;
+                case FORCE_HIGH_POLY:
+                    settings[FORCE_HIGH_POLY] = newValue;
+                    highpolyCheckBox.Checked = Convert.ToBoolean(newValue);
+                    break;
+                case OPTIMIZATIONS:
+                    settings[OPTIMIZATIONS] = newValue;
+                    optimizationsCheckBox.Checked = Convert.ToBoolean(newValue);
+                    break;
             }
         }
     }
