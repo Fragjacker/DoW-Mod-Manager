@@ -5,6 +5,7 @@
 
 - Executable size was optimized. It's 2.4 times smaller than before (1 039 Kb instead of 2 487 Kb)!
 - Many code tweaks and some optimizations
+- Added Disclaimer to the end of README.MD
 
 ## Version 1.8.0:
 
