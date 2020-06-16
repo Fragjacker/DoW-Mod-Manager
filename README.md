@@ -1,11 +1,11 @@
-![mod_manager_v15_thumbnail](https://user-images.githubusercontent.com/19975052/64079833-f833c000-ccec-11e9-96cb-ed5c01cc0791.png)
-# DoW Mod Manager v1.7.0
+![mod_manager_v1 6 1](https://user-images.githubusercontent.com/19975052/83522716-5c381e80-a4e1-11ea-98d4-ad6041741484.png)
+# DoW Mod Manager v1.8.1
 
 This application allows for an easy launch of mods and management of large collections of mods for Warhammer 40K Dawn of War series.
 
 ## INSTALLATION:
 
-- In order to install the Mod Manager drop the "DoW Mod Manager v1.7.0.exe" into your primary game directory which is either:
+- In order to install the Mod Manager drop the "DoW Mod Manager v1.8.1.exe" into your primary game directory which is either:
 
   - "..\Dawn of War - Soulstorm\"
   or
@@ -19,7 +19,7 @@ This application allows for an easy launch of mods and management of large colle
 
 ## MOD MANAGER USAGE:
 
-1. Once everything is in place launch the "DoW Mod Manager v1.7.0.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop for convenience and faster access)
+1. Once everything is in place launch the "DoW Mod Manager v1.8.1.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop for convenience and faster access)
 
 2. Select a Mod from the left listing and it'll show if all necessary dependency Mods are installed and if that is given, lets you directly launch the desired Mod
 
@@ -34,7 +34,10 @@ This application allows for an easy launch of mods and management of large colle
 
 - **START MOD**: Starts the Game with the selected Advanced Start Options and the selected Mod if all dependency mods are installed.
 
-- **Download Mod...**: This button will open the new Download Manager window where you could download one (or how much you like) of popular mods. If mod has a patch - it will be downloaded too!
+- **SETTINGS**: You could change game settings without launching the game. It also let's you change some HIDDEN game settings!
+Some sliders don't work yet.
+
+- **Download Mod...**: This button will open the new Download Manager window where you could download one (or how much you like) of popular mods. If mod has a patch - it will be downloaded too! Wait 5 seconds and mod will start downloading.
 
 - **TOGGLE LAA**: This button allows for convenient activation and deactivation of the LAA flag for the Soulstorm.exe and GraphicsConfig.exe
 
@@ -83,3 +86,7 @@ into the Mod the next time you launch UltimateApocalypse_THB_DIDHT from the Mod 
 
 To restore the previous layout (If you want to rollback) you can either Deactivate the newly added mods using "X", remove the Mod using "-" Button or create backup of UltimateApocalypse_THB_DIDHT.module file
 somewhere on your computer for later restoration.
+
+## DISCLAIMER:
+
+This application comes without guarantee! Developers tested it and could say that it's working as intended but it still may contain some... unexpected behaviors. So use it on your own risk!

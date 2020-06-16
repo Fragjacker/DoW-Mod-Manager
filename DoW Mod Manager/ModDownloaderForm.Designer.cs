@@ -108,7 +108,6 @@
             this.Controls.Add(this.modListBox);
             this.Controls.Add(this.popularModsLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(572, 450);
             this.Name = "ModDownloaderForm";
