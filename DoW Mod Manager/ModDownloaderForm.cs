@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -15,6 +16,9 @@ namespace DoW_Mod_Manager
             InitializeComponent();
 
             modManager = form;
+
+            // Use the same icon as executable
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             if (modManager.CurrentGameEXE == ModManagerForm.GameExecutable.SOULSTORM)
             {
@@ -59,7 +63,7 @@ namespace DoW_Mod_Manager
                     "Witch Hunters: Adepta Sororitas"
                 });
 
-                byte i = 0;
+                int i = 0;
 
                 // modWebAddresses[i  , 0] - Mod page address
                 // modWebAddresses[i  , 1] - Mod download address
@@ -226,7 +230,7 @@ namespace DoW_Mod_Manager
                     "Witch Hunters: Adepta Sororitas"
                 });
 
-                byte i = 0;
+                int i = 0;
 
                 modWebAddresses[i, 0] = "https://www.moddb.com/games/dawn-of-war-dark-crusade/addons/dawn-of-steel-steel-legion-mod-1-0";
                 modWebAddresses[i, 1] = "https://www.moddb.com/addons/start/152298";
@@ -294,7 +298,7 @@ namespace DoW_Mod_Manager
                     "WXP Necron Mod"
                 });
 
-                byte i = 0;
+                int i = 0;
 
                 modWebAddresses[i, 0] = "https://www.moddb.com/mods/steel-legion-armageddon";
                 modWebAddresses[i, 1] = "https://www.moddb.com/downloads/start/165510?referer=https%3A%2F%2Fwww.google.com%2F";
@@ -324,7 +328,6 @@ namespace DoW_Mod_Manager
             {
                 popularModsLabel.Text += "Original:";
 
-                // I have to find a few mods for Original first :-)
                 modListBox.Items.AddRange(new object[]
                 {
                     "First I have to find a few mods for Original :-)"
@@ -358,7 +361,7 @@ namespace DoW_Mod_Manager
             address = modWebAddresses[modListBox.SelectedIndex, 2];
             if (address.Length > 0)
             {
-                Thread.Sleep(250);
+                Thread.Sleep(250);          // Some small delay before trying to download second file
                 Process.Start(address);
             }
         }

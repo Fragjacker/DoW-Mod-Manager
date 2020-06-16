@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -61,8 +62,12 @@ namespace DoW_Mod_Manager
 
             modManager = form;
 
+            // Use the same icon as executable
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
             InitializeSettings();
 
+            // Read from Local.ini
             if (File.Exists(SETTINGS_FILE))
             {
                 string[] lines = File.ReadAllLines(SETTINGS_FILE);
@@ -226,14 +231,6 @@ namespace DoW_Mod_Manager
             }
             else
                 saveButton.Enabled = true;
-
-            // This is for debuging
-            //string text = "Parsed pairs of key=value\n\n";
-            //foreach (var kvp in settings)
-            //{
-            //    text += kvp.Key + "=" + kvp.Value + "\n";
-            //}
-            //MessageBox.Show(text, "Debug Info");
 
             InitializeGUIWithSettings();
 

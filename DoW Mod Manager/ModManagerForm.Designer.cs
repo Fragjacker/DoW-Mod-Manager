@@ -385,7 +385,6 @@ namespace DoW_Mod_Manager
             this.Controls.Add(this.startModButton);
             this.Controls.Add(this.currentDirectoryLabel);
             this.Controls.Add(this.currentDirTextBox);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "ModManagerForm";
             this.Text = "DoW Mod Manager";
