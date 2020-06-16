@@ -56,6 +56,9 @@ namespace DoW_Mod_Manager
             [OPTIMIZATIONS]   = 0
         };
 
+        /// <summary>
+        ///  Initializes all the necessary components used by the GUI
+        /// </summary>
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public ModManagerForm()
         {
@@ -172,6 +175,9 @@ namespace DoW_Mod_Manager
             File.WriteAllText(CONFIG_FILE_NAME, str);
         }
 
+        /// <summary>
+        /// This function handles the reselection of a previously selected mod.
+        /// </summary>
         private void ReselectSavedMod()
         {
             int index = settings[CHOICE_INDEX];
@@ -182,6 +188,9 @@ namespace DoW_Mod_Manager
                 installedModsListBox.SelectedIndex = installedModsListBox.Items.Count - 1;
         }
 
+        /// <summary>
+        /// This adds FileSystem watcher to capture any file changes in the game directories.
+        /// </summary>
         private void AddFileSystemWatcher()
         {
             fileSystemWatcher1.Path = currentDir;
@@ -200,6 +209,11 @@ namespace DoW_Mod_Manager
             fileSystemWatcher1.EnableRaisingEvents = true;
         }
 
+        /// <summary>
+        /// This function defines the event handlers for when some file was changed.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
         private void FileSystemWatcherOnChanged(object source, FileSystemEventArgs e)
         {
             SetUpAllNecessaryMods();
@@ -256,6 +270,11 @@ namespace DoW_Mod_Manager
             myStream.Close();
         }
 
+        /// <summary>
+        /// This method returns the last word from an inputstring by using regex. For example using "RequiredMod.1 = Yourmod" will result in "Yourmod" beeing returned
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>string</returns>
         private string GetLastEntryFromLine(string text)
         {
             const string pattern = @"\S*\s*$";
@@ -275,6 +294,8 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Returns the name of the Module file without it's extension and all it's whitespaces removed.
         /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         private string GetModFolderFromFile(string text)
         {
             const string pattern = @"\S*\s*$";
@@ -350,6 +371,11 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This function returns 'true' if a Mod is set as "Playable = 1" in the .module file 
+        /// </summary>
+        /// <param name="textline"></param>
+        /// <returns></returns>
         private bool ModIsPlayable(string textline)
         {
             // Original or Winter Assault module file don't have a "Playable" state
@@ -367,6 +393,11 @@ namespace DoW_Mod_Manager
                 return false;
         }
 
+        /// <summary>
+        /// Reads the .module file and scans for "RequiredMods" lines and returns if a line was found or not via true/false. This is used to add the lines to the Form Window.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>bool</returns>
         private bool GetRequiredMod(string text)
         {
             const string pattern = @"\bRequiredMod\b";
@@ -389,6 +420,11 @@ namespace DoW_Mod_Manager
             return state;
         }
 
+        /// <summary>
+        /// Checks if a line contains the Word "Modfolder" with true/false
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>bool</returns>
         private bool IsModFolderExist(string text)
         {
             const string pattern = @"ModFolder";
@@ -401,6 +437,11 @@ namespace DoW_Mod_Manager
             return state;
         }
 
+        /// <summary>
+        /// When selecting a different installed Mod, update the required mods Listbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InstalledModsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             startModButton.Enabled = true;
@@ -472,11 +513,21 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This is the button to start the vanilla unmodded base game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartVanillaGameButton_Click(object sender, EventArgs e)
         {
             StartGameWithOptions("W40k");
         }
 
+        /// <summary>
+        /// This is the actual start button with which you can start the game with the currently selected mod
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartButton_Click(object sender, EventArgs e)
         {
             StartGameWithOptions(installedModsListBox.SelectedItem.ToString());
@@ -533,6 +584,8 @@ namespace DoW_Mod_Manager
         /// This is the checkbox that controls the starting option '-dev'. 
         /// It allows for additional debug options in-game and log files.
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DevCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (devCheckBox.Checked)
@@ -545,6 +598,8 @@ namespace DoW_Mod_Manager
         /// This is the checkbox that controls the starting option '-nomovies'. 
         /// It prevents any movies/intros from being played.
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NomoviesCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (nomoviesCheckBox.Checked)
@@ -557,6 +612,8 @@ namespace DoW_Mod_Manager
         /// This is the checkbox that controls the starting option '-forcehighpoly'. 
         /// This disabled the LOD system and will display the highes mesh detail at any distance.
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void HighpolyCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (highpolyCheckBox.Checked)
@@ -571,6 +628,8 @@ namespace DoW_Mod_Manager
         /// You need at least 3 cores to make a difference (DoW would use CPU1 and CPU2, 
         /// CPU0 would be for any other application)
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OptimizationsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (optimizationsCheckBox.Checked)
@@ -579,6 +638,11 @@ namespace DoW_Mod_Manager
                 settings[OPTIMIZATIONS] = 0;
         }
 
+        /// <summary>
+        /// This function collects and displays the list of required mods for a selected mod in order to function correctly.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RequiredModsList_DrawItem(object sender, DrawItemEventArgs e)
         {
             // Draw the background of the ListBox control for each item.
@@ -600,6 +664,11 @@ namespace DoW_Mod_Manager
             e.DrawFocusRectangle();
         }
 
+        /// <summary>
+        /// This method opens the Mod Downloader form when the button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DownloadButton_Click(object sender, EventArgs e)
         {
             ModDownloaderForm downloaderForm = new ModDownloaderForm(this);
@@ -611,6 +680,10 @@ namespace DoW_Mod_Manager
             ModMergerForm mergerWindow = new ModMergerForm(this);
             mergerWindow.Show();
         }
+
+        /// <summary>
+        /// This function draws the LAA text for the Soulstorm label depending on whether the flag is true (Green) or false (Red).
+        /// </summary>
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
@@ -632,6 +705,9 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This function draws the LAA text for the GraphicsConfig label depending on whether the flag is true (Green) or false (Red).
+        /// </summary>
         private void SetGraphicsConfigLAALabelText()
         {
             if (isGraphicsConfigLAAPatched)
@@ -646,6 +722,11 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This function instigates the test if a given EXE is LAA patched or not.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>bool</returns>
         static bool IsLargeAware(string file)
         {
             using (FileStream fs = File.OpenRead(file))
@@ -670,6 +751,11 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This function performs the necessary data operations in order to toggle the LAA for a given EXE file back and forth.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>bool</returns>
         static bool ToggleLAA(string file)
         {
             bool result = false;
@@ -725,6 +811,12 @@ namespace DoW_Mod_Manager
             return result;
         }
 
+        /// <summary>
+        /// This function checks if a file is yet still opened and thus blocked.
+        /// It prevents crashes when attempting to write to files not yet closed.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>bool</returns>
         private bool IsFileLocked(string file)
         {
             FileStream stream = null;
@@ -754,6 +846,8 @@ namespace DoW_Mod_Manager
         /// This method handles the proper toggling of the LAA flag for the Soulstorm.exe and the GraphicsConfig.exe.
         /// It can handle the cases when users have previously patched the EXE files only partially.
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonToggleLAA_Click(object sender, EventArgs e)
         {
             // Check if the Game is LAA Patched and fill in the Label properly
@@ -781,6 +875,9 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This function scans for either the Soulstorm or the Dark Crusade version of the game.
+        /// </summary>
         private string GetCurrentGameEXE()
         {
             string[] curDir = Directory.GetFiles(currentDir, GameExecutable.SOULSTORM);

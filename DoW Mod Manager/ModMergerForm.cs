@@ -38,6 +38,10 @@ namespace DoW_Mod_Manager
         private bool hasNoActiveMods = false;
         private bool hasNoInactiveMods = false;
 
+        /// <summary>
+        /// Creates the Form of the Mod Merger WIndows
+        /// </summary>
+        /// <param name="Form"></param>
         public ModMergerForm(ModManagerForm Form)
         {
             InitializeComponent();
@@ -60,12 +64,18 @@ namespace DoW_Mod_Manager
             AvailableModsList.Enabled = false;
         }
 
+        /// <summary>
+        /// Gets all available Mods from the Mod Manager Panel
+        /// </summary>
         private void GetAvailableMods()
         {
             AvailableModsList.Items.Clear();
             AvailableModsList.Items.AddRange(modManager.AllFoundModules.ToArray());
         }
 
+        /// <summary>
+        /// Gets all of the loadable Mods for the Dropdown list
+        /// </summary>
         private void GetLoadableMods()
         {
             loadedModBox.Items.Clear();
@@ -155,6 +165,11 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// Returns True if there was found a List of required Mods
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         private bool CheckForRequiredMods(string text)
         {
             const string pattern = @"\bRequiredMod\b";
@@ -171,6 +186,12 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This method returns the last word from an inputstring by using regex. For example using "RequiredMod.1 = Yourmod" will result in "Yourmod" beeing returned
         /// </summary>
+	/// <param name="text"></param>
+        /// <returns>string</returns>
+
+
+
+
         private string GetNameOfRequiredMod(string text)
         {
             const string pattern = @"\S*\s*$";
@@ -194,6 +215,14 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Returns the State of a required Mod beeing "Active" or "Inactive".
         /// </summary>
+	/// <param name="text"></param>
+        /// <returns>string</returns>
+
+
+
+
+
+
         private string GetStateOfRequiredMod(string text)
         {
             const string pattern = @"\bRequiredMod\b";
@@ -219,6 +248,8 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Draws the Items inside the Used Mods Listbox in a specified Color
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UsedModsList_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e)
         {
             // Draw the background of the ListBox control for each item.
