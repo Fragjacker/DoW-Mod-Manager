@@ -7,7 +7,7 @@
     <ProjectGuid>{071DFF9E-1A7F-4F94-A1CE-4B5CB931D8EE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>DoW_Mod_Manager</RootNamespace>
-    <AssemblyName>DoW Mod Manager v1.8.1</AssemblyName>
+    <AssemblyName>DoW Mod Manager v1.8.2</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -85,6 +85,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SettingsManagerForm.resx">
+      <DependentUpon>SettingsManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
