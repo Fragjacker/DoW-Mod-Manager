@@ -6,6 +6,7 @@
 - Renamed "rl_sso_num_times_shown" to "Login Attempts" for more clarity
 - Removed "Force Watch Movies" setting because it's effect was not proved. "-nomovies" is working as usual
 - Optimization: changed Regex to String.Contains() in IsModRequired() method - it's 170x faster! 34 ms vs 0.2 ms
+- Optimization: changed Regex to String.Contains() in GetActiveModsFromFile() method - it's 126x faster! 38 ms vs 0.3 ms
 - Optimization: changed Regex to String.Contains() in GetModFoldersFromFile() method - it's 34x faster! 34 ms vs 1 ms
 - Optimization: changed Regex to String.Contains() in ModIsPlayable() method - it's 10x faster now! 3 ms vs 32 ms
 - Optimization: changed Directory.GetFiles() to File.Exists() in GetCurrentGameEXE() method - it's 1.45x faster now!

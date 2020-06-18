@@ -256,35 +256,6 @@ namespace DoW_Mod_Manager
             myStream.Close();
         }
 
-        private string GetLastEntryFromLine(string requiredModName)
-        {
-            int indexOfEqual = requiredModName.IndexOf('=');
-
-            if (indexOfEqual > 0)
-            {
-                requiredModName = requiredModName.Substring(indexOfEqual + 1, requiredModName.Length - indexOfEqual - 1);
-                return requiredModName.Replace(" ", "");
-            }
-            else
-                return "";
-        }
-
-        /// <summary>
-        /// Returns the name of the Module file without it's extension and all it's whitespaces removed.
-        /// </summary>
-        private string GetModFolderFromFile(string modFolder)
-        {
-            int indexOfEqual = modFolder.IndexOf('=');
-
-            if (indexOfEqual > 0)
-            {
-                modFolder = modFolder.Substring(indexOfEqual + 1, modFolder.Length - indexOfEqual - 1);
-                return modFolder.Replace(" ", "").Replace(".module", "");
-            }
-            else
-                return "";
-        }
-
         /// <summary>
         /// Finds all installed .module files and displays them in the Installed Mods Listbox without their .module extension
         /// </summary>
@@ -353,7 +324,7 @@ namespace DoW_Mod_Manager
                 return true;
 
             // It must be lower case!
-            const string pattern = @"playable = 1";
+            const string pattern = "playable = 1";
 
             modName = modName.ToLower();
             return modName.Contains(pattern);
@@ -361,10 +332,10 @@ namespace DoW_Mod_Manager
 
         private bool IsModRequired(string modName)
         {
-            const string pattern = @"RequiredMod";
-            const string patternCommented1 = @";;";
-            const string patternCommented2 = @"--";
-            const string patternCommented3 = @"//";
+            const string pattern = "RequiredMod";
+            const string patternCommented1 = ";;";
+            const string patternCommented2 = "--";
+            const string patternCommented3 = "//";
 
             if (modName.Contains(pattern))
                 return true;
@@ -417,7 +388,7 @@ namespace DoW_Mod_Manager
             // Read the file and display it line by line.
             for (int i = 0; i < requiredModsCount; i++)
             {
-                string currentPath = currentDir + "\\" + GetLastEntryFromLine(requiredModsList.Items[i].ToString()) + ".module";
+                string currentPath = currentDir + "\\" + GetValueFromLine(requiredModsList.Items[i].ToString(), false) + ".module";
                 
                 if (File.Exists(currentPath))
                 {
@@ -427,14 +398,30 @@ namespace DoW_Mod_Manager
 
                         while ((line = file.ReadLine()) != null)
                         {
-                            if (line.Contains(@"ModFolder"))
-                                ModFolderPaths[i] = GetModFolderFromFile(line);
+                            if (line.Contains("ModFolder"))
+                                ModFolderPaths[i] = GetValueFromLine(line, true);
                         }
                     }
                 }
                 else
                     ModFolderPaths[i] = "MISSING";
             }
+        }
+
+        private string GetValueFromLine(string line, bool deleteModule)
+        {
+            int indexOfEqual = line.IndexOf('=');
+
+            if (indexOfEqual > 0)
+            {
+                line = line.Substring(indexOfEqual + 1, line.Length - indexOfEqual - 1);
+                if (deleteModule)
+                    return line.Replace(" ", "").Replace(".module", "");
+                else
+                    return line.Replace(" ", "");
+            }
+            else
+                return "";
         }
 
         private void StartVanillaGameButton_Click(object sender, EventArgs e)
