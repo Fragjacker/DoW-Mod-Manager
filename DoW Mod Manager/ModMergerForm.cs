@@ -37,6 +37,10 @@ namespace DoW_Mod_Manager
         private bool hasNoActiveMods = false;
         private bool hasNoInactiveMods = false;
 
+        /// <summary>
+        /// Creates the Form of the Mod Merger WIndows
+        /// </summary>
+        /// <param name="Form"></param>
         public ModMergerForm(ModManagerForm Form)
         {
             InitializeComponent();
@@ -59,12 +63,18 @@ namespace DoW_Mod_Manager
             AvailableModsList.Enabled = false;
         }
 
+        /// <summary>
+        /// Gets all available Mods from the Mod Manager Panel
+        /// </summary>
         private void GetAvailableMods()
         {
             AvailableModsList.Items.Clear();
             AvailableModsList.Items.AddRange(modManager.AllFoundModules.ToArray());
         }
 
+        /// <summary>
+        /// Gets all of the loadable Mods for the Dropdown list
+        /// </summary>
         private void GetLoadableMods()
         {
             loadedModBox.Items.Clear();
@@ -188,6 +198,8 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Draws the Items inside the Used Mods Listbox in a specified Color
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UsedModsList_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e)
         {
             // Draw the background of the ListBox control for each item.
