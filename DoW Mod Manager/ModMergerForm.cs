@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace DoW_Mod_Manager
@@ -159,90 +158,41 @@ namespace DoW_Mod_Manager
                 // Populate the Required Mods List with entries from the .module file
                 while ((line = file.ReadLine()) != null)
                 {
-                    if (CheckForRequiredMods(line))
-                        modlist.Add(new Mod(GetNameOfRequiredMod(line), GetStateOfRequiredMod(line)));
+                    if (line.Contains("RequiredMod"))
+                        modlist.Add(new Mod(GetValueFromLine(line, false), IsModRequired(line)));
                 }
             }
         }
 
-        /// <summary>
-        /// Returns True if there was found a List of required Mods
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
-        private bool CheckForRequiredMods(string text)
+        private string GetValueFromLine(string line, bool deleteModule)
         {
-            const string pattern = @"\bRequiredMod\b";
-            bool matchresult = false;
+            int indexOfEqual = line.IndexOf('=');
 
-            MatchCollection matches = Regex.Matches(text, pattern);
-
-            if (matches.Count > 0)
-                matchresult = true;
-
-            return matchresult;
-        }
-
-        /// <summary>
-        /// This method returns the last word from an inputstring by using regex. For example using "RequiredMod.1 = Yourmod" will result in "Yourmod" beeing returned
-        /// </summary>
-	/// <param name="text"></param>
-        /// <returns>string</returns>
-
-
-
-
-        private string GetNameOfRequiredMod(string text)
-        {
-            const string pattern = @"\S*\s*$";
-            string result = "";
-
-            // Instantiate the regular expression object.
-            Regex require = new Regex(pattern, RegexOptions.IgnoreCase);
-
-            // Match the regular expression pattern against a text string.
-            Match m = require.Match(text);
-
-            MatchCollection matches = Regex.Matches(text, pattern);
-            for (int i = 0; i < matches.Count; i++)
+            if (indexOfEqual > 0)
             {
-                result = m.Value.Replace(" ", "");
+                line = line.Substring(indexOfEqual + 1, line.Length - indexOfEqual - 1);
+                if (deleteModule)
+                    return line.Replace(" ", "").Replace(".module", "");
+                else
+                    return line.Replace(" ", "");
             }
-
-            return result;
+            else
+                return "";
         }
 
-        /// <summary>
-        /// Returns the State of a required Mod beeing "Active" or "Inactive".
-        /// </summary>
-	/// <param name="text"></param>
-        /// <returns>string</returns>
-
-
-
-
-
-
-        private string GetStateOfRequiredMod(string text)
+        private string IsModRequired(string modName)
         {
-            const string pattern = @"\bRequiredMod\b";
-            const string patternCommented1 = @"^[;]+";
-            const string patternCommented2 = @"^[\/]+";
-            string state = "";
+            const string pattern = "RequiredMod";
+            const string patternCommented1 = ";;";
+            const string patternCommented2 = "--";
+            const string patternCommented3 = "//";
 
-            MatchCollection matches = Regex.Matches(text, pattern);
-            if (matches.Count > 0)
-                state = MOD_ACTIVE;
+            if (modName.Contains(pattern))
+                return MOD_ACTIVE;
+            if (modName.StartsWith(patternCommented1) || modName.StartsWith(patternCommented2) || modName.StartsWith(patternCommented3))
+                return MOD_INACTIVE;
 
-            matches = Regex.Matches(text, patternCommented1);
-            if (matches.Count > 0)
-                state = MOD_INACTIVE;
-
-            matches = Regex.Matches(text, patternCommented2);
-            if (matches.Count > 0)
-                state = MOD_INACTIVE;
-
-            return state;
+            return MOD_INACTIVE;
         }
 
         /// <summary>

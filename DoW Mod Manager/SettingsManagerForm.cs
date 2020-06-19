@@ -288,7 +288,7 @@ namespace DoW_Mod_Manager
             // Skipp CurrtentMod setting
             dynamicLightsComboBox.SelectedIndex = Convert.ToInt32(settings[DYNAMIC_LIGHTS]);
             worldEventsComboBox.SelectedIndex = Convert.ToInt32(settings[EVENT_DETAIL_LEVEL]);
-            watchMoviesCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[FORCE_WATCH_MOVIES]));
+            // Skip Force Watch Movies setting
             betterTeamcoloredTexturexCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[FULLRES_TEAMCOLOUR]));
             effectsDetailComboBox.SelectedIndex = Convert.ToInt32(settings[FX_DETAIL_LEVEL]);
             modelDetailComboBox.SelectedIndex = Convert.ToInt32(settings[MODEL_DETAIL]);
@@ -712,18 +712,6 @@ namespace DoW_Mod_Manager
                 settings[UNIT_OCCLUSION] = "1";
             else
                 settings[UNIT_OCCLUSION] = "0";
-
-            cancelButton.Text = CANCEL_LABEL;
-            saveButton.Enabled = true;
-            defaultsButton.Enabled = true;
-        }
-
-        private void WatchMoviesCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (watchMoviesCheckBox.Checked)
-                settings[FORCE_WATCH_MOVIES] = "1";
-            else
-                settings[FORCE_WATCH_MOVIES] = "0";
 
             cancelButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;

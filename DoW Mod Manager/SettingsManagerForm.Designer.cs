@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsManagerForm));
             this.settingsLabel = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
@@ -36,7 +35,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.generalTabPage = new System.Windows.Forms.TabPage();
             this.unknownSettingComboBox = new System.Windows.Forms.ComboBox();
-            this.unknownSettingLabel = new System.Windows.Forms.Label();
+            this.loginAttemptsLabel = new System.Windows.Forms.Label();
             this.scrollRateTrackBar = new System.Windows.Forms.TrackBar();
             this.scrollRateLabel = new System.Windows.Forms.Label();
             this.inverseDeclinationCheckBox = new System.Windows.Forms.CheckBox();
@@ -54,8 +53,6 @@
             this.mediumButtomGraphics = new System.Windows.Forms.Button();
             this.lowGraphicsButton = new System.Windows.Forms.Button();
             this.cyanLabel = new System.Windows.Forms.Label();
-            this.watchMoviesCheckBox = new System.Windows.Forms.CheckBox();
-            this.watchMoviesLabel = new System.Windows.Forms.Label();
             this.dynamicLightsComboBox = new System.Windows.Forms.ComboBox();
             this.dynamicLightLabel = new System.Windows.Forms.Label();
             this.effectsDetailComboBox = new System.Windows.Forms.ComboBox();
@@ -205,7 +202,7 @@
             // 
             this.generalTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.generalTabPage.Controls.Add(this.unknownSettingComboBox);
-            this.generalTabPage.Controls.Add(this.unknownSettingLabel);
+            this.generalTabPage.Controls.Add(this.loginAttemptsLabel);
             this.generalTabPage.Controls.Add(this.scrollRateTrackBar);
             this.generalTabPage.Controls.Add(this.scrollRateLabel);
             this.generalTabPage.Controls.Add(this.inverseDeclinationCheckBox);
@@ -236,23 +233,23 @@
             "4",
             "5",
             "6"});
-            this.unknownSettingComboBox.Location = new System.Drawing.Point(195, 258);
+            this.unknownSettingComboBox.Location = new System.Drawing.Point(156, 258);
             this.unknownSettingComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.unknownSettingComboBox.Name = "unknownSettingComboBox";
             this.unknownSettingComboBox.Size = new System.Drawing.Size(160, 24);
             this.unknownSettingComboBox.TabIndex = 54;
             this.unknownSettingComboBox.SelectedIndexChanged += new System.EventHandler(this.UnknownSettingComboBox_SelectedIndexChanged);
             // 
-            // unknownSettingLabel
+            // loginAttemptsLabel
             // 
-            this.unknownSettingLabel.AutoSize = true;
-            this.unknownSettingLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.unknownSettingLabel.Location = new System.Drawing.Point(17, 261);
-            this.unknownSettingLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.unknownSettingLabel.Name = "unknownSettingLabel";
-            this.unknownSettingLabel.Size = new System.Drawing.Size(160, 16);
-            this.unknownSettingLabel.TabIndex = 53;
-            this.unknownSettingLabel.Text = "rl_sso_num_times_shown";
+            this.loginAttemptsLabel.AutoSize = true;
+            this.loginAttemptsLabel.ForeColor = System.Drawing.Color.Cyan;
+            this.loginAttemptsLabel.Location = new System.Drawing.Point(17, 261);
+            this.loginAttemptsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.loginAttemptsLabel.Name = "loginAttemptsLabel";
+            this.loginAttemptsLabel.Size = new System.Drawing.Size(99, 16);
+            this.loginAttemptsLabel.TabIndex = 53;
+            this.loginAttemptsLabel.Text = "Login Attempts:";
             // 
             // scrollRateTrackBar
             // 
@@ -391,8 +388,6 @@
             this.videoTabPage.Controls.Add(this.mediumButtomGraphics);
             this.videoTabPage.Controls.Add(this.lowGraphicsButton);
             this.videoTabPage.Controls.Add(this.cyanLabel);
-            this.videoTabPage.Controls.Add(this.watchMoviesCheckBox);
-            this.videoTabPage.Controls.Add(this.watchMoviesLabel);
             this.videoTabPage.Controls.Add(this.dynamicLightsComboBox);
             this.videoTabPage.Controls.Add(this.dynamicLightLabel);
             this.videoTabPage.Controls.Add(this.effectsDetailComboBox);
@@ -512,28 +507,6 @@
             this.cyanLabel.Size = new System.Drawing.Size(230, 16);
             this.cyanLabel.TabIndex = 45;
             this.cyanLabel.Text = "* All cyan settings are hidden in game";
-            // 
-            // watchMoviesCheckBox
-            // 
-            this.watchMoviesCheckBox.AutoSize = true;
-            this.watchMoviesCheckBox.Location = new System.Drawing.Point(484, 441);
-            this.watchMoviesCheckBox.Margin = new System.Windows.Forms.Padding(4);
-            this.watchMoviesCheckBox.Name = "watchMoviesCheckBox";
-            this.watchMoviesCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.watchMoviesCheckBox.TabIndex = 44;
-            this.watchMoviesCheckBox.UseVisualStyleBackColor = true;
-            this.watchMoviesCheckBox.CheckedChanged += new System.EventHandler(this.WatchMoviesCheckBox_CheckedChanged);
-            // 
-            // watchMoviesLabel
-            // 
-            this.watchMoviesLabel.AutoSize = true;
-            this.watchMoviesLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.watchMoviesLabel.Location = new System.Drawing.Point(353, 439);
-            this.watchMoviesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.watchMoviesLabel.Name = "watchMoviesLabel";
-            this.watchMoviesLabel.Size = new System.Drawing.Size(96, 16);
-            this.watchMoviesLabel.TabIndex = 43;
-            this.watchMoviesLabel.Text = "Watch Movies:";
             // 
             // dynamicLightsComboBox
             // 
@@ -1444,8 +1417,6 @@
         private System.Windows.Forms.Label effectsDetailLabel;
         private System.Windows.Forms.ComboBox dynamicLightsComboBox;
         private System.Windows.Forms.Label dynamicLightLabel;
-        private System.Windows.Forms.CheckBox watchMoviesCheckBox;
-        private System.Windows.Forms.Label watchMoviesLabel;
         private System.Windows.Forms.Label cyanLabel;
         private System.Windows.Forms.ComboBox soundQualityComboBox;
         private System.Windows.Forms.Label soundQualityLabel;
@@ -1476,7 +1447,7 @@
         private System.Windows.Forms.CheckBox inversePanCheckBox;
         private System.Windows.Forms.Label inversePanLabel;
         private System.Windows.Forms.ComboBox unknownSettingComboBox;
-        private System.Windows.Forms.Label unknownSettingLabel;
+        private System.Windows.Forms.Label loginAttemptsLabel;
         private System.Windows.Forms.Button ultraGraphicsButton;
         private System.Windows.Forms.Button highGraphicsButton;
         private System.Windows.Forms.Button mediumButtomGraphics;

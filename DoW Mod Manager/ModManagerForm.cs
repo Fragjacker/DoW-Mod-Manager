@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
 using System.IO;
 using System.Diagnostics;
 using System.Security.Permissions;
@@ -29,6 +28,7 @@ namespace DoW_Mod_Manager
         private bool isGameEXELAAPatched = false;
         private bool isGraphicsConfigLAAPatched = false;
         private bool isMessageBoxOnScreen = false;
+        private bool isOldGame;
 
         public readonly string CurrentGameEXE = "";
         public readonly string GraphicsConfigEXE = "GraphicsConfig.exe";
@@ -70,7 +70,7 @@ namespace DoW_Mod_Manager
             // Use the same icon as executable
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            // Read *.ini file and load settings in memory
+            // Read DoW Mod Manager.ini file and load settings in memory
             if (File.Exists(CONFIG_FILE_NAME))
             {
                 // Read every line of config file and try to ignore or correct all the possible mistakes
@@ -271,48 +271,6 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method returns the last word from an inputstring by using regex. For example using "RequiredMod.1 = Yourmod" will result in "Yourmod" beeing returned
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns>string</returns>
-        private string GetLastEntryFromLine(string text)
-        {
-            const string pattern = @"\S*\s*$";
-
-            // Instantiate the regular expression object.
-            Regex require = new Regex(pattern, RegexOptions.IgnoreCase);
-
-            // Match the regular expression pattern against a text string.
-            Match match = require.Match(text);
-
-            if (match.Success)
-                return match.Value.Replace(" ", "");
-            else
-                return "";
-        }
-
-        /// <summary>
-        /// Returns the name of the Module file without it's extension and all it's whitespaces removed.
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
-        private string GetModFolderFromFile(string text)
-        {
-            const string pattern = @"\S*\s*$";
-
-            // Instantiate the regular expression object.
-            Regex require = new Regex(pattern, RegexOptions.IgnoreCase);
-
-            // Match the regular expression pattern against a text string.
-            Match match = require.Match(text);
-
-            if (match.Success)
-                return match.Value.Replace(" ", "").Replace(".module", "");
-            else
-                return "";
-        }
-
-        /// <summary>
         /// Finds all installed .module files and displays them in the Installed Mods Listbox without their .module extension
         /// </summary>
         private void GetMods()
@@ -329,35 +287,37 @@ namespace DoW_Mod_Manager
                 for (int i = 0; i < ModuleFilePaths.Length; i++)
                 {
                     string filePath = ModuleFilePaths[i];
+                    string fileName = Path.GetFileNameWithoutExtension(filePath);
 
                     // There is no point of adding base module to the list
                     if (filePath.Contains("W40k.module"))
                         continue;
 
                     // Find the List of ALL found module files for the Mod Merger available Mods List
-                    AllFoundModules.Add(Path.GetFileNameWithoutExtension(filePath));
+                    AllFoundModules.Add(fileName);
 
                     // Read the *.module file to see if the mod is playable
                     using (StreamReader file = new StreamReader(filePath))
                     {
                         string line;
-                        
+
                         // Filter the unplayable mods and populate the List only with playable mods
                         while ((line = file.ReadLine()) != null)
                         {
                             if (ModIsPlayable(line))
                             {
                                 newfilePathsList.Add(ModuleFilePaths[i]);
-                                installedModsListBox.Items.Add(Path.GetFileNameWithoutExtension(filePath));
-                                AllValidModules.Add(Path.GetFileNameWithoutExtension(filePath));
+                                installedModsListBox.Items.Add(fileName);
+                                AllValidModules.Add(fileName);
                             }
 
                             // We will not find unplayable mods in Original or Winter Assault - there was no "Playable" state
-                            if (CurrentGameEXE == GameExecutable.WINTER_ASSAULT || CurrentGameEXE == GameExecutable.ORIGINAL)
+                            if (isOldGame)
                                 break;
                         }
                     }
                 }
+
                 ModuleFilePaths = newfilePathsList.ToArray();        //Override the old array that contained unplayable mods with the new one.
             }
             else
@@ -371,70 +331,41 @@ namespace DoW_Mod_Manager
             }
         }
 
-        /// <summary>
+
+
+
+
+       /// <summary>
         /// This function returns 'true' if a Mod is set as "Playable = 1" in the .module file 
         /// </summary>
         /// <param name="textline"></param>
         /// <returns></returns>
-        private bool ModIsPlayable(string textline)
+	 private bool ModIsPlayable(string modName)
         {
             // Original or Winter Assault module file don't have a "Playable" state
-            if (CurrentGameEXE == GameExecutable.WINTER_ASSAULT || CurrentGameEXE == GameExecutable.ORIGINAL)
+            if (isOldGame)
                 return true;
 
-            const string pattern = @"Playable = 1";
+            // It must be lower case!
+            const string pattern = "playable = 1";
 
-            Regex require = new Regex(pattern, RegexOptions.IgnoreCase);
-            Match match = require.Match(textline);
+            modName = modName.ToLower();
+            return modName.Contains(pattern);
+        }
 
-            if (match.Success)
+        private bool IsModRequired(string modName)
+        {
+            const string pattern = "RequiredMod";
+            const string patternCommented1 = ";;";
+            const string patternCommented2 = "--";
+            const string patternCommented3 = "//";
+
+            if (modName.Contains(pattern))
                 return true;
-            else
+            if (modName.StartsWith(patternCommented1) || modName.StartsWith(patternCommented2) || modName.StartsWith(patternCommented3))
                 return false;
-        }
 
-        /// <summary>
-        /// Reads the .module file and scans for "RequiredMods" lines and returns if a line was found or not via true/false. This is used to add the lines to the Form Window.
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns>bool</returns>
-        private bool GetRequiredMod(string text)
-        {
-            const string pattern = @"\bRequiredMod\b";
-            const string patternCommented1 = @"^[;]+";
-            const string patternCommented2 = @"^[\/]+";
-            bool state = false;
-
-            foreach (Match match in Regex.Matches(text, pattern))
-            {
-                state = true;
-            }
-            foreach (Match match in Regex.Matches(text, patternCommented1))
-            {
-                state = false;
-            }
-            foreach (Match match in Regex.Matches(text, patternCommented2))
-            {
-                state = false;
-            }
-            return state;
-        }
-
-        /// <summary>
-        /// Checks if a line contains the Word "Modfolder" with true/false
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns>bool</returns>
-        private bool IsModFolderExist(string text)
-        {
-            const string pattern = @"ModFolder";
-            bool state = false;
-
-            foreach (Match match in Regex.Matches(text, pattern))
-            {
-                state = true;
-            }
-            return state;
+            return false;
         }
 
         /// <summary>
@@ -466,28 +397,26 @@ namespace DoW_Mod_Manager
                 // Populate the Required Mods List with entries from the .module file
                 while ((line = file.ReadLine()) != null)
                 {
-                    if (GetRequiredMod(line))
+                    if (IsModRequired(line))
                         requiredModsList.Items.Add(line);
                 }
-
                 GetModFoldersFromFile();
                 CheckforInstalledMods();
             }
         }
 
         /// <summary>
-        ///  This one checks if the Mod Assett folders, specified in each .module file, do actually exist
+        ///  This method checks if the Mod Assett folders, specified in each .module file, do actually exist
         /// </summary>
         private void GetModFoldersFromFile()
         {
-            int count = 0;
-            int itemsCount = requiredModsList.Items.Count;
-            ModFolderPaths = new string[itemsCount];
+            int requiredModsCount = requiredModsList.Items.Count;
+            ModFolderPaths = new string[requiredModsCount];
 
             // Read the file and display it line by line.
-            for (int i = 0; i < itemsCount; i++)
+            for (int i = 0; i < requiredModsCount; i++)
             {
-                string currentPath = currentDir + "\\" + GetLastEntryFromLine(requiredModsList.Items[i].ToString()) + ".module";
+                string currentPath = currentDir + "\\" + GetValueFromLine(requiredModsList.Items[i].ToString(), false) + ".module";
                 
                 if (File.Exists(currentPath))
                 {
@@ -497,20 +426,30 @@ namespace DoW_Mod_Manager
 
                         while ((line = file.ReadLine()) != null)
                         {
-                            if (IsModFolderExist(line))
-                            {
-                                ModFolderPaths[count] = GetModFolderFromFile(line);
-                                count++;
-                            }
+                            if (line.Contains("ModFolder"))
+                                ModFolderPaths[i] = GetValueFromLine(line, true);
                         }
                     }
                 }
                 else
-                {
-                    ModFolderPaths[count] = "MISSING";
-                    count++;
-                }
+                    ModFolderPaths[i] = "MISSING";
             }
+        }
+
+        private string GetValueFromLine(string line, bool deleteModule)
+        {
+            int indexOfEqual = line.IndexOf('=');
+
+            if (indexOfEqual > 0)
+            {
+                line = line.Substring(indexOfEqual + 1, line.Length - indexOfEqual - 1);
+                if (deleteModule)
+                    return line.Replace(" ", "").Replace(".module", "");
+                else
+                    return line.Replace(" ", "");
+            }
+            else
+                return "";
         }
 
         /// <summary>
@@ -518,7 +457,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void StartVanillaGameButton_Click(object sender, EventArgs e)
+	private void StartVanillaGameButton_Click(object sender, EventArgs e)
         {
             StartGameWithOptions("W40k");
         }
@@ -550,14 +489,14 @@ namespace DoW_Mod_Manager
             proc.StartInfo.Arguments = arguments;
             proc.Start();
 
-            string procName = proc.ProcessName;
-
             if (settings[OPTIMIZATIONS] == 1)
             {
                 // Threads could work even if application would be closed
                 new Thread(() =>
                 {
                     int triesCount = 0;
+                    string procName = proc.ProcessName;
+
                     TRY_AGAIN:
                     triesCount++;
 
@@ -571,12 +510,12 @@ namespace DoW_Mod_Manager
                     }
                     catch (Exception)
                     {
-                        // We will try 60 times and then Thread will be terminated regardless
-                        if (triesCount < 61)
+                        // We will try 30 times and then Thread will be terminated regardless
+                        if (triesCount < 30)
                             goto TRY_AGAIN;
                     }
-                })
-                .Start();
+                }
+                ).Start();
             }
         }
 
@@ -782,7 +721,6 @@ namespace DoW_Mod_Manager
                 short ChckSum = br.ReadInt16();
 
                 BinaryWriter bw = new BinaryWriter(fs);
-
                 if ((LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) != IMAGE_FILE_LARGE_ADDRESS_AWARE)
                 {
                     LAAFlag += IMAGE_FILE_LARGE_ADDRESS_AWARE;
@@ -817,12 +755,12 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="file"></param>
         /// <returns>bool</returns>
-        private bool IsFileLocked(string file)
+	private bool IsFileNotLocked(string file)
         {
-            FileStream stream = null;
+            FileStream fs = null;
             try
             {
-                stream = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+                fs = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
             }
             catch (IOException)
             {
@@ -830,16 +768,16 @@ namespace DoW_Mod_Manager
                 // still being written to
                 // or being processed by another thread
                 // or does not exist (has already been processed)
-                return true;
+                return false;
             }
             finally
             {
-                if (stream != null)
-                    stream.Close();
+                if (fs != null)
+                    fs.Close();
             }
 
             // File is not locked
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -851,10 +789,10 @@ namespace DoW_Mod_Manager
         private void ButtonToggleLAA_Click(object sender, EventArgs e)
         {
             // Check if the Game is LAA Patched and fill in the Label properly
-            string currentGamePath = Directory.GetFiles(currentDir, CurrentGameEXE)[0];
-            string currentGraphucsConfigPath = Directory.GetFiles(currentDir, GraphicsConfigEXE)[0];
+            string currentGamePath = currentDir + "\\" + CurrentGameEXE;
+            string currentGraphucsConfigPath = currentDir + "\\" + GraphicsConfigEXE;
 
-            if (!IsFileLocked(currentGamePath) && !IsFileLocked(currentGraphucsConfigPath))
+            if (IsFileNotLocked(currentGamePath) && IsFileNotLocked(currentGraphucsConfigPath))
             {
                 if ((isGameEXELAAPatched && isGraphicsConfigLAAPatched) || (!isGameEXELAAPatched && !isGraphicsConfigLAAPatched))
                 {
@@ -862,13 +800,9 @@ namespace DoW_Mod_Manager
                     isGraphicsConfigLAAPatched = ToggleLAA(currentGraphucsConfigPath);
                 }
                 else if (!isGameEXELAAPatched)
-                {
                     isGameEXELAAPatched = ToggleLAA(currentGamePath);
-                }
                 else if (!isGraphicsConfigLAAPatched)
-                {
                     isGraphicsConfigLAAPatched = ToggleLAA(currentGraphucsConfigPath);
-                }
 
                 SetGameLAALabelText();
                 SetGraphicsConfigLAALabelText();
@@ -880,32 +814,32 @@ namespace DoW_Mod_Manager
         /// </summary>
         private string GetCurrentGameEXE()
         {
-            string[] curDir = Directory.GetFiles(currentDir, GameExecutable.SOULSTORM);
-            if (curDir.Length != 0)
+            if (File.Exists(currentDir + "\\" + GameExecutable.SOULSTORM))
             {
                 currentDirectoryLabel.Text = "     Your current Soulstorm directory";
+                isOldGame = false;
                 return GameExecutable.SOULSTORM;
             }
 
-            curDir = Directory.GetFiles(currentDir, GameExecutable.DARK_CRUSADE);
-            if (curDir.Length != 0)
+            if (File.Exists(currentDir + "\\" + GameExecutable.DARK_CRUSADE))
             {
                 currentDirectoryLabel.Text = "  Your current Dark Crusade directory";
+                isOldGame = false;
                 return GameExecutable.DARK_CRUSADE;
             }
 
-            curDir = Directory.GetFiles(currentDir, GameExecutable.WINTER_ASSAULT);
-            if (curDir.Length != 0)
+            if (File.Exists(currentDir + "\\" + GameExecutable.WINTER_ASSAULT))
             {
                 currentDirectoryLabel.Text = "Your current Winter Assault directory";
+                isOldGame = true;
                 return GameExecutable.WINTER_ASSAULT;
             }
 
             // That part of the code will never be reached if you have Original + WA
-            curDir = Directory.GetFiles(currentDir, GameExecutable.ORIGINAL);
-            if (curDir.Length != 0)
+            if (File.Exists(currentDir + "\\" + GameExecutable.ORIGINAL))
             {
                 currentDirectoryLabel.Text = "   Your current Dawn of War directory";
+                isOldGame = true;
                 return GameExecutable.ORIGINAL;
             }
 
@@ -915,13 +849,13 @@ namespace DoW_Mod_Manager
                 isMessageBoxOnScreen = true;
                 Application.Exit();
             }
+
             return "";
         }
 
         private void CheckForGraphicsConfigEXE()
         {
-            string[] curDir = Directory.GetFiles(currentDir, GraphicsConfigEXE);
-            if (curDir.Length == 0)
+            if (!File.Exists(currentDir + "\\" + GraphicsConfigEXE))
             {
                 if (!isMessageBoxOnScreen)
                 {
