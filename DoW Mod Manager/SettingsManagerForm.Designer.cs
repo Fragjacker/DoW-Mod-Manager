@@ -116,6 +116,7 @@
             this.soundQualityLabel = new System.Windows.Forms.Label();
             this.randomizedSoundsCheckBox = new System.Windows.Forms.CheckBox();
             this.randomizedSoundsLabel = new System.Windows.Forms.Label();
+            this.systemPerformanceButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.generalTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scrollRateTrackBar)).BeginInit();
@@ -201,6 +202,7 @@
             // generalTabPage
             // 
             this.generalTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.generalTabPage.Controls.Add(this.systemPerformanceButton);
             this.generalTabPage.Controls.Add(this.unknownSettingComboBox);
             this.generalTabPage.Controls.Add(this.loginAttemptsLabel);
             this.generalTabPage.Controls.Add(this.scrollRateTrackBar);
@@ -1330,6 +1332,21 @@
             this.randomizedSoundsLabel.TabIndex = 35;
             this.randomizedSoundsLabel.Text = "Randomizes Sounds:";
             // 
+            // systemPerformanceButton
+            // 
+            this.systemPerformanceButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.systemPerformanceButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.systemPerformanceButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.systemPerformanceButton.Location = new System.Drawing.Point(274, 603);
+            this.systemPerformanceButton.Margin = new System.Windows.Forms.Padding(4);
+            this.systemPerformanceButton.Name = "systemPerformanceButton";
+            this.systemPerformanceButton.Size = new System.Drawing.Size(145, 47);
+            this.systemPerformanceButton.TabIndex = 55;
+            this.systemPerformanceButton.Text = "System Performance";
+            this.systemPerformanceButton.UseVisualStyleBackColor = false;
+            this.systemPerformanceButton.Click += new System.EventHandler(this.SystemPerformanceButton_Click);
+            // 
             // SettingsManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1455,5 +1472,6 @@
         private System.Windows.Forms.Button highAudioButton;
         private System.Windows.Forms.Button mediumAudioButton;
         private System.Windows.Forms.Button lowAudioButton;
+        private System.Windows.Forms.Button systemPerformanceButton;
     }
 }

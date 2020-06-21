@@ -943,5 +943,11 @@ namespace DoW_Mod_Manager
             saveButton.Focus();
             defaultsButton.Enabled = true;
         }
+
+        private void SystemPerformanceButton_Click(object sender, EventArgs e)
+        {
+            SystemPerformanceForm systemPerformance = new SystemPerformanceForm();
+            systemPerformance.Show();
+        }
     }
 }
