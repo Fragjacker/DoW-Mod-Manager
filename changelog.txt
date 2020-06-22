@@ -7,6 +7,8 @@
 - To achieve this result, the whole ModDownloaderForm was rewritten
 - Added System Performance. This tool is able to change system-wise settings for better performance
 - First of the features for System Performance is Timer Resolution (thanks tebjan for TimerTool). Lowering this value could increase CPU performance but it also will increase power consumption
+- Added tabs to the SystemPerformanceForm
+- Added ability to change compatibility settings such as "Run as Administrator", "Compatibility Mode: Windows XP SP2" and "HDPI Aware" for the game (only for Soulstorm for now)
 
 ## Version 1.8.2:
 
