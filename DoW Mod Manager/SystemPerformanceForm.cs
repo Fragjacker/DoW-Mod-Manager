@@ -7,18 +7,38 @@ namespace DoW_Mod_Manager
 {
     public partial class SystemPerformanceForm : Form
     {
-        private const string REG_PATH = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
-        private const string REG_KEY = @"C:\SteamGames\steamapps\common\Dawn of War Soulstorm\Soulstorm.exe";
+        private const string REG_COMPATIBILITY_PATH = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
+        private const string REG_DOW_PATH = @"C:\SteamGames\steamapps\common\Dawn of War Soulstorm\Soulstorm.exe";
         private const string REG_VALUE_RUN_AS_ADMIN = "RUNASADMIN";
         private const string REG_VALUE_HDPI_AWARE = "HIGHDPIAWARE";
         private const string REG_VALUE_COMPATIBILITY_WITH = "WINXPSP2";
 
+        private const string REG_POWER_SCHEMES_PATH = @"SYSTEM\CurrentControlSet\Control\Power\User\PowerSchemes";
+
+        private const string GUID_SLEEP_SUBGROUP = "238c9fa8-0aad-41ed-83f4-97be242c8f20";
+        private const string GUID_HIBERNATE_IDLE = "9d7815a6-7ee4-497e-8888-515a05f02364";
+
+        private const string NAME_ULTIMATE_PERFORMANCE = "Ultimate Performance";
+        private const string GUID_ULTIMATE_PERFORMANCE = "e9a42b02-d5df-448d-aa00-03f14749eb61";
+
+        private const string NAME_MAX_PERFORMANCE = "High Performance";
+        private const string GUID_MAX_PERFORMANCE = "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c";
+
+        private const string NAME_BALANCED = "Balanced";
+        private const string GUID_BALANCED = "381b4222-f694-41f0-9685-ff5bb260df2e";
+
+        private const string NAME_POWER_SAVER = "Power Saver";
+        private const string GUID_POWER_SAVER = "a1841308-3541-4fab-bc81-f71556f20b4a";
+
+        private readonly ModManagerForm modManager;
         private readonly Timer timer;
         private bool modifyRegistry = false;
 
-        public SystemPerformanceForm()
+        public SystemPerformanceForm(ModManagerForm form)
         {
             InitializeComponent();
+
+            modManager = form;
 
             timer = new Timer()
             {
@@ -30,32 +50,80 @@ namespace DoW_Mod_Manager
             // Use the same icon as executable
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            TimerTool.TimerCaps caps = TimerTool.WinApiCalls.QueryTimerResolution();
+            TimerCaps caps = WinApiCalls.QueryTimerResolution();
             minimumTimerResolutionTextBox.Text = caps.PeriodMax / 10000.0 + " ms";
             maximumTimerResolutionTextBox.Text = caps.PeriodMin / 10000.0 + " ms";
             currentTimerResolutionTextBox.Text = caps.PeriodCurrent / 10000.0 + " ms";
 
-            try
+            // We are checking for Compatibility settings for Soulstorm in Registry
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_COMPATIBILITY_PATH, false))
             {
-                RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_PATH, false);
-
                 if (key != null)
                 {
-                    string value = key.GetValue(REG_KEY).ToString();
+                    object valueObject = key.GetValue(REG_DOW_PATH);
 
-                    if (value.Contains(REG_VALUE_RUN_AS_ADMIN))
-                        runAsAdministratorCheckBox.Checked = true;
-                    if (value.Contains(REG_VALUE_HDPI_AWARE))
-                        HDPIiScalingCheckBox.Checked = true;
-                    if (value.Contains(REG_VALUE_COMPATIBILITY_WITH))
-                        comatibilityModeCheckBox.Checked = true;
+                    if (valueObject != null)
+                    {
+                        string value = valueObject.ToString();
+
+                        if (value.Contains(REG_VALUE_RUN_AS_ADMIN))
+                            runAsAdministratorCheckBox.Checked = true;
+                        if (value.Contains(REG_VALUE_HDPI_AWARE))
+                            HDPIiScalingCheckBox.Checked = true;
+                        if (value.Contains(REG_VALUE_COMPATIBILITY_WITH))
+                            comatibilityModeCheckBox.Checked = true;
+                    }
                 }
-
-                key.Close();
             }
-            catch (Exception)
+
+            // We are checking for Power Settings in Registry
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH + "\\" + GUID_ULTIMATE_PERFORMANCE, false))
             {
-                // We don't have to do anything
+                if (key != null)
+                    powerPlanComboBox.Items.Add(NAME_ULTIMATE_PERFORMANCE);
+            }
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH + "\\" + GUID_MAX_PERFORMANCE, false))
+            {
+                if (key != null)
+                    powerPlanComboBox.Items.Add(NAME_MAX_PERFORMANCE);
+            }
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH + "\\" + GUID_BALANCED, false))
+            {
+                if (key != null)
+                    powerPlanComboBox.Items.Add(NAME_BALANCED);
+            }
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH + "\\" + GUID_POWER_SAVER, false))
+            {
+                if (key != null)
+                    powerPlanComboBox.Items.Add(NAME_POWER_SAVER);
+            }
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH, false))
+            {
+                if (key != null)
+                {
+                    object valueObject = key.GetValue("ActivePowerScheme");
+
+                    if (valueObject != null)
+                    {
+                        string value = valueObject.ToString();
+
+                        switch (value)
+                        {
+                            case GUID_ULTIMATE_PERFORMANCE:
+                                powerPlanComboBox.SelectedItem = NAME_ULTIMATE_PERFORMANCE;
+                                break;
+                            case GUID_MAX_PERFORMANCE:
+                                powerPlanComboBox.SelectedItem = NAME_MAX_PERFORMANCE;
+                                break;
+                            case GUID_BALANCED:
+                                powerPlanComboBox.SelectedItem = NAME_BALANCED;
+                                break;
+                            case GUID_POWER_SAVER:
+                                powerPlanComboBox.SelectedItem = NAME_POWER_SAVER;
+                                break;
+                        }
+                    }
+                }
             }
 
             // We have to add those methods to the EventHandler here so we could avoid accidental firing of those methods after we would change the state of the CheckBox
@@ -66,25 +134,25 @@ namespace DoW_Mod_Manager
 
         private void TimerTick(object sender, EventArgs e)
         {
-            TimerTool.TimerCaps caps = TimerTool.WinApiCalls.QueryTimerResolution();
+            TimerCaps caps = WinApiCalls.QueryTimerResolution();
             currentTimerResolutionTextBox.Text = caps.PeriodCurrent / 10000.0 + " ms";
         }
 
         private void SetTimerResolutionButton_Click(object sender, EventArgs e)
         {
-            TimerTool.WinApiCalls.SetTimerResolution((uint)(0.5 * 10000));
+            WinApiCalls.SetTimerResolution((uint)(0.5 * 10000));
         }
 
         private void DefaultTimerResolutionButton_Click(object sender, EventArgs e)
         {
-            TimerTool.WinApiCalls.SetTimerResolution(0, false);
+            WinApiCalls.SetTimerResolution(0, false);
         }
 
         private void SetPropertiesButton_Click(object sender, EventArgs e)
         {
             if (modifyRegistry)
             {
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_PATH, true))
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_COMPATIBILITY_PATH, true))
                 {
                     if (key != null)
                     {
@@ -97,7 +165,7 @@ namespace DoW_Mod_Manager
                         if (comatibilityModeCheckBox.Checked)
                             newValue += " " + REG_VALUE_COMPATIBILITY_WITH;
 
-                        key.SetValue(REG_KEY, newValue, RegistryValueKind.String);
+                        key.SetValue(REG_DOW_PATH, newValue, RegistryValueKind.String);
                     }
                 }
                 setPropertiesButton.Enabled = false;
@@ -108,6 +176,56 @@ namespace DoW_Mod_Manager
         {
             modifyRegistry = true;
             setPropertiesButton.Enabled = true;
+        }
+
+        private void SetPowerPlanButton_Click(object sender, EventArgs e)
+        {
+            //IntPtr PTRActiveScheme = IntPtr.Zero;
+
+            //WinApiCalls.PowerGetActiveScheme(IntPtr.Zero, ref PTRActiveScheme);
+
+            //Guid GUIDActivePolicy = Marshal.PtrToStructure<Guid>(PTRActiveScheme);
+
+            //int type = 0;
+            //int buffer = 0;
+            //uint bufferSize = 4u;
+
+            //WinApiCalls.PowerReadACValue(IntPtr.Zero, ref GUIDActivePolicy, ref GUID_SLEEP_SUBGROUP, ref GUID_HIBERNATE_IDLE, ref type, ref buffer, ref bufferSize);
+
+            //MessageBox.Show($"Hibernate after {buffer} seconds.");
+        }
+
+        private void UnlockUltimatePerformanceButton_Click(object sender, EventArgs e)
+        {
+            //int seconds = 0;
+
+            //RegistryKey HKLM = Registry.LocalMachine;
+
+            //string ActivePlan = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\NameSpace\{025A5937-A6BE-4686-A844-36FE4BEC8B6D}";
+            //object ActivePreferredPlan = HKLM.OpenSubKey(ActivePlan).GetValue("PreferredPlan");
+
+            //string CustomKey = $@"SYSTEM\CurrentControlSet\Control\Power\User\PowerSchemes\" + $@"{ActivePreferredPlan}\{GUID_SLEEP_SUBGROUP}\{GUID_HIBERNATE_IDLE}";
+            //string DefaultKey = $@"SYSTEM\CurrentControlSet\Control\Power\PowerSettings\" + $@"{GUID_SLEEP_SUBGROUP}\{GUID_HIBERNATE_IDLE}\DefaultPowerSchemeValues\{ActivePreferredPlan}";
+
+            //RegistryKey SettingKey = HKLM.OpenSubKey(CustomKey, false);
+
+            //if (SettingKey != null)
+            //{
+            //    object result = SettingKey.GetValue("ACSettingIndex");
+
+            //    if (result != null)
+            //        seconds = (int)result;
+            //}
+            //else
+            //{
+            //    SettingKey = HKLM.OpenSubKey(DefaultKey, false);
+            //    seconds = (int)SettingKey.GetValue("ProvAcSettingIndex");
+            //}
+
+            //SettingKey.Close();
+            //HKLM.Close();
+
+            //MessageBox.Show($"Hibernate after {seconds} seconds.");
         }
     }
 }

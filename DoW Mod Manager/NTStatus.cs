@@ -1,4 +1,4 @@
-﻿namespace TimerTool
+﻿namespace DoW_Mod_Manager
 {
     /// <summary>
     /// A NT status value.

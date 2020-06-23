@@ -946,7 +946,7 @@ namespace DoW_Mod_Manager
 
         private void SystemPerformanceButton_Click(object sender, EventArgs e)
         {
-            SystemPerformanceForm systemPerformance = new SystemPerformanceForm();
+            SystemPerformanceForm systemPerformance = new SystemPerformanceForm(modManager);
             systemPerformance.Show();
         }
     }
