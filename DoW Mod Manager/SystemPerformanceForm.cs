@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Security.Permissions;
 using System.Windows.Forms;
 
 namespace DoW_Mod_Manager
@@ -32,6 +33,7 @@ namespace DoW_Mod_Manager
         private readonly ModManagerForm modManager;
         private readonly Timer timer;
         private bool modifyRegistry = false;
+        private readonly int ultimatePerformanceGUIDIndex = 0;
 
         public SystemPerformanceForm(ModManagerForm form)
         {
@@ -76,20 +78,22 @@ namespace DoW_Mod_Manager
             }
 
             // We are checking for Power Settings in Registry
-            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH + "\\" + GUID_ULTIMATE_PERFORMANCE, false))
-            {
-                if (key != null)
-                {
-                    powerPlanComboBox.Items.Add(NAME_ULTIMATE_PERFORMANCE);
-                    unlockUltimatePerformanceButton.Enabled = false;
-                }
-            }
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH + "\\" + GUID_ULTIMATE_PERFORMANCE_2, false))
             {
                 if (key != null)
                 {
                     powerPlanComboBox.Items.Add(NAME_ULTIMATE_PERFORMANCE);
                     unlockUltimatePerformanceButton.Enabled = false;
+                    ultimatePerformanceGUIDIndex = 2;
+                }
+            }
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH + "\\" + GUID_ULTIMATE_PERFORMANCE, false))
+            {
+                if (key != null && ultimatePerformanceGUIDIndex == 0)
+                {
+                    powerPlanComboBox.Items.Add(NAME_ULTIMATE_PERFORMANCE);
+                    unlockUltimatePerformanceButton.Enabled = false;
+                    ultimatePerformanceGUIDIndex = 1;
                 }
             }
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH + "\\" + GUID_MAX_PERFORMANCE, false))
@@ -141,6 +145,8 @@ namespace DoW_Mod_Manager
             runAsAdministratorCheckBox.CheckedChanged += new EventHandler(CheckBox_CheckedChanged);
             HDPIiScalingCheckBox.CheckedChanged += new EventHandler(CheckBox_CheckedChanged);
             comatibilityModeCheckBox.CheckedChanged += new EventHandler(CheckBox_CheckedChanged);
+
+            powerPlanComboBox.SelectedIndexChanged += new EventHandler(PowerPlanComboBox_SelectedIndexChanged);
         }
 
         private void TimerTick(object sender, EventArgs e)
@@ -191,13 +197,45 @@ namespace DoW_Mod_Manager
 
         private void SetPowerPlanButton_Click(object sender, EventArgs e)
         {
+            // This action needs Administrator Priviledge!
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH, true))
+            {
+                if (key != null)
+                {
+                    switch (powerPlanComboBox.SelectedItem)
+                    {
+                        case NAME_ULTIMATE_PERFORMANCE:
+                            if (ultimatePerformanceGUIDIndex == 2)
+                                key.SetValue("ActivePowerScheme", GUID_ULTIMATE_PERFORMANCE_2, RegistryValueKind.String);
+                            else
+                                key.SetValue("ActivePowerScheme", GUID_ULTIMATE_PERFORMANCE, RegistryValueKind.String);
+                            break;
+                        case NAME_MAX_PERFORMANCE:
+                            key.SetValue("ActivePowerScheme", GUID_MAX_PERFORMANCE, RegistryValueKind.String);
+                            break;
+                        case NAME_BALANCED:
+                            key.SetValue("ActivePowerScheme", GUID_BALANCED, RegistryValueKind.String);
+                            break;
+                        case NAME_POWER_SAVER:
+                            key.SetValue("ActivePowerScheme", GUID_POWER_SAVER, RegistryValueKind.String);
+                            break;
+                    }
+                }
+            }
 
+            setPowerPlanButton.Enabled = false;
         }
 
         private void UnlockUltimatePerformanceButton_Click(object sender, EventArgs e)
         {
             Process.Start("powercfg.exe", "-duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61");
+            
             unlockUltimatePerformanceButton.Enabled = false;
+        }
+
+        private void PowerPlanComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            setPowerPlanButton.Enabled = true;
         }
     }
 }

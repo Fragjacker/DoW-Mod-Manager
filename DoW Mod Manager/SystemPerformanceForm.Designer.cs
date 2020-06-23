@@ -61,10 +61,9 @@
             // 
             this.minimumTimerResolutionLabel.AutoSize = true;
             this.minimumTimerResolutionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.minimumTimerResolutionLabel.Location = new System.Drawing.Point(20, 17);
-            this.minimumTimerResolutionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.minimumTimerResolutionLabel.Location = new System.Drawing.Point(15, 14);
             this.minimumTimerResolutionLabel.Name = "minimumTimerResolutionLabel";
-            this.minimumTimerResolutionLabel.Size = new System.Drawing.Size(134, 16);
+            this.minimumTimerResolutionLabel.Size = new System.Drawing.Size(107, 13);
             this.minimumTimerResolutionLabel.TabIndex = 0;
             this.minimumTimerResolutionLabel.Text = "Minimum Resolution: ";
             // 
@@ -73,10 +72,9 @@
             this.setTimerResolutionButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.setTimerResolutionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setTimerResolutionButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.setTimerResolutionButton.Location = new System.Drawing.Point(29, 246);
-            this.setTimerResolutionButton.Margin = new System.Windows.Forms.Padding(4);
+            this.setTimerResolutionButton.Location = new System.Drawing.Point(22, 200);
             this.setTimerResolutionButton.Name = "setTimerResolutionButton";
-            this.setTimerResolutionButton.Size = new System.Drawing.Size(160, 47);
+            this.setTimerResolutionButton.Size = new System.Drawing.Size(120, 38);
             this.setTimerResolutionButton.TabIndex = 2;
             this.setTimerResolutionButton.Text = "Lower Timer Resolution";
             this.setTimerResolutionButton.UseVisualStyleBackColor = false;
@@ -87,10 +85,9 @@
             this.defaultTimerResolutionButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.defaultTimerResolutionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.defaultTimerResolutionButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.defaultTimerResolutionButton.Location = new System.Drawing.Point(243, 246);
-            this.defaultTimerResolutionButton.Margin = new System.Windows.Forms.Padding(4);
+            this.defaultTimerResolutionButton.Location = new System.Drawing.Point(182, 200);
             this.defaultTimerResolutionButton.Name = "defaultTimerResolutionButton";
-            this.defaultTimerResolutionButton.Size = new System.Drawing.Size(160, 47);
+            this.defaultTimerResolutionButton.Size = new System.Drawing.Size(120, 38);
             this.defaultTimerResolutionButton.TabIndex = 3;
             this.defaultTimerResolutionButton.Text = "Default Timer Resolution";
             this.defaultTimerResolutionButton.UseVisualStyleBackColor = false;
@@ -100,10 +97,9 @@
             // 
             this.currentTimerResolutionLabel.AutoSize = true;
             this.currentTimerResolutionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.currentTimerResolutionLabel.Location = new System.Drawing.Point(21, 102);
-            this.currentTimerResolutionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.currentTimerResolutionLabel.Location = new System.Drawing.Point(16, 83);
             this.currentTimerResolutionLabel.Name = "currentTimerResolutionLabel";
-            this.currentTimerResolutionLabel.Size = new System.Drawing.Size(158, 16);
+            this.currentTimerResolutionLabel.Size = new System.Drawing.Size(126, 13);
             this.currentTimerResolutionLabel.TabIndex = 4;
             this.currentTimerResolutionLabel.Text = "Current Timer Resolution:";
             // 
@@ -111,11 +107,10 @@
             // 
             this.currentTimerResolutionTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.currentTimerResolutionTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.currentTimerResolutionTextBox.Location = new System.Drawing.Point(196, 98);
-            this.currentTimerResolutionTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.currentTimerResolutionTextBox.Location = new System.Drawing.Point(147, 80);
             this.currentTimerResolutionTextBox.Name = "currentTimerResolutionTextBox";
             this.currentTimerResolutionTextBox.ReadOnly = true;
-            this.currentTimerResolutionTextBox.Size = new System.Drawing.Size(135, 22);
+            this.currentTimerResolutionTextBox.Size = new System.Drawing.Size(102, 20);
             this.currentTimerResolutionTextBox.TabIndex = 5;
             // 
             // tabControl1
@@ -124,13 +119,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.compatibilityTabPage);
-            this.tabControl1.Controls.Add(this.timerResolutionTabPage);
             this.tabControl1.Controls.Add(this.powerSettingsTabPage);
-            this.tabControl1.Location = new System.Drawing.Point(21, 15);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.tabControl1.Controls.Add(this.timerResolutionTabPage);
+            this.tabControl1.Location = new System.Drawing.Point(16, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(439, 342);
+            this.tabControl1.Size = new System.Drawing.Size(329, 278);
             this.tabControl1.TabIndex = 6;
             // 
             // compatibilityTabPage
@@ -143,11 +137,10 @@
             this.compatibilityTabPage.Controls.Add(this.runAsAdministratorLabel);
             this.compatibilityTabPage.Controls.Add(this.comatibilityModeCheckBox);
             this.compatibilityTabPage.Controls.Add(this.compatibilityModeLabel);
-            this.compatibilityTabPage.Location = new System.Drawing.Point(4, 25);
-            this.compatibilityTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.compatibilityTabPage.Location = new System.Drawing.Point(4, 22);
             this.compatibilityTabPage.Name = "compatibilityTabPage";
-            this.compatibilityTabPage.Padding = new System.Windows.Forms.Padding(4);
-            this.compatibilityTabPage.Size = new System.Drawing.Size(431, 313);
+            this.compatibilityTabPage.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.compatibilityTabPage.Size = new System.Drawing.Size(321, 252);
             this.compatibilityTabPage.TabIndex = 0;
             this.compatibilityTabPage.Text = "Compatibility";
             // 
@@ -158,10 +151,9 @@
             this.setPropertiesButton.Enabled = false;
             this.setPropertiesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setPropertiesButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.setPropertiesButton.Location = new System.Drawing.Point(127, 246);
-            this.setPropertiesButton.Margin = new System.Windows.Forms.Padding(4);
+            this.setPropertiesButton.Location = new System.Drawing.Point(95, 200);
             this.setPropertiesButton.Name = "setPropertiesButton";
-            this.setPropertiesButton.Size = new System.Drawing.Size(160, 47);
+            this.setPropertiesButton.Size = new System.Drawing.Size(120, 38);
             this.setPropertiesButton.TabIndex = 56;
             this.setPropertiesButton.Text = "Set properties";
             this.setPropertiesButton.UseVisualStyleBackColor = false;
@@ -170,8 +162,7 @@
             // HDPIiScalingCheckBox
             // 
             this.HDPIiScalingCheckBox.AutoSize = true;
-            this.HDPIiScalingCheckBox.Location = new System.Drawing.Point(305, 59);
-            this.HDPIiScalingCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.HDPIiScalingCheckBox.Location = new System.Drawing.Point(229, 48);
             this.HDPIiScalingCheckBox.Name = "HDPIiScalingCheckBox";
             this.HDPIiScalingCheckBox.Size = new System.Drawing.Size(15, 14);
             this.HDPIiScalingCheckBox.TabIndex = 55;
@@ -181,18 +172,16 @@
             // 
             this.HDPIScalingLabel.AutoSize = true;
             this.HDPIScalingLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.HDPIScalingLabel.Location = new System.Drawing.Point(21, 59);
-            this.HDPIScalingLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.HDPIScalingLabel.Location = new System.Drawing.Point(16, 48);
             this.HDPIScalingLabel.Name = "HDPIScalingLabel";
-            this.HDPIScalingLabel.Size = new System.Drawing.Size(223, 16);
+            this.HDPIScalingLabel.Size = new System.Drawing.Size(179, 13);
             this.HDPIScalingLabel.TabIndex = 54;
             this.HDPIScalingLabel.Text = "Let Application handle HDPI Scaling";
             // 
             // runAsAdministratorCheckBox
             // 
             this.runAsAdministratorCheckBox.AutoSize = true;
-            this.runAsAdministratorCheckBox.Location = new System.Drawing.Point(305, 17);
-            this.runAsAdministratorCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.runAsAdministratorCheckBox.Location = new System.Drawing.Point(229, 14);
             this.runAsAdministratorCheckBox.Name = "runAsAdministratorCheckBox";
             this.runAsAdministratorCheckBox.Size = new System.Drawing.Size(15, 14);
             this.runAsAdministratorCheckBox.TabIndex = 53;
@@ -202,18 +191,16 @@
             // 
             this.runAsAdministratorLabel.AutoSize = true;
             this.runAsAdministratorLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.runAsAdministratorLabel.Location = new System.Drawing.Point(21, 17);
-            this.runAsAdministratorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.runAsAdministratorLabel.Location = new System.Drawing.Point(16, 14);
             this.runAsAdministratorLabel.Name = "runAsAdministratorLabel";
-            this.runAsAdministratorLabel.Size = new System.Drawing.Size(131, 16);
+            this.runAsAdministratorLabel.Size = new System.Drawing.Size(104, 13);
             this.runAsAdministratorLabel.TabIndex = 52;
             this.runAsAdministratorLabel.Text = "Run as Administrator";
             // 
             // comatibilityModeCheckBox
             // 
             this.comatibilityModeCheckBox.AutoSize = true;
-            this.comatibilityModeCheckBox.Location = new System.Drawing.Point(305, 105);
-            this.comatibilityModeCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.comatibilityModeCheckBox.Location = new System.Drawing.Point(229, 85);
             this.comatibilityModeCheckBox.Name = "comatibilityModeCheckBox";
             this.comatibilityModeCheckBox.Size = new System.Drawing.Size(15, 14);
             this.comatibilityModeCheckBox.TabIndex = 51;
@@ -223,10 +210,9 @@
             // 
             this.compatibilityModeLabel.AutoSize = true;
             this.compatibilityModeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.compatibilityModeLabel.Location = new System.Drawing.Point(21, 105);
-            this.compatibilityModeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.compatibilityModeLabel.Location = new System.Drawing.Point(16, 85);
             this.compatibilityModeLabel.Name = "compatibilityModeLabel";
-            this.compatibilityModeLabel.Size = new System.Drawing.Size(247, 16);
+            this.compatibilityModeLabel.Size = new System.Drawing.Size(197, 13);
             this.compatibilityModeLabel.TabIndex = 5;
             this.compatibilityModeLabel.Text = "Compatibility Mode for Windows XP SP2";
             // 
@@ -241,10 +227,9 @@
             this.timerResolutionTabPage.Controls.Add(this.minimumTimerResolutionLabel);
             this.timerResolutionTabPage.Controls.Add(this.setTimerResolutionButton);
             this.timerResolutionTabPage.Controls.Add(this.currentTimerResolutionLabel);
-            this.timerResolutionTabPage.Location = new System.Drawing.Point(4, 25);
-            this.timerResolutionTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.timerResolutionTabPage.Location = new System.Drawing.Point(4, 22);
             this.timerResolutionTabPage.Name = "timerResolutionTabPage";
-            this.timerResolutionTabPage.Size = new System.Drawing.Size(431, 313);
+            this.timerResolutionTabPage.Size = new System.Drawing.Size(321, 252);
             this.timerResolutionTabPage.TabIndex = 3;
             this.timerResolutionTabPage.Text = "Timer Resolution";
             // 
@@ -252,32 +237,29 @@
             // 
             this.minimumTimerResolutionTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.minimumTimerResolutionTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.minimumTimerResolutionTextBox.Location = new System.Drawing.Point(196, 13);
-            this.minimumTimerResolutionTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.minimumTimerResolutionTextBox.Location = new System.Drawing.Point(147, 11);
             this.minimumTimerResolutionTextBox.Name = "minimumTimerResolutionTextBox";
             this.minimumTimerResolutionTextBox.ReadOnly = true;
-            this.minimumTimerResolutionTextBox.Size = new System.Drawing.Size(135, 22);
+            this.minimumTimerResolutionTextBox.Size = new System.Drawing.Size(102, 20);
             this.minimumTimerResolutionTextBox.TabIndex = 8;
             // 
             // maximumTimerResolutionTextBox
             // 
             this.maximumTimerResolutionTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.maximumTimerResolutionTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.maximumTimerResolutionTextBox.Location = new System.Drawing.Point(196, 55);
-            this.maximumTimerResolutionTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.maximumTimerResolutionTextBox.Location = new System.Drawing.Point(147, 45);
             this.maximumTimerResolutionTextBox.Name = "maximumTimerResolutionTextBox";
             this.maximumTimerResolutionTextBox.ReadOnly = true;
-            this.maximumTimerResolutionTextBox.Size = new System.Drawing.Size(135, 22);
+            this.maximumTimerResolutionTextBox.Size = new System.Drawing.Size(102, 20);
             this.maximumTimerResolutionTextBox.TabIndex = 7;
             // 
             // maximumTimerResolutionLabel
             // 
             this.maximumTimerResolutionLabel.AutoSize = true;
             this.maximumTimerResolutionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.maximumTimerResolutionLabel.Location = new System.Drawing.Point(20, 59);
-            this.maximumTimerResolutionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.maximumTimerResolutionLabel.Location = new System.Drawing.Point(15, 48);
             this.maximumTimerResolutionLabel.Name = "maximumTimerResolutionLabel";
-            this.maximumTimerResolutionLabel.Size = new System.Drawing.Size(138, 16);
+            this.maximumTimerResolutionLabel.Size = new System.Drawing.Size(110, 13);
             this.maximumTimerResolutionLabel.TabIndex = 6;
             this.maximumTimerResolutionLabel.Text = "Maximum Resolution: ";
             // 
@@ -288,11 +270,10 @@
             this.powerSettingsTabPage.Controls.Add(this.setPowerPlanButton);
             this.powerSettingsTabPage.Controls.Add(this.powerPlanComboBox);
             this.powerSettingsTabPage.Controls.Add(this.powerPlanLabel);
-            this.powerSettingsTabPage.Location = new System.Drawing.Point(4, 25);
-            this.powerSettingsTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.powerSettingsTabPage.Location = new System.Drawing.Point(4, 22);
             this.powerSettingsTabPage.Name = "powerSettingsTabPage";
-            this.powerSettingsTabPage.Padding = new System.Windows.Forms.Padding(4);
-            this.powerSettingsTabPage.Size = new System.Drawing.Size(431, 313);
+            this.powerSettingsTabPage.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.powerSettingsTabPage.Size = new System.Drawing.Size(321, 252);
             this.powerSettingsTabPage.TabIndex = 1;
             this.powerSettingsTabPage.Text = "Power Settings";
             // 
@@ -301,10 +282,9 @@
             this.unlockUltimatePerformanceButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.unlockUltimatePerformanceButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.unlockUltimatePerformanceButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.unlockUltimatePerformanceButton.Location = new System.Drawing.Point(235, 247);
-            this.unlockUltimatePerformanceButton.Margin = new System.Windows.Forms.Padding(4);
+            this.unlockUltimatePerformanceButton.Location = new System.Drawing.Point(176, 201);
             this.unlockUltimatePerformanceButton.Name = "unlockUltimatePerformanceButton";
-            this.unlockUltimatePerformanceButton.Size = new System.Drawing.Size(160, 47);
+            this.unlockUltimatePerformanceButton.Size = new System.Drawing.Size(120, 38);
             this.unlockUltimatePerformanceButton.TabIndex = 58;
             this.unlockUltimatePerformanceButton.Text = "Unlock \"Ultimate Performance\"";
             this.unlockUltimatePerformanceButton.UseVisualStyleBackColor = false;
@@ -316,10 +296,9 @@
             this.setPowerPlanButton.Enabled = false;
             this.setPowerPlanButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setPowerPlanButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.setPowerPlanButton.Location = new System.Drawing.Point(25, 247);
-            this.setPowerPlanButton.Margin = new System.Windows.Forms.Padding(4);
+            this.setPowerPlanButton.Location = new System.Drawing.Point(19, 201);
             this.setPowerPlanButton.Name = "setPowerPlanButton";
-            this.setPowerPlanButton.Size = new System.Drawing.Size(160, 47);
+            this.setPowerPlanButton.Size = new System.Drawing.Size(120, 38);
             this.setPowerPlanButton.TabIndex = 57;
             this.setPowerPlanButton.Text = "Set Power Plan";
             this.setPowerPlanButton.UseVisualStyleBackColor = false;
@@ -329,32 +308,29 @@
             // 
             this.powerPlanComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.powerPlanComboBox.FormattingEnabled = true;
-            this.powerPlanComboBox.Location = new System.Drawing.Point(122, 14);
-            this.powerPlanComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.powerPlanComboBox.Location = new System.Drawing.Point(92, 11);
             this.powerPlanComboBox.Name = "powerPlanComboBox";
-            this.powerPlanComboBox.Size = new System.Drawing.Size(160, 24);
+            this.powerPlanComboBox.Size = new System.Drawing.Size(121, 21);
             this.powerPlanComboBox.TabIndex = 21;
             // 
             // powerPlanLabel
             // 
             this.powerPlanLabel.AutoSize = true;
             this.powerPlanLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.powerPlanLabel.Location = new System.Drawing.Point(22, 17);
-            this.powerPlanLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.powerPlanLabel.Location = new System.Drawing.Point(16, 14);
             this.powerPlanLabel.Name = "powerPlanLabel";
-            this.powerPlanLabel.Size = new System.Drawing.Size(79, 16);
+            this.powerPlanLabel.Size = new System.Drawing.Size(64, 13);
             this.powerPlanLabel.TabIndex = 1;
             this.powerPlanLabel.Text = "Power Plan:";
             // 
             // SystemPerformanceForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.ClientSize = new System.Drawing.Size(476, 372);
+            this.ClientSize = new System.Drawing.Size(357, 302);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "SystemPerformanceForm";
             this.Text = "Sytem Performance";
