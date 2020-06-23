@@ -299,7 +299,6 @@
             // unlockUltimatePerformanceButton
             // 
             this.unlockUltimatePerformanceButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.unlockUltimatePerformanceButton.Enabled = false;
             this.unlockUltimatePerformanceButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.unlockUltimatePerformanceButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.unlockUltimatePerformanceButton.Location = new System.Drawing.Point(235, 247);

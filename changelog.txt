@@ -10,6 +10,7 @@
 - Added tabs to the SystemPerformanceForm
 - Added ability to change compatibility settings such as "Run as Administrator", "Compatibility Mode: Windows XP SP2" and "HDPI Aware" for the game (only for Soulstorm for now)
 - Added ability to see all your System Power Settings
+- Added ability to unlock "Ultimate Performance" power plan
 
 ## Version 1.8.2:
 

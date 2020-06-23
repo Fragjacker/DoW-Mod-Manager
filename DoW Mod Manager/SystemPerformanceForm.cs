@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -15,11 +16,9 @@ namespace DoW_Mod_Manager
 
         private const string REG_POWER_SCHEMES_PATH = @"SYSTEM\CurrentControlSet\Control\Power\User\PowerSchemes";
 
-        private const string GUID_SLEEP_SUBGROUP = "238c9fa8-0aad-41ed-83f4-97be242c8f20";
-        private const string GUID_HIBERNATE_IDLE = "9d7815a6-7ee4-497e-8888-515a05f02364";
-
         private const string NAME_ULTIMATE_PERFORMANCE = "Ultimate Performance";
         private const string GUID_ULTIMATE_PERFORMANCE = "e9a42b02-d5df-448d-aa00-03f14749eb61";
+        private const string GUID_ULTIMATE_PERFORMANCE_2 = "46742d2f-42d6-41df-a6ed-b49d182ee15d";
 
         private const string NAME_MAX_PERFORMANCE = "High Performance";
         private const string GUID_MAX_PERFORMANCE = "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c";
@@ -80,7 +79,18 @@ namespace DoW_Mod_Manager
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH + "\\" + GUID_ULTIMATE_PERFORMANCE, false))
             {
                 if (key != null)
+                {
                     powerPlanComboBox.Items.Add(NAME_ULTIMATE_PERFORMANCE);
+                    unlockUltimatePerformanceButton.Enabled = false;
+                }
+            }
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH + "\\" + GUID_ULTIMATE_PERFORMANCE_2, false))
+            {
+                if (key != null)
+                {
+                    powerPlanComboBox.Items.Add(NAME_ULTIMATE_PERFORMANCE);
+                    unlockUltimatePerformanceButton.Enabled = false;
+                }
             }
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH + "\\" + GUID_MAX_PERFORMANCE, false))
             {
@@ -110,6 +120,7 @@ namespace DoW_Mod_Manager
                         switch (value)
                         {
                             case GUID_ULTIMATE_PERFORMANCE:
+                            case GUID_ULTIMATE_PERFORMANCE_2:
                                 powerPlanComboBox.SelectedItem = NAME_ULTIMATE_PERFORMANCE;
                                 break;
                             case GUID_MAX_PERFORMANCE:
@@ -180,52 +191,13 @@ namespace DoW_Mod_Manager
 
         private void SetPowerPlanButton_Click(object sender, EventArgs e)
         {
-            //IntPtr PTRActiveScheme = IntPtr.Zero;
 
-            //WinApiCalls.PowerGetActiveScheme(IntPtr.Zero, ref PTRActiveScheme);
-
-            //Guid GUIDActivePolicy = Marshal.PtrToStructure<Guid>(PTRActiveScheme);
-
-            //int type = 0;
-            //int buffer = 0;
-            //uint bufferSize = 4u;
-
-            //WinApiCalls.PowerReadACValue(IntPtr.Zero, ref GUIDActivePolicy, ref GUID_SLEEP_SUBGROUP, ref GUID_HIBERNATE_IDLE, ref type, ref buffer, ref bufferSize);
-
-            //MessageBox.Show($"Hibernate after {buffer} seconds.");
         }
 
         private void UnlockUltimatePerformanceButton_Click(object sender, EventArgs e)
         {
-            //int seconds = 0;
-
-            //RegistryKey HKLM = Registry.LocalMachine;
-
-            //string ActivePlan = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\NameSpace\{025A5937-A6BE-4686-A844-36FE4BEC8B6D}";
-            //object ActivePreferredPlan = HKLM.OpenSubKey(ActivePlan).GetValue("PreferredPlan");
-
-            //string CustomKey = $@"SYSTEM\CurrentControlSet\Control\Power\User\PowerSchemes\" + $@"{ActivePreferredPlan}\{GUID_SLEEP_SUBGROUP}\{GUID_HIBERNATE_IDLE}";
-            //string DefaultKey = $@"SYSTEM\CurrentControlSet\Control\Power\PowerSettings\" + $@"{GUID_SLEEP_SUBGROUP}\{GUID_HIBERNATE_IDLE}\DefaultPowerSchemeValues\{ActivePreferredPlan}";
-
-            //RegistryKey SettingKey = HKLM.OpenSubKey(CustomKey, false);
-
-            //if (SettingKey != null)
-            //{
-            //    object result = SettingKey.GetValue("ACSettingIndex");
-
-            //    if (result != null)
-            //        seconds = (int)result;
-            //}
-            //else
-            //{
-            //    SettingKey = HKLM.OpenSubKey(DefaultKey, false);
-            //    seconds = (int)SettingKey.GetValue("ProvAcSettingIndex");
-            //}
-
-            //SettingKey.Close();
-            //HKLM.Close();
-
-            //MessageBox.Show($"Hibernate after {seconds} seconds.");
+            Process.Start("powercfg.exe", "-duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61");
+            unlockUltimatePerformanceButton.Enabled = false;
         }
     }
 }
