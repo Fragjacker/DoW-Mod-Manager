@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.Security.Permissions;
 using System.Windows.Forms;
 
 namespace DoW_Mod_Manager
@@ -10,7 +9,9 @@ namespace DoW_Mod_Manager
     public partial class SystemPerformanceForm : Form
     {
         private const string REG_COMPATIBILITY_PATH = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
-        private const string REG_DOW_PATH = @"C:\SteamGames\steamapps\common\Dawn of War Soulstorm\Soulstorm.exe";
+        private readonly string REG_DOW_PATH;
+
+        private const string REG_VALUE_FULLSCREEN_OPTIMIZATIONS = "DISABLEDXMAXIMIZEDWINDOWEDMODE";
         private const string REG_VALUE_RUN_AS_ADMIN = "RUNASADMIN";
         private const string REG_VALUE_HDPI_AWARE = "HIGHDPIAWARE";
         private const string REG_VALUE_COMPATIBILITY_WITH = "WINXPSP2";
@@ -56,6 +57,8 @@ namespace DoW_Mod_Manager
             maximumTimerResolutionTextBox.Text = caps.PeriodMin / 10000.0 + " ms";
             currentTimerResolutionTextBox.Text = caps.PeriodCurrent / 10000.0 + " ms";
 
+            REG_DOW_PATH = modManager.CurrentDir + "\\" + modManager.CurrentGameEXE;
+
             // We are checking for Compatibility settings for Soulstorm in Registry
             using (RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_COMPATIBILITY_PATH, false))
             {
@@ -67,6 +70,8 @@ namespace DoW_Mod_Manager
                     {
                         string value = valueObject.ToString();
 
+                        if (value.Contains(REG_VALUE_FULLSCREEN_OPTIMIZATIONS))
+                            fullscreenOptimizationsCheckBox.Checked = true;
                         if (value.Contains(REG_VALUE_RUN_AS_ADMIN))
                             runAsAdministratorCheckBox.Checked = true;
                         if (value.Contains(REG_VALUE_HDPI_AWARE))
@@ -145,6 +150,7 @@ namespace DoW_Mod_Manager
             runAsAdministratorCheckBox.CheckedChanged += new EventHandler(CheckBox_CheckedChanged);
             HDPIiScalingCheckBox.CheckedChanged += new EventHandler(CheckBox_CheckedChanged);
             comatibilityModeCheckBox.CheckedChanged += new EventHandler(CheckBox_CheckedChanged);
+            fullscreenOptimizationsCheckBox.CheckedChanged += new EventHandler(CheckBox_CheckedChanged);
 
             powerPlanComboBox.SelectedIndexChanged += new EventHandler(PowerPlanComboBox_SelectedIndexChanged);
         }
@@ -175,6 +181,8 @@ namespace DoW_Mod_Manager
                     {
                         string newValue = "~ ";
 
+                        if (fullscreenOptimizationsCheckBox.Checked)
+                            newValue += " " + REG_VALUE_FULLSCREEN_OPTIMIZATIONS;
                         if (runAsAdministratorCheckBox.Checked)
                             newValue += " " + REG_VALUE_RUN_AS_ADMIN;
                         if (HDPIiScalingCheckBox.Checked)
@@ -229,7 +237,7 @@ namespace DoW_Mod_Manager
         private void UnlockUltimatePerformanceButton_Click(object sender, EventArgs e)
         {
             Process.Start("powercfg.exe", "-duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61");
-            
+
             unlockUltimatePerformanceButton.Enabled = false;
         }
 

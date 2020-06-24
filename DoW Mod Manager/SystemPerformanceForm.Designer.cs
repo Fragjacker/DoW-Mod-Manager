@@ -42,19 +42,21 @@
             this.runAsAdministratorLabel = new System.Windows.Forms.Label();
             this.comatibilityModeCheckBox = new System.Windows.Forms.CheckBox();
             this.compatibilityModeLabel = new System.Windows.Forms.Label();
-            this.timerResolutionTabPage = new System.Windows.Forms.TabPage();
-            this.minimumTimerResolutionTextBox = new System.Windows.Forms.TextBox();
-            this.maximumTimerResolutionTextBox = new System.Windows.Forms.TextBox();
-            this.maximumTimerResolutionLabel = new System.Windows.Forms.Label();
             this.powerSettingsTabPage = new System.Windows.Forms.TabPage();
             this.unlockUltimatePerformanceButton = new System.Windows.Forms.Button();
             this.setPowerPlanButton = new System.Windows.Forms.Button();
             this.powerPlanComboBox = new System.Windows.Forms.ComboBox();
             this.powerPlanLabel = new System.Windows.Forms.Label();
+            this.timerResolutionTabPage = new System.Windows.Forms.TabPage();
+            this.minimumTimerResolutionTextBox = new System.Windows.Forms.TextBox();
+            this.maximumTimerResolutionTextBox = new System.Windows.Forms.TextBox();
+            this.maximumTimerResolutionLabel = new System.Windows.Forms.Label();
+            this.fullscreenOptimizationsCheckBox = new System.Windows.Forms.CheckBox();
+            this.fullscreenOptimizationsLabel = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.compatibilityTabPage.SuspendLayout();
-            this.timerResolutionTabPage.SuspendLayout();
             this.powerSettingsTabPage.SuspendLayout();
+            this.timerResolutionTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // minimumTimerResolutionLabel
@@ -130,6 +132,8 @@
             // compatibilityTabPage
             // 
             this.compatibilityTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.compatibilityTabPage.Controls.Add(this.fullscreenOptimizationsCheckBox);
+            this.compatibilityTabPage.Controls.Add(this.fullscreenOptimizationsLabel);
             this.compatibilityTabPage.Controls.Add(this.setPropertiesButton);
             this.compatibilityTabPage.Controls.Add(this.HDPIiScalingCheckBox);
             this.compatibilityTabPage.Controls.Add(this.HDPIScalingLabel);
@@ -139,7 +143,7 @@
             this.compatibilityTabPage.Controls.Add(this.compatibilityModeLabel);
             this.compatibilityTabPage.Location = new System.Drawing.Point(4, 22);
             this.compatibilityTabPage.Name = "compatibilityTabPage";
-            this.compatibilityTabPage.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.compatibilityTabPage.Padding = new System.Windows.Forms.Padding(3);
             this.compatibilityTabPage.Size = new System.Drawing.Size(321, 252);
             this.compatibilityTabPage.TabIndex = 0;
             this.compatibilityTabPage.Text = "Compatibility";
@@ -216,53 +220,6 @@
             this.compatibilityModeLabel.TabIndex = 5;
             this.compatibilityModeLabel.Text = "Compatibility Mode for Windows XP SP2";
             // 
-            // timerResolutionTabPage
-            // 
-            this.timerResolutionTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.timerResolutionTabPage.Controls.Add(this.minimumTimerResolutionTextBox);
-            this.timerResolutionTabPage.Controls.Add(this.maximumTimerResolutionTextBox);
-            this.timerResolutionTabPage.Controls.Add(this.maximumTimerResolutionLabel);
-            this.timerResolutionTabPage.Controls.Add(this.currentTimerResolutionTextBox);
-            this.timerResolutionTabPage.Controls.Add(this.defaultTimerResolutionButton);
-            this.timerResolutionTabPage.Controls.Add(this.minimumTimerResolutionLabel);
-            this.timerResolutionTabPage.Controls.Add(this.setTimerResolutionButton);
-            this.timerResolutionTabPage.Controls.Add(this.currentTimerResolutionLabel);
-            this.timerResolutionTabPage.Location = new System.Drawing.Point(4, 22);
-            this.timerResolutionTabPage.Name = "timerResolutionTabPage";
-            this.timerResolutionTabPage.Size = new System.Drawing.Size(321, 252);
-            this.timerResolutionTabPage.TabIndex = 3;
-            this.timerResolutionTabPage.Text = "Timer Resolution";
-            // 
-            // minimumTimerResolutionTextBox
-            // 
-            this.minimumTimerResolutionTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.minimumTimerResolutionTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.minimumTimerResolutionTextBox.Location = new System.Drawing.Point(147, 11);
-            this.minimumTimerResolutionTextBox.Name = "minimumTimerResolutionTextBox";
-            this.minimumTimerResolutionTextBox.ReadOnly = true;
-            this.minimumTimerResolutionTextBox.Size = new System.Drawing.Size(102, 20);
-            this.minimumTimerResolutionTextBox.TabIndex = 8;
-            // 
-            // maximumTimerResolutionTextBox
-            // 
-            this.maximumTimerResolutionTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.maximumTimerResolutionTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.maximumTimerResolutionTextBox.Location = new System.Drawing.Point(147, 45);
-            this.maximumTimerResolutionTextBox.Name = "maximumTimerResolutionTextBox";
-            this.maximumTimerResolutionTextBox.ReadOnly = true;
-            this.maximumTimerResolutionTextBox.Size = new System.Drawing.Size(102, 20);
-            this.maximumTimerResolutionTextBox.TabIndex = 7;
-            // 
-            // maximumTimerResolutionLabel
-            // 
-            this.maximumTimerResolutionLabel.AutoSize = true;
-            this.maximumTimerResolutionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.maximumTimerResolutionLabel.Location = new System.Drawing.Point(15, 48);
-            this.maximumTimerResolutionLabel.Name = "maximumTimerResolutionLabel";
-            this.maximumTimerResolutionLabel.Size = new System.Drawing.Size(110, 13);
-            this.maximumTimerResolutionLabel.TabIndex = 6;
-            this.maximumTimerResolutionLabel.Text = "Maximum Resolution: ";
-            // 
             // powerSettingsTabPage
             // 
             this.powerSettingsTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
@@ -272,7 +229,7 @@
             this.powerSettingsTabPage.Controls.Add(this.powerPlanLabel);
             this.powerSettingsTabPage.Location = new System.Drawing.Point(4, 22);
             this.powerSettingsTabPage.Name = "powerSettingsTabPage";
-            this.powerSettingsTabPage.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.powerSettingsTabPage.Padding = new System.Windows.Forms.Padding(3);
             this.powerSettingsTabPage.Size = new System.Drawing.Size(321, 252);
             this.powerSettingsTabPage.TabIndex = 1;
             this.powerSettingsTabPage.Text = "Power Settings";
@@ -323,6 +280,72 @@
             this.powerPlanLabel.TabIndex = 1;
             this.powerPlanLabel.Text = "Power Plan:";
             // 
+            // timerResolutionTabPage
+            // 
+            this.timerResolutionTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.timerResolutionTabPage.Controls.Add(this.minimumTimerResolutionTextBox);
+            this.timerResolutionTabPage.Controls.Add(this.maximumTimerResolutionTextBox);
+            this.timerResolutionTabPage.Controls.Add(this.maximumTimerResolutionLabel);
+            this.timerResolutionTabPage.Controls.Add(this.currentTimerResolutionTextBox);
+            this.timerResolutionTabPage.Controls.Add(this.defaultTimerResolutionButton);
+            this.timerResolutionTabPage.Controls.Add(this.minimumTimerResolutionLabel);
+            this.timerResolutionTabPage.Controls.Add(this.setTimerResolutionButton);
+            this.timerResolutionTabPage.Controls.Add(this.currentTimerResolutionLabel);
+            this.timerResolutionTabPage.Location = new System.Drawing.Point(4, 22);
+            this.timerResolutionTabPage.Name = "timerResolutionTabPage";
+            this.timerResolutionTabPage.Size = new System.Drawing.Size(321, 252);
+            this.timerResolutionTabPage.TabIndex = 3;
+            this.timerResolutionTabPage.Text = "Timer Resolution";
+            // 
+            // minimumTimerResolutionTextBox
+            // 
+            this.minimumTimerResolutionTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.minimumTimerResolutionTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.minimumTimerResolutionTextBox.Location = new System.Drawing.Point(147, 11);
+            this.minimumTimerResolutionTextBox.Name = "minimumTimerResolutionTextBox";
+            this.minimumTimerResolutionTextBox.ReadOnly = true;
+            this.minimumTimerResolutionTextBox.Size = new System.Drawing.Size(102, 20);
+            this.minimumTimerResolutionTextBox.TabIndex = 8;
+            // 
+            // maximumTimerResolutionTextBox
+            // 
+            this.maximumTimerResolutionTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.maximumTimerResolutionTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.maximumTimerResolutionTextBox.Location = new System.Drawing.Point(147, 45);
+            this.maximumTimerResolutionTextBox.Name = "maximumTimerResolutionTextBox";
+            this.maximumTimerResolutionTextBox.ReadOnly = true;
+            this.maximumTimerResolutionTextBox.Size = new System.Drawing.Size(102, 20);
+            this.maximumTimerResolutionTextBox.TabIndex = 7;
+            // 
+            // maximumTimerResolutionLabel
+            // 
+            this.maximumTimerResolutionLabel.AutoSize = true;
+            this.maximumTimerResolutionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.maximumTimerResolutionLabel.Location = new System.Drawing.Point(15, 48);
+            this.maximumTimerResolutionLabel.Name = "maximumTimerResolutionLabel";
+            this.maximumTimerResolutionLabel.Size = new System.Drawing.Size(110, 13);
+            this.maximumTimerResolutionLabel.TabIndex = 6;
+            this.maximumTimerResolutionLabel.Text = "Maximum Resolution: ";
+            // 
+            // fullscreenOptimizationsCheckBox
+            // 
+            this.fullscreenOptimizationsCheckBox.AutoSize = true;
+            this.fullscreenOptimizationsCheckBox.Location = new System.Drawing.Point(229, 124);
+            this.fullscreenOptimizationsCheckBox.Name = "fullscreenOptimizationsCheckBox";
+            this.fullscreenOptimizationsCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.fullscreenOptimizationsCheckBox.TabIndex = 58;
+            this.fullscreenOptimizationsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // fullscreenOptimizationsLabel
+            // 
+            this.fullscreenOptimizationsLabel.AutoSize = true;
+            this.fullscreenOptimizationsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.fullscreenOptimizationsLabel.Location = new System.Drawing.Point(16, 124);
+            this.fullscreenOptimizationsLabel.Name = "fullscreenOptimizationsLabel";
+            this.fullscreenOptimizationsLabel.Size = new System.Drawing.Size(158, 13);
+            this.fullscreenOptimizationsLabel.TabIndex = 57;
+            this.fullscreenOptimizationsLabel.Text = "Disable fullscreen Optimizations:";
+            // 
             // SystemPerformanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -337,10 +360,10 @@
             this.tabControl1.ResumeLayout(false);
             this.compatibilityTabPage.ResumeLayout(false);
             this.compatibilityTabPage.PerformLayout();
-            this.timerResolutionTabPage.ResumeLayout(false);
-            this.timerResolutionTabPage.PerformLayout();
             this.powerSettingsTabPage.ResumeLayout(false);
             this.powerSettingsTabPage.PerformLayout();
+            this.timerResolutionTabPage.ResumeLayout(false);
+            this.timerResolutionTabPage.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -370,5 +393,7 @@
         private System.Windows.Forms.Button setPowerPlanButton;
         private System.Windows.Forms.ComboBox powerPlanComboBox;
         private System.Windows.Forms.Button unlockUltimatePerformanceButton;
+        private System.Windows.Forms.CheckBox fullscreenOptimizationsCheckBox;
+        private System.Windows.Forms.Label fullscreenOptimizationsLabel;
     }
 }

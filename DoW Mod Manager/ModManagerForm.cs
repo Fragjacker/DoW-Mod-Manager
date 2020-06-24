@@ -22,14 +22,13 @@ namespace DoW_Mod_Manager
 
         private const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;
 
-        private readonly string currentDir = Directory.GetCurrentDirectory();
-
         private bool[] isInstalled;                                                 // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the FilePaths is installed or not.
         private bool isGameEXELAAPatched = false;
         private bool isGraphicsConfigLAAPatched = false;
         private bool isMessageBoxOnScreen = false;
         private bool isOldGame;
 
+        public readonly string CurrentDir = Directory.GetCurrentDirectory();
         public readonly string CurrentGameEXE = "";
         public readonly string GraphicsConfigEXE = "GraphicsConfig.exe";
         public string[] ModuleFilePaths;
@@ -151,11 +150,11 @@ namespace DoW_Mod_Manager
             CurrentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
 
-            currentDirTextBox.Text = currentDir;
+            currentDirTextBox.Text = CurrentDir;
             SetUpAllNecessaryMods();
-            isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(currentDir, CurrentGameEXE)[0]);
+            isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(CurrentDir, CurrentGameEXE)[0]);
             SetGameLAALabelText();
-            isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, GraphicsConfigEXE)[0]);
+            isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(CurrentDir, GraphicsConfigEXE)[0]);
             SetGraphicsConfigLAALabelText();
 
             // Watch for any changes in game directory
@@ -193,7 +192,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void AddFileSystemWatcher()
         {
-            fileSystemWatcher1.Path = currentDir;
+            fileSystemWatcher1.Path = CurrentDir;
 
             fileSystemWatcher1.NotifyFilter = NotifyFilters.LastAccess
                                     | NotifyFilters.LastWrite
@@ -246,7 +245,7 @@ namespace DoW_Mod_Manager
 
             for (int i = 0; i < itemsCount; i++)
             {
-                folderPath = currentDir + "\\" + ModFolderPaths[i];
+                folderPath = CurrentDir + "\\" + ModFolderPaths[i];
 
                 if (Directory.Exists(folderPath))
                 {
@@ -281,7 +280,7 @@ namespace DoW_Mod_Manager
 
             installedModsListBox.Items.Clear();
 
-            ModuleFilePaths = Directory.GetFiles(currentDir, "*.module");
+            ModuleFilePaths = Directory.GetFiles(CurrentDir, "*.module");
             if (ModuleFilePaths.Length > 0)
             {
                 for (int i = 0; i < ModuleFilePaths.Length; i++)
@@ -416,7 +415,7 @@ namespace DoW_Mod_Manager
             // Read the file and display it line by line.
             for (int i = 0; i < requiredModsCount; i++)
             {
-                string currentPath = currentDir + "\\" + GetValueFromLine(requiredModsList.Items[i].ToString(), false) + ".module";
+                string currentPath = CurrentDir + "\\" + GetValueFromLine(requiredModsList.Items[i].ToString(), false) + ".module";
                 
                 if (File.Exists(currentPath))
                 {
@@ -789,8 +788,8 @@ namespace DoW_Mod_Manager
         private void ButtonToggleLAA_Click(object sender, EventArgs e)
         {
             // Check if the Game is LAA Patched and fill in the Label properly
-            string currentGamePath = currentDir + "\\" + CurrentGameEXE;
-            string currentGraphucsConfigPath = currentDir + "\\" + GraphicsConfigEXE;
+            string currentGamePath = CurrentDir + "\\" + CurrentGameEXE;
+            string currentGraphucsConfigPath = CurrentDir + "\\" + GraphicsConfigEXE;
 
             if (IsFileNotLocked(currentGamePath) && IsFileNotLocked(currentGraphucsConfigPath))
             {
@@ -814,21 +813,21 @@ namespace DoW_Mod_Manager
         /// </summary>
         private string GetCurrentGameEXE()
         {
-            if (File.Exists(currentDir + "\\" + GameExecutable.SOULSTORM))
+            if (File.Exists(CurrentDir + "\\" + GameExecutable.SOULSTORM))
             {
                 currentDirectoryLabel.Text = "     Your current Soulstorm directory";
                 isOldGame = false;
                 return GameExecutable.SOULSTORM;
             }
 
-            if (File.Exists(currentDir + "\\" + GameExecutable.DARK_CRUSADE))
+            if (File.Exists(CurrentDir + "\\" + GameExecutable.DARK_CRUSADE))
             {
                 currentDirectoryLabel.Text = "  Your current Dark Crusade directory";
                 isOldGame = false;
                 return GameExecutable.DARK_CRUSADE;
             }
 
-            if (File.Exists(currentDir + "\\" + GameExecutable.WINTER_ASSAULT))
+            if (File.Exists(CurrentDir + "\\" + GameExecutable.WINTER_ASSAULT))
             {
                 currentDirectoryLabel.Text = "Your current Winter Assault directory";
                 isOldGame = true;
@@ -836,7 +835,7 @@ namespace DoW_Mod_Manager
             }
 
             // That part of the code will never be reached if you have Original + WA
-            if (File.Exists(currentDir + "\\" + GameExecutable.ORIGINAL))
+            if (File.Exists(CurrentDir + "\\" + GameExecutable.ORIGINAL))
             {
                 currentDirectoryLabel.Text = "   Your current Dawn of War directory";
                 isOldGame = true;
@@ -855,7 +854,7 @@ namespace DoW_Mod_Manager
 
         private void CheckForGraphicsConfigEXE()
         {
-            if (!File.Exists(currentDir + "\\" + GraphicsConfigEXE))
+            if (!File.Exists(CurrentDir + "\\" + GraphicsConfigEXE))
             {
                 if (!isMessageBoxOnScreen)
                 {
