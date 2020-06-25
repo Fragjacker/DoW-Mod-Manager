@@ -15,6 +15,7 @@
 - Compatibility Setting are supporting all DoW versions
 - Added ability to change Power Plans
 - Added ability to open Power Options from Control Panel
+- Added ability to show DoW Properties
 
 ## Version 1.8.2:
 

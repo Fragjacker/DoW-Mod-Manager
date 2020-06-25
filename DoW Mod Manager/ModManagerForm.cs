@@ -48,11 +48,11 @@ namespace DoW_Mod_Manager
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "<Pending>")]
         private Dictionary<string, int> settings = new Dictionary<string, int>
         {
-            [CHOICE_INDEX]    = 0,
-            [DEV]             = 0,
-            [NO_MOVIES]       = 1,
+            [CHOICE_INDEX] = 0,
+            [DEV] = 0,
+            [NO_MOVIES] = 1,
             [FORCE_HIGH_POLY] = 0,
-            [OPTIMIZATIONS]   = 0
+            [OPTIMIZATIONS] = 0
         };
 
         /// <summary>
@@ -330,16 +330,12 @@ namespace DoW_Mod_Manager
             }
         }
 
-
-
-
-
-       /// <summary>
+        /// <summary>
         /// This function returns 'true' if a Mod is set as "Playable = 1" in the .module file 
         /// </summary>
         /// <param name="textline"></param>
         /// <returns></returns>
-	 private bool ModIsPlayable(string modName)
+        private bool ModIsPlayable(string modName)
         {
             // Original or Winter Assault module file don't have a "Playable" state
             if (isOldGame)
@@ -416,7 +412,7 @@ namespace DoW_Mod_Manager
             for (int i = 0; i < requiredModsCount; i++)
             {
                 string currentPath = CurrentDir + "\\" + GetValueFromLine(requiredModsList.Items[i].ToString(), false) + ".module";
-                
+
                 if (File.Exists(currentPath))
                 {
                     using (StreamReader file = new StreamReader(currentPath))
@@ -456,7 +452,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-	private void StartVanillaGameButton_Click(object sender, EventArgs e)
+        private void StartVanillaGameButton_Click(object sender, EventArgs e)
         {
             StartGameWithOptions("W40k");
         }
@@ -496,7 +492,7 @@ namespace DoW_Mod_Manager
                     int triesCount = 0;
                     string procName = proc.ProcessName;
 
-                    TRY_AGAIN:
+                TRY_AGAIN:
                     triesCount++;
 
                     // We can't change priority or affinity of the game right after it starts
@@ -754,7 +750,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="file"></param>
         /// <returns>bool</returns>
-	private bool IsFileNotLocked(string file)
+        private bool IsFileNotLocked(string file)
         {
             FileStream fs = null;
             try

@@ -197,6 +197,11 @@ namespace DoW_Mod_Manager
             }
         }
 
+        private void OpenDoWPropertiesButton_Click(object sender, EventArgs e)
+        {
+            WinApiCalls.ShowFileProperties(modManager.CurrentGameEXE);
+        }
+
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             modifyRegistry = true;

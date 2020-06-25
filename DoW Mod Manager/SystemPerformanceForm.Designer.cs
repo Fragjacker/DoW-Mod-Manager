@@ -45,6 +45,7 @@
             this.comatibilityModeCheckBox = new System.Windows.Forms.CheckBox();
             this.compatibilityModeLabel = new System.Windows.Forms.Label();
             this.powerSettingsTabPage = new System.Windows.Forms.TabPage();
+            this.powerOptionsButton = new System.Windows.Forms.Button();
             this.unlockUltimatePerformanceButton = new System.Windows.Forms.Button();
             this.setPowerPlanButton = new System.Windows.Forms.Button();
             this.powerPlanComboBox = new System.Windows.Forms.ComboBox();
@@ -53,7 +54,7 @@
             this.minimumTimerResolutionTextBox = new System.Windows.Forms.TextBox();
             this.maximumTimerResolutionTextBox = new System.Windows.Forms.TextBox();
             this.maximumTimerResolutionLabel = new System.Windows.Forms.Label();
-            this.powerOptionsButton = new System.Windows.Forms.Button();
+            this.openDoWPropertiesButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.compatibilityTabPage.SuspendLayout();
             this.powerSettingsTabPage.SuspendLayout();
@@ -133,6 +134,7 @@
             // compatibilityTabPage
             // 
             this.compatibilityTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.compatibilityTabPage.Controls.Add(this.openDoWPropertiesButton);
             this.compatibilityTabPage.Controls.Add(this.fullscreenOptimizationsCheckBox);
             this.compatibilityTabPage.Controls.Add(this.fullscreenOptimizationsLabel);
             this.compatibilityTabPage.Controls.Add(this.setPropertiesButton);
@@ -170,12 +172,11 @@
             // 
             // setPropertiesButton
             // 
-            this.setPropertiesButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.setPropertiesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.setPropertiesButton.Enabled = false;
             this.setPropertiesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setPropertiesButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.setPropertiesButton.Location = new System.Drawing.Point(95, 200);
+            this.setPropertiesButton.Location = new System.Drawing.Point(21, 200);
             this.setPropertiesButton.Name = "setPropertiesButton";
             this.setPropertiesButton.Size = new System.Drawing.Size(120, 38);
             this.setPropertiesButton.TabIndex = 56;
@@ -254,6 +255,21 @@
             this.powerSettingsTabPage.Size = new System.Drawing.Size(321, 252);
             this.powerSettingsTabPage.TabIndex = 1;
             this.powerSettingsTabPage.Text = "Power Settings";
+            // 
+            // powerOptionsButton
+            // 
+            this.powerOptionsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.powerOptionsButton.Enabled = false;
+            this.powerOptionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.powerOptionsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.powerOptionsButton.Location = new System.Drawing.Point(99, 146);
+            this.powerOptionsButton.Name = "powerOptionsButton";
+            this.powerOptionsButton.Size = new System.Drawing.Size(120, 38);
+            this.powerOptionsButton.TabIndex = 59;
+            this.powerOptionsButton.Text = "Open Power Options";
+            this.powerOptionsButton.UseVisualStyleBackColor = false;
+            this.powerOptionsButton.Click += new System.EventHandler(this.PowerOptionsButton_Click);
             // 
             // unlockUltimatePerformanceButton
             // 
@@ -348,20 +364,18 @@
             this.maximumTimerResolutionLabel.TabIndex = 6;
             this.maximumTimerResolutionLabel.Text = "Maximum Resolution: ";
             // 
-            // powerOptionsButton
+            // openDoWPropertiesButton
             // 
-            this.powerOptionsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.powerOptionsButton.Enabled = false;
-            this.powerOptionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.powerOptionsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.powerOptionsButton.Location = new System.Drawing.Point(99, 146);
-            this.powerOptionsButton.Name = "powerOptionsButton";
-            this.powerOptionsButton.Size = new System.Drawing.Size(120, 38);
-            this.powerOptionsButton.TabIndex = 59;
-            this.powerOptionsButton.Text = "Open Power Options";
-            this.powerOptionsButton.UseVisualStyleBackColor = false;
-            this.powerOptionsButton.Click += new System.EventHandler(this.PowerOptionsButton_Click);
+            this.openDoWPropertiesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.openDoWPropertiesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.openDoWPropertiesButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.openDoWPropertiesButton.Location = new System.Drawing.Point(178, 200);
+            this.openDoWPropertiesButton.Name = "openDoWPropertiesButton";
+            this.openDoWPropertiesButton.Size = new System.Drawing.Size(120, 38);
+            this.openDoWPropertiesButton.TabIndex = 59;
+            this.openDoWPropertiesButton.Text = "Open DoW Properties";
+            this.openDoWPropertiesButton.UseVisualStyleBackColor = false;
+            this.openDoWPropertiesButton.Click += new System.EventHandler(this.OpenDoWPropertiesButton_Click);
             // 
             // SystemPerformanceForm
             // 
@@ -413,5 +427,6 @@
         private System.Windows.Forms.CheckBox fullscreenOptimizationsCheckBox;
         private System.Windows.Forms.Label fullscreenOptimizationsLabel;
         private System.Windows.Forms.Button powerOptionsButton;
+        private System.Windows.Forms.Button openDoWPropertiesButton;
     }
 }
