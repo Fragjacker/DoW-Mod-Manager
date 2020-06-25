@@ -36,28 +36,28 @@ namespace DoW_Mod_Manager
 
         /// <summary>TimeBeginPeriod(). See the Windows API documentation for details.</summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Interoperability", "CA1401:PInvokesShouldNotBeVisible"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2118:ReviewSuppressUnmanagedCodeSecurityUsage"), SuppressUnmanagedCodeSecurity]
-        [DllImport("winmm.dll", EntryPoint = "timeBeginPeriod", SetLastError = true)]
+        [DllImport("winmm.dll", EntryPoint = "TimeBeginPeriod", SetLastError = true)]
         public static extern uint TimeBeginPeriod(uint uMilliseconds);
 
         /// <summary>TimeEndPeriod(). See the Windows API documentation for details.</summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Interoperability", "CA1401:PInvokesShouldNotBeVisible"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2118:ReviewSuppressUnmanagedCodeSecurityUsage"), SuppressUnmanagedCodeSecurity]
-        [DllImport("winmm.dll", EntryPoint = "timeEndPeriod", SetLastError = true)]
+        [DllImport("winmm.dll", EntryPoint = "TimeEndPeriod", SetLastError = true)]
         public static extern uint TimeEndPeriod(uint uMilliseconds);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Interoperability", "CA1401:PInvokesShouldNotBeVisible"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2118:ReviewSuppressUnmanagedCodeSecurityUsage"), SuppressUnmanagedCodeSecurity]
-        [DllImport("powrprof.dll")]
+        [DllImport("powrprof.dll", EntryPoint = "PowerGetActiveScheme")]
         public static extern uint PowerGetActiveScheme(IntPtr UserRootPowerKey, ref IntPtr ActivePolicyGuid);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Interoperability", "CA1401:PInvokesShouldNotBeVisible"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2118:ReviewSuppressUnmanagedCodeSecurityUsage"), SuppressUnmanagedCodeSecurity]
-        [DllImport("powrprof.dll")]
-        public static extern uint PowerSetActiveScheme(IntPtr UserRootPowerKey, [MarshalAs(UnmanagedType.LPStruct)] Guid SchemeGuid);
+        [DllImport("powrprof.dll", EntryPoint = "PowerSetActiveScheme")]
+        public static extern uint PowerSetActiveScheme(IntPtr UserRootPowerKey, ref Guid ActivePolicyGuid);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Interoperability", "CA1401:PInvokesShouldNotBeVisible"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2118:ReviewSuppressUnmanagedCodeSecurityUsage"), SuppressUnmanagedCodeSecurity]
-        [DllImport("powrprof.dll")]
+        [DllImport("powrprof.dll", EntryPoint = "PowerReadACValue")]
         public static extern uint PowerReadACValue(IntPtr RootPowerKey, ref Guid SchemeGuid, ref Guid SubGroupOfPowerSettingGuid, ref Guid PowerSettingGuid, ref int Type, ref int Buffer, ref uint BufferSize);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Interoperability", "CA1401:PInvokesShouldNotBeVisible"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2118:ReviewSuppressUnmanagedCodeSecurityUsage"), SuppressUnmanagedCodeSecurity]
-        [DllImport("powrprof.dll")]
+        [DllImport("powrprof.dll", EntryPoint = "PowerWriteACValueIndex")]
         public static extern uint PowerWriteACValueIndex(IntPtr RootPowerKey, [MarshalAs(UnmanagedType.LPStruct)] Guid SchemeGuid, [MarshalAs(UnmanagedType.LPStruct)] Guid SubGroupOfPowerSettingsGuid, [MarshalAs(UnmanagedType.LPStruct)] Guid PowerSettingGuid, int AcValueIndex);
     }
 }

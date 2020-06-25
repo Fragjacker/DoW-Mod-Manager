@@ -13,6 +13,8 @@
 - Added ability to unlock "Ultimate Performance" power plan
 - Added ability to disable fullscreen optimizations in Compatibity tabs
 - Compatibility Setting are supporting all DoW versions
+- Added ability to change Power Plans
+- Added ability to open Power Options from Control Panel
 
 ## Version 1.8.2:
 

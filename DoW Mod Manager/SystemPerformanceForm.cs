@@ -59,7 +59,7 @@ namespace DoW_Mod_Manager
 
             REG_DOW_PATH = modManager.CurrentDir + "\\" + modManager.CurrentGameEXE;
 
-            // We are checking for Compatibility settings for Soulstorm in Registry
+            // We are checking for Compatibility settings in Registry
             using (RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_COMPATIBILITY_PATH, false))
             {
                 if (key != null)
@@ -203,33 +203,35 @@ namespace DoW_Mod_Manager
             setPropertiesButton.Enabled = true;
         }
 
+        private void PowerPlanComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            setPowerPlanButton.Enabled = true;
+        }
+
         private void SetPowerPlanButton_Click(object sender, EventArgs e)
         {
-            // This action needs Administrator Priviledge!
-            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_POWER_SCHEMES_PATH, true))
+            Guid powerPlanGUID = new Guid(GUID_BALANCED);
+
+            switch (powerPlanComboBox.SelectedItem)
             {
-                if (key != null)
-                {
-                    switch (powerPlanComboBox.SelectedItem)
-                    {
-                        case NAME_ULTIMATE_PERFORMANCE:
-                            if (ultimatePerformanceGUIDIndex == 2)
-                                key.SetValue("ActivePowerScheme", GUID_ULTIMATE_PERFORMANCE_2, RegistryValueKind.String);
-                            else
-                                key.SetValue("ActivePowerScheme", GUID_ULTIMATE_PERFORMANCE, RegistryValueKind.String);
-                            break;
-                        case NAME_MAX_PERFORMANCE:
-                            key.SetValue("ActivePowerScheme", GUID_MAX_PERFORMANCE, RegistryValueKind.String);
-                            break;
-                        case NAME_BALANCED:
-                            key.SetValue("ActivePowerScheme", GUID_BALANCED, RegistryValueKind.String);
-                            break;
-                        case NAME_POWER_SAVER:
-                            key.SetValue("ActivePowerScheme", GUID_POWER_SAVER, RegistryValueKind.String);
-                            break;
-                    }
-                }
+                case NAME_ULTIMATE_PERFORMANCE:
+                    if (ultimatePerformanceGUIDIndex == 2)
+                        powerPlanGUID = new Guid(GUID_ULTIMATE_PERFORMANCE_2);
+                    else
+                        powerPlanGUID = new Guid(GUID_ULTIMATE_PERFORMANCE);
+                    break;
+                case NAME_MAX_PERFORMANCE:
+                    powerPlanGUID = new Guid(GUID_MAX_PERFORMANCE);
+                    break;
+                case NAME_BALANCED:
+                    powerPlanGUID = new Guid(GUID_BALANCED);
+                    break;
+                case NAME_POWER_SAVER:
+                    powerPlanGUID = new Guid(GUID_POWER_SAVER);
+                    break;
             }
+
+            WinApiCalls.PowerSetActiveScheme(IntPtr.Zero, ref powerPlanGUID);
 
             setPowerPlanButton.Enabled = false;
         }
@@ -241,9 +243,10 @@ namespace DoW_Mod_Manager
             unlockUltimatePerformanceButton.Enabled = false;
         }
 
-        private void PowerPlanComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void PowerOptionsButton_Click(object sender, EventArgs e)
         {
-            setPowerPlanButton.Enabled = true;
+            var root = Environment.GetEnvironmentVariable("SystemRoot");
+            Process.Start(root + "\\system32\\control.exe", "/name Microsoft.PowerOptions");
         }
     }
 }

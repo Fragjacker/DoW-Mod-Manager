@@ -35,6 +35,8 @@
             this.currentTimerResolutionTextBox = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.compatibilityTabPage = new System.Windows.Forms.TabPage();
+            this.fullscreenOptimizationsCheckBox = new System.Windows.Forms.CheckBox();
+            this.fullscreenOptimizationsLabel = new System.Windows.Forms.Label();
             this.setPropertiesButton = new System.Windows.Forms.Button();
             this.HDPIiScalingCheckBox = new System.Windows.Forms.CheckBox();
             this.HDPIScalingLabel = new System.Windows.Forms.Label();
@@ -51,8 +53,7 @@
             this.minimumTimerResolutionTextBox = new System.Windows.Forms.TextBox();
             this.maximumTimerResolutionTextBox = new System.Windows.Forms.TextBox();
             this.maximumTimerResolutionLabel = new System.Windows.Forms.Label();
-            this.fullscreenOptimizationsCheckBox = new System.Windows.Forms.CheckBox();
-            this.fullscreenOptimizationsLabel = new System.Windows.Forms.Label();
+            this.powerOptionsButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.compatibilityTabPage.SuspendLayout();
             this.powerSettingsTabPage.SuspendLayout();
@@ -148,6 +149,25 @@
             this.compatibilityTabPage.TabIndex = 0;
             this.compatibilityTabPage.Text = "Compatibility";
             // 
+            // fullscreenOptimizationsCheckBox
+            // 
+            this.fullscreenOptimizationsCheckBox.AutoSize = true;
+            this.fullscreenOptimizationsCheckBox.Location = new System.Drawing.Point(229, 124);
+            this.fullscreenOptimizationsCheckBox.Name = "fullscreenOptimizationsCheckBox";
+            this.fullscreenOptimizationsCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.fullscreenOptimizationsCheckBox.TabIndex = 58;
+            this.fullscreenOptimizationsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // fullscreenOptimizationsLabel
+            // 
+            this.fullscreenOptimizationsLabel.AutoSize = true;
+            this.fullscreenOptimizationsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.fullscreenOptimizationsLabel.Location = new System.Drawing.Point(16, 124);
+            this.fullscreenOptimizationsLabel.Name = "fullscreenOptimizationsLabel";
+            this.fullscreenOptimizationsLabel.Size = new System.Drawing.Size(158, 13);
+            this.fullscreenOptimizationsLabel.TabIndex = 57;
+            this.fullscreenOptimizationsLabel.Text = "Disable fullscreen Optimizations:";
+            // 
             // setPropertiesButton
             // 
             this.setPropertiesButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -223,6 +243,7 @@
             // powerSettingsTabPage
             // 
             this.powerSettingsTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.powerSettingsTabPage.Controls.Add(this.powerOptionsButton);
             this.powerSettingsTabPage.Controls.Add(this.unlockUltimatePerformanceButton);
             this.powerSettingsTabPage.Controls.Add(this.setPowerPlanButton);
             this.powerSettingsTabPage.Controls.Add(this.powerPlanComboBox);
@@ -327,24 +348,20 @@
             this.maximumTimerResolutionLabel.TabIndex = 6;
             this.maximumTimerResolutionLabel.Text = "Maximum Resolution: ";
             // 
-            // fullscreenOptimizationsCheckBox
+            // powerOptionsButton
             // 
-            this.fullscreenOptimizationsCheckBox.AutoSize = true;
-            this.fullscreenOptimizationsCheckBox.Location = new System.Drawing.Point(229, 124);
-            this.fullscreenOptimizationsCheckBox.Name = "fullscreenOptimizationsCheckBox";
-            this.fullscreenOptimizationsCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.fullscreenOptimizationsCheckBox.TabIndex = 58;
-            this.fullscreenOptimizationsCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // fullscreenOptimizationsLabel
-            // 
-            this.fullscreenOptimizationsLabel.AutoSize = true;
-            this.fullscreenOptimizationsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.fullscreenOptimizationsLabel.Location = new System.Drawing.Point(16, 124);
-            this.fullscreenOptimizationsLabel.Name = "fullscreenOptimizationsLabel";
-            this.fullscreenOptimizationsLabel.Size = new System.Drawing.Size(158, 13);
-            this.fullscreenOptimizationsLabel.TabIndex = 57;
-            this.fullscreenOptimizationsLabel.Text = "Disable fullscreen Optimizations:";
+            this.powerOptionsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.powerOptionsButton.Enabled = false;
+            this.powerOptionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.powerOptionsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.powerOptionsButton.Location = new System.Drawing.Point(99, 146);
+            this.powerOptionsButton.Name = "powerOptionsButton";
+            this.powerOptionsButton.Size = new System.Drawing.Size(120, 38);
+            this.powerOptionsButton.TabIndex = 59;
+            this.powerOptionsButton.Text = "Open Power Options";
+            this.powerOptionsButton.UseVisualStyleBackColor = false;
+            this.powerOptionsButton.Click += new System.EventHandler(this.PowerOptionsButton_Click);
             // 
             // SystemPerformanceForm
             // 
@@ -395,5 +412,6 @@
         private System.Windows.Forms.Button unlockUltimatePerformanceButton;
         private System.Windows.Forms.CheckBox fullscreenOptimizationsCheckBox;
         private System.Windows.Forms.Label fullscreenOptimizationsLabel;
+        private System.Windows.Forms.Button powerOptionsButton;
     }
 }
