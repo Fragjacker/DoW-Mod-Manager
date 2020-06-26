@@ -866,7 +866,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         public void ChangeSetting(string setting, int newValue)
         {
-            // Makes sure that newValue is in range of acceptable values
+            // Makes sure that newValue is in range of acceptable values. Bsically a Clamp() method
             if (newValue < 0)
                 newValue = 0;
             else if (newValue > 1)
@@ -891,6 +891,11 @@ namespace DoW_Mod_Manager
                     optimizationsCheckBox.Checked = Convert.ToBoolean(newValue);
                     break;
             }
+        }
+
+        private void HomePageLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/Fragjacker/DoW-Mod-Manager");
         }
     }
 }

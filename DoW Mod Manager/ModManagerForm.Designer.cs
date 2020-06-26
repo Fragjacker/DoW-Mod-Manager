@@ -28,7 +28,6 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModManagerForm));
             this.currentDirTextBox = new System.Windows.Forms.TextBox();
             this.currentDirectoryLabel = new System.Windows.Forms.Label();
             this.installedModsLabel = new System.Windows.Forms.Label();
@@ -53,6 +52,7 @@ namespace DoW_Mod_Manager
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.downloadButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
+            this.homePageLinkLabel = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -170,9 +170,9 @@ namespace DoW_Mod_Manager
             this.authorLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.authorLabel.Location = new System.Drawing.Point(16, 544);
             this.authorLabel.Name = "authorLabel";
-            this.authorLabel.Size = new System.Drawing.Size(111, 13);
+            this.authorLabel.Size = new System.Drawing.Size(198, 13);
             this.authorLabel.TabIndex = 8;
-            this.authorLabel.Text = "Written by FragJacker";
+            this.authorLabel.Text = "Created by FragJacker and IgorTheLight";
             // 
             // advancedStartOptionsLabel
             // 
@@ -361,12 +361,25 @@ namespace DoW_Mod_Manager
             this.settingsButton.UseVisualStyleBackColor = false;
             this.settingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
+            // homePageLinkLabel
+            // 
+            this.homePageLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.homePageLinkLabel.AutoSize = true;
+            this.homePageLinkLabel.Location = new System.Drawing.Point(728, 544);
+            this.homePageLinkLabel.Name = "homePageLinkLabel";
+            this.homePageLinkLabel.Size = new System.Drawing.Size(85, 13);
+            this.homePageLinkLabel.TabIndex = 23;
+            this.homePageLinkLabel.TabStop = true;
+            this.homePageLinkLabel.Text = "Visit Home Page";
+            this.homePageLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HomePageLinkLabel_LinkClicked);
+            // 
             // ModManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(828, 561);
+            this.Controls.Add(this.homePageLinkLabel);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.downloadButton);
             this.Controls.Add(this.optimizationsCheckBox);
@@ -429,5 +442,6 @@ namespace DoW_Mod_Manager
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.Button downloadButton;
         private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.LinkLabel homePageLinkLabel;
     }
 }
