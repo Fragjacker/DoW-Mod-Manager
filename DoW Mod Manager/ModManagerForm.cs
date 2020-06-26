@@ -56,7 +56,7 @@ namespace DoW_Mod_Manager
         };
 
         /// <summary>
-        ///  Initializes all the necessary components used by the GUI
+        /// Initializes all the necessary components used by the GUI
         /// </summary>
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public ModManagerForm()
@@ -164,6 +164,9 @@ namespace DoW_Mod_Manager
             installedModsListBox.Select();
         }
 
+        /// <summary>
+        /// This method is called when Form is about to be closed.
+        /// </summary>
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
             string str = $"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n" +
@@ -175,7 +178,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function handles the reselection of a previously selected mod.
+        /// This method handles the reselection of a previously selected mod.
         /// </summary>
         private void ReselectSavedMod()
         {
@@ -209,7 +212,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function defines the event handlers for when some file was changed.
+        /// This method defines the event handlers for when some file was changed.
         /// </summary>
         /// <param name="source"></param>
         /// <param name="e"></param>
@@ -270,11 +273,12 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// Finds all installed .module files and displays them in the Installed Mods Listbox without their .module extension
+        /// Finds all installed *.module files and displays them in the Installed Mods Listbox without extension
         /// </summary>
         private void GetMods()
         {
-            List<string> newfilePathsList = new List<string>();        // Make a new list for the new Pathitems
+            // Make a new list for the new Pathitems
+            List<string> newfilePathsList = new List<string>();
             AllFoundModules = new List<string>();
             AllValidModules = new List<string>();
 
@@ -295,29 +299,45 @@ namespace DoW_Mod_Manager
                     // Find the List of ALL found module files for the Mod Merger available Mods List
                     AllFoundModules.Add(fileName);
 
-                    // Read the *.module file to see if the mod is playable
+                    // Read the *.module file to see the version and if the mod is playable
                     using (StreamReader file = new StreamReader(filePath))
                     {
                         string line;
+                        bool isPlayable = false;
+                        string modVersion = "";
 
                         // Filter the unplayable mods and populate the List only with playable mods
                         while ((line = file.ReadLine()) != null)
                         {
-                            if (ModIsPlayable(line))
-                            {
-                                newfilePathsList.Add(ModuleFilePaths[i]);
-                                installedModsListBox.Items.Add(fileName);
-                                AllValidModules.Add(fileName);
-                            }
+                            // Winter Assault of Original doesn't have a "Playable" state
+                            if (line.Contains("Playable = 1") || isOldGame)
+                                isPlayable = true;
 
-                            // We will not find unplayable mods in Original or Winter Assault - there was no "Playable" state
-                            if (isOldGame)
-                                break;
+                            // Add information about a version of a mod
+                            if (line.Contains("ModVersion"))
+                            {
+                                int indexOfEqualSigh = line.IndexOf('=');
+                                modVersion = line.Substring(indexOfEqualSigh + 1, line.Length - indexOfEqualSigh - 1);
+                            }
+                        }
+
+                        if (isPlayable)
+                        {
+                            string newItem = fileName;
+
+                            newfilePathsList.Add(ModuleFilePaths[i]);
+                            AllValidModules.Add(newItem);
+
+                            if (modVersion.Length > 0)
+                                newItem += $"  (Version{modVersion})";
+
+                            installedModsListBox.Items.Add(newItem);
                         }
                     }
                 }
 
-                ModuleFilePaths = newfilePathsList.ToArray();        //Override the old array that contained unplayable mods with the new one.
+                // Override the old array that contained unplayable mods with the new one.
+                ModuleFilePaths = newfilePathsList.ToArray();        
             }
             else
             {
@@ -328,24 +348,6 @@ namespace DoW_Mod_Manager
                     Application.Exit();
                 }
             }
-        }
-
-        /// <summary>
-        /// This function returns 'true' if a Mod is set as "Playable = 1" in the .module file 
-        /// </summary>
-        /// <param name="textline"></param>
-        /// <returns></returns>
-        private bool ModIsPlayable(string modName)
-        {
-            // Original or Winter Assault module file don't have a "Playable" state
-            if (isOldGame)
-                return true;
-
-            // It must be lower case!
-            const string pattern = "playable = 1";
-
-            modName = modName.ToLower();
-            return modName.Contains(pattern);
         }
 
         private bool IsModRequired(string modName)

@@ -21,6 +21,7 @@
 - Updated CornCobMan's Fun Mod for Soulstorm mod's link (1.87 to 1.88)
 - Updated Veteran Mod for Dark Crusade with additional file links that are required
 - Added version descriptions to all mods in ModDownloader
+- Added version detection for mods in ModManager
 
 ## Version 1.8.2:
 
