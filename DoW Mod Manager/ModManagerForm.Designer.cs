@@ -53,6 +53,7 @@ namespace DoW_Mod_Manager
             this.downloadButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
             this.homePageLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.fixMissingModButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -64,7 +65,7 @@ namespace DoW_Mod_Manager
             // 
             // currentDirTextBox
             // 
-            this.currentDirTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.currentDirTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentDirTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.currentDirTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -106,8 +107,8 @@ namespace DoW_Mod_Manager
             // 
             // installedModsListBox
             // 
-            this.installedModsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.installedModsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.installedModsListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.installedModsListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -122,8 +123,8 @@ namespace DoW_Mod_Manager
             // 
             // requiredModsList
             // 
-            this.requiredModsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.requiredModsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.requiredModsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.requiredModsList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -135,6 +136,7 @@ namespace DoW_Mod_Manager
             this.requiredModsList.Size = new System.Drawing.Size(388, 381);
             this.requiredModsList.TabIndex = 5;
             this.requiredModsList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.RequiredModsList_DrawItem);
+            this.requiredModsList.SelectedIndexChanged += new System.EventHandler(this.RequiredModsList_SelectedIndexChanged);
             // 
             // startModButton
             // 
@@ -249,6 +251,22 @@ namespace DoW_Mod_Manager
             this.mergeButton.UseVisualStyleBackColor = false;
             this.mergeButton.Click += new System.EventHandler(this.ModMergeButton_Click);
             // 
+            // fixMissingModButton
+            // 
+            this.fixMissingModButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fixMissingModButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.fixMissingModButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.fixMissingModButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.fixMissingModButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.fixMissingModButton.Location = new System.Drawing.Point(760, 83);
+            this.fixMissingModButton.Name = "fixMissingModButton";
+            this.fixMissingModButton.Size = new System.Drawing.Size(59, 43);
+            this.fixMissingModButton.TabIndex = 24;
+            this.fixMissingModButton.Text = "Find MISSING";
+            this.fixMissingModButton.UseVisualStyleBackColor = false;
+            this.fixMissingModButton.Click += new System.EventHandler(this.FixMissingModButton_Click);
+            this.fixMissingModButton.Enabled = false;
+            // 
             // startVanillaButton
             // 
             this.startVanillaButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -285,8 +303,8 @@ namespace DoW_Mod_Manager
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Location = new System.Drawing.Point(12, 131);
@@ -296,8 +314,8 @@ namespace DoW_Mod_Manager
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(0, 3);
             this.splitContainer1.Name = "splitContainer1";
@@ -379,6 +397,7 @@ namespace DoW_Mod_Manager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(828, 561);
+            this.Controls.Add(this.fixMissingModButton);
             this.Controls.Add(this.homePageLinkLabel);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.downloadButton);
@@ -443,5 +462,6 @@ namespace DoW_Mod_Manager
         private System.Windows.Forms.Button downloadButton;
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.LinkLabel homePageLinkLabel;
+        private System.Windows.Forms.Button fixMissingModButton;
     }
 }

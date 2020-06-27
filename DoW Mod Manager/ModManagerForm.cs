@@ -22,7 +22,16 @@ namespace DoW_Mod_Manager
 
         private const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;
 
-        private bool[] isInstalled;                                                 // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the FilePaths is installed or not.
+        private const string CONFIG_FILE_NAME = "DoW Mod Manager.ini";
+
+        private const string CHOICE_INDEX = "ChoiceIndex";
+        public const string DEV = "Dev";
+        public const string NO_MOVIES = "NoMovies";
+        public const string FORCE_HIGH_POLY = "ForceHighPoly";
+        public const string OPTIMIZATIONS = "Optimizations";
+
+        // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the FilePaths is installed or not.
+        private bool[] isInstalled;
         private bool isGameEXELAAPatched = false;
         private bool isGraphicsConfigLAAPatched = false;
         private bool isMessageBoxOnScreen = false;
@@ -35,14 +44,6 @@ namespace DoW_Mod_Manager
         public string[] ModFolderPaths;
         public List<string> AllFoundModules;                                        // Contains the list of all available Mods that will be used by the Mod Merger
         public List<string> AllValidModules;                                        // Contains the list of all playable Mods that will be used by the Mod Merger
-
-        private const string CONFIG_FILE_NAME = "DoW Mod Manager.ini";
-
-        private const string CHOICE_INDEX = "ChoiceIndex";
-        public const string DEV = "Dev";
-        public const string NO_MOVIES = "NoMovies";
-        public const string FORCE_HIGH_POLY = "ForceHighPoly";
-        public const string OPTIMIZATIONS = "Optimizations";
 
         // Don't make Settings readonly or it couldn't be changed from outside the class!
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "<Pending>")]
@@ -227,50 +228,10 @@ namespace DoW_Mod_Manager
         public void SetUpAllNecessaryMods()
         {
             GetMods();
-            GetModFoldersFromFile();
+            CheckModFoldersFromFile();
             ReselectSavedMod();
         }
 
-        /// <summary>
-        /// Checks if the Mods are actually REALLY installed by checking if their asset folders are present by the name specified within the .module files "Modfolder" tagline
-        /// </summary>
-        public void CheckforInstalledMods()
-        {
-            startModButton.Enabled = true;
-
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark.png");
-            pictureBox.Image = Image.FromStream(myStream);
-
-            string localstring;
-            string folderPath;
-            int itemsCount = requiredModsList.Items.Count;
-            isInstalled = new bool[itemsCount];
-
-            for (int i = 0; i < itemsCount; i++)
-            {
-                folderPath = CurrentDir + "\\" + ModFolderPaths[i];
-
-                if (Directory.Exists(folderPath))
-                {
-                    localstring = requiredModsList.Items[i].ToString();
-                    requiredModsList.Items.RemoveAt(i);
-                    requiredModsList.Items.Insert(i, localstring + "...INSTALLED!");
-                    isInstalled[i] = true;
-                }
-                else
-                {
-                    localstring = requiredModsList.Items[i].ToString();
-                    requiredModsList.Items.RemoveAt(i);
-                    requiredModsList.Items.Insert(i, localstring + "...MISSING!");
-                    isInstalled[i] = false;
-                    startModButton.Enabled = false;
-
-                    myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross.png");
-                    pictureBox.Image = Image.FromStream(myStream);
-                }
-            }
-            myStream.Close();
-        }
 
         /// <summary>
         /// Finds all installed *.module files and displays them in the Installed Mods Listbox without extension
@@ -350,21 +311,6 @@ namespace DoW_Mod_Manager
             }
         }
 
-        private bool IsModRequired(string modName)
-        {
-            const string pattern = "RequiredMod";
-            const string patternCommented1 = ";;";
-            const string patternCommented2 = "--";
-            const string patternCommented3 = "//";
-
-            if (modName.Contains(pattern))
-                return true;
-            if (modName.StartsWith(patternCommented1) || modName.StartsWith(patternCommented2) || modName.StartsWith(patternCommented3))
-                return false;
-
-            return false;
-        }
-
         /// <summary>
         /// When selecting a different installed Mod, update the required mods Listbox
         /// </summary>
@@ -375,6 +321,7 @@ namespace DoW_Mod_Manager
             startModButton.Enabled = true;
 
             int index = installedModsListBox.SelectedIndex;
+
             if (index < 0 || index >= installedModsListBox.Items.Count)
             {
                 index = settings[CHOICE_INDEX];
@@ -383,41 +330,63 @@ namespace DoW_Mod_Manager
             else
                 settings[CHOICE_INDEX] = index;
 
-            string currentPath = ModuleFilePaths[index];
-            string line;
+            string currentModuleFilePath = ModuleFilePaths[index];
 
             requiredModsList.Items.Clear();
 
             // Read the file and display it line by line.
-            using (StreamReader file = new StreamReader(currentPath))
+            using (StreamReader file = new StreamReader(currentModuleFilePath))
             {
+                string line;
+
                 // Populate the Required Mods List with entries from the .module file
                 while ((line = file.ReadLine()) != null)
                 {
-                    if (IsModRequired(line))
+                    if (line.StartsWith(";;") || line.StartsWith("--") || line.StartsWith("//"))
+                        continue;
+
+                    if (line.Contains("RequiredMod"))
+                    {
+                        line = GetValueFromLine(line, false);
+                        
                         requiredModsList.Items.Add(line);
+                    }
                 }
-                GetModFoldersFromFile();
+
+                CheckModFoldersFromFile();
                 CheckforInstalledMods();
             }
         }
 
         /// <summary>
-        ///  This method checks if the Mod Assett folders, specified in each .module file, do actually exist
+        /// When selecting a different required Mod, check if fixMod button is needed
         /// </summary>
-        private void GetModFoldersFromFile()
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RequiredModsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (requiredModsList.SelectedItem.ToString().Contains("MISSING"))
+                fixMissingModButton.Enabled = true;
+            else
+                fixMissingModButton.Enabled = false;
+        }
+
+        /// <summary>
+        /// This method checks if the Mod Assett folders, specified in each *.module file, do actually exist
+        /// </summary>
+        private void CheckModFoldersFromFile()
         {
             int requiredModsCount = requiredModsList.Items.Count;
             ModFolderPaths = new string[requiredModsCount];
 
-            // Read the file and display it line by line.
+            // Read the file line by line and check for "ModFolder" attribute
             for (int i = 0; i < requiredModsCount; i++)
             {
-                string currentPath = CurrentDir + "\\" + GetValueFromLine(requiredModsList.Items[i].ToString(), false) + ".module";
+                string moduleFilePath = CurrentDir + "\\" + requiredModsList.Items[i].ToString() + ".module";
 
-                if (File.Exists(currentPath))
+                if (File.Exists(moduleFilePath))
                 {
-                    using (StreamReader file = new StreamReader(currentPath))
+                    using (StreamReader file = new StreamReader(moduleFilePath))
                     {
                         string line;
 
@@ -433,13 +402,62 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// Checks if the Mods are actually REALLY installed by checking if their asset folders are present by the name specified within the *.module files "Modfolder" tagline
+        /// </summary>
+        public void CheckforInstalledMods()
+        {
+            startModButton.Enabled = true;
+            fixMissingModButton.Enabled = false;
+
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark.png");
+            pictureBox.Image = Image.FromStream(myStream);
+
+            string requredMod;
+            string folderPath;
+            int itemsCount = requiredModsList.Items.Count;
+            isInstalled = new bool[itemsCount];
+
+            for (int i = 0; i < itemsCount; i++)
+            {
+                folderPath = CurrentDir + "\\" + ModFolderPaths[i];
+
+                requredMod = requiredModsList.Items[i].ToString();
+                requiredModsList.Items.RemoveAt(i);
+
+                if (Directory.Exists(folderPath))
+                {
+                    requiredModsList.Items.Insert(i, requredMod + " ...INSTALLED!");
+                    isInstalled[i] = true;
+                }
+                else
+                {
+                    requiredModsList.Items.Insert(i, requredMod + " ...MISSING!");
+                    isInstalled[i] = false;
+                    startModButton.Enabled = false;
+
+                    myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross.png");
+                    pictureBox.Image = Image.FromStream(myStream);
+                }
+            }
+            myStream.Close();
+        }
+
+        /// <summary>
+        /// This method could get a value from a line of text
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="deleteModule"></param>
+        /// <returns>string</returns>
         private string GetValueFromLine(string line, bool deleteModule)
         {
-            int indexOfEqual = line.IndexOf('=');
+            int indexOfEqualSigh = line.IndexOf('=');
 
-            if (indexOfEqual > 0)
+            if (indexOfEqualSigh > 0)
             {
-                line = line.Substring(indexOfEqual + 1, line.Length - indexOfEqual - 1);
+                // Deleting all chars before equal sigh
+                line = line.Substring(indexOfEqualSigh + 1, line.Length - indexOfEqualSigh - 1);
+
                 if (deleteModule)
                     return line.Replace(" ", "").Replace(".module", "");
                 else
@@ -611,15 +629,31 @@ namespace DoW_Mod_Manager
             downloaderForm.Show();
         }
 
+        private void FixMissingModButton_Click(object sender, EventArgs e)
+        {
+            if (requiredModsList.SelectedItem == null)
+                return;
+
+            string modName = requiredModsList.SelectedItem.ToString();
+
+            int indexOfSpace = modName.IndexOf(" ");
+            modName = modName.Substring(0, indexOfSpace);
+
+            if (modName == "W40k" || modName == "WXP" || modName == "DXP" || modName == "DXP2")
+            {
+                MessageBox.Show("You are missing one of the base modules! Reinstall the game to fix it", "Warning!");
+                return;
+            }
+
+            ModDownloaderForm downloaderForm = new ModDownloaderForm(this, modName);
+            downloaderForm.Show();
+        }
+
         private void ModMergeButton_Click(object sender, EventArgs e)
         {
             ModMergerForm mergerWindow = new ModMergerForm(this);
             mergerWindow.Show();
         }
-
-        /// <summary>
-        /// This function draws the LAA text for the Soulstorm label depending on whether the flag is true (Green) or false (Red).
-        /// </summary>
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
@@ -627,6 +661,9 @@ namespace DoW_Mod_Manager
             settingsForm.Show();
         }
 
+        /// <summary>
+        /// This method draws the LAA text for the Soulstorm label depending on whether the flag is true (Green) or false (Red).
+        /// </summary>
         private void SetGameLAALabelText()
         {
             if (isGameEXELAAPatched)
@@ -642,7 +679,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function draws the LAA text for the GraphicsConfig label depending on whether the flag is true (Green) or false (Red).
+        /// This method draws the LAA text for the GraphicsConfig label depending on whether the flag is true (Green) or false (Red).
         /// </summary>
         private void SetGraphicsConfigLAALabelText()
         {
@@ -807,8 +844,9 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function scans for either the Soulstorm or the Dark Crusade version of the game.
+        /// This method scans for either the Soulstorm or the Dark Crusade version of the game.
         /// </summary>
+        /// <returns>string</returns>
         private string GetCurrentGameEXE()
         {
             if (File.Exists(CurrentDir + "\\" + GameExecutable.SOULSTORM))
@@ -850,6 +888,10 @@ namespace DoW_Mod_Manager
             return "";
         }
 
+        /// <summary>
+        /// This method scans for GraphicsConfig.exe
+        /// </summary>
+        /// <returns>string</returns>
         private void CheckForGraphicsConfigEXE()
         {
             if (!File.Exists(CurrentDir + "\\" + GraphicsConfigEXE))
@@ -866,6 +908,8 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This method can be used ouside this class to change a setting and update the GUI
         /// </summary>
+        /// <param name="setting"></param>
+        /// <param name="newValue"></param>
         public void ChangeSetting(string setting, int newValue)
         {
             // Makes sure that newValue is in range of acceptable values. Bsically a Clamp() method

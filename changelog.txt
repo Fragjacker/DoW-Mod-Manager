@@ -22,6 +22,10 @@
 - Updated Veteran Mod for Dark Crusade with additional file links that are required
 - Added version descriptions to all mods in ModDownloader
 - Added version detection for mods in ModManager
+- All Soulstorm mods in modlist (ModDownloaderForm) have a new attribute now - "ModuleFileName"
+- Added ability to find a missing mod
+- Added a new mod to download - Dawn Of Skirmish AI Mod (Version 3.20)
+- Small code tweaks and optimizations here and there
 
 ## Version 1.8.2:
 

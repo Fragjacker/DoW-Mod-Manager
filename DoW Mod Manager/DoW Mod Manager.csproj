@@ -84,8 +84,14 @@
       <DependentUpon>SystemPerformanceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WinApiCalls.cs" />
+    <EmbeddedResource Include="ModDownloaderForm.resx">
+      <DependentUpon>ModDownloaderForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ModManagerForm.resx">
       <DependentUpon>ModManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModMergerForm.resx">
+      <DependentUpon>ModMergerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
