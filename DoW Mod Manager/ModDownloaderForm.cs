@@ -228,7 +228,7 @@ namespace DoW_Mod_Manager
                     ""));
 
                 modlist.Add(new Mod("Titanium Wars Mod for Soulstorm  (Version 1.00.27)",
-                    "",
+                    "TitaniumWars_SS",
                     "https://www.moddb.com/mods/titanium-wars-mod-ss",
                     "https://rutracker.org/forum/dl.php?t=4859187",
                     ""));
@@ -274,7 +274,7 @@ namespace DoW_Mod_Manager
                     ""));
 
                 modlist.Add(new Mod("Dawn of War: Dark Crusade Bugfix Mod  (Version 30.0)",
-                    "",
+                    "Bugfix",
                     "https://www.moddb.com/mods/dawn-of-war-dark-crusade-bugfix-mod",
                     "https://www.moddb.com/downloads/start/144937?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fdawn-of-war-dark-crusade-bugfix-mod%2Fdownloads",
                     ""));
@@ -316,7 +316,7 @@ namespace DoW_Mod_Manager
                     ""));
 
                 modlist.Add(new Mod("Titanium Wars Mod  (Version 1.00.38)",
-                    "",
+                    "TitaniumWars",
                     "https://www.moddb.com/mods/titanium-wars-mod",
                     "https://rutracker.org/forum/dl.php?t=4859187",
                     ""));

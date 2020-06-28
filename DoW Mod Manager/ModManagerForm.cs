@@ -23,6 +23,7 @@ namespace DoW_Mod_Manager
         private const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;
 
         private const string CONFIG_FILE_NAME = "DoW Mod Manager.ini";
+        private const string WARNINGS_LOG = "warnings.log";
 
         private const string CHOICE_INDEX = "ChoiceIndex";
         public const string DEV = "Dev";
@@ -629,6 +630,11 @@ namespace DoW_Mod_Manager
             downloaderForm.Show();
         }
 
+        /// <summary>
+        /// This method opens the Mod Downloader form and gives it a mod name to search for
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FixMissingModButton_Click(object sender, EventArgs e)
         {
             if (requiredModsList.SelectedItem == null)
@@ -639,7 +645,7 @@ namespace DoW_Mod_Manager
             int indexOfSpace = modName.IndexOf(" ");
             modName = modName.Substring(0, indexOfSpace);
 
-            if (modName == "W40k" || modName == "WXP" || modName == "DXP" || modName == "DXP2")
+            if (modName == "W40k" || modName == "WXP" || modName == "DXP2")
             {
                 MessageBox.Show("You are missing one of the base modules! Reinstall the game to fix it", "Warning!");
                 return;
@@ -649,16 +655,54 @@ namespace DoW_Mod_Manager
             downloaderForm.Show();
         }
 
+        /// <summary>
+        /// This method opens the Mod Merger form when the button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ModMergeButton_Click(object sender, EventArgs e)
         {
             ModMergerForm mergerWindow = new ModMergerForm(this);
             mergerWindow.Show();
         }
 
+        /// <summary>
+        /// This method opens the Settings Manager form when the button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SettingsButton_Click(object sender, EventArgs e)
         {
             SettingsManagerForm settingsForm = new SettingsManagerForm(this);
             settingsForm.Show();
+        }
+
+        /// <summary>
+        /// This method check for errors in warnings.log and shows them to user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CheckForErrorsButton_Click(object sender, EventArgs e)
+        {
+            string line;
+            string errors = "";
+
+            if (File.Exists(WARNINGS_LOG))
+            {
+                using (StreamReader logFile = new StreamReader(WARNINGS_LOG))
+                {
+                    while ((line = logFile.ReadLine()) != null)
+                    {
+                        if (line.Contains("Fatal Data Error"))
+                            errors += line + "\n";
+                    }
+                }
+
+                if (errors.Length > 0)
+                    MessageBox.Show(errors, "Errors:");
+                else
+                    MessageBox.Show($"No errors were found in {WARNINGS_LOG}!", "Errors:");
+            }
         }
 
         /// <summary>
@@ -891,7 +935,6 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This method scans for GraphicsConfig.exe
         /// </summary>
-        /// <returns>string</returns>
         private void CheckForGraphicsConfigEXE()
         {
             if (!File.Exists(CurrentDir + "\\" + GraphicsConfigEXE))

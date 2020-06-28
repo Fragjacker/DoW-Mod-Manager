@@ -13,6 +13,8 @@ namespace DoW_Mod_Manager
         private const string CANCEL_LABEL = "CANCEL";
         private const string CLOSE_LABEL = "CLOSE";
 
+        private readonly string PROFILES;
+
         // Here are all settings from Local.ini in right order
         private const string CAMERA_DETAIL = "cameradetail";
         private const string CURRENT_MOD = "currentmoddc";
@@ -64,6 +66,8 @@ namespace DoW_Mod_Manager
 
             // Use the same icon as executable
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
+            PROFILES = modManager.CurrentDir + "\\Profiles";
 
             InitializeSettings();
 
@@ -295,6 +299,20 @@ namespace DoW_Mod_Manager
             parentalControlCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[PARENTAL_CONTROL]));
             persistentBodiesComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_BODIES]);
             persistentScarringComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_DECALS]);
+            if (Directory.Exists(PROFILES))
+            {
+                string[] profiles = Directory.GetDirectories(PROFILES);
+
+                for (int i = 0; i < profiles.Length; i++)
+                {
+                    string profile = profiles[i];
+                    int indexOdfSlash = profile.LastIndexOf("\\");
+
+                    profile = profile.Substring(indexOdfSlash + 1, profile.Length - indexOdfSlash - 1);
+
+                    currentPlayerComboBox.Items.Add(profile);
+                }
+            }
             currentPlayerComboBox.SelectedItem = settings[PLAYER_PROFILE];
             unknownSettingComboBox.SelectedItem = settings[RL_SSO_NUM_TIMES_SHOWN];
             activeVideocardComboBox.SelectedItem = settings[SCREEN_ADAPTER];
@@ -357,6 +375,56 @@ namespace DoW_Mod_Manager
             textureDetailComboBox.SelectedIndex = Convert.ToInt32(settings[TEXTURE_DETAIL]);
             // Skip TotalMatchces setting
             unitsOcclusionCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[UNIT_OCCLUSION]));
+
+            // Read sound settings from playercfg.lua
+            // WRITING of new sound settings is not ready yet!
+            string[] lines = File.ReadAllLines(PROFILES + "\\" + currentPlayerComboBox.Text + "\\playercfg.lua");
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
+
+                if (line.Contains("0"))
+                {
+                    int indexOfEqualSign = line.IndexOf('=');
+
+                    if (indexOfEqualSign > 0)
+                    {
+                        string stringValue = line.Substring(indexOfEqualSign + 1, line.Length - indexOfEqualSign - 2);
+                        double doubleValue;
+                        try
+                        {
+                            doubleValue = Convert.ToDouble(stringValue);
+                        }
+                        catch (Exception)
+                        {
+                            stringValue = stringValue.Replace('.', ',');
+                        }
+                        doubleValue = 100d * Convert.ToDouble(stringValue);
+                        int value = Convert.ToInt32(doubleValue);
+
+                        if (line.Contains("VolumeAmbient"))
+                        {
+                            ambientVolumeTrackBar.Value = value;
+                            continue;
+                        }
+                        if (line.Contains("VolumeMusic"))
+                        {
+                            musicVolumeTrackBar.Value = value;
+                            continue;
+                        }
+                        if (line.Contains("VolumeSfx"))
+                        {
+                            effectsVolumeTrackBar.Value = value;
+                            continue;
+                        }
+                        if (line.Contains("VolumeVoice"))
+                        {
+                            voiceVolumeTrackBar.Value = value;
+                            continue;
+                        }
+                    }
+                }
+            }
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
@@ -773,22 +841,22 @@ namespace DoW_Mod_Manager
 
         private void AmbientVolumeTarckBar_Scroll(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            // this setting is in playercfg.lua
         }
 
         private void EffectsVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            // this setting is in playercfg.lua
         }
 
         private void VoiceVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            // this setting is in playercfg.lua
         }
 
         private void MusicVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            // this setting is in playercfg.lua
         }
 
         private void LowGraphicsButton_Click(object sender, EventArgs e)
@@ -948,6 +1016,58 @@ namespace DoW_Mod_Manager
         {
             SystemPerformanceForm systemPerformance = new SystemPerformanceForm(modManager);
             systemPerformance.Show();
+        }
+
+        private void DeleteProfileButton_Click(object sender, EventArgs e)
+        {
+            Directory.Delete(PROFILES + "\\" + currentPlayerComboBox.SelectedItem, true);
+            currentPlayerComboBox.Items.RemoveAt(currentPlayerComboBox.SelectedIndex);
+
+            if (currentPlayerComboBox.Items.Count > 0)
+                currentPlayerComboBox.SelectedIndex = 0;
+            else
+                currentPlayerComboBox.Text = "";
+        }
+
+        private void CreateProfileButton_Click(object sender, EventArgs e)
+        {
+            int indexOfNewProfile = currentPlayerComboBox.Items.Count + 1;
+            string newProfileName = "Profile" + indexOfNewProfile;
+            string newProfilePath = PROFILES + "\\" + newProfileName;
+
+            Directory.CreateDirectory(newProfilePath);
+            using (StreamWriter sw = File.CreateText(newProfilePath + "\\" + "name.dat"))
+            {
+                sw.Write(newPlayerTextBox.Text);
+            }
+            using (StreamWriter sw = File.CreateText(newProfilePath + "\\" + "playercfg.lua"))
+            {
+                sw.Write("Sound = \r\n" + 
+                         "{\r\n" +
+                         "	VolumeAmbient = 0.75000,\r\n" +
+                         "	VolumeMusic = 0.75000,\r\n" +
+                         "	VolumeSfx = 0.75000,\r\n" +
+                         "	VolumeVoice = 0.75000,\r\n" +
+                         "}\r\n" +
+                         "player_preferences = \r\n" +
+                         "{\r\n" +
+                         "	campaign_played_disorder = false,\r\n" +
+                         "	campaign_played_order = false,\r\n" +
+                         "	force_name = \"Ardent Flame\",\r\n" +
+                         "	race = \"sisters_race\",\r\n" +
+                         "}\r\n");
+            }
+
+            newPlayerTextBox.Text = "";
+            currentPlayerComboBox.Items.Add(newProfileName);
+        }
+
+        private void NewPlayerTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (newPlayerTextBox.TextLength > 0)
+                createProfileButton.Enabled = true;
+            else
+                createProfileButton.Enabled = false;
         }
     }
 }
