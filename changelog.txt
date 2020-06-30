@@ -30,6 +30,10 @@
 - Added ability to show Critical errors from warnings.log
 - Added ability to read sound volumes
 - Added ability to create and delete Player Profiles (still contains bugs!)
+- Replaced File.ReadAllLines() to StreamReader in SettingsManagerForm because playercfg.lua could be quite big in player installed a lot of mods
+- Now all sound volumes and set them up in GUI
+- Added all annotations for methods in ModManagerForm
+- Added ability to write Audio Volume sliders in playercfg.lua
 
 ## Version 1.8.2:
 

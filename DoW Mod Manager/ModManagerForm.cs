@@ -74,7 +74,7 @@ namespace DoW_Mod_Manager
             // Read DoW Mod Manager.ini file and load settings in memory
             if (File.Exists(CONFIG_FILE_NAME))
             {
-                // Read every line of config file and try to ignore or correct all the possible mistakes
+                // Read every line of config file and try to ignore or correct all common mistakes
                 string[] lines = File.ReadAllLines(CONFIG_FILE_NAME);
                 for (int i = 0; i < lines.Length; i++)
                 {
@@ -193,7 +193,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This adds FileSystem watcher to capture any file changes in the game directories.
+        /// This method adds FileSystem watcher to capture any file changes in the game directories.
         /// </summary>
         private void AddFileSystemWatcher()
         {
@@ -235,7 +235,7 @@ namespace DoW_Mod_Manager
 
 
         /// <summary>
-        /// Finds all installed *.module files and displays them in the Installed Mods Listbox without extension
+        /// This method finds all installed *.module files and displays them in the Installed Mods Listbox without extension
         /// </summary>
         private void GetMods()
         {
@@ -445,7 +445,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method could get a value from a line of text
+        /// This method gets a value from a line of text
         /// </summary>
         /// <param name="line"></param>
         /// <param name="deleteModule"></param>
@@ -488,6 +488,10 @@ namespace DoW_Mod_Manager
             StartGameWithOptions(installedModsListBox.SelectedItem.ToString());
         }
 
+        /// <summary>
+        /// This method handles starting an instance of CurrentGameEXE with arguments
+        /// </summary>
+        /// <param name="modName"></param>
         private void StartGameWithOptions(string modName)
         {
             string arguments = "-modname " + modName;
@@ -594,7 +598,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function collects and displays the list of required mods for a selected mod in order to function correctly.
+        /// This method collects and displays the list of required mods for a selected mod in order to function correctly.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -612,7 +616,11 @@ namespace DoW_Mod_Manager
 
             // Draw the current item text based on the current 
             // Font and the custom brush settings.
-            e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(), e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+            e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(),
+                                  e.Font,
+                                  myBrush,
+                                  e.Bounds,
+                                  StringFormat.GenericDefault);
 
             // If the ListBox has focus, draw a focus rectangle 
             // around the selected item.
@@ -662,8 +670,8 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void ModMergeButton_Click(object sender, EventArgs e)
         {
-            ModMergerForm mergerWindow = new ModMergerForm(this);
-            mergerWindow.Show();
+            ModMergerForm mergerForm = new ModMergerForm(this);
+            mergerForm.Show();
         }
 
         /// <summary>
@@ -706,7 +714,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method draws the LAA text for the Soulstorm label depending on whether the flag is true (Green) or false (Red).
+        /// This method draws the LAA text for the game label depending on whether the flag is true (Green) or false (Red).
         /// </summary>
         private void SetGameLAALabelText()
         {
@@ -740,7 +748,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function instigates the test if a given EXE is LAA patched or not.
+        /// This method instigates the test if a given EXE is LAA patched or not.
         /// </summary>
         /// <param name="file"></param>
         /// <returns>bool</returns>
@@ -769,13 +777,14 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function performs the necessary data operations in order to toggle the LAA for a given EXE file back and forth.
+        /// This method performs the necessary data operations in order to toggle the LAA for a given EXE file back and forth.
         /// </summary>
         /// <param name="file"></param>
         /// <returns>bool</returns>
         static bool ToggleLAA(string file)
         {
             bool result = false;
+
             using (FileStream fs = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
             {
                 BinaryReader br = new BinaryReader(fs);
@@ -828,7 +837,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function checks if a file is yet still opened and thus blocked.
+        /// This method checks if a file is yet still opened and thus blocked.
         /// It prevents crashes when attempting to write to files not yet closed.
         /// </summary>
         /// <param name="file"></param>
@@ -888,7 +897,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method scans for either the Soulstorm or the Dark Crusade version of the game.
+        /// This method scans for either the Soulstorm, Dark Crusade, Winter Assault or Original version of the game.
         /// </summary>
         /// <returns>string</returns>
         private string GetCurrentGameEXE()
@@ -955,7 +964,7 @@ namespace DoW_Mod_Manager
         /// <param name="newValue"></param>
         public void ChangeSetting(string setting, int newValue)
         {
-            // Makes sure that newValue is in range of acceptable values. Bsically a Clamp() method
+            // Makes sure that newValue is in range of acceptable values. Basically a Clamp() method
             if (newValue < 0)
                 newValue = 0;
             else if (newValue > 1)
@@ -982,6 +991,9 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This method opens a new tab in the default Web browser with a link (DoW Mod Manager homepage on GitHub)
+        /// </summary>
         private void HomePageLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://github.com/Fragjacker/DoW-Mod-Manager");

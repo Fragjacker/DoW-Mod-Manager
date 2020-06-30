@@ -1155,11 +1155,12 @@
             // 
             // musicVolumeTrackBar
             // 
-            this.musicVolumeTrackBar.LargeChange = 1;
+            this.musicVolumeTrackBar.LargeChange = 10;
             this.musicVolumeTrackBar.Location = new System.Drawing.Point(114, 294);
             this.musicVolumeTrackBar.Maximum = 100;
             this.musicVolumeTrackBar.Name = "musicVolumeTrackBar";
             this.musicVolumeTrackBar.Size = new System.Drawing.Size(121, 45);
+            this.musicVolumeTrackBar.SmallChange = 5;
             this.musicVolumeTrackBar.TabIndex = 48;
             this.musicVolumeTrackBar.Value = 50;
             this.musicVolumeTrackBar.Scroll += new System.EventHandler(this.MusicVolumeTrackBar_Scroll);
@@ -1176,7 +1177,7 @@
             // 
             // voiceVolumeTrackBar
             // 
-            this.voiceVolumeTrackBar.LargeChange = 1;
+            this.voiceVolumeTrackBar.LargeChange = 10;
             this.voiceVolumeTrackBar.Location = new System.Drawing.Point(114, 252);
             this.voiceVolumeTrackBar.Maximum = 100;
             this.voiceVolumeTrackBar.Name = "voiceVolumeTrackBar";
@@ -1198,7 +1199,7 @@
             // 
             // effectsVolumeTrackBar
             // 
-            this.effectsVolumeTrackBar.LargeChange = 1;
+            this.effectsVolumeTrackBar.LargeChange = 10;
             this.effectsVolumeTrackBar.Location = new System.Drawing.Point(114, 208);
             this.effectsVolumeTrackBar.Maximum = 100;
             this.effectsVolumeTrackBar.Name = "effectsVolumeTrackBar";
@@ -1220,7 +1221,7 @@
             // 
             // ambientVolumeTrackBar
             // 
-            this.ambientVolumeTrackBar.LargeChange = 1;
+            this.ambientVolumeTrackBar.LargeChange = 10;
             this.ambientVolumeTrackBar.Location = new System.Drawing.Point(114, 165);
             this.ambientVolumeTrackBar.Maximum = 100;
             this.ambientVolumeTrackBar.Name = "ambientVolumeTrackBar";

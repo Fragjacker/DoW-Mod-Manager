@@ -8,12 +8,10 @@ namespace DoW_Mod_Manager
 {
     public partial class SettingsManagerForm : Form
     {
-        private const string SETTINGS_FILE = "Local.ini";
-
         private const string CANCEL_LABEL = "CANCEL";
         private const string CLOSE_LABEL = "CLOSE";
 
-        private readonly string PROFILES;
+        private const string SETTINGS_FILE = "Local.ini";
 
         // Here are all settings from Local.ini in right order
         private const string CAMERA_DETAIL = "cameradetail";
@@ -51,6 +49,17 @@ namespace DoW_Mod_Manager
         private const string TOTAL_MATCHES = "total_matches";
         private const string UNIT_OCCLUSION = "unit_occlusion";
 
+        private readonly string PROFILES_PATH;
+        private const string NAME_DAT = "name.dat";
+
+        private const string PLAYERCONFIG = "playercfg.lua";
+
+        // Here are some usefull settings from playercfg.lua in right order
+        private const string SOUND_VOLUME_AMBIENT = "VolumeAmbient";
+        private const string SOUND_VOLUME_MUSIC = "VolumeMusic";
+        private const string SOUND_VOLUME_SFX = "VolumeSfx";
+        private const string SOUND_VOLUME_VOICE = "VolumeVoice";
+
         private readonly ModManagerForm modManager;
 
         private bool enableHighPoly = false;
@@ -67,11 +76,11 @@ namespace DoW_Mod_Manager
             // Use the same icon as executable
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            PROFILES = modManager.CurrentDir + "\\Profiles";
+            PROFILES_PATH = modManager.CurrentDir + "\\Profiles";
 
-            InitializeSettings();
+            InitializeSettingsWithDefaults();
 
-            // Read from Local.ini
+            // Read settings from Local.ini
             if (File.Exists(SETTINGS_FILE))
             {
                 string[] lines = File.ReadAllLines(SETTINGS_FILE);
@@ -242,13 +251,12 @@ namespace DoW_Mod_Manager
             saveButton.Enabled = false;
         }
 
-        private void InitializeSettings()
+        private void InitializeSettingsWithDefaults()
         {
-            // Here are all the default values
             settings = new Dictionary<string, string>
             {
                 [CAMERA_DETAIL] = "1",
-                [CURRENT_MOD] = "dxp2",
+                [CURRENT_MOD] = "W40k",
                 [DYNAMIC_LIGHTS] = "2",
                 [EVENT_DETAIL_LEVEL] = "2",
                 [FORCE_WATCH_MOVIES] = "1",
@@ -280,7 +288,12 @@ namespace DoW_Mod_Manager
                 [TERRAIN_ENABLE_FOW_BLUR] = "0",
                 [TEXTURE_DETAIL] = "1",
                 [TOTAL_MATCHES] = "0",
-                [UNIT_OCCLUSION] = "0"
+                [UNIT_OCCLUSION] = "0",
+
+                [SOUND_VOLUME_AMBIENT] = "0.75",
+                [SOUND_VOLUME_MUSIC] = "0.75",
+                [SOUND_VOLUME_SFX] = "0.75",
+                [SOUND_VOLUME_VOICE] = "0.75"
             };
         }
 
@@ -299,9 +312,9 @@ namespace DoW_Mod_Manager
             parentalControlCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[PARENTAL_CONTROL]));
             persistentBodiesComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_BODIES]);
             persistentScarringComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_DECALS]);
-            if (Directory.Exists(PROFILES))
+            if (Directory.Exists(PROFILES_PATH))
             {
-                string[] profiles = Directory.GetDirectories(PROFILES);
+                string[] profiles = Directory.GetDirectories(PROFILES_PATH);
 
                 for (int i = 0; i < profiles.Length; i++)
                 {
@@ -312,8 +325,12 @@ namespace DoW_Mod_Manager
 
                     currentPlayerComboBox.Items.Add(profile);
                 }
+                currentPlayerComboBox.SelectedItem = settings[PLAYER_PROFILE];
+
+                // If there is no such Profile as stored in Local.ini - choose the first one
+                if (currentPlayerComboBox.SelectedItem == null)
+                    currentPlayerComboBox.SelectedIndex = 0;
             }
-            currentPlayerComboBox.SelectedItem = settings[PLAYER_PROFILE];
             unknownSettingComboBox.SelectedItem = settings[RL_SSO_NUM_TIMES_SHOWN];
             activeVideocardComboBox.SelectedItem = settings[SCREEN_ADAPTER];
             antialiasingCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_ANIALIAS]));
@@ -377,50 +394,66 @@ namespace DoW_Mod_Manager
             unitsOcclusionCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[UNIT_OCCLUSION]));
 
             // Read sound settings from playercfg.lua
-            // WRITING of new sound settings is not ready yet!
-            string[] lines = File.ReadAllLines(PROFILES + "\\" + currentPlayerComboBox.Text + "\\playercfg.lua");
-            for (int i = 0; i < lines.Length; i++)
+            string pathToPlayerConfig = PROFILES_PATH + "\\" + currentPlayerComboBox.Text + "\\" + PLAYERCONFIG;
+            
+            if (File.Exists(pathToPlayerConfig))
             {
-                string line = lines[i];
-
-                if (line.Contains("0"))
+                using (StreamReader file = new StreamReader(pathToPlayerConfig))
                 {
-                    int indexOfEqualSign = line.IndexOf('=');
+                    string line;
 
-                    if (indexOfEqualSign > 0)
+                    while ((line = file.ReadLine()) != null)
                     {
-                        string stringValue = line.Substring(indexOfEqualSign + 1, line.Length - indexOfEqualSign - 2);
-                        double doubleValue;
-                        try
+                        if (line.EndsWith(","))
                         {
-                            doubleValue = Convert.ToDouble(stringValue);
-                        }
-                        catch (Exception)
-                        {
-                            stringValue = stringValue.Replace('.', ',');
-                        }
-                        doubleValue = 100d * Convert.ToDouble(stringValue);
-                        int value = Convert.ToInt32(doubleValue);
+                            int indexOfEqualSign = line.IndexOf('=');
 
-                        if (line.Contains("VolumeAmbient"))
-                        {
-                            ambientVolumeTrackBar.Value = value;
-                            continue;
-                        }
-                        if (line.Contains("VolumeMusic"))
-                        {
-                            musicVolumeTrackBar.Value = value;
-                            continue;
-                        }
-                        if (line.Contains("VolumeSfx"))
-                        {
-                            effectsVolumeTrackBar.Value = value;
-                            continue;
-                        }
-                        if (line.Contains("VolumeVoice"))
-                        {
-                            voiceVolumeTrackBar.Value = value;
-                            continue;
+                            if (indexOfEqualSign > 0)
+                            {
+                                string stringValue = line.Substring(indexOfEqualSign + 1, line.Length - indexOfEqualSign - 2);
+
+                                TrackBar trackBarToChange;
+
+                                if (line.Contains(SOUND_VOLUME_AMBIENT))
+                                {
+                                    trackBarToChange = ambientVolumeTrackBar;
+                                    settings[SOUND_VOLUME_AMBIENT] = stringValue;
+                                }
+                                else if (line.Contains(SOUND_VOLUME_MUSIC))
+                                {
+                                    trackBarToChange = musicVolumeTrackBar;
+                                    settings[SOUND_VOLUME_MUSIC] = stringValue;
+                                }
+                                else if (line.Contains(SOUND_VOLUME_SFX))
+                                {
+                                    trackBarToChange = effectsVolumeTrackBar;
+                                    settings[SOUND_VOLUME_SFX] = stringValue;
+                                }
+                                else if (line.Contains(SOUND_VOLUME_VOICE))
+                                {
+                                    trackBarToChange = voiceVolumeTrackBar;
+                                    settings[SOUND_VOLUME_VOICE] = stringValue;
+                                }
+                                else
+                                    continue;
+
+                                double doubleValue;
+
+                                // In some cultures decimal point is actually a comma
+                                try
+                                {
+                                    doubleValue = Convert.ToDouble(stringValue);
+                                }
+                                catch (Exception)
+                                {
+                                    stringValue = stringValue.Replace('.', ',');
+                                }
+
+                                doubleValue = Convert.ToDouble(stringValue);
+
+                                // Original value could be between 0 and 1 (float) but TrackBar values could be only between 0 and 100 (int)
+                                trackBarToChange.Value = Convert.ToInt32(doubleValue * 100d);
+                            }
                         }
                     }
                 }
@@ -430,6 +463,7 @@ namespace DoW_Mod_Manager
         private void SaveButton_Click(object sender, EventArgs e)
         {
             // You have to use \r\n instead of \n or Dawn of War will NOT recognise the end of the line!
+            // Save settings that are stored in Local.ini
             string str = $"[global]\r\n" +
                          $"{CAMERA_DETAIL}={settings[CAMERA_DETAIL]}\r\n" +
                          $"{CURRENT_MOD}={settings[CURRENT_MOD]}\r\n" +
@@ -478,14 +512,45 @@ namespace DoW_Mod_Manager
                 disableHighPoly = false;
             }
 
+            // Save settings that are stored in playercfg.lua
+            // TODO: Use Streams insted of reading and writing the whoile file at once
+            string pathToPlayerConfig = PROFILES_PATH + "\\" + currentPlayerComboBox.Text + "\\" + PLAYERCONFIG;
+
+            if (File.Exists(pathToPlayerConfig))
+            {
+                string[] lines = File.ReadAllLines(pathToPlayerConfig);
+
+                for (int i = 0; i <lines.Length; i++)
+                {
+                    if (lines[i].EndsWith(","))
+                    {
+                        if (lines[i].Contains(SOUND_VOLUME_AMBIENT))
+                            lines[i] = $"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},";
+                        else if (lines[i].Contains(SOUND_VOLUME_MUSIC))
+                            lines[i] = $"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},";
+                        else if (lines[i].Contains(SOUND_VOLUME_SFX))
+                            lines[i] = $"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},";
+                        else if (lines[i].Contains(SOUND_VOLUME_VOICE))
+                        {
+                            lines[i] = $"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},";
+                            
+                            // We found all the settings we searched for
+                            break;
+                        }
+                    }
+                }
+                File.WriteAllLines(pathToPlayerConfig, lines);
+            }
+
             cancelButton.Text = CLOSE_LABEL;
             saveButton.Enabled = false;
         }
 
         private void DefaultsButton_Click(object sender, EventArgs e)
         {
-            InitializeSettings();
+            InitializeSettingsWithDefaults();
             InitializeGUIWithSettings();
+
             saveButton.Enabled = true;
             defaultsButton.Enabled = false;
             saveButton.Focus();
@@ -519,17 +584,17 @@ namespace DoW_Mod_Manager
 
         private void InversePanCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            // this setting is in playercfg.lua
         }
 
         private void InverseDeclinationCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            // this setting is in playercfg.lua
         }
 
         private void ScrollRateTrackBar_Scroll(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            // this setting is in playercfg.lua
         }
 
         private void UnknownSettingComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -841,22 +906,58 @@ namespace DoW_Mod_Manager
 
         private void AmbientVolumeTarckBar_Scroll(object sender, EventArgs e)
         {
-            // this setting is in playercfg.lua
+            double doubleValue = Convert.ToDouble(ambientVolumeTrackBar.Value);
+            double settingValue = doubleValue / 100d;
+
+            settingValue = Math.Round(settingValue, 5);
+
+            settings[SOUND_VOLUME_AMBIENT] = settingValue.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void EffectsVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
-            // this setting is in playercfg.lua
+            double doubleValue = Convert.ToDouble(effectsVolumeTrackBar.Value);
+            double settingValue = doubleValue / 100d;
+
+            settingValue = Math.Round(settingValue, 5);
+
+            settings[SOUND_VOLUME_SFX] = settingValue.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void VoiceVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
-            // this setting is in playercfg.lua
+            double doubleValue = Convert.ToDouble(voiceVolumeTrackBar.Value);
+            double settingValue = doubleValue / 100d;
+
+            settingValue = Math.Round(settingValue, 5);
+
+            settings[SOUND_VOLUME_VOICE] = settingValue.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void MusicVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
-            // this setting is in playercfg.lua
+            double doubleValue = Convert.ToDouble(musicVolumeTrackBar.Value);
+            double settingValue = doubleValue / 100d;
+
+            settingValue = Math.Round(settingValue, 5);
+
+            settings[SOUND_VOLUME_MUSIC] = settingValue.ToString();
+
+            cancelButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void LowGraphicsButton_Click(object sender, EventArgs e)
@@ -1020,7 +1121,7 @@ namespace DoW_Mod_Manager
 
         private void DeleteProfileButton_Click(object sender, EventArgs e)
         {
-            Directory.Delete(PROFILES + "\\" + currentPlayerComboBox.SelectedItem, true);
+            Directory.Delete(PROFILES_PATH + "\\" + currentPlayerComboBox.SelectedItem, true);
             currentPlayerComboBox.Items.RemoveAt(currentPlayerComboBox.SelectedIndex);
 
             if (currentPlayerComboBox.Items.Count > 0)
@@ -1033,14 +1134,31 @@ namespace DoW_Mod_Manager
         {
             int indexOfNewProfile = currentPlayerComboBox.Items.Count + 1;
             string newProfileName = "Profile" + indexOfNewProfile;
-            string newProfilePath = PROFILES + "\\" + newProfileName;
+            string newProfilePath = PROFILES_PATH + "\\" + newProfileName;
+            string subDerectory = newProfilePath + "\\";
 
             Directory.CreateDirectory(newProfilePath);
-            using (StreamWriter sw = File.CreateText(newProfilePath + "\\" + "name.dat"))
+
+            switch (modManager.CurrentGameEXE)
+            {
+                case ModManagerForm.GameExecutable.SOULSTORM:
+                case ModManagerForm.GameExecutable.DARK_CRUSADE:
+                    subDerectory += "dxp2";
+                    break;
+                case ModManagerForm.GameExecutable.WINTER_ASSAULT:
+                    subDerectory += "wxp";
+                    break;
+                case ModManagerForm.GameExecutable.ORIGINAL:
+                    subDerectory += "w40k";
+                    break;
+            }
+            Directory.CreateDirectory(subDerectory);
+
+            using (StreamWriter sw = File.CreateText(newProfilePath + "\\" + NAME_DAT))
             {
                 sw.Write(newPlayerTextBox.Text);
             }
-            using (StreamWriter sw = File.CreateText(newProfilePath + "\\" + "playercfg.lua"))
+            using (StreamWriter sw = File.CreateText(newProfilePath + "\\" + PLAYERCONFIG))
             {
                 sw.Write("Sound = \r\n" + 
                          "{\r\n" +
@@ -1053,8 +1171,8 @@ namespace DoW_Mod_Manager
                          "{\r\n" +
                          "	campaign_played_disorder = false,\r\n" +
                          "	campaign_played_order = false,\r\n" +
-                         "	force_name = \"Ardent Flame\",\r\n" +
-                         "	race = \"sisters_race\",\r\n" +
+                         "	force_name = \"Blood Ravens\",\r\n" +
+                         "	race = \"space_marine_race\",\r\n" +
                          "}\r\n");
             }
 
