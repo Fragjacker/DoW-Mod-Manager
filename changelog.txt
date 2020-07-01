@@ -34,6 +34,8 @@
 - Now all sound volumes and set them up in GUI
 - Added all annotations for methods in ModManagerForm
 - Added ability to write Audio Volume sliders in playercfg.lua
+- Now all profiles are shown as PLayer names instead of a numbers
+- Improved handling of loading/saving profiles
 
 ## Version 1.8.2:
 

@@ -169,6 +169,8 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This method is called when Form is about to be closed.
         /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
             string str = $"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n" +
