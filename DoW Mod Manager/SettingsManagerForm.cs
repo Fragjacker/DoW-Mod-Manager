@@ -9,6 +9,18 @@ namespace DoW_Mod_Manager
 {
     public partial class SettingsManagerForm : Form
     {
+        public class Profile
+        {
+            public string ProfileName;
+            public string PlayerName;
+
+            public Profile(string profileName, string playerName)
+            {
+                ProfileName = profileName;
+                PlayerName = playerName;
+            }
+        }
+        
         private const string CANCEL_LABEL = "CANCEL";
         private const string CLOSE_LABEL = "CLOSE";
 
@@ -54,12 +66,14 @@ namespace DoW_Mod_Manager
         private const string NAME_DAT = "name.dat";
         private const string PLAYERCONFIG = "playercfg.lua";
         private const string PROFILE = "Profile";
+        private const string PROFILE_DOESNT_EXIST = "Profile doesn't exist";
 
         // Here are some usefull settings from playercfg.lua in right order
         private const string SOUND_VOLUME_AMBIENT = "VolumeAmbient";
         private const string SOUND_VOLUME_MUSIC = "VolumeMusic";
         private const string SOUND_VOLUME_SFX = "VolumeSfx";
         private const string SOUND_VOLUME_VOICE = "VolumeVoice";
+
         private readonly ModManagerForm modManager;
 
         private bool enableHighPoly = false;
@@ -68,7 +82,7 @@ namespace DoW_Mod_Manager
         // Not the same settings as in ModManagerForm
         private Dictionary<string, string> settings;
 
-        private Dictionary<string, string> profiles;
+        private List<Profile> profiles;
 
         public SettingsManagerForm(ModManagerForm form)
         {
@@ -84,14 +98,109 @@ namespace DoW_Mod_Manager
 
             InitializeSettingsWithDefaults();
 
-            // Read settings from Local.ini
+            ReadSettingsFromLocalINI();
+
+            FindAllProfilesInDirectory(false);
+
+            InitializeGUIWithSettings();
+
+            cancelButton.Text = CLOSE_LABEL;
+            saveButton.Enabled = false;
+        }
+
+        private void FindAllProfilesInDirectory(bool clearProfiles)
+        {
+            if (clearProfiles)
+                profiles.Clear();
+            
+            if (Directory.Exists(PROFILES_PATH))
+            {
+                string[] profileDirectories = Directory.GetDirectories(PROFILES_PATH);
+
+                for (int i = 0; i < profileDirectories.Length; i++)
+                {
+                    int indexOfLastSlah = profileDirectories[i].LastIndexOf("\\");
+                    string profileName = profileDirectories[i].Substring(indexOfLastSlah + 1);
+
+                    string playerName = File.ReadAllText(profileDirectories[i] + "\\" + NAME_DAT);
+
+                    profiles.Add(new Profile(profileName, playerName));
+                }
+
+                bool isProfileExist = false;
+
+                for (int i = 0; i < profiles.Count; i++)
+                {
+                    if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
+                    {
+                        isProfileExist = true;
+                        break;
+                    }
+                }
+
+                if (!isProfileExist)
+                    settings[PLAYER_PROFILE] = profiles[0].ProfileName;
+            }
+        }
+
+        private void InitializeSettingsWithDefaults()
+        {
+            settings = new Dictionary<string, string>
+            {
+                // For Local.ini
+                [CAMERA_DETAIL] = "1",
+                [CURRENT_MOD] = "W40k",
+                [DYNAMIC_LIGHTS] = "2",
+                [EVENT_DETAIL_LEVEL] = "2",
+                [FORCE_WATCH_MOVIES] = "1",
+                [FULLRES_TEAMCOLOUR] = "0",
+                [FX_DETAIL_LEVEL] = "2",
+                [MODEL_DETAIL] = "2",
+                [PARENTAL_CONTROL] = "0",
+                [PERSISTENT_BODIES] = "0",
+                [PERSISTENT_DECALS] = "0",
+                [PLAYER_PROFILE] = "Profile1",
+                [RL_SSO_NUM_TIMES_SHOWN] = "1",
+                [SCREEN_ADAPTER] = "0",
+                [SCREEN_ANIALIAS] = "0",
+                [SCREEN_DEPTH] = "32",
+                [SCREEN_DEVICE] = "Dx9 : Hardware TnL",
+                [SCREEN_GAMMA] = "10",
+                [SCREEN_HEIGHT] = "768",
+                [SCREEN_NO_VSYNC] = "0",
+                [SCREEN_REFRESH] = "0",
+                [SCREEN_WIDTH] = "1024",
+                [SCREEN_WINDOWED] = "0",
+                [SHADOW_BLOB] = "0",
+                [SHADOW_MAP] = "0",
+                [SHADOW_VOLUME] = "0",
+                [SOUND_ENABLED] = "1",
+                [SOUND_LIMIT_SAMPLES] = "0",
+                [SOUND_NR_CHANNELS] = "32",
+                [SOUND_QUALITY] = "2",
+                [TERRAIN_ENABLE_FOW_BLUR] = "0",
+                [TEXTURE_DETAIL] = "1",
+                [TOTAL_MATCHES] = "0",
+                [UNIT_OCCLUSION] = "0",
+
+                // For playercfg.lua
+                [SOUND_VOLUME_AMBIENT] = "0.75",
+                [SOUND_VOLUME_MUSIC] = "0.75",
+                [SOUND_VOLUME_SFX] = "0.75",
+                [SOUND_VOLUME_VOICE] = "0.75"
+            };
+
+            profiles = new List<Profile>();
+        }
+
+        private void ReadSettingsFromLocalINI()
+        {
             if (File.Exists(SETTINGS_FILE))
             {
                 string[] lines = File.ReadAllLines(SETTINGS_FILE);
                 for (int i = 0; i < lines.Length; i++)
                 {
-                    string line = lines[i];
-                    line = line.Trim();
+                    string line = lines[i].Trim();
 
                     int firstIndexOfEqualSign = line.IndexOf('=');
                     int lastIndexOfEqualSign = line.LastIndexOf('=');
@@ -248,86 +357,6 @@ namespace DoW_Mod_Manager
             }
             else
                 saveButton.Enabled = true;
-
-            if (Directory.Exists(PROFILES_PATH))
-            {
-                string[] profileDirectories = Directory.GetDirectories(PROFILES_PATH);
-
-                for (int i = 0; i < profileDirectories.Length; i++)
-                {
-                    int indexOfLastSlah = profileDirectories[i].LastIndexOf("\\");
-                    string profileName = profileDirectories[i].Substring(indexOfLastSlah + 1);
-
-                    string playerName = File.ReadAllText(profileDirectories[i] + "\\" + NAME_DAT);
-
-                    profiles.Add(profileName, playerName);
-                }
-            }
-
-            // For Debugging
-            //
-            string text = "";
-            foreach (var pair in profiles)
-            {
-                text += pair.Key + " = " + pair.Value + "\n";
-            }
-            MessageBox.Show(text);
-            //
-
-            InitializeGUIWithSettings();
-
-            cancelButton.Text = CLOSE_LABEL;
-            saveButton.Enabled = false;
-        }
-
-        private void InitializeSettingsWithDefaults()
-        {
-            settings = new Dictionary<string, string>
-            {
-                // For Local.ini
-                [CAMERA_DETAIL] = "1",
-                [CURRENT_MOD] = "W40k",
-                [DYNAMIC_LIGHTS] = "2",
-                [EVENT_DETAIL_LEVEL] = "2",
-                [FORCE_WATCH_MOVIES] = "1",
-                [FULLRES_TEAMCOLOUR] = "0",
-                [FX_DETAIL_LEVEL] = "2",
-                [MODEL_DETAIL] = "2",
-                [PARENTAL_CONTROL] = "0",
-                [PERSISTENT_BODIES] = "0",
-                [PERSISTENT_DECALS] = "0",
-                [PLAYER_PROFILE] = "Profile1",
-                [RL_SSO_NUM_TIMES_SHOWN] = "1",
-                [SCREEN_ADAPTER] = "0",
-                [SCREEN_ANIALIAS] = "0",
-                [SCREEN_DEPTH] = "32",
-                [SCREEN_DEVICE] = "Dx9 : Hardware TnL",
-                [SCREEN_GAMMA] = "10",
-                [SCREEN_HEIGHT] = "768",
-                [SCREEN_NO_VSYNC] = "0",
-                [SCREEN_REFRESH] = "0",
-                [SCREEN_WIDTH] = "1024",
-                [SCREEN_WINDOWED] = "0",
-                [SHADOW_BLOB] = "0",
-                [SHADOW_MAP] = "0",
-                [SHADOW_VOLUME] = "0",
-                [SOUND_ENABLED] = "1",
-                [SOUND_LIMIT_SAMPLES] = "0",
-                [SOUND_NR_CHANNELS] = "32",
-                [SOUND_QUALITY] = "2",
-                [TERRAIN_ENABLE_FOW_BLUR] = "0",
-                [TEXTURE_DETAIL] = "1",
-                [TOTAL_MATCHES] = "0",
-                [UNIT_OCCLUSION] = "0",
-
-                // For playercfg.lua
-                [SOUND_VOLUME_AMBIENT] = "0.75",
-                [SOUND_VOLUME_MUSIC] = "0.75",
-                [SOUND_VOLUME_SFX] = "0.75",
-                [SOUND_VOLUME_VOICE] = "0.75"
-            };
-
-            profiles = new Dictionary<string, string>();
         }
 
         private void InitializeGUIWithSettings()
@@ -347,28 +376,26 @@ namespace DoW_Mod_Manager
             persistentScarringComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_DECALS]);
             if (profiles.Count > 0)
             {
-                int i = 1;
-                string profile = PROFILE + i.ToString();
+                currentPlayerComboBox.Items.Clear();
 
-                while (!profiles.ContainsKey(profile))
-                {
-                    i++;
-                    profile = PROFILE + i.ToString();
-                    currentPlayerComboBox.Items.Add("NONE");
-                }
-                currentPlayerComboBox.Items.Add(profiles[profile]);
+                int j = 1;
 
-                string profileIndexString = settings[PLAYER_PROFILE].Substring(7);                  // Delete the "Profile" part of the string
-                try
+                for (int i = 0; i < profiles.Count; i++)
                 {
-                    currentPlayerComboBox.SelectedIndex = Convert.ToInt32(profileIndexString) - 1;  // Convert the remaining part and substract 1 (Because profiles starts with 1 instead of 0)
-                }
-                catch (Exception)
-                {
-                    if (currentPlayerComboBox.Items.Count > 0)
-                        currentPlayerComboBox.SelectedIndex = 0;
-                    else
-                        currentPlayerComboBox.Text = "";
+                    string profileName = PROFILE + j;
+
+                    // You may have only one profile but it could be Profile45
+                    while (profiles[i].ProfileName != profileName)
+                    {
+                        j++;
+                        profileName = PROFILE + j.ToString();
+                        currentPlayerComboBox.Items.Add(PROFILE_DOESNT_EXIST);
+                    }
+                    currentPlayerComboBox.Items.Add(profiles[i].PlayerName);
+
+                    if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
+                        currentPlayerComboBox.SelectedIndex = j - 1;
+                    j++;
                 }
             }
             else
@@ -434,14 +461,13 @@ namespace DoW_Mod_Manager
             terrainDetailComboBox.SelectedIndex = Convert.ToInt32(settings[TERRAIN_ENABLE_FOW_BLUR]);
             textureDetailComboBox.SelectedIndex = Convert.ToInt32(settings[TEXTURE_DETAIL]);
             // Skip TotalMatchces setting
-            ReadSettingsFromPlayerconfig();
-        }
-
-        private void ReadSettingsFromPlayerconfig()
-        {
             unitsOcclusionCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[UNIT_OCCLUSION]));
 
-            // Read sound settings from playercfg.lua
+            ReadSettingsFromPlayercfgLUA();
+        }
+
+        private void ReadSettingsFromPlayercfgLUA()
+        {
             string profileName = PROFILE + (currentPlayerComboBox.SelectedIndex + 1);
             string pathToPlayerConfig = PROFILES_PATH + "\\" + profileName + "\\" + PLAYERCONFIG;
 
@@ -487,16 +513,6 @@ namespace DoW_Mod_Manager
                                     continue;
 
                                 double doubleValue;
-
-                                // In some cultures decimal point is actually a comma
-                                //try
-                                //{
-                                //    doubleValue = Convert.ToDouble(stringValue, new CultureInfo("en-US"));
-                                //}
-                                //catch (Exception)
-                                //{
-                                //    stringValue = stringValue.Replace('.', ',');
-                                //}
 
                                 // In some cultures decimal point is actually a comma
                                 doubleValue = Convert.ToDouble(stringValue, new CultureInfo("en-US"));
@@ -613,7 +629,7 @@ namespace DoW_Mod_Manager
 
         private void CurrentPlayerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ReadSettingsFromPlayerconfig();
+            ReadSettingsFromPlayercfgLUA();
 
             settings[PLAYER_PROFILE] = PROFILE + (currentPlayerComboBox.SelectedIndex + 1).ToString();
 
@@ -1165,39 +1181,26 @@ namespace DoW_Mod_Manager
 
         private void DeleteProfileButton_Click(object sender, EventArgs e)
         {
-            string profileNameToDelete = currentPlayerComboBox.SelectedItem.ToString();
-            if (Directory.Exists(profileNameToDelete))
-                Directory.Delete(PROFILES_PATH + "\\" + profileNameToDelete, true);
+            string playerNameToDelete = currentPlayerComboBox.SelectedItem.ToString();
 
-            // For loop reqires LINQ ao I choose foreach instead
-            foreach (KeyValuePair<string, string> profile in profiles)
+            if (playerNameToDelete == PROFILE_DOESNT_EXIST)
+                return;
+
+            for (int i = 0; i < profiles.Count; i++)
             {
-                if (profile.Value == profileNameToDelete)
-                    Directory.Delete(PROFILES_PATH + "\\" + profile.Key, true);
-            }
-
-            if (currentPlayerComboBox.Items.Count > 0)
-            {
-                int newSelectedIndex;
-
-                if (currentPlayerComboBox.SelectedIndex > 0)
+                if (profiles[i].PlayerName == playerNameToDelete)
                 {
-                    newSelectedIndex = currentPlayerComboBox.SelectedIndex - 1;
-                }
-                else
-                {
-                    newSelectedIndex = 0;
-                }
+                    string profilePathToDelete = PROFILES_PATH + "\\" + profiles[i].ProfileName;
 
-                currentPlayerComboBox.Items.RemoveAt(currentPlayerComboBox.SelectedIndex);
-                currentPlayerComboBox.SelectedIndex = newSelectedIndex;
+                    if (Directory.Exists(profilePathToDelete))
+                        Directory.Delete(profilePathToDelete, true);
+                }
+            }
 
-                ReadSettingsFromPlayerconfig();
-            }
-            else
-            {
-                saveButton.Enabled = false;
-            }
+            FindAllProfilesInDirectory(true);
+            InitializeGUIWithSettings();
+
+            ReadSettingsFromPlayercfgLUA();
         }
 
         private void CreateProfileButton_Click(object sender, EventArgs e)
@@ -1267,7 +1270,7 @@ namespace DoW_Mod_Manager
 
             if (currentPlayerComboBox.Items.Count > 0)
             {
-                ReadSettingsFromPlayerconfig();
+                FindAllProfilesInDirectory(true);
                 InitializeGUIWithSettings();
             }
         }
