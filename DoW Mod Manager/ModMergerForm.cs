@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace DoW_Mod_Manager
@@ -44,7 +45,9 @@ namespace DoW_Mod_Manager
         public ModMergerForm(ModManagerForm Form)
         {
             InitializeComponent();
+
             modManager = Form;
+
             GetLoadableMods();
 
             // Use the same icon as executable
@@ -64,7 +67,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// Gets all available Mods from the Mod Manager Panel
+        /// Gets all available Mods from the Mod Manager Form
         /// </summary>
         private void GetAvailableMods()
         {
@@ -113,6 +116,8 @@ namespace DoW_Mod_Manager
             HideUnavailableMods();
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void HideUnavailableMods()
         {
             GetAvailableMods();                             // Get a Fresh new List everytime
@@ -125,6 +130,8 @@ namespace DoW_Mod_Manager
             }
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SortInactiveModsToBottom()
         {
             List<Mod> inactiveModsList = new List<Mod>();
@@ -144,6 +151,8 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Fills the Used Mods Listbox with the Mods that are currently set as RequiredMod inside the .module file
         /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void GetActiveModsFromFile()
         {
             int index = loadedModBox.SelectedIndex;
@@ -164,6 +173,8 @@ namespace DoW_Mod_Manager
             }
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string GetValueFromLine(string line, bool deleteModule)
         {
             int indexOfEqual = line.IndexOf('=');
@@ -180,6 +191,8 @@ namespace DoW_Mod_Manager
                 return "";
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string IsModRequired(string modName)
         {
             const string pattern = "RequiredMod";
@@ -233,6 +246,8 @@ namespace DoW_Mod_Manager
             e.DrawFocusRectangle();
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnablePlusButton()
         {
             buttonAdd.Enabled = true;
@@ -247,6 +262,8 @@ namespace DoW_Mod_Manager
             buttonAdd.BackgroundImage = Image.FromStream(myStream);
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnableMinusButton()
         {
             buttonRemove.Enabled = true;
@@ -261,6 +278,8 @@ namespace DoW_Mod_Manager
             buttonRemove.BackgroundImage = Image.FromStream(myStream);
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnableCheckmarkButton()
         {
             buttonActivate.Enabled = true;
@@ -289,6 +308,8 @@ namespace DoW_Mod_Manager
             buttonDeactivate.BackgroundImage = Image.FromStream(myStream);
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnableArrowUpButton()
         {
             buttonArrowUp.Enabled = true;
@@ -303,6 +324,8 @@ namespace DoW_Mod_Manager
             buttonArrowUp.BackgroundImage = Image.FromStream(myStream);
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnableArrowDownButton()
         {
             buttonArrowDown.Enabled = true;

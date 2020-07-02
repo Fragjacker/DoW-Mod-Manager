@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Security.Permissions;
 using System.Reflection;
 using System.Threading;
+using System.Runtime.CompilerServices;
 
 namespace DoW_Mod_Manager
 {
@@ -235,10 +236,11 @@ namespace DoW_Mod_Manager
             ReselectSavedMod();
         }
 
-
         /// <summary>
         /// This method finds all installed *.module files and displays them in the Installed Mods Listbox without extension
         /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void GetMods()
         {
             // Make a new list for the new Pathitems
@@ -408,6 +410,8 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Checks if the Mods are actually REALLY installed by checking if their asset folders are present by the name specified within the *.module files "Modfolder" tagline
         /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CheckforInstalledMods()
         {
             startModButton.Enabled = true;
@@ -902,6 +906,8 @@ namespace DoW_Mod_Manager
         /// This method scans for either the Soulstorm, Dark Crusade, Winter Assault or Original version of the game.
         /// </summary>
         /// <returns>string</returns>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string GetCurrentGameEXE()
         {
             if (File.Exists(CurrentDir + "\\" + GameExecutable.SOULSTORM))
@@ -946,6 +952,8 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This method scans for GraphicsConfig.exe
         /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CheckForGraphicsConfigEXE()
         {
             if (!File.Exists(CurrentDir + "\\" + GraphicsConfigEXE))

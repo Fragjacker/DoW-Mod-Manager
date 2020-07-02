@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace DoW_Mod_Manager
@@ -93,54 +94,19 @@ namespace DoW_Mod_Manager
             // Use the same icon as executable
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            // You could change PROFILES_PATH only in constructor
+            // You could change PROFILES_PATH only in constructor because it's readonly
             PROFILES_PATH = modManager.CurrentDir + "\\Profiles";
 
             InitializeSettingsWithDefaults();
 
             ReadSettingsFromLocalINI();
 
-            FindAllProfilesInDirectory(false);
+            FindAllProfilesInDirectory(clearProfiles: false);
 
             InitializeGUIWithSettings();
 
             cancelButton.Text = CLOSE_LABEL;
             saveButton.Enabled = false;
-        }
-
-        private void FindAllProfilesInDirectory(bool clearProfiles)
-        {
-            if (clearProfiles)
-                profiles.Clear();
-            
-            if (Directory.Exists(PROFILES_PATH))
-            {
-                string[] profileDirectories = Directory.GetDirectories(PROFILES_PATH);
-
-                for (int i = 0; i < profileDirectories.Length; i++)
-                {
-                    int indexOfLastSlah = profileDirectories[i].LastIndexOf("\\");
-                    string profileName = profileDirectories[i].Substring(indexOfLastSlah + 1);
-
-                    string playerName = File.ReadAllText(profileDirectories[i] + "\\" + NAME_DAT);
-
-                    profiles.Add(new Profile(profileName, playerName));
-                }
-
-                bool isProfileExist = false;
-
-                for (int i = 0; i < profiles.Count; i++)
-                {
-                    if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
-                    {
-                        isProfileExist = true;
-                        break;
-                    }
-                }
-
-                if (!isProfileExist)
-                    settings[PLAYER_PROFILE] = profiles[0].ProfileName;
-            }
         }
 
         private void InitializeSettingsWithDefaults()
@@ -193,6 +159,8 @@ namespace DoW_Mod_Manager
             profiles = new List<Profile>();
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ReadSettingsFromLocalINI()
         {
             if (File.Exists(SETTINGS_FILE))
@@ -359,6 +327,41 @@ namespace DoW_Mod_Manager
                 saveButton.Enabled = true;
         }
 
+        private void FindAllProfilesInDirectory(bool clearProfiles)
+        {
+            if (clearProfiles)
+                profiles.Clear();
+
+            if (Directory.Exists(PROFILES_PATH))
+            {
+                string[] profileDirectories = Directory.GetDirectories(PROFILES_PATH);
+
+                for (int i = 0; i < profileDirectories.Length; i++)
+                {
+                    int indexOfLastSlah = profileDirectories[i].LastIndexOf("\\");
+                    string profileName = profileDirectories[i].Substring(indexOfLastSlah + 1);
+
+                    string playerName = File.ReadAllText(profileDirectories[i] + "\\" + NAME_DAT);
+
+                    profiles.Add(new Profile(profileName, playerName));
+                }
+
+                bool isProfileExist = false;
+
+                for (int i = 0; i < profiles.Count; i++)
+                {
+                    if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
+                    {
+                        isProfileExist = true;
+                        break;
+                    }
+                }
+
+                if (!isProfileExist)
+                    settings[PLAYER_PROFILE] = profiles[0].ProfileName;
+            }
+        }
+
         private void InitializeGUIWithSettings()
         {
             // Now we could set all ComboBoxes (METALLBAWHKSESS!!!) and CheckBoxes in our Form
@@ -385,12 +388,12 @@ namespace DoW_Mod_Manager
                     string profileName = PROFILE + j;
 
                     // You may have only one profile but it could be Profile45
-                    while (profiles[i].ProfileName != profileName)
-                    {
-                        j++;
-                        profileName = PROFILE + j.ToString();
-                        currentPlayerComboBox.Items.Add(PROFILE_DOESNT_EXIST);
-                    }
+                    //while (profiles[i].ProfileName != profileName)
+                    //{
+                    //    j++;
+                    //    profileName = PROFILE + j.ToString();
+                    //    currentPlayerComboBox.Items.Add(PROFILE_DOESNT_EXIST);
+                    //}
                     currentPlayerComboBox.Items.Add(profiles[i].PlayerName);
 
                     if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
