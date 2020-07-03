@@ -1002,11 +1002,12 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method opens a new tab in the default Web browser with a link (DoW Mod Manager homepage on GitHub)
+        /// This method opens an AboutForm
         /// </summary>
         private void HomePageLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/Fragjacker/DoW-Mod-Manager");
+            AboutForm about = new AboutForm();
+            about.Show();
         }
     }
 }

@@ -52,7 +52,7 @@ namespace DoW_Mod_Manager
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.downloadButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
-            this.homePageLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.AboutkLabel = new System.Windows.Forms.LinkLabel();
             this.fixMissingModButton = new System.Windows.Forms.Button();
             this.checkForErrorsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -171,7 +171,7 @@ namespace DoW_Mod_Manager
             this.authorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.authorLabel.AutoSize = true;
             this.authorLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.authorLabel.Location = new System.Drawing.Point(16, 544);
+            this.authorLabel.Location = new System.Drawing.Point(16, 543);
             this.authorLabel.Name = "authorLabel";
             this.authorLabel.Size = new System.Drawing.Size(198, 13);
             this.authorLabel.TabIndex = 8;
@@ -364,17 +364,17 @@ namespace DoW_Mod_Manager
             this.settingsButton.UseVisualStyleBackColor = false;
             this.settingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
-            // homePageLinkLabel
+            // AboutkLabel
             // 
-            this.homePageLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.homePageLinkLabel.AutoSize = true;
-            this.homePageLinkLabel.Location = new System.Drawing.Point(786, 544);
-            this.homePageLinkLabel.Name = "homePageLinkLabel";
-            this.homePageLinkLabel.Size = new System.Drawing.Size(85, 13);
-            this.homePageLinkLabel.TabIndex = 23;
-            this.homePageLinkLabel.TabStop = true;
-            this.homePageLinkLabel.Text = "Visit Home Page";
-            this.homePageLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HomePageLinkLabel_LinkClicked);
+            this.AboutkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.AboutkLabel.AutoSize = true;
+            this.AboutkLabel.Location = new System.Drawing.Point(779, 543);
+            this.AboutkLabel.Name = "AboutkLabel";
+            this.AboutkLabel.Size = new System.Drawing.Size(99, 13);
+            this.AboutkLabel.TabIndex = 23;
+            this.AboutkLabel.TabStop = true;
+            this.AboutkLabel.Text = "About and Updates";
+            this.AboutkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HomePageLinkLabel_LinkClicked);
             // 
             // fixMissingModButton
             // 
@@ -413,7 +413,7 @@ namespace DoW_Mod_Manager
             this.ClientSize = new System.Drawing.Size(886, 561);
             this.Controls.Add(this.checkForErrorsButton);
             this.Controls.Add(this.fixMissingModButton);
-            this.Controls.Add(this.homePageLinkLabel);
+            this.Controls.Add(this.AboutkLabel);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.downloadButton);
             this.Controls.Add(this.optimizationsCheckBox);
@@ -476,7 +476,7 @@ namespace DoW_Mod_Manager
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.Button downloadButton;
         private System.Windows.Forms.Button settingsButton;
-        private System.Windows.Forms.LinkLabel homePageLinkLabel;
+        private System.Windows.Forms.LinkLabel AboutkLabel;
         private System.Windows.Forms.Button fixMissingModButton;
         private System.Windows.Forms.Button checkForErrorsButton;
     }
