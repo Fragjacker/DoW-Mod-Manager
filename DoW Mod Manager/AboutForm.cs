@@ -11,9 +11,10 @@ namespace DoW_Mod_Manager
 {
     public partial class AboutForm : Form
     {
-        private readonly string versionTextURL = "https://github.com/IgorTheLight/DoW-Mod-Manager/blob/master/DoW%20Mod%20Manager/LatestStable/version";
-        private readonly string executableURL = "https://github.com/IgorTheLight/DoW-Mod-Manager/blob/master/DoW%20Mod%20Manager/LatestStable/DoW_Mod_Manager_v2.0.0.exe";
-        private readonly string executablePath = Directory.GetCurrentDirectory() + "\\DoW_Mod_Manager_v2.0.0";
+        private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/IgorTheLight/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
+        
+        private readonly string executableURL  = "https://github.com/IgorTheLight/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW_Mod_Manager.exe";
+        private string executablePath = Directory.GetCurrentDirectory();
 
         public AboutForm()
         {
@@ -36,18 +37,58 @@ namespace DoW_Mod_Manager
 
         private void UpdateButton_Click(object sender, System.EventArgs e)
         {
-            //DownloadFile(new Uri(versionTextURL), versionTextPath);
+            // Checking version of this executable
+            string currentStringVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            currentStringVersion = currentStringVersion.Remove(5);
+            MessageBox.Show(currentStringVersion);
+            int currentVersion = Convert.ToInt32(currentStringVersion.Replace(".", ""));
+            
+            // Checking version mentioned in "version" file on github
+            string latestStringVersion = DownloadString(VERSION_TEXT_URL);
+            if (latestStringVersion.Length == 0)
+            {
+                MessageBox.Show("There is no data in \"version\" file on GitHub!");
+                return;
+            }
 
-            string stringCurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            int currentVersion = Convert.ToInt32(stringCurrentVersion.Replace(".", ""));
-
-            string latestStringVersion = DownloadAsString(versionTextURL);
-            int katestVersion = Convert.ToInt32(latestStringVersion);
+            int katestVersion;
+            try
+            {
+                katestVersion = Convert.ToInt32(latestStringVersion);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is something wrong with version number!\n" + ex.Message);
+                return;
+            }
 
             if (currentVersion < katestVersion)
+            {
+                executablePath += $"\\DoW Mod Manager v{latestStringVersion}.exe";
                 DownloadFile(executableURL, executablePath);
+            }
             else
                 Debug.WriteLine("You have the latest version!");
+        }
+
+        public string DownloadString(string address)
+        {
+            string str = "";
+
+            using (WebClient webClient = new WebClient())
+            {
+                try
+                {
+                    str = webClient.DownloadString(address);
+                    // Async method is harder to handle
+                    //webClient.DownloadStringAsync(new Uri(address), str);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Download Error :");
+                }
+            }
+            return str;
         }
 
         private void DownloadFile(string address, string downloadPath)
@@ -56,8 +97,8 @@ namespace DoW_Mod_Manager
             using (WebClient webClient = new WebClient())
             {
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                //webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
-                webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
 
                 try
                 {
@@ -65,23 +106,15 @@ namespace DoW_Mod_Manager
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message.ToString(), "Download Error :");
+                    MessageBox.Show(ex.Message, "Download Error :");
                 }
             }
         }
 
-        public string DownloadAsString(string address)
-        {
-            using (WebClient webClient = new WebClient())
-            {
-                return webClient.DownloadString(address);
-            }
-        }
-
-        private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            //MessageBox.Show(e.ProgressPercentage + " %");
-        }
+        //private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        //{
+        //    MessageBox.Show(e.ProgressPercentage + " %");
+        //}
 
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {

@@ -39,6 +39,7 @@
 - Aggressive inlining were requested for all methods with only one call (performance impact will be tested in future but most likely it will be positive)
 - Profiles doesn't have empty slots now
 - Added an AboutForm (authors + homepage + updates)
+- Updating is working now (simplest implementation)
 
 ## Version 1.8.2:
 
