@@ -118,6 +118,8 @@ namespace DoW_Mod_Manager
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {
             MessageBox.Show("Download completed!");
+            Process.Start(executablePath);
+            Application.Exit();
         }
     }
 }
