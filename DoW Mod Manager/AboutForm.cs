@@ -13,7 +13,7 @@ namespace DoW_Mod_Manager
     {
         private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/IgorTheLight/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
         
-        private readonly string executableURL  = "https://github.com/IgorTheLight/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW_Mod_Manager.exe";
+        private readonly string executableURL  = "https://github.com/IgorTheLight/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
         private string executablePath = Directory.GetCurrentDirectory();
 
         public AboutForm()
