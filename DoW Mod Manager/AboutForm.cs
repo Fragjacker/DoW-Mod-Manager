@@ -39,8 +39,7 @@ namespace DoW_Mod_Manager
         {
             // Checking version of this executable
             string currentStringVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            currentStringVersion = currentStringVersion.Remove(5);
-            MessageBox.Show(currentStringVersion);
+            currentStringVersion = currentStringVersion.Remove(5);          // Delete the last version number and a point
             int currentVersion = Convert.ToInt32(currentStringVersion.Replace(".", ""));
             
             // Checking version mentioned in "version" file on github
@@ -54,7 +53,7 @@ namespace DoW_Mod_Manager
             int katestVersion;
             try
             {
-                katestVersion = Convert.ToInt32(latestStringVersion);
+                katestVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
             }
             catch (Exception ex)
             {
@@ -68,7 +67,7 @@ namespace DoW_Mod_Manager
                 DownloadFile(executableURL, executablePath);
             }
             else
-                Debug.WriteLine("You have the latest version!");
+                MessageBox.Show("You have the latest version!");
         }
 
         public string DownloadString(string address)
