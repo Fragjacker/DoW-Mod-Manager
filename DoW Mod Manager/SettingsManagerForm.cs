@@ -385,7 +385,7 @@ namespace DoW_Mod_Manager
 
                 for (int i = 0; i < profiles.Count; i++)
                 {
-                    string profileName = PROFILE + j;
+                    //string profileName = PROFILE + j;
 
                     // You may have only one profile but it could be Profile45
                     //while (profiles[i].ProfileName != profileName)

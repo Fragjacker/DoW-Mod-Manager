@@ -40,6 +40,8 @@
 - Profiles doesn't have empty slots now
 - Added an AboutForm (authors + homepage + updates)
 - Updating is working now (simplest implementation)
+- Added MessageForm - now all error messages will have the same theme as all main forms
+- Replaced all error messages from MessageBox to MessageForm
 
 ## Version 1.8.2:
 

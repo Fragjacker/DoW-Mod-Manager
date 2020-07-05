@@ -309,7 +309,7 @@ namespace DoW_Mod_Manager
             {
                 if (!isMessageBoxOnScreen)
                 {
-                    MessageBox.Show("No mods were found in the specified directory! Please check your current directory again!");
+                    CustomMessageBox.Show("No mods were found in the specified directory! Please check your current directory again!", "Warning!");
                     isMessageBoxOnScreen = true;
                     Application.Exit();
                 }
@@ -661,7 +661,7 @@ namespace DoW_Mod_Manager
 
             if (modName == "W40k" || modName == "WXP" || modName == "DXP2")
             {
-                MessageBox.Show("You are missing one of the base modules! Reinstall the game to fix it", "Warning!");
+                CustomMessageBox.Show("You are missing one of the base modules! Reinstall the game to fix it", "Warning!");
                 return;
             }
 
@@ -713,9 +713,9 @@ namespace DoW_Mod_Manager
                 }
 
                 if (errors.Length > 0)
-                    MessageBox.Show(errors, "Errors:");
+                    CustomMessageBox.Show(errors, "Errors:");
                 else
-                    MessageBox.Show($"No errors were found in {WARNINGS_LOG}!", "Errors:");
+                    CustomMessageBox.Show($"No errors were found in {WARNINGS_LOG}!", "Errors:");
             }
         }
 
@@ -941,7 +941,7 @@ namespace DoW_Mod_Manager
 
             if (!isMessageBoxOnScreen)
             {
-                MessageBox.Show("ERROR: Neither found the Soulstorm, Dark Crusade, Winter Assault nor Original in this directory!");
+                CustomMessageBox.Show("Neither found the Soulstorm, Dark Crusade, Winter Assault nor Original in this directory!", "ERROR:");
                 isMessageBoxOnScreen = true;
                 Application.Exit();
             }
@@ -960,7 +960,7 @@ namespace DoW_Mod_Manager
             {
                 if (!isMessageBoxOnScreen)
                 {
-                    MessageBox.Show("ERROR: " + GraphicsConfigEXE + " was not found!");
+                    CustomMessageBox.Show(GraphicsConfigEXE + " was not found!", "ERROR:");
                     isMessageBoxOnScreen = true;
                     Application.Exit();
                 }

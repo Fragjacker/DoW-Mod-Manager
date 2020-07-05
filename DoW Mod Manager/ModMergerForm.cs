@@ -239,7 +239,11 @@ namespace DoW_Mod_Manager
 
             // Draw the current item text based on the current 
             // Font and the custom brush settings.
-            e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(), e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+            e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(),
+                                  e.Font,
+                                  myBrush,
+                                  e.Bounds,
+                                  StringFormat.GenericDefault);
 
             // If the ListBox has focus, draw a focus rectangle 
             // around the selected item.
@@ -443,7 +447,7 @@ namespace DoW_Mod_Manager
             ReselectLastItems();
 
             // Show a Succesprompt
-            MessageBox.Show("Module file changes were successfully applied!", "Saving successful");
+            CustomMessageBox.Show("Module file changes were successfully applied!", "Saving successful");
         }
 
         private void ButtonActivate_Click(object sender, EventArgs e)

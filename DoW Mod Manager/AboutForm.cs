@@ -12,7 +12,7 @@ namespace DoW_Mod_Manager
     public partial class AboutForm : Form
     {
         private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/IgorTheLight/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
-        
+
         private readonly string executableURL  = "https://github.com/IgorTheLight/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
         private string executablePath = Directory.GetCurrentDirectory();
 
@@ -41,12 +41,12 @@ namespace DoW_Mod_Manager
             string currentStringVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             currentStringVersion = currentStringVersion.Remove(5);          // Delete the last version number and a point
             int currentVersion = Convert.ToInt32(currentStringVersion.Replace(".", ""));
-            
+
             // Checking version mentioned in "version" file on github
             string latestStringVersion = DownloadString(VERSION_TEXT_URL);
             if (latestStringVersion.Length == 0)
             {
-                MessageBox.Show("There is no data in \"version\" file on GitHub!");
+                CustomMessageBox.Show("There is no data in \"version\" file on GitHub!", "Warning!");
                 return;
             }
 
@@ -57,7 +57,7 @@ namespace DoW_Mod_Manager
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There is something wrong with version number!\n" + ex.Message);
+                CustomMessageBox.Show("There is something wrong with version number!\n" + ex.Message, "Warning!");
                 return;
             }
 
@@ -67,7 +67,7 @@ namespace DoW_Mod_Manager
                 DownloadFile(executableURL, executablePath);
             }
             else
-                MessageBox.Show("You have the latest version!");
+                CustomMessageBox.Show("You have the latest version!");
         }
 
         public string DownloadString(string address)
@@ -84,7 +84,7 @@ namespace DoW_Mod_Manager
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Download Error :");
+                    CustomMessageBox.Show(ex.Message, "Download Error:");
                 }
             }
             return str;
@@ -105,7 +105,7 @@ namespace DoW_Mod_Manager
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Download Error :");
+                    CustomMessageBox.Show(ex.Message, "Download Error:");
                 }
             }
         }
@@ -117,9 +117,20 @@ namespace DoW_Mod_Manager
 
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {
-            MessageBox.Show("Download completed!");
+            CustomMessageBox.Show("Download completed!\nApplication will restart to take effect");
+
             Process.Start(executablePath);
             Application.Exit();
+        }
+
+        private void SpecialThanks1LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/tebjan/TimerTool");
+        }
+
+        private void SpecialThanks2LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/zayenCh/DownloadFile");
         }
     }
 }
