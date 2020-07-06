@@ -46,28 +46,28 @@ namespace DoW_Mod_Manager
             string latestStringVersion = DownloadString(VERSION_TEXT_URL);
             if (latestStringVersion.Length == 0)
             {
-                CustomMessageBox.Show("There is no data in \"version\" file on GitHub!", "Warning!");
+                ThemedMessageBox.Show("There is no data in \"version\" file on GitHub!", "Warning!");
                 return;
             }
 
-            int katestVersion;
+            int latestVersion;
             try
             {
-                katestVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
+                latestVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show("There is something wrong with version number!\n" + ex.Message, "Warning!");
+                ThemedMessageBox.Show("There is something wrong with version number in \"version\" file on GitHub!\n" + ex.Message, "Warning!");
                 return;
             }
 
-            if (currentVersion < katestVersion)
+            if (currentVersion < latestVersion)
             {
                 executablePath += $"\\DoW Mod Manager v{latestStringVersion}.exe";
                 DownloadFile(executableURL, executablePath);
             }
             else
-                CustomMessageBox.Show("You have the latest version!");
+                ThemedMessageBox.Show("You have the latest version!", "Good news!");
         }
 
         public string DownloadString(string address)
@@ -79,12 +79,13 @@ namespace DoW_Mod_Manager
                 try
                 {
                     str = webClient.DownloadString(address);
+
                     // Async method is harder to handle
                     //webClient.DownloadStringAsync(new Uri(address), str);
                 }
                 catch (Exception ex)
                 {
-                    CustomMessageBox.Show(ex.Message, "Download Error:");
+                    ThemedMessageBox.Show(ex.Message, "Download Error:");
                 }
             }
             return str;
@@ -105,7 +106,7 @@ namespace DoW_Mod_Manager
                 }
                 catch (Exception ex)
                 {
-                    CustomMessageBox.Show(ex.Message, "Download Error:");
+                    ThemedMessageBox.Show(ex.Message, "Download Error:");
                 }
             }
         }
@@ -117,7 +118,7 @@ namespace DoW_Mod_Manager
 
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {
-            CustomMessageBox.Show("Download completed!\nApplication will restart to take effect");
+            ThemedMessageBox.Show("Download completed!\nApplication will restart to take effect", "Good news!");
 
             Process.Start(executablePath);
             Application.Exit();

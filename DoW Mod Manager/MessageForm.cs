@@ -21,7 +21,7 @@ namespace DoW_Mod_Manager
     /// <summary>
     /// Your custom message box helper.
     /// </summary>
-    public static class CustomMessageBox
+    public static class ThemedMessageBox
     {
         public static void Show(string message, string title = "")
         {
@@ -30,6 +30,11 @@ namespace DoW_Mod_Manager
             {
                 form.ShowDialog();
             }
+
+            // TODO: this way may be faster - you have to test it!
+            //MessageForm form = new MessageForm(message, title);
+            //form.ShowDialog();
+            //form.Dispose();
         }
     }
 }

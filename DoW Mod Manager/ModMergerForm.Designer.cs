@@ -214,7 +214,7 @@
             // 
             this.buttonActivate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonActivate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.buttonActivate.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.Checkmark;
+            this.buttonActivate.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.checkmark;
             this.buttonActivate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonActivate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonActivate.Location = new System.Drawing.Point(405, 3);

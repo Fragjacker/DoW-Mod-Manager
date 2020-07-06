@@ -1,6 +1,5 @@
-Let's say you builded a new version of DoW Mod Manager and this new version is 1.9.9
 To enable autoupdates you will have to:
 * Copy your new executable in this directory (LatestStable)
 * Rename it to "DoW Mod Manager.exe" (without any version number in name!)
 * Edit file "version" so it will contain a version number (in format X.X.X)
-* Commit changes and upload it on GitHub
+* Commit changes and push it to GitHub

@@ -260,7 +260,6 @@
             // 
             this.powerOptionsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.powerOptionsButton.Enabled = false;
             this.powerOptionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.powerOptionsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.powerOptionsButton.Location = new System.Drawing.Point(99, 146);

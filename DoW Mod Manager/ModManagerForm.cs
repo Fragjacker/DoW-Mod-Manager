@@ -38,6 +38,7 @@ namespace DoW_Mod_Manager
         private bool isGraphicsConfigLAAPatched = false;
         private bool isMessageBoxOnScreen = false;
         private bool isOldGame;
+        private string dowProcessName = "";
 
         public readonly string CurrentDir = Directory.GetCurrentDirectory();
         public readonly string CurrentGameEXE = "";
@@ -46,6 +47,7 @@ namespace DoW_Mod_Manager
         public string[] ModFolderPaths;
         public List<string> AllFoundModules;                                        // Contains the list of all available Mods that will be used by the Mod Merger
         public List<string> AllValidModules;                                        // Contains the list of all playable Mods that will be used by the Mod Merger
+        public bool IsTimerResolutionLowered = false;
 
         // Don't make Settings readonly or it couldn't be changed from outside the class!
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "<Pending>")]
@@ -180,6 +182,47 @@ namespace DoW_Mod_Manager
                          $"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n" +
                          $"{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}";
             File.WriteAllText(CONFIG_FILE_NAME, str);
+
+            // If Timer Resolution was lowered we have to keep DoW Mod Manager alive or Timer Resolution will be reset
+            if (IsTimerResolutionLowered)
+            {
+                // Threads could work even if application would be closed
+                new Thread(() =>
+                {
+                    int triesCount = 0;
+                    string procName = "";
+                    Process dowOrModManager = Process.GetCurrentProcess();      // Set it to ModManager first
+
+                    // Remember DoW process Name but if DoW is not launched - just terminate the Thread
+                    if (dowProcessName.Length > 0)
+                        procName = dowProcessName;
+                    else
+                        return;
+
+                    // We will try 30 times and then Thread will be terminated regardless
+                    while (triesCount < 30)
+                    {
+                        Thread.Sleep(1000);
+                        try
+                        {
+                            Process[] dowCandidate = Process.GetProcessesByName(procName);
+                            dowOrModManager = dowCandidate[0];
+                            break;                                              // We've done what we intended to do
+                        }
+                        catch (Exception)
+                        {
+                            triesCount++;
+                        }
+                    }
+
+                    // Wait until DoW would exit and then terminate the Thread
+                    while (!dowOrModManager.HasExited)
+                    {
+                        Thread.Sleep(10000);
+                    }
+                }
+                ).Start();
+            }
         }
 
         /// <summary>
@@ -309,7 +352,7 @@ namespace DoW_Mod_Manager
             {
                 if (!isMessageBoxOnScreen)
                 {
-                    CustomMessageBox.Show("No mods were found in the specified directory! Please check your current directory again!", "Warning!");
+                    ThemedMessageBox.Show("No mods were found in the specified directory! Please check your current directory again!", "Warning!");
                     isMessageBoxOnScreen = true;
                     Application.Exit();
                 }
@@ -417,7 +460,7 @@ namespace DoW_Mod_Manager
             startModButton.Enabled = true;
             fixMissingModButton.Enabled = false;
 
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark.png");
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.checkmark.png");
             pictureBox.Image = Image.FromStream(myStream);
 
             string requredMod;
@@ -443,7 +486,7 @@ namespace DoW_Mod_Manager
                     isInstalled[i] = false;
                     startModButton.Enabled = false;
 
-                    myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross.png");
+                    myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.cross.png");
                     pictureBox.Image = Image.FromStream(myStream);
                 }
             }
@@ -515,30 +558,31 @@ namespace DoW_Mod_Manager
             proc.StartInfo.Arguments = arguments;
             proc.Start();
 
+            dowProcessName = proc.ProcessName;
+
             if (settings[OPTIMIZATIONS] == 1)
             {
                 // Threads could work even if application would be closed
                 new Thread(() =>
                 {
                     int triesCount = 0;
-                    string procName = proc.ProcessName;
+                    string procName = dowProcessName;
 
-                TRY_AGAIN:
-                    triesCount++;
-
-                    // We can't change priority or affinity of the game right after it starts
-                    Thread.Sleep(1000);
-                    try
+                    // We will try 30 times and then Thread will be terminated regardless
+                    while (triesCount < 30)
                     {
-                        Process[] dow = Process.GetProcessesByName(procName);
-                        dow[0].PriorityClass = ProcessPriorityClass.High;
-                        dow[0].ProcessorAffinity = (IntPtr)0x0006;          // Affinity 6 means using only CPU threads 2 and 3 (6 = 0110)
-                    }
-                    catch (Exception)
-                    {
-                        // We will try 30 times and then Thread will be terminated regardless
-                        if (triesCount < 30)
-                            goto TRY_AGAIN;
+                        Thread.Sleep(1000);
+                        try
+                        {
+                            Process[] dow = Process.GetProcessesByName(procName);
+                            dow[0].PriorityClass = ProcessPriorityClass.High;
+                            dow[0].ProcessorAffinity = (IntPtr)0x0006;          // Affinity 6 means using only CPU threads 2 and 3 (6 = 0110)
+                            break;                                              // We've done what we intended to do
+                        }
+                        catch (Exception)
+                        {
+                            triesCount++;
+                        }
                     }
                 }
                 ).Start();
@@ -661,7 +705,7 @@ namespace DoW_Mod_Manager
 
             if (modName == "W40k" || modName == "WXP" || modName == "DXP2")
             {
-                CustomMessageBox.Show("You are missing one of the base modules! Reinstall the game to fix it", "Warning!");
+                ThemedMessageBox.Show("You are missing one of the base modules! Reinstall the game to fix it", "Warning!");
                 return;
             }
 
@@ -713,9 +757,9 @@ namespace DoW_Mod_Manager
                 }
 
                 if (errors.Length > 0)
-                    CustomMessageBox.Show(errors, "Errors:");
+                    ThemedMessageBox.Show(errors, "Errors:");
                 else
-                    CustomMessageBox.Show($"No errors were found in {WARNINGS_LOG}!", "Errors:");
+                    ThemedMessageBox.Show($"No errors were found in {WARNINGS_LOG}!", "Errors:");
             }
         }
 
@@ -941,7 +985,7 @@ namespace DoW_Mod_Manager
 
             if (!isMessageBoxOnScreen)
             {
-                CustomMessageBox.Show("Neither found the Soulstorm, Dark Crusade, Winter Assault nor Original in this directory!", "ERROR:");
+                ThemedMessageBox.Show("Neither found the Soulstorm, Dark Crusade, Winter Assault nor Original in this directory!", "ERROR:");
                 isMessageBoxOnScreen = true;
                 Application.Exit();
             }
@@ -960,7 +1004,7 @@ namespace DoW_Mod_Manager
             {
                 if (!isMessageBoxOnScreen)
                 {
-                    CustomMessageBox.Show(GraphicsConfigEXE + " was not found!", "ERROR:");
+                    ThemedMessageBox.Show(GraphicsConfigEXE + " was not found!", "ERROR:");
                     isMessageBoxOnScreen = true;
                     Application.Exit();
                 }

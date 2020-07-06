@@ -57,6 +57,9 @@ namespace DoW_Mod_Manager
             maximumTimerResolutionTextBox.Text = caps.PeriodMin / 10000.0 + " ms";
             currentTimerResolutionTextBox.Text = caps.PeriodCurrent / 10000.0 + " ms";
 
+            if (caps.PeriodCurrent / 10000.0 < 0.8)
+                modManager.IsTimerResolutionLowered = true;
+
             REG_DOW_PATH = modManager.CurrentDir + "\\" + modManager.CurrentGameEXE;
 
             // We are checking for Compatibility settings in Registry
@@ -164,11 +167,13 @@ namespace DoW_Mod_Manager
         private void SetTimerResolutionButton_Click(object sender, EventArgs e)
         {
             WinApiCalls.SetTimerResolution((uint)(0.5 * 10000));
+            modManager.IsTimerResolutionLowered = true;
         }
 
         private void DefaultTimerResolutionButton_Click(object sender, EventArgs e)
         {
             WinApiCalls.SetTimerResolution(0, false);
+            modManager.IsTimerResolutionLowered = false;
         }
 
         private void SetPropertiesButton_Click(object sender, EventArgs e)

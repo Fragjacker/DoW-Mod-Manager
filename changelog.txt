@@ -40,8 +40,16 @@
 - Profiles doesn't have empty slots now
 - Added an AboutForm (authors + homepage + updates)
 - Updating is working now (simplest implementation)
-- Added MessageForm - now all error messages will have the same theme as all main forms
-- Replaced all error messages from MessageBox to MessageForm
+- Added MessageForm - now all error messages will have the same theme as all main forms (and it's helper class - CustomMessageBox)
+- Replaced all error messages from MessageBox to CustomMessageBox
+- Renamed CustomMessageBox to ThemedMessageBox for more clarity
+- Fixed a bug where "Open Power Options" button was disabled by default
+- Changed "GoTo" statement in ModManagerForm (in Thread handling) to more modern "while" loop
+- TimerResolution is working even if DoW Mod Manager is closed
+- Renamed all non-lowercase image resources (such as Checkmark.png and Checkmark_disabled.png)'
+- Renamed "DoW Mod Manager Resources" to just "Resources"
+- Resized all image resources to 50 px hight. Resource folder is 56 Kb instead of 268 Kb (21% of original size). It even looks better now (less artifacts when it's stretched).
+- Because of resource optimizations DoW Mod Manager executable is 632 Kb instead of 1085 Kb (58% of original size)
 
 ## Version 1.8.2:
 
