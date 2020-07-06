@@ -146,6 +146,7 @@
             // saveButton
             // 
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.saveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.saveButton.Enabled = false;
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -160,6 +161,7 @@
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.cancelButton.Location = new System.Drawing.Point(436, 621);
@@ -174,6 +176,7 @@
             // 
             this.defaultsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.defaultsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.defaultsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.defaultsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.defaultsButton.Location = new System.Drawing.Point(224, 621);
@@ -248,6 +251,7 @@
             // 
             this.createProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.createProfileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.createProfileButton.Enabled = false;
             this.createProfileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.createProfileButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -263,6 +267,7 @@
             // 
             this.deleteProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.deleteProfileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.deleteProfileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteProfileButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.deleteProfileButton.Location = new System.Drawing.Point(261, 8);
@@ -277,6 +282,7 @@
             // 
             this.systemPerformanceButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.systemPerformanceButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.systemPerformanceButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.systemPerformanceButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.systemPerformanceButton.Location = new System.Drawing.Point(206, 490);
@@ -488,6 +494,7 @@
             // ultraGraphicsButton
             // 
             this.ultraGraphicsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ultraGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ultraGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ultraGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ultraGraphicsButton.Location = new System.Drawing.Point(397, 486);
@@ -502,6 +509,7 @@
             // 
             this.highGraphicsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.highGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.highGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.highGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.highGraphicsButton.Location = new System.Drawing.Point(276, 486);
@@ -516,6 +524,7 @@
             // 
             this.mediumButtomGraphics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.mediumButtomGraphics.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.mediumButtomGraphics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mediumButtomGraphics.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.mediumButtomGraphics.Location = new System.Drawing.Point(154, 486);
@@ -529,6 +538,7 @@
             // lowGraphicsButton
             // 
             this.lowGraphicsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lowGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.lowGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lowGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.lowGraphicsButton.Location = new System.Drawing.Point(32, 486);
@@ -662,7 +672,7 @@
             // 
             this.full3DCameraLabel.AutoSize = true;
             this.full3DCameraLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.full3DCameraLabel.Location = new System.Drawing.Point(265, 284);
+            this.full3DCameraLabel.Location = new System.Drawing.Point(265, 285);
             this.full3DCameraLabel.Name = "full3DCameraLabel";
             this.full3DCameraLabel.Size = new System.Drawing.Size(82, 13);
             this.full3DCameraLabel.TabIndex = 33;
@@ -695,7 +705,7 @@
             // betterTeamcoloredTexturexCheckBox
             // 
             this.betterTeamcoloredTexturexCheckBox.AutoSize = true;
-            this.betterTeamcoloredTexturexCheckBox.Location = new System.Drawing.Point(427, 22);
+            this.betterTeamcoloredTexturexCheckBox.Location = new System.Drawing.Point(427, 20);
             this.betterTeamcoloredTexturexCheckBox.Name = "betterTeamcoloredTexturexCheckBox";
             this.betterTeamcoloredTexturexCheckBox.Size = new System.Drawing.Size(15, 14);
             this.betterTeamcoloredTexturexCheckBox.TabIndex = 30;
@@ -715,7 +725,7 @@
             // unitsOcclusionCheckBox
             // 
             this.unitsOcclusionCheckBox.AutoSize = true;
-            this.unitsOcclusionCheckBox.Location = new System.Drawing.Point(363, 321);
+            this.unitsOcclusionCheckBox.Location = new System.Drawing.Point(363, 320);
             this.unitsOcclusionCheckBox.Name = "unitsOcclusionCheckBox";
             this.unitsOcclusionCheckBox.Size = new System.Drawing.Size(15, 14);
             this.unitsOcclusionCheckBox.TabIndex = 28;
@@ -726,7 +736,7 @@
             // 
             this.unitsOcclusionLabel.AutoSize = true;
             this.unitsOcclusionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.unitsOcclusionLabel.Location = new System.Drawing.Point(265, 319);
+            this.unitsOcclusionLabel.Location = new System.Drawing.Point(265, 320);
             this.unitsOcclusionLabel.Name = "unitsOcclusionLabel";
             this.unitsOcclusionLabel.Size = new System.Drawing.Size(84, 13);
             this.unitsOcclusionLabel.TabIndex = 27;
@@ -765,7 +775,7 @@
             "Low",
             "Medium",
             "High"});
-            this.terrainDetailComboBox.Location = new System.Drawing.Point(113, 432);
+            this.terrainDetailComboBox.Location = new System.Drawing.Point(113, 433);
             this.terrainDetailComboBox.Name = "terrainDetailComboBox";
             this.terrainDetailComboBox.Size = new System.Drawing.Size(121, 21);
             this.terrainDetailComboBox.TabIndex = 24;
@@ -775,7 +785,7 @@
             // 
             this.terrainDetailLabel.AutoSize = true;
             this.terrainDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.terrainDetailLabel.Location = new System.Drawing.Point(9, 436);
+            this.terrainDetailLabel.Location = new System.Drawing.Point(9, 437);
             this.terrainDetailLabel.Name = "terrainDetailLabel";
             this.terrainDetailLabel.Size = new System.Drawing.Size(73, 13);
             this.terrainDetailLabel.TabIndex = 23;
@@ -789,7 +799,7 @@
             "Low",
             "Medium",
             "High"});
-            this.modelDetailComboBox.Location = new System.Drawing.Point(113, 392);
+            this.modelDetailComboBox.Location = new System.Drawing.Point(113, 393);
             this.modelDetailComboBox.Name = "modelDetailComboBox";
             this.modelDetailComboBox.Size = new System.Drawing.Size(121, 21);
             this.modelDetailComboBox.TabIndex = 22;
@@ -799,7 +809,7 @@
             // 
             this.modelDetailLabel.AutoSize = true;
             this.modelDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.modelDetailLabel.Location = new System.Drawing.Point(10, 396);
+            this.modelDetailLabel.Location = new System.Drawing.Point(10, 397);
             this.modelDetailLabel.Name = "modelDetailLabel";
             this.modelDetailLabel.Size = new System.Drawing.Size(69, 13);
             this.modelDetailLabel.TabIndex = 21;
@@ -813,7 +823,7 @@
             "Low",
             "Medium",
             "High"});
-            this.textureDetailComboBox.Location = new System.Drawing.Point(113, 353);
+            this.textureDetailComboBox.Location = new System.Drawing.Point(113, 354);
             this.textureDetailComboBox.Name = "textureDetailComboBox";
             this.textureDetailComboBox.Size = new System.Drawing.Size(121, 21);
             this.textureDetailComboBox.TabIndex = 20;
@@ -823,7 +833,7 @@
             // 
             this.textureDetailLabel.AutoSize = true;
             this.textureDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.textureDetailLabel.Location = new System.Drawing.Point(10, 357);
+            this.textureDetailLabel.Location = new System.Drawing.Point(10, 358);
             this.textureDetailLabel.Name = "textureDetailLabel";
             this.textureDetailLabel.Size = new System.Drawing.Size(76, 13);
             this.textureDetailLabel.TabIndex = 19;
@@ -903,7 +913,7 @@
             // antialiasingCheckBox
             // 
             this.antialiasingCheckBox.AutoSize = true;
-            this.antialiasingCheckBox.Location = new System.Drawing.Point(113, 318);
+            this.antialiasingCheckBox.Location = new System.Drawing.Point(113, 320);
             this.antialiasingCheckBox.Name = "antialiasingCheckBox";
             this.antialiasingCheckBox.Size = new System.Drawing.Size(15, 14);
             this.antialiasingCheckBox.TabIndex = 12;
@@ -914,7 +924,7 @@
             // 
             this.antialiasingLabel.AutoSize = true;
             this.antialiasingLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.antialiasingLabel.Location = new System.Drawing.Point(10, 318);
+            this.antialiasingLabel.Location = new System.Drawing.Point(10, 320);
             this.antialiasingLabel.Name = "antialiasingLabel";
             this.antialiasingLabel.Size = new System.Drawing.Size(66, 13);
             this.antialiasingLabel.TabIndex = 11;
@@ -952,7 +962,7 @@
             // windowedCheckBox
             // 
             this.windowedCheckBox.AutoSize = true;
-            this.windowedCheckBox.Location = new System.Drawing.Point(113, 284);
+            this.windowedCheckBox.Location = new System.Drawing.Point(113, 285);
             this.windowedCheckBox.Name = "windowedCheckBox";
             this.windowedCheckBox.Size = new System.Drawing.Size(15, 14);
             this.windowedCheckBox.TabIndex = 8;
@@ -963,7 +973,7 @@
             // 
             this.windowedLabel.AutoSize = true;
             this.windowedLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.windowedLabel.Location = new System.Drawing.Point(10, 284);
+            this.windowedLabel.Location = new System.Drawing.Point(10, 285);
             this.windowedLabel.Name = "windowedLabel";
             this.windowedLabel.Size = new System.Drawing.Size(61, 13);
             this.windowedLabel.TabIndex = 7;
@@ -1085,6 +1095,7 @@
             // 
             this.highAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.highAudioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.highAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.highAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.highAudioButton.Location = new System.Drawing.Point(374, 485);
@@ -1099,6 +1110,7 @@
             // 
             this.mediumAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.mediumAudioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.mediumAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mediumAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.mediumAudioButton.Location = new System.Drawing.Point(214, 485);
@@ -1112,6 +1124,7 @@
             // lowAudioButton
             // 
             this.lowAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lowAudioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.lowAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lowAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.lowAudioButton.Location = new System.Drawing.Point(58, 485);
@@ -1136,7 +1149,7 @@
             // soundEnabledCheckBox
             // 
             this.soundEnabledCheckBox.AutoSize = true;
-            this.soundEnabledCheckBox.Location = new System.Drawing.Point(114, 22);
+            this.soundEnabledCheckBox.Location = new System.Drawing.Point(114, 21);
             this.soundEnabledCheckBox.Name = "soundEnabledCheckBox";
             this.soundEnabledCheckBox.Size = new System.Drawing.Size(15, 14);
             this.soundEnabledCheckBox.TabIndex = 50;
@@ -1273,7 +1286,7 @@
             "Low",
             "Medium",
             "High"});
-            this.soundQualityComboBox.Location = new System.Drawing.Point(114, 85);
+            this.soundQualityComboBox.Location = new System.Drawing.Point(114, 86);
             this.soundQualityComboBox.Name = "soundQualityComboBox";
             this.soundQualityComboBox.Size = new System.Drawing.Size(121, 21);
             this.soundQualityComboBox.TabIndex = 38;

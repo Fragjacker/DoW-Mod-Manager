@@ -50,6 +50,7 @@
 - Renamed "DoW Mod Manager Resources" to just "Resources"
 - Resized all image resources to 50 px hight. Resource folder is 56 Kb instead of 268 Kb (21% of original size). It even looks better now (less artifacts when it's stretched).
 - Because of resource optimizations DoW Mod Manager executable is 632 Kb instead of 1085 Kb (58% of original size)
+- Changed a few colors - application theme is more consistent now
 
 ## Version 1.8.2:
 

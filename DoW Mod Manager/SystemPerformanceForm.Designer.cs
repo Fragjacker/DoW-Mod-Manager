@@ -35,6 +35,7 @@
             this.currentTimerResolutionTextBox = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.compatibilityTabPage = new System.Windows.Forms.TabPage();
+            this.openDoWPropertiesButton = new System.Windows.Forms.Button();
             this.fullscreenOptimizationsCheckBox = new System.Windows.Forms.CheckBox();
             this.fullscreenOptimizationsLabel = new System.Windows.Forms.Label();
             this.setPropertiesButton = new System.Windows.Forms.Button();
@@ -54,7 +55,6 @@
             this.minimumTimerResolutionTextBox = new System.Windows.Forms.TextBox();
             this.maximumTimerResolutionTextBox = new System.Windows.Forms.TextBox();
             this.maximumTimerResolutionLabel = new System.Windows.Forms.Label();
-            this.openDoWPropertiesButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.compatibilityTabPage.SuspendLayout();
             this.powerSettingsTabPage.SuspendLayout();
@@ -74,6 +74,7 @@
             // setTimerResolutionButton
             // 
             this.setTimerResolutionButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.setTimerResolutionButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.setTimerResolutionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setTimerResolutionButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.setTimerResolutionButton.Location = new System.Drawing.Point(22, 200);
@@ -87,6 +88,7 @@
             // defaultTimerResolutionButton
             // 
             this.defaultTimerResolutionButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.defaultTimerResolutionButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.defaultTimerResolutionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.defaultTimerResolutionButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.defaultTimerResolutionButton.Location = new System.Drawing.Point(182, 200);
@@ -151,6 +153,20 @@
             this.compatibilityTabPage.TabIndex = 0;
             this.compatibilityTabPage.Text = "Compatibility";
             // 
+            // openDoWPropertiesButton
+            // 
+            this.openDoWPropertiesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.openDoWPropertiesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.openDoWPropertiesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.openDoWPropertiesButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.openDoWPropertiesButton.Location = new System.Drawing.Point(178, 200);
+            this.openDoWPropertiesButton.Name = "openDoWPropertiesButton";
+            this.openDoWPropertiesButton.Size = new System.Drawing.Size(120, 38);
+            this.openDoWPropertiesButton.TabIndex = 59;
+            this.openDoWPropertiesButton.Text = "Open DoW Properties";
+            this.openDoWPropertiesButton.UseVisualStyleBackColor = false;
+            this.openDoWPropertiesButton.Click += new System.EventHandler(this.OpenDoWPropertiesButton_Click);
+            // 
             // fullscreenOptimizationsCheckBox
             // 
             this.fullscreenOptimizationsCheckBox.AutoSize = true;
@@ -173,6 +189,7 @@
             // setPropertiesButton
             // 
             this.setPropertiesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.setPropertiesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.setPropertiesButton.Enabled = false;
             this.setPropertiesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setPropertiesButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -187,7 +204,7 @@
             // HDPIiScalingCheckBox
             // 
             this.HDPIiScalingCheckBox.AutoSize = true;
-            this.HDPIiScalingCheckBox.Location = new System.Drawing.Point(229, 48);
+            this.HDPIiScalingCheckBox.Location = new System.Drawing.Point(229, 49);
             this.HDPIiScalingCheckBox.Name = "HDPIiScalingCheckBox";
             this.HDPIiScalingCheckBox.Size = new System.Drawing.Size(15, 14);
             this.HDPIiScalingCheckBox.TabIndex = 55;
@@ -197,7 +214,7 @@
             // 
             this.HDPIScalingLabel.AutoSize = true;
             this.HDPIScalingLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.HDPIScalingLabel.Location = new System.Drawing.Point(16, 48);
+            this.HDPIScalingLabel.Location = new System.Drawing.Point(16, 49);
             this.HDPIScalingLabel.Name = "HDPIScalingLabel";
             this.HDPIScalingLabel.Size = new System.Drawing.Size(179, 13);
             this.HDPIScalingLabel.TabIndex = 54;
@@ -225,7 +242,7 @@
             // comatibilityModeCheckBox
             // 
             this.comatibilityModeCheckBox.AutoSize = true;
-            this.comatibilityModeCheckBox.Location = new System.Drawing.Point(229, 85);
+            this.comatibilityModeCheckBox.Location = new System.Drawing.Point(229, 86);
             this.comatibilityModeCheckBox.Name = "comatibilityModeCheckBox";
             this.comatibilityModeCheckBox.Size = new System.Drawing.Size(15, 14);
             this.comatibilityModeCheckBox.TabIndex = 51;
@@ -235,7 +252,7 @@
             // 
             this.compatibilityModeLabel.AutoSize = true;
             this.compatibilityModeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.compatibilityModeLabel.Location = new System.Drawing.Point(16, 85);
+            this.compatibilityModeLabel.Location = new System.Drawing.Point(16, 86);
             this.compatibilityModeLabel.Name = "compatibilityModeLabel";
             this.compatibilityModeLabel.Size = new System.Drawing.Size(197, 13);
             this.compatibilityModeLabel.TabIndex = 5;
@@ -260,6 +277,7 @@
             // 
             this.powerOptionsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.powerOptionsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.powerOptionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.powerOptionsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.powerOptionsButton.Location = new System.Drawing.Point(99, 146);
@@ -273,6 +291,7 @@
             // unlockUltimatePerformanceButton
             // 
             this.unlockUltimatePerformanceButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.unlockUltimatePerformanceButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.unlockUltimatePerformanceButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.unlockUltimatePerformanceButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.unlockUltimatePerformanceButton.Location = new System.Drawing.Point(176, 201);
@@ -286,6 +305,7 @@
             // setPowerPlanButton
             // 
             this.setPowerPlanButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.setPowerPlanButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.setPowerPlanButton.Enabled = false;
             this.setPowerPlanButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setPowerPlanButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -337,7 +357,7 @@
             // 
             this.minimumTimerResolutionTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.minimumTimerResolutionTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.minimumTimerResolutionTextBox.Location = new System.Drawing.Point(147, 11);
+            this.minimumTimerResolutionTextBox.Location = new System.Drawing.Point(147, 12);
             this.minimumTimerResolutionTextBox.Name = "minimumTimerResolutionTextBox";
             this.minimumTimerResolutionTextBox.ReadOnly = true;
             this.minimumTimerResolutionTextBox.Size = new System.Drawing.Size(102, 20);
@@ -347,7 +367,7 @@
             // 
             this.maximumTimerResolutionTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.maximumTimerResolutionTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.maximumTimerResolutionTextBox.Location = new System.Drawing.Point(147, 45);
+            this.maximumTimerResolutionTextBox.Location = new System.Drawing.Point(147, 46);
             this.maximumTimerResolutionTextBox.Name = "maximumTimerResolutionTextBox";
             this.maximumTimerResolutionTextBox.ReadOnly = true;
             this.maximumTimerResolutionTextBox.Size = new System.Drawing.Size(102, 20);
@@ -362,19 +382,6 @@
             this.maximumTimerResolutionLabel.Size = new System.Drawing.Size(110, 13);
             this.maximumTimerResolutionLabel.TabIndex = 6;
             this.maximumTimerResolutionLabel.Text = "Maximum Resolution: ";
-            // 
-            // openDoWPropertiesButton
-            // 
-            this.openDoWPropertiesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.openDoWPropertiesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.openDoWPropertiesButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.openDoWPropertiesButton.Location = new System.Drawing.Point(178, 200);
-            this.openDoWPropertiesButton.Name = "openDoWPropertiesButton";
-            this.openDoWPropertiesButton.Size = new System.Drawing.Size(120, 38);
-            this.openDoWPropertiesButton.TabIndex = 59;
-            this.openDoWPropertiesButton.Text = "Open DoW Properties";
-            this.openDoWPropertiesButton.UseVisualStyleBackColor = false;
-            this.openDoWPropertiesButton.Click += new System.EventHandler(this.OpenDoWPropertiesButton_Click);
             // 
             // SystemPerformanceForm
             // 

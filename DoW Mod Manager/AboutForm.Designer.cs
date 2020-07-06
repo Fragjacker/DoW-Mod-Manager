@@ -42,6 +42,8 @@
             this.specialThanks2LinkLabel = new System.Windows.Forms.LinkLabel();
             this.technologyUsed1Label = new System.Windows.Forms.Label();
             this.technologyUsedLabel = new System.Windows.Forms.Label();
+            this.specialThanks3LinkLabel = new System.Windows.Forms.LinkLabel();
+            this.specialThanks3Label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -181,7 +183,7 @@
             // 
             this.technologyUsed1Label.AutoSize = true;
             this.technologyUsed1Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.technologyUsed1Label.Location = new System.Drawing.Point(77, 168);
+            this.technologyUsed1Label.Location = new System.Drawing.Point(77, 184);
             this.technologyUsed1Label.Name = "technologyUsed1Label";
             this.technologyUsed1Label.Size = new System.Drawing.Size(211, 13);
             this.technologyUsed1Label.TabIndex = 14;
@@ -192,11 +194,32 @@
             this.technologyUsedLabel.AutoSize = true;
             this.technologyUsedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.technologyUsedLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.technologyUsedLabel.Location = new System.Drawing.Point(77, 148);
+            this.technologyUsedLabel.Location = new System.Drawing.Point(77, 164);
             this.technologyUsedLabel.Name = "technologyUsedLabel";
             this.technologyUsedLabel.Size = new System.Drawing.Size(108, 13);
             this.technologyUsedLabel.TabIndex = 13;
             this.technologyUsedLabel.Text = "Technology used:";
+            // 
+            // specialThanks3LinkLabel
+            // 
+            this.specialThanks3LinkLabel.AutoSize = true;
+            this.specialThanks3LinkLabel.Location = new System.Drawing.Point(301, 134);
+            this.specialThanks3LinkLabel.Name = "specialThanks3LinkLabel";
+            this.specialThanks3LinkLabel.Size = new System.Drawing.Size(60, 13);
+            this.specialThanks3LinkLabel.TabIndex = 16;
+            this.specialThanks3LinkLabel.TabStop = true;
+            this.specialThanks3LinkLabel.Text = "home page";
+            this.specialThanks3LinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SpecialThanks3LinkLabel_LinkClicked);
+            // 
+            // specialThanks3Label
+            // 
+            this.specialThanks3Label.AutoSize = true;
+            this.specialThanks3Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.specialThanks3Label.Location = new System.Drawing.Point(78, 134);
+            this.specialThanks3Label.Name = "specialThanks3Label";
+            this.specialThanks3Label.Size = new System.Drawing.Size(226, 13);
+            this.specialThanks3Label.TabIndex = 15;
+            this.specialThanks3Label.Text = "Stack Exchange Network - for Stack Overflow";
             // 
             // AboutForm
             // 
@@ -204,6 +227,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(438, 271);
+            this.Controls.Add(this.specialThanks3LinkLabel);
+            this.Controls.Add(this.specialThanks3Label);
             this.Controls.Add(this.technologyUsed1Label);
             this.Controls.Add(this.technologyUsedLabel);
             this.Controls.Add(this.specialThanks2LinkLabel);
@@ -246,5 +271,7 @@
         private System.Windows.Forms.LinkLabel specialThanks2LinkLabel;
         private System.Windows.Forms.Label technologyUsed1Label;
         private System.Windows.Forms.Label technologyUsedLabel;
+        private System.Windows.Forms.LinkLabel specialThanks3LinkLabel;
+        private System.Windows.Forms.Label specialThanks3Label;
     }
 }

@@ -1,5 +1,1 @@
-To enable autoupdates you will have to:
-* Copy your new executable in this directory (LatestStable)
-* Rename it to "DoW Mod Manager.exe" (without any version number in name!)
-* Edit file "version" so it will contain a version number (in format X.X.X)
-* Commit changes and push it to GitHub
+To enable autoupdates you just have to run "CopyExecutableHere.cmd"

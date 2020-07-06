@@ -49,6 +49,7 @@
             // OKButton
             // 
             this.OKButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.OKButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OKButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.OKButton.Location = new System.Drawing.Point(39, 58);

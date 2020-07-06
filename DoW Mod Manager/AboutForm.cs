@@ -133,5 +133,10 @@ namespace DoW_Mod_Manager
         {
             Process.Start("https://github.com/zayenCh/DownloadFile");
         }
+
+        private void SpecialThanks3LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://stackoverflow.com");
+        }
     }
 }
