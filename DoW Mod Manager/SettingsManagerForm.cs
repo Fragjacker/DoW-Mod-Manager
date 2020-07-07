@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Windows.Forms;
 
 namespace DoW_Mod_Manager
@@ -67,9 +68,12 @@ namespace DoW_Mod_Manager
         private const string NAME_DAT = "name.dat";
         private const string PLAYERCONFIG = "playercfg.lua";
         private const string PROFILE = "Profile";
-        private const string PROFILE_DOESNT_EXIST = "Profile doesn't exist";
 
         // Here are some usefull settings from playercfg.lua in right order
+        private const string INVERT_DECLINATION = "tinvertDeclination";
+        private const string INVERT_PAN = "tinvertPan";
+        private const string SCROLL_RATE = "tscrollRate";
+
         private const string SOUND_VOLUME_AMBIENT = "VolumeAmbient";
         private const string SOUND_VOLUME_MUSIC = "VolumeMusic";
         private const string SOUND_VOLUME_SFX = "VolumeSfx";
@@ -105,7 +109,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CLOSE_LABEL;
+            closeButton.Text = CLOSE_LABEL;
             saveButton.Enabled = false;
         }
 
@@ -150,6 +154,10 @@ namespace DoW_Mod_Manager
                 [UNIT_OCCLUSION] = "0",
 
                 // For playercfg.lua
+                [INVERT_DECLINATION] = "0",
+                [INVERT_PAN] = "1",
+                [SCROLL_RATE] = "1",
+
                 [SOUND_VOLUME_AMBIENT] = "0.75",
                 [SOUND_VOLUME_MUSIC] = "0.75",
                 [SOUND_VOLUME_SFX] = "0.75",
@@ -341,7 +349,10 @@ namespace DoW_Mod_Manager
                     int indexOfLastSlah = profileDirectories[i].LastIndexOf("\\");
                     string profileName = profileDirectories[i].Substring(indexOfLastSlah + 1);
 
-                    string playerName = File.ReadAllText(profileDirectories[i] + "\\" + NAME_DAT);
+                    string playerName = "Player";
+                    string playerNamePath = profileDirectories[i] + "\\" + NAME_DAT;
+                    if (File.Exists(playerNamePath))
+                        playerName = File.ReadAllText(playerNamePath);
 
                     profiles.Add(new Profile(profileName, playerName));
                 }
@@ -385,15 +396,6 @@ namespace DoW_Mod_Manager
 
                 for (int i = 0; i < profiles.Count; i++)
                 {
-                    //string profileName = PROFILE + j;
-
-                    // You may have only one profile but it could be Profile45
-                    //while (profiles[i].ProfileName != profileName)
-                    //{
-                    //    j++;
-                    //    profileName = PROFILE + j.ToString();
-                    //    currentPlayerComboBox.Items.Add(PROFILE_DOESNT_EXIST);
-                    //}
                     currentPlayerComboBox.Items.Add(profiles[i].PlayerName);
 
                     if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
@@ -492,7 +494,24 @@ namespace DoW_Mod_Manager
 
                                 TrackBar trackBarToChange;
 
-                                if (line.Contains(SOUND_VOLUME_AMBIENT))
+                                if (line.Contains(INVERT_DECLINATION))
+                                {
+                                    inverseDeclinationCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(stringValue));
+                                    settings[INVERT_DECLINATION] = stringValue;
+                                    continue;
+                                }
+                                else if (line.Contains(INVERT_PAN))
+                                {
+                                    inversePanCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(stringValue));
+                                    settings[INVERT_PAN] = stringValue;
+                                    continue;
+                                }
+                                else if (line.Contains(SCROLL_RATE))
+                                {
+                                    trackBarToChange = scrollRateTrackBar;
+                                    settings[SCROLL_RATE] = stringValue;
+                                }
+                                else if (line.Contains(SOUND_VOLUME_AMBIENT))
                                 {
                                     trackBarToChange = ambientVolumeTrackBar;
                                     settings[SOUND_VOLUME_AMBIENT] = stringValue;
@@ -610,8 +629,32 @@ namespace DoW_Mod_Manager
                 }
                 File.WriteAllLines(pathToPlayerConfig, lines);
             }
+            else
+            {
+                string str2 = "Controls = \r\n" +
+                              "{\r\n" +
+                              "\tinvertDeclination = 0,\r\n" +
+                              "\tinvertPan = 1,\r\n" +
+                              "\tscrollRate = 1,\r\n" +
+                              "}\r\n" +
+                              "Sound = \r\n" +
+                              "{\r\n" +
+                              $"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},\r\n" +
+                              $"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},\r\n" +
+                              $"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},\r\n" +
+                              $"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},\r\n" +
+                              "}\r\n" +
+                              "player_preferences = " +
+                              "{\r\n" +
+                              "\tcampaign_played_disorder = false,\r\n" +
+                              "\tcampaign_played_order = false,\r\n" +
+                              "\tforce_name = \"Blood Ravens\",\r\n" +
+                              "\trace = \"space_marine_race\",\r\n" +
+                              "}\r\n";
+                File.WriteAllText(pathToPlayerConfig, str2);
+            }
 
-            cancelButton.Text = CLOSE_LABEL;
+            closeButton.Text = CLOSE_LABEL;
             saveButton.Enabled = false;
         }
 
@@ -625,7 +668,7 @@ namespace DoW_Mod_Manager
             saveButton.Focus();
         }
 
-        private void CancelButton_Click(object sender, EventArgs e)
+        private void CloseButton_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -636,7 +679,7 @@ namespace DoW_Mod_Manager
 
             settings[PLAYER_PROFILE] = PROFILE + (currentPlayerComboBox.SelectedIndex + 1).ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -648,31 +691,49 @@ namespace DoW_Mod_Manager
             else
                 settings[PARENTAL_CONTROL] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
 
         private void InversePanCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            // this setting is in playercfg.lua
+            if (inversePanCheckBox.Checked)
+                settings[INVERT_PAN] = "1";
+            else
+                settings[INVERT_PAN] = "0";
+
+            closeButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void InverseDeclinationCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            // this setting is in playercfg.lua
+            if (inverseDeclinationCheckBox.Checked)
+                settings[INVERT_DECLINATION] = "1";
+            else
+                settings[INVERT_DECLINATION] = "0";
+
+            closeButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void ScrollRateTrackBar_Scroll(object sender, EventArgs e)
         {
-            // this setting is in playercfg.lua
+            settings[SCROLL_RATE] = scrollRateTrackBar.Value.ToString();
+
+            closeButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void UnknownSettingComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[RL_SSO_NUM_TIMES_SHOWN] = unknownSettingComboBox.SelectedItem.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -681,7 +742,7 @@ namespace DoW_Mod_Manager
         {
             settings[SCREEN_ADAPTER] = activeVideocardComboBox.SelectedItem.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -690,7 +751,7 @@ namespace DoW_Mod_Manager
         {
             settings[SCREEN_DEVICE] = rendererComboBox.SelectedItem.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -703,7 +764,7 @@ namespace DoW_Mod_Manager
             settings[SCREEN_WIDTH] = str.Substring(0, x);
             settings[SCREEN_HEIGHT] = str.Substring(x + 1, str.Length - x - 1);
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -718,7 +779,7 @@ namespace DoW_Mod_Manager
             else
                 settings[SCREEN_REFRESH] = str.Substring(0, indexOfSpace);
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -738,7 +799,7 @@ namespace DoW_Mod_Manager
                     break;
             }
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -747,7 +808,7 @@ namespace DoW_Mod_Manager
         {
             settings[SCREEN_GAMMA] = gammaTrackBar.Value.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -759,7 +820,7 @@ namespace DoW_Mod_Manager
             else
                 settings[SCREEN_NO_VSYNC] = "1";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -771,7 +832,7 @@ namespace DoW_Mod_Manager
             else
                 settings[SCREEN_WINDOWED] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -783,7 +844,7 @@ namespace DoW_Mod_Manager
             else
                 settings[SCREEN_ANIALIAS] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -792,7 +853,7 @@ namespace DoW_Mod_Manager
         {
             settings[TEXTURE_DETAIL] = textureDetailComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -801,7 +862,7 @@ namespace DoW_Mod_Manager
         {
             settings[MODEL_DETAIL] = modelDetailComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -810,7 +871,7 @@ namespace DoW_Mod_Manager
         {
             settings[TERRAIN_ENABLE_FOW_BLUR] = terrainDetailComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -822,7 +883,7 @@ namespace DoW_Mod_Manager
             else
                 settings[FULLRES_TEAMCOLOUR] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -848,7 +909,7 @@ namespace DoW_Mod_Manager
                     break;
             }
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -857,7 +918,7 @@ namespace DoW_Mod_Manager
         {
             settings[EVENT_DETAIL_LEVEL] = worldEventsComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -866,7 +927,7 @@ namespace DoW_Mod_Manager
         {
             settings[FX_DETAIL_LEVEL] = effectsDetailComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -875,7 +936,7 @@ namespace DoW_Mod_Manager
         {
             settings[PERSISTENT_BODIES] = persistentBodiesComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -884,7 +945,7 @@ namespace DoW_Mod_Manager
         {
             settings[PERSISTENT_DECALS] = persistentScarringComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -893,7 +954,7 @@ namespace DoW_Mod_Manager
         {
             settings[DYNAMIC_LIGHTS] = dynamicLightsComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -905,7 +966,7 @@ namespace DoW_Mod_Manager
             else
                 settings[CAMERA_DETAIL] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -917,7 +978,7 @@ namespace DoW_Mod_Manager
             else
                 settings[UNIT_OCCLUSION] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -929,7 +990,7 @@ namespace DoW_Mod_Manager
             else
                 settings[SOUND_ENABLED] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -941,7 +1002,7 @@ namespace DoW_Mod_Manager
             else
                 settings[SOUND_LIMIT_SAMPLES] = "1";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -950,7 +1011,7 @@ namespace DoW_Mod_Manager
         {
             settings[SOUND_QUALITY] = soundQualityComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -970,7 +1031,7 @@ namespace DoW_Mod_Manager
                     break;
             }
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -982,7 +1043,7 @@ namespace DoW_Mod_Manager
 
             settings[SOUND_VOLUME_AMBIENT] = settingValue.ToString("F5", new CultureInfo("en-US"));
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -994,7 +1055,7 @@ namespace DoW_Mod_Manager
 
             settings[SOUND_VOLUME_SFX] = settingValue.ToString("F5", new CultureInfo("en-US"));
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -1006,7 +1067,7 @@ namespace DoW_Mod_Manager
 
             settings[SOUND_VOLUME_VOICE] = settingValue.ToString("F5", new CultureInfo("en-US"));
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -1018,7 +1079,7 @@ namespace DoW_Mod_Manager
 
             settings[SOUND_VOLUME_MUSIC] = settingValue.ToString("F5", new CultureInfo("en-US"));
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -1045,7 +1106,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
@@ -1071,7 +1132,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
@@ -1097,7 +1158,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
@@ -1113,7 +1174,7 @@ namespace DoW_Mod_Manager
             settings[MODEL_DETAIL] = "2";
             settings[PERSISTENT_BODIES] = "3";
             settings[PERSISTENT_DECALS] = "2";
-            settings[SCREEN_ANIALIAS] = "1";                            // Testing needed!
+            settings[SCREEN_ANIALIAS] = "1";
             settings[SCREEN_DEPTH] = "32";
             settings[SHADOW_BLOB] = "1";
             settings[SHADOW_MAP] = "1";
@@ -1125,7 +1186,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
@@ -1140,7 +1201,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
@@ -1155,7 +1216,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
@@ -1170,7 +1231,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
@@ -1186,17 +1247,16 @@ namespace DoW_Mod_Manager
         {
             string playerNameToDelete = currentPlayerComboBox.SelectedItem.ToString();
 
-            if (playerNameToDelete == PROFILE_DOESNT_EXIST)
-                return;
-
             for (int i = 0; i < profiles.Count; i++)
             {
-                if (profiles[i].PlayerName == playerNameToDelete)
+                if (playerNameToDelete == profiles[i].PlayerName)
                 {
                     string profilePathToDelete = PROFILES_PATH + "\\" + profiles[i].ProfileName;
 
                     if (Directory.Exists(profilePathToDelete))
                         Directory.Delete(profilePathToDelete, true);
+
+                    break;
                 }
             }
 
@@ -1227,63 +1287,72 @@ namespace DoW_Mod_Manager
 
             string newProfileName = PROFILE + indexOfNewProfile;
             string newProfilePath = PROFILES_PATH + "\\" + newProfileName;
-            string subDerectory = newProfilePath + "\\";
 
             Directory.CreateDirectory(newProfilePath);
-
-            switch (modManager.CurrentGameEXE)
+            try
             {
-                case ModManagerForm.GameExecutable.SOULSTORM:
-                case ModManagerForm.GameExecutable.DARK_CRUSADE:
-                    subDerectory += "dxp2";
-                    break;
-                case ModManagerForm.GameExecutable.WINTER_ASSAULT:
-                    subDerectory += "wxp";
-                    break;
-                case ModManagerForm.GameExecutable.ORIGINAL:
-                    subDerectory += "w40k";
-                    break;
+                File.WriteAllText(newProfilePath + "\\" + NAME_DAT, newPlayerTextBox.Text, Encoding.GetEncoding("utf-16"));
+                
+                newPlayerTextBox.Text = "";
+                deleteProfileButton.Enabled = true;
+
+                if (currentPlayerComboBox.Items.Count > 0)
+                {
+                    FindAllProfilesInDirectory(true);
+                    InitializeGUIWithSettings();
+                }
+
             }
-            Directory.CreateDirectory(subDerectory);
-
-            using (StreamWriter sw = File.CreateText(newProfilePath + "\\" + NAME_DAT))
+            catch (Exception ex)
             {
-                sw.Write(newPlayerTextBox.Text);
+                ThemedMessageBox.Show(ex.Message, "Error:");
             }
-            using (StreamWriter sw = File.CreateText(newProfilePath + "\\" + PLAYERCONFIG))
-            {
-                sw.Write("Sound = \r\n" + 
-                         "{\r\n" +
-                         "	VolumeAmbient = 0.75000,\r\n" +
-                         "	VolumeMusic = 0.75000,\r\n" +
-                         "	VolumeSfx = 0.75000,\r\n" +
-                         "	VolumeVoice = 0.75000,\r\n" +
-                         "}\r\n" +
-                         "player_preferences = \r\n" +
-                         "{\r\n" +
-                         "	campaign_played_disorder = false,\r\n" +
-                         "	campaign_played_order = false,\r\n" +
-                         "	force_name = \"Blood Ravens\",\r\n" +
-                         "	race = \"space_marine_race\",\r\n" +
-                         "}\r\n");
-            }
+        }
 
-            newPlayerTextBox.Text = "";
-            deleteProfileButton.Enabled = true;
+        private void RenameProfileButton_Click(object sender, EventArgs e)
+        {
+            string currentPLayerName = currentPlayerComboBox.SelectedItem.ToString();
 
-            if (currentPlayerComboBox.Items.Count > 0)
+            for (int i = 0; i < profiles.Count; i++)
             {
-                FindAllProfilesInDirectory(true);
-                InitializeGUIWithSettings();
+                if (profiles[i].PlayerName == currentPLayerName)
+                {
+                    string profilePathToRename = PROFILES_PATH + "\\" + profiles[i].ProfileName + "\\" + NAME_DAT;
+                    string playersNewName = newPlayerTextBox.Text;
+                    try
+                    {
+                        File.WriteAllText(profilePathToRename, playersNewName, Encoding.GetEncoding("utf-16"));
+
+                        profiles[i].PlayerName = playersNewName;
+                        newPlayerTextBox.Text = "";
+
+                        int selectedIndex = currentPlayerComboBox.SelectedIndex;
+                        currentPlayerComboBox.Items.RemoveAt(i);
+                        currentPlayerComboBox.Items.Insert(i, playersNewName);
+                        currentPlayerComboBox.SelectedIndex = selectedIndex;
+                    }
+                    catch (Exception ex)
+                    {
+                        ThemedMessageBox.Show(ex.Message, "Error:");
+                    }
+
+                    break;
+                }
             }
         }
 
         private void NewPlayerTextBox_TextChanged(object sender, EventArgs e)
         {
             if (newPlayerTextBox.TextLength > 0)
+            {
                 createProfileButton.Enabled = true;
+                renameProfileButton.Enabled = true;
+            }
             else
+            {
                 createProfileButton.Enabled = false;
+                renameProfileButton.Enabled = false;
+            }
         }
     }
 }

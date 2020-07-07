@@ -30,7 +30,7 @@
         {
             this.settingsLabel = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
-            this.cancelButton = new System.Windows.Forms.Button();
+            this.closeButton = new System.Windows.Forms.Button();
             this.defaultsButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.generalTabPage = new System.Windows.Forms.TabPage();
@@ -121,6 +121,7 @@
             this.soundQualityLabel = new System.Windows.Forms.Label();
             this.randomizedSoundsCheckBox = new System.Windows.Forms.CheckBox();
             this.randomizedSoundsLabel = new System.Windows.Forms.Label();
+            this.renameProfileButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.generalTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scrollRateTrackBar)).BeginInit();
@@ -158,19 +159,19 @@
             this.saveButton.UseVisualStyleBackColor = false;
             this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // cancelButton
+            // closeButton
             // 
-            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cancelButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cancelButton.Location = new System.Drawing.Point(436, 621);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(109, 38);
-            this.cancelButton.TabIndex = 3;
-            this.cancelButton.Text = "CLOSE";
-            this.cancelButton.UseVisualStyleBackColor = false;
-            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.closeButton.Location = new System.Drawing.Point(436, 621);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(109, 38);
+            this.closeButton.TabIndex = 3;
+            this.closeButton.Text = "CLOSE";
+            this.closeButton.UseVisualStyleBackColor = false;
+            this.closeButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // defaultsButton
             // 
@@ -204,6 +205,7 @@
             // generalTabPage
             // 
             this.generalTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.generalTabPage.Controls.Add(this.renameProfileButton);
             this.generalTabPage.Controls.Add(this.newPlayerTextBox);
             this.generalTabPage.Controls.Add(this.label2);
             this.generalTabPage.Controls.Add(this.createProfileButton);
@@ -1322,6 +1324,22 @@
             this.randomizedSoundsLabel.TabIndex = 35;
             this.randomizedSoundsLabel.Text = "Randomizes Sounds:";
             // 
+            // renameProfileButton
+            // 
+            this.renameProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.renameProfileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.renameProfileButton.Enabled = false;
+            this.renameProfileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.renameProfileButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.renameProfileButton.Location = new System.Drawing.Point(387, 50);
+            this.renameProfileButton.Name = "renameProfileButton";
+            this.renameProfileButton.Size = new System.Drawing.Size(109, 38);
+            this.renameProfileButton.TabIndex = 60;
+            this.renameProfileButton.Text = "Rename Profile";
+            this.renameProfileButton.UseVisualStyleBackColor = false;
+            this.renameProfileButton.Click += new System.EventHandler(this.RenameProfileButton_Click);
+            // 
             // SettingsManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1329,7 +1347,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(572, 671);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.closeButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.defaultsButton);
             this.Controls.Add(this.settingsLabel);
@@ -1360,7 +1378,7 @@
 
         private System.Windows.Forms.Label settingsLabel;
         private System.Windows.Forms.Button saveButton;
-        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button defaultsButton;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage videoTabPage;
@@ -1451,5 +1469,6 @@
         private System.Windows.Forms.Button deleteProfileButton;
         private System.Windows.Forms.TextBox newPlayerTextBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button renameProfileButton;
     }
 }

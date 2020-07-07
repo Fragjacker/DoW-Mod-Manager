@@ -51,6 +51,10 @@
 - Resized all image resources to 50 px hight. Resource folder is 56 Kb instead of 268 Kb (21% of original size). It even looks better now (less artifacts when it's stretched).
 - Because of resource optimizations DoW Mod Manager executable is 632 Kb instead of 1085 Kb (58% of original size)
 - Changed a few colors - application theme is more consistent now
+- New feature added: renaming Player Profiles
+- Fixed a bug where is wasn't possible to create a profile and change audio volume sliders
+- "cancelButton" was renamed to "closeButton"
+- Added ability to change and save "Invert Declination", "Invert Pan" and "Scroll Rate" in Settings
 
 ## Version 1.8.2:
 
