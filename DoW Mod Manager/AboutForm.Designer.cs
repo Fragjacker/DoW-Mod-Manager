@@ -47,6 +47,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
+            // pictureBox
+            // 
+            this.pictureBox.Location = new System.Drawing.Point(17, 12);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox.TabIndex = 3;
+            this.pictureBox.TabStop = false;
+            // 
             // authorsLabes
             // 
             this.authorsLabes.AutoSize = true;
@@ -58,28 +67,6 @@
             this.authorsLabes.TabIndex = 0;
             this.authorsLabes.Text = "Authors:";
             // 
-            // OKButton
-            // 
-            this.OKButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OKButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.OKButton.Location = new System.Drawing.Point(164, 221);
-            this.OKButton.Name = "OKButton";
-            this.OKButton.Size = new System.Drawing.Size(106, 38);
-            this.OKButton.TabIndex = 2;
-            this.OKButton.Text = "OK";
-            this.OKButton.UseVisualStyleBackColor = false;
-            this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.Location = new System.Drawing.Point(17, 12);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox.TabIndex = 3;
-            this.pictureBox.TabStop = false;
-            // 
             // author1Label
             // 
             this.author1Label.AutoSize = true;
@@ -89,32 +76,6 @@
             this.author1Label.Size = new System.Drawing.Size(135, 13);
             this.author1Label.TabIndex = 4;
             this.author1Label.Text = "FragJacker - original author";
-            // 
-            // homePageButton
-            // 
-            this.homePageButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.homePageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.homePageButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.homePageButton.Location = new System.Drawing.Point(26, 221);
-            this.homePageButton.Name = "homePageButton";
-            this.homePageButton.Size = new System.Drawing.Size(106, 38);
-            this.homePageButton.TabIndex = 5;
-            this.homePageButton.Text = "Visit home page";
-            this.homePageButton.UseVisualStyleBackColor = false;
-            this.homePageButton.Click += new System.EventHandler(this.HomePageButton_Click);
-            // 
-            // updateButton
-            // 
-            this.updateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.updateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.updateButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.updateButton.Location = new System.Drawing.Point(303, 221);
-            this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(106, 38);
-            this.updateButton.TabIndex = 6;
-            this.updateButton.Text = "Check for updates";
-            this.updateButton.UseVisualStyleBackColor = false;
-            this.updateButton.Click += new System.EventHandler(this.UpdateButton_Click);
             // 
             // author2Label
             // 
@@ -126,26 +87,6 @@
             this.author2Label.TabIndex = 7;
             this.author2Label.Text = "IgorTheLight - new active contributor";
             // 
-            // specialThanks2Label
-            // 
-            this.specialThanks2Label.AutoSize = true;
-            this.specialThanks2Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.specialThanks2Label.Location = new System.Drawing.Point(77, 116);
-            this.specialThanks2Label.Name = "specialThanks2Label";
-            this.specialThanks2Label.Size = new System.Drawing.Size(214, 13);
-            this.specialThanks2Label.TabIndex = 10;
-            this.specialThanks2Label.Text = "zayenCh - for part of the DownloadFile code";
-            // 
-            // specialThanks1Label
-            // 
-            this.specialThanks1Label.AutoSize = true;
-            this.specialThanks1Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.specialThanks1Label.Location = new System.Drawing.Point(77, 99);
-            this.specialThanks1Label.Name = "specialThanks1Label";
-            this.specialThanks1Label.Size = new System.Drawing.Size(185, 13);
-            this.specialThanks1Label.TabIndex = 9;
-            this.specialThanks1Label.Text = "tebjan - for part of the TimerTool code";
-            // 
             // specialThanksLabel
             // 
             this.specialThanksLabel.AutoSize = true;
@@ -156,6 +97,36 @@
             this.specialThanksLabel.Size = new System.Drawing.Size(95, 13);
             this.specialThanksLabel.TabIndex = 8;
             this.specialThanksLabel.Text = "Special thanks:";
+            // 
+            // specialThanks1Label
+            // 
+            this.specialThanks1Label.AutoSize = true;
+            this.specialThanks1Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.specialThanks1Label.Location = new System.Drawing.Point(77, 99);
+            this.specialThanks1Label.Name = "specialThanks1Label";
+            this.specialThanks1Label.Size = new System.Drawing.Size(185, 13);
+            this.specialThanks1Label.TabIndex = 9;
+            this.specialThanks1Label.Text = "Stack Exchange Network - for Stack Overflow";
+            // 
+            // specialThanks2Label
+            // 
+            this.specialThanks2Label.AutoSize = true;
+            this.specialThanks2Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.specialThanks2Label.Location = new System.Drawing.Point(77, 116);
+            this.specialThanks2Label.Name = "specialThanks2Label";
+            this.specialThanks2Label.Size = new System.Drawing.Size(214, 13);
+            this.specialThanks2Label.TabIndex = 10;
+            this.specialThanks2Label.Text = "tebjan - for part of the TimerTool code"; 
+            // 
+            // specialThanks3Label
+            // 
+            this.specialThanks3Label.AutoSize = true;
+            this.specialThanks3Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.specialThanks3Label.Location = new System.Drawing.Point(78, 134);
+            this.specialThanks3Label.Name = "specialThanks3Label";
+            this.specialThanks3Label.Size = new System.Drawing.Size(226, 13);
+            this.specialThanks3Label.TabIndex = 15;
+            this.specialThanks3Label.Text = "zayenCh - for part of the DownloadFile code";
             // 
             // specialThanks1LinkLabel
             // 
@@ -179,15 +150,16 @@
             this.specialThanks2LinkLabel.Text = "home page";
             this.specialThanks2LinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SpecialThanks2LinkLabel_LinkClicked);
             // 
-            // technologyUsed1Label
+            // specialThanks3LinkLabel
             // 
-            this.technologyUsed1Label.AutoSize = true;
-            this.technologyUsed1Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.technologyUsed1Label.Location = new System.Drawing.Point(77, 184);
-            this.technologyUsed1Label.Name = "technologyUsed1Label";
-            this.technologyUsed1Label.Size = new System.Drawing.Size(211, 13);
-            this.technologyUsed1Label.TabIndex = 14;
-            this.technologyUsed1Label.Text = ".NET Framwork 4.7.2 + C# 7.0 + WinForms";
+            this.specialThanks3LinkLabel.AutoSize = true;
+            this.specialThanks3LinkLabel.Location = new System.Drawing.Point(301, 134);
+            this.specialThanks3LinkLabel.Name = "specialThanks3LinkLabel";
+            this.specialThanks3LinkLabel.Size = new System.Drawing.Size(60, 13);
+            this.specialThanks3LinkLabel.TabIndex = 16;
+            this.specialThanks3LinkLabel.TabStop = true;
+            this.specialThanks3LinkLabel.Text = "home page";
+            this.specialThanks3LinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SpecialThanks3LinkLabel_LinkClicked);
             // 
             // technologyUsedLabel
             // 
@@ -200,26 +172,54 @@
             this.technologyUsedLabel.TabIndex = 13;
             this.technologyUsedLabel.Text = "Technology used:";
             // 
-            // specialThanks3LinkLabel
+            // technologyUsed1Label
             // 
-            this.specialThanks3LinkLabel.AutoSize = true;
-            this.specialThanks3LinkLabel.Location = new System.Drawing.Point(301, 134);
-            this.specialThanks3LinkLabel.Name = "specialThanks3LinkLabel";
-            this.specialThanks3LinkLabel.Size = new System.Drawing.Size(60, 13);
-            this.specialThanks3LinkLabel.TabIndex = 16;
-            this.specialThanks3LinkLabel.TabStop = true;
-            this.specialThanks3LinkLabel.Text = "home page";
-            this.specialThanks3LinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SpecialThanks3LinkLabel_LinkClicked);
+            this.technologyUsed1Label.AutoSize = true;
+            this.technologyUsed1Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.technologyUsed1Label.Location = new System.Drawing.Point(77, 184);
+            this.technologyUsed1Label.Name = "technologyUsed1Label";
+            this.technologyUsed1Label.Size = new System.Drawing.Size(211, 13);
+            this.technologyUsed1Label.TabIndex = 14;
+            this.technologyUsed1Label.Text = ".NET Framwork 4.7.2 + C# 7.0 + WinForms";
             // 
-            // specialThanks3Label
+            // homePageButton
             // 
-            this.specialThanks3Label.AutoSize = true;
-            this.specialThanks3Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.specialThanks3Label.Location = new System.Drawing.Point(78, 134);
-            this.specialThanks3Label.Name = "specialThanks3Label";
-            this.specialThanks3Label.Size = new System.Drawing.Size(226, 13);
-            this.specialThanks3Label.TabIndex = 15;
-            this.specialThanks3Label.Text = "Stack Exchange Network - for Stack Overflow";
+            this.homePageButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.homePageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.homePageButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.homePageButton.Location = new System.Drawing.Point(26, 221);
+            this.homePageButton.Name = "homePageButton";
+            this.homePageButton.Size = new System.Drawing.Size(106, 38);
+            this.homePageButton.TabIndex = 5;
+            this.homePageButton.Text = "Visit home page";
+            this.homePageButton.UseVisualStyleBackColor = false;
+            this.homePageButton.Click += new System.EventHandler(this.HomePageButton_Click);
+            // 
+            // OKButton
+            // 
+            this.OKButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OKButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.OKButton.Location = new System.Drawing.Point(164, 221);
+            this.OKButton.Name = "OKButton";
+            this.OKButton.Size = new System.Drawing.Size(106, 38);
+            this.OKButton.TabIndex = 2;
+            this.OKButton.Text = "OK";
+            this.OKButton.UseVisualStyleBackColor = false;
+            this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
+            // 
+            // updateButton
+            // 
+            this.updateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.updateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.updateButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.updateButton.Location = new System.Drawing.Point(303, 221);
+            this.updateButton.Name = "updateButton";
+            this.updateButton.Size = new System.Drawing.Size(106, 38);
+            this.updateButton.TabIndex = 6;
+            this.updateButton.Text = "Check for updates";
+            this.updateButton.UseVisualStyleBackColor = false;
+            this.updateButton.Click += new System.EventHandler(this.UpdateButton_Click);
             // 
             // AboutForm
             // 

@@ -126,17 +126,17 @@ namespace DoW_Mod_Manager
 
         private void SpecialThanks1LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/tebjan/TimerTool");
+            Process.Start("https://stackoverflow.com");
         }
 
         private void SpecialThanks2LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/zayenCh/DownloadFile");
+            Process.Start("https://github.com/tebjan/TimerTool");
         }
 
         private void SpecialThanks3LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://stackoverflow.com");
+            Process.Start("https://github.com/zayenCh/DownloadFile");
         }
     }
 }
