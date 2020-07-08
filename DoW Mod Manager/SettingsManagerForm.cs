@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -70,9 +71,9 @@ namespace DoW_Mod_Manager
         private const string PROFILE = "Profile";
 
         // Here are some usefull settings from playercfg.lua in right order
-        private const string INVERT_DECLINATION = "tinvertDeclination";
-        private const string INVERT_PAN = "tinvertPan";
-        private const string SCROLL_RATE = "tscrollRate";
+        private const string INVERT_DECLINATION = "invertDeclination";
+        private const string INVERT_PAN = "invertPan";
+        private const string SCROLL_RATE = "scrollRate";
 
         private const string SOUND_VOLUME_AMBIENT = "VolumeAmbient";
         private const string SOUND_VOLUME_MUSIC = "VolumeMusic";
@@ -468,6 +469,7 @@ namespace DoW_Mod_Manager
             ReadSettingsFromPlayercfgLUA();
         }
 
+        // TODO: Investigate why this method is called twice after SettingManagerForm is launched
         private void ReadSettingsFromPlayercfgLUA()
         {
             string profileName = PROFILE + (currentPlayerComboBox.SelectedIndex + 1);
@@ -481,14 +483,17 @@ namespace DoW_Mod_Manager
 
                     while ((line = file.ReadLine()) != null)
                     {
+                        bool lastSetting = false;
+                        
                         if (line.EndsWith(","))
                         {
+                            line = line.Replace(" ", "");
+
                             int indexOfEqualSign = line.IndexOf('=');
 
                             if (indexOfEqualSign > 0)
                             {
                                 string stringValue = line.Substring(indexOfEqualSign + 1, line.Length - indexOfEqualSign - 2);
-
                                 TrackBar trackBarToChange;
 
                                 if (line.Contains(INVERT_DECLINATION))
@@ -527,6 +532,7 @@ namespace DoW_Mod_Manager
                                 {
                                     trackBarToChange = voiceVolumeTrackBar;
                                     settings[SOUND_VOLUME_VOICE] = stringValue;
+                                    lastSetting = true;
                                 }
                                 else
                                     continue;
@@ -538,6 +544,10 @@ namespace DoW_Mod_Manager
 
                                 // Original value could be between 0 and 1 (float) but TrackBar values could be only between 0 and 100 (int)
                                 trackBarToChange.Value = Convert.ToInt32(doubleValue * 100d);
+
+                                // We read all the settings that we are interesed in
+                                if (lastSetting)
+                                    break;
                             }
                         }
                     }
@@ -725,7 +735,10 @@ namespace DoW_Mod_Manager
 
         private void ScrollRateTrackBar_Scroll(object sender, EventArgs e)
         {
-            settings[SCROLL_RATE] = scrollRateTrackBar.Value.ToString();
+            double doubleValue = Convert.ToDouble(scrollRateTrackBar.Value);
+            double settingValue = doubleValue / 100d;
+
+            settings[SCROLL_RATE] = settingValue.ToString("F5", new CultureInfo("en-US"));
 
             closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
@@ -809,7 +822,10 @@ namespace DoW_Mod_Manager
 
         private void GammaTrackBar_Scroll(object sender, EventArgs e)
         {
-            settings[SCREEN_GAMMA] = gammaTrackBar.Value.ToString();
+            double doubleValue = Convert.ToDouble(gammaTrackBar.Value);
+            double settingValue = doubleValue / 100d;
+
+            settings[SCREEN_GAMMA] = settingValue.ToString("F5", new CultureInfo("en-US"));
 
             closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;

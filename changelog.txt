@@ -57,6 +57,7 @@
 - Added ability to change and save "Invert Declination", "Invert Pan" and "Scroll Rate" in Settings
 - Improved saving of playercfg.lua
 - Fixed a bug where it was possible to try to rename an nonexisting Profile
+- Fixed a bug where ScrollRate and Gamma could be saved incorrectly
 
 ## Version 1.8.2:
 

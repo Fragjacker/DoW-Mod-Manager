@@ -325,14 +325,14 @@
             // 
             // scrollRateTrackBar
             // 
-            this.scrollRateTrackBar.LargeChange = 1;
+            this.scrollRateTrackBar.LargeChange = 20;
             this.scrollRateTrackBar.Location = new System.Drawing.Point(116, 212);
-            this.scrollRateTrackBar.Maximum = 15;
-            this.scrollRateTrackBar.Minimum = 5;
+            this.scrollRateTrackBar.Maximum = 210;
+            this.scrollRateTrackBar.Minimum = 10;
             this.scrollRateTrackBar.Name = "scrollRateTrackBar";
             this.scrollRateTrackBar.Size = new System.Drawing.Size(121, 45);
             this.scrollRateTrackBar.TabIndex = 52;
-            this.scrollRateTrackBar.Value = 10;
+            this.scrollRateTrackBar.Value = 100;
             this.scrollRateTrackBar.Scroll += new System.EventHandler(this.ScrollRateTrackBar_Scroll);
             // 
             // scrollRateLabel
