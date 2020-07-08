@@ -381,7 +381,7 @@ namespace DoW_Mod_Manager
             // Skipp CurrtentMod setting
             dynamicLightsComboBox.SelectedIndex = Convert.ToInt32(settings[DYNAMIC_LIGHTS]);
             worldEventsComboBox.SelectedIndex = Convert.ToInt32(settings[EVENT_DETAIL_LEVEL]);
-            // Skip Force Watch Movies setting
+            // Skip Force Watch Movies setting because it doesn't really works
             betterTeamcoloredTexturexCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[FULLRES_TEAMCOLOUR]));
             effectsDetailComboBox.SelectedIndex = Convert.ToInt32(settings[FX_DETAIL_LEVEL]);
             modelDetailComboBox.SelectedIndex = Convert.ToInt32(settings[MODEL_DETAIL]);
@@ -392,15 +392,12 @@ namespace DoW_Mod_Manager
             {
                 currentPlayerComboBox.Items.Clear();
 
-                int j = 1;
-
                 for (int i = 0; i < profiles.Count; i++)
                 {
                     currentPlayerComboBox.Items.Add(profiles[i].PlayerName);
 
                     if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
-                        currentPlayerComboBox.SelectedIndex = j - 1;
-                    j++;
+                        currentPlayerComboBox.SelectedIndex = i;
                 }
             }
             else
@@ -612,7 +609,13 @@ namespace DoW_Mod_Manager
                 {
                     if (lines[i].EndsWith(","))
                     {
-                        if (lines[i].Contains(SOUND_VOLUME_AMBIENT))
+                        if (lines[i].Contains(INVERT_DECLINATION))
+                            lines[i] = $"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},";
+                        else if (lines[i].Contains(INVERT_PAN))
+                            lines[i] = $"\t{INVERT_PAN} = {settings[INVERT_PAN]},";
+                        else if (lines[i].Contains(SCROLL_RATE))
+                            lines[i] = $"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},";
+                        else if (lines[i].Contains(SOUND_VOLUME_AMBIENT))
                             lines[i] = $"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},";
                         else if (lines[i].Contains(SOUND_VOLUME_MUSIC))
                             lines[i] = $"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},";
@@ -633,9 +636,9 @@ namespace DoW_Mod_Manager
             {
                 string str2 = "Controls = \r\n" +
                               "{\r\n" +
-                              "\tinvertDeclination = 0,\r\n" +
-                              "\tinvertPan = 1,\r\n" +
-                              "\tscrollRate = 1,\r\n" +
+                              $"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},\r\n" +
+                              $"\t{INVERT_PAN} = {settings[INVERT_PAN]},\r\n" +
+                              $"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},\r\n" +
                               "}\r\n" +
                               "Sound = \r\n" +
                               "{\r\n" +
@@ -1346,7 +1349,8 @@ namespace DoW_Mod_Manager
             if (newPlayerTextBox.TextLength > 0)
             {
                 createProfileButton.Enabled = true;
-                renameProfileButton.Enabled = true;
+                if (currentPlayerComboBox.Text.Length > 0)
+                    renameProfileButton.Enabled = true;
             }
             else
             {

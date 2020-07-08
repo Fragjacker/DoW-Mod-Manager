@@ -55,6 +55,8 @@
 - Fixed a bug where is wasn't possible to create a profile and change audio volume sliders
 - "cancelButton" was renamed to "closeButton"
 - Added ability to change and save "Invert Declination", "Invert Pan" and "Scroll Rate" in Settings
+- Improved saving of playercfg.lua
+- Fixed a bug where it was possible to try to rename an nonexisting Profile
 
 ## Version 1.8.2:
 
