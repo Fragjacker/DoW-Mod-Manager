@@ -94,7 +94,6 @@ namespace DoW_Mod_Manager
                         {
                             string setting = Convert.ToString(line.Substring(0, firstIndexOfEqualSign));
                             int value;
-
                             try
                             {
                                 value = Convert.ToInt32(line.Substring(firstIndexOfEqualSign + 1, line.Length - firstIndexOfEqualSign - 1));
@@ -104,6 +103,7 @@ namespace DoW_Mod_Manager
                                 value = 0;
                             }
 
+                            // TODO: Maybe change "if-else" to "switch"?
                             if (setting == CHOICE_INDEX)
                             {
                                 if (value >= 0)

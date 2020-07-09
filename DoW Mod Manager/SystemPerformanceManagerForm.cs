@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace DoW_Mod_Manager
 {
-    public partial class SystemPerformanceForm : Form
+    public partial class SystemPerformanceManagerForm : Form
     {
         private const string REG_COMPATIBILITY_PATH = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
         private readonly string REG_DOW_PATH;
@@ -36,7 +36,7 @@ namespace DoW_Mod_Manager
         private bool modifyRegistry = false;
         private readonly int ultimatePerformanceGUIDIndex = 0;
 
-        public SystemPerformanceForm(ModManagerForm form)
+        public SystemPerformanceManagerForm(ModManagerForm form)
         {
             InitializeComponent();
 

@@ -34,12 +34,13 @@
             this.defaultsButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.generalTabPage = new System.Windows.Forms.TabPage();
+            this.renameProfileButton = new System.Windows.Forms.Button();
             this.newPlayerTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.createProfileButton = new System.Windows.Forms.Button();
             this.deleteProfileButton = new System.Windows.Forms.Button();
-            this.systemPerformanceButton = new System.Windows.Forms.Button();
-            this.unknownSettingComboBox = new System.Windows.Forms.ComboBox();
+            this.systemPerformanceManagerButton = new System.Windows.Forms.Button();
+            this.loginAttemptsComboBox = new System.Windows.Forms.ComboBox();
             this.loginAttemptsLabel = new System.Windows.Forms.Label();
             this.scrollRateTrackBar = new System.Windows.Forms.TrackBar();
             this.scrollRateLabel = new System.Windows.Forms.Label();
@@ -121,7 +122,6 @@
             this.soundQualityLabel = new System.Windows.Forms.Label();
             this.randomizedSoundsCheckBox = new System.Windows.Forms.CheckBox();
             this.randomizedSoundsLabel = new System.Windows.Forms.Label();
-            this.renameProfileButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.generalTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scrollRateTrackBar)).BeginInit();
@@ -210,8 +210,8 @@
             this.generalTabPage.Controls.Add(this.label2);
             this.generalTabPage.Controls.Add(this.createProfileButton);
             this.generalTabPage.Controls.Add(this.deleteProfileButton);
-            this.generalTabPage.Controls.Add(this.systemPerformanceButton);
-            this.generalTabPage.Controls.Add(this.unknownSettingComboBox);
+            this.generalTabPage.Controls.Add(this.systemPerformanceManagerButton);
+            this.generalTabPage.Controls.Add(this.loginAttemptsComboBox);
             this.generalTabPage.Controls.Add(this.loginAttemptsLabel);
             this.generalTabPage.Controls.Add(this.scrollRateTrackBar);
             this.generalTabPage.Controls.Add(this.scrollRateLabel);
@@ -229,6 +229,22 @@
             this.generalTabPage.Size = new System.Drawing.Size(521, 550);
             this.generalTabPage.TabIndex = 3;
             this.generalTabPage.Text = "General";
+            // 
+            // renameProfileButton
+            // 
+            this.renameProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.renameProfileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.renameProfileButton.Enabled = false;
+            this.renameProfileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.renameProfileButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.renameProfileButton.Location = new System.Drawing.Point(387, 50);
+            this.renameProfileButton.Name = "renameProfileButton";
+            this.renameProfileButton.Size = new System.Drawing.Size(109, 38);
+            this.renameProfileButton.TabIndex = 60;
+            this.renameProfileButton.Text = "Rename Profile";
+            this.renameProfileButton.UseVisualStyleBackColor = false;
+            this.renameProfileButton.Click += new System.EventHandler(this.RenameProfileButton_Click);
             // 
             // newPlayerTextBox
             // 
@@ -280,26 +296,26 @@
             this.deleteProfileButton.UseVisualStyleBackColor = false;
             this.deleteProfileButton.Click += new System.EventHandler(this.DeleteProfileButton_Click);
             // 
-            // systemPerformanceButton
+            // systemPerformanceManagerButton
             // 
-            this.systemPerformanceButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.systemPerformanceManagerButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.systemPerformanceButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.systemPerformanceButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.systemPerformanceButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.systemPerformanceButton.Location = new System.Drawing.Point(206, 490);
-            this.systemPerformanceButton.Name = "systemPerformanceButton";
-            this.systemPerformanceButton.Size = new System.Drawing.Size(109, 38);
-            this.systemPerformanceButton.TabIndex = 55;
-            this.systemPerformanceButton.Text = "System Performance";
-            this.systemPerformanceButton.UseVisualStyleBackColor = false;
-            this.systemPerformanceButton.Click += new System.EventHandler(this.SystemPerformanceButton_Click);
+            this.systemPerformanceManagerButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.systemPerformanceManagerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.systemPerformanceManagerButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.systemPerformanceManagerButton.Location = new System.Drawing.Point(191, 486);
+            this.systemPerformanceManagerButton.Name = "systemPerformanceManagerButton";
+            this.systemPerformanceManagerButton.Size = new System.Drawing.Size(134, 38);
+            this.systemPerformanceManagerButton.TabIndex = 55;
+            this.systemPerformanceManagerButton.Text = "System Performance Manager";
+            this.systemPerformanceManagerButton.UseVisualStyleBackColor = false;
+            this.systemPerformanceManagerButton.Click += new System.EventHandler(this.SystemPerformanceManagerButton_Click);
             // 
-            // unknownSettingComboBox
+            // loginAttemptsComboBox
             // 
-            this.unknownSettingComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.unknownSettingComboBox.FormattingEnabled = true;
-            this.unknownSettingComboBox.Items.AddRange(new object[] {
+            this.loginAttemptsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.loginAttemptsComboBox.FormattingEnabled = true;
+            this.loginAttemptsComboBox.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -307,11 +323,11 @@
             "4",
             "5",
             "6"});
-            this.unknownSettingComboBox.Location = new System.Drawing.Point(117, 252);
-            this.unknownSettingComboBox.Name = "unknownSettingComboBox";
-            this.unknownSettingComboBox.Size = new System.Drawing.Size(121, 21);
-            this.unknownSettingComboBox.TabIndex = 54;
-            this.unknownSettingComboBox.SelectedIndexChanged += new System.EventHandler(this.UnknownSettingComboBox_SelectedIndexChanged);
+            this.loginAttemptsComboBox.Location = new System.Drawing.Point(117, 251);
+            this.loginAttemptsComboBox.Name = "loginAttemptsComboBox";
+            this.loginAttemptsComboBox.Size = new System.Drawing.Size(121, 21);
+            this.loginAttemptsComboBox.TabIndex = 54;
+            this.loginAttemptsComboBox.SelectedIndexChanged += new System.EventHandler(this.LoginAttemptsComboBox_SelectedIndexChanged);
             // 
             // loginAttemptsLabel
             // 
@@ -1324,22 +1340,6 @@
             this.randomizedSoundsLabel.TabIndex = 35;
             this.randomizedSoundsLabel.Text = "Randomizes Sounds:";
             // 
-            // renameProfileButton
-            // 
-            this.renameProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.renameProfileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.renameProfileButton.Enabled = false;
-            this.renameProfileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.renameProfileButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.renameProfileButton.Location = new System.Drawing.Point(387, 50);
-            this.renameProfileButton.Name = "renameProfileButton";
-            this.renameProfileButton.Size = new System.Drawing.Size(109, 38);
-            this.renameProfileButton.TabIndex = 60;
-            this.renameProfileButton.Text = "Rename Profile";
-            this.renameProfileButton.UseVisualStyleBackColor = false;
-            this.renameProfileButton.Click += new System.EventHandler(this.RenameProfileButton_Click);
-            // 
             // SettingsManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1455,7 +1455,7 @@
         private System.Windows.Forms.Label inverseDeclinationLabel;
         private System.Windows.Forms.CheckBox inversePanCheckBox;
         private System.Windows.Forms.Label inversePanLabel;
-        private System.Windows.Forms.ComboBox unknownSettingComboBox;
+        private System.Windows.Forms.ComboBox loginAttemptsComboBox;
         private System.Windows.Forms.Label loginAttemptsLabel;
         private System.Windows.Forms.Button ultraGraphicsButton;
         private System.Windows.Forms.Button highGraphicsButton;
@@ -1464,7 +1464,7 @@
         private System.Windows.Forms.Button highAudioButton;
         private System.Windows.Forms.Button mediumAudioButton;
         private System.Windows.Forms.Button lowAudioButton;
-        private System.Windows.Forms.Button systemPerformanceButton;
+        private System.Windows.Forms.Button systemPerformanceManagerButton;
         private System.Windows.Forms.Button createProfileButton;
         private System.Windows.Forms.Button deleteProfileButton;
         private System.Windows.Forms.TextBox newPlayerTextBox;

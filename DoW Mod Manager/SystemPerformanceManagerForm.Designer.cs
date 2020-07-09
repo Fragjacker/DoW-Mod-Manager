@@ -1,6 +1,6 @@
 ﻿namespace DoW_Mod_Manager
 {
-    partial class SystemPerformanceForm
+    partial class SystemPerformanceManagerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -383,7 +383,7 @@
             this.maximumTimerResolutionLabel.TabIndex = 6;
             this.maximumTimerResolutionLabel.Text = "Maximum Resolution: ";
             // 
-            // SystemPerformanceForm
+            // SystemPerformanceManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -392,8 +392,8 @@
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "SystemPerformanceForm";
-            this.Text = "Sytem Performance";
+            this.Name = "SystemPerformanceManagerForm";
+            this.Text = "Sytem Performance Manager";
             this.tabControl1.ResumeLayout(false);
             this.compatibilityTabPage.ResumeLayout(false);
             this.compatibilityTabPage.PerformLayout();

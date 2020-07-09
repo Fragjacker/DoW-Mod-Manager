@@ -89,11 +89,11 @@
     <Compile Include="SettingsManagerForm.Designer.cs">
       <DependentUpon>SettingsManagerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SystemPerformanceForm.cs">
+    <Compile Include="SystemPerformanceManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SystemPerformanceForm.Designer.cs">
-      <DependentUpon>SystemPerformanceForm.cs</DependentUpon>
+    <Compile Include="SystemPerformanceManagerForm.Designer.cs">
+      <DependentUpon>SystemPerformanceManagerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WinApiCalls.cs" />
     <EmbeddedResource Include="AboutForm.resx">
@@ -124,8 +124,8 @@
     <EmbeddedResource Include="SettingsManagerForm.resx">
       <DependentUpon>SettingsManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SystemPerformanceForm.resx">
-      <DependentUpon>SystemPerformanceForm.cs</DependentUpon>
+    <EmbeddedResource Include="SystemPerformanceManagerForm.resx">
+      <DependentUpon>SystemPerformanceManagerForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

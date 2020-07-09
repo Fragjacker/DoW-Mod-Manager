@@ -403,7 +403,7 @@ namespace DoW_Mod_Manager
             else
                 deleteProfileButton.Enabled = false;
 
-            unknownSettingComboBox.SelectedItem = settings[RL_SSO_NUM_TIMES_SHOWN];
+            loginAttemptsComboBox.SelectedItem = settings[RL_SSO_NUM_TIMES_SHOWN];
             activeVideocardComboBox.SelectedItem = settings[SCREEN_ADAPTER];
             antialiasingCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_ANIALIAS]));
             switch (settings[SCREEN_DEPTH])
@@ -744,9 +744,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
-        private void UnknownSettingComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void LoginAttemptsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settings[RL_SSO_NUM_TIMES_SHOWN] = unknownSettingComboBox.SelectedItem.ToString();
+            settings[RL_SSO_NUM_TIMES_SHOWN] = loginAttemptsComboBox.SelectedItem.ToString();
 
             closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
@@ -1255,9 +1255,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
-        private void SystemPerformanceButton_Click(object sender, EventArgs e)
+        private void SystemPerformanceManagerButton_Click(object sender, EventArgs e)
         {
-            SystemPerformanceForm systemPerformance = new SystemPerformanceForm(modManager);
+            SystemPerformanceManagerForm systemPerformance = new SystemPerformanceManagerForm(modManager);
             systemPerformance.Show();
         }
 

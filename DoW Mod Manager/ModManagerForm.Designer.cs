@@ -368,6 +368,7 @@ namespace DoW_Mod_Manager
             // 
             this.AboutkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.AboutkLabel.AutoSize = true;
+            this.AboutkLabel.LinkColor = System.Drawing.Color.DodgerBlue;
             this.AboutkLabel.Location = new System.Drawing.Point(779, 543);
             this.AboutkLabel.Name = "AboutkLabel";
             this.AboutkLabel.Size = new System.Drawing.Size(99, 13);

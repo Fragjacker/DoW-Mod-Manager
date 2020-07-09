@@ -59,6 +59,7 @@
 - Fixed a bug where it was possible to try to rename an nonexisting Profile
 - Fixed a bug where ScrollRate and Gamma could be saved incorrectly
 - AboutForm has been fully reworked - now it's organized in tabs and also includes "About", "Changelog" and "License"
+- "SystemPerformanceForm" renamed to "SystemPerformanceManagerForm"
 
 ## Version 1.8.2:
 
