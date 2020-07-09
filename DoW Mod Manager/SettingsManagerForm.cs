@@ -344,32 +344,36 @@ namespace DoW_Mod_Manager
             {
                 string[] profileDirectories = Directory.GetDirectories(PROFILES_PATH);
 
-                for (int i = 0; i < profileDirectories.Length; i++)
+                // Check if there are at least one Profile directory
+                if (profileDirectories.Length > 0)
                 {
-                    int indexOfLastSlah = profileDirectories[i].LastIndexOf("\\");
-                    string profileName = profileDirectories[i].Substring(indexOfLastSlah + 1);
-
-                    string playerName = "Player";
-                    string playerNamePath = profileDirectories[i] + "\\" + NAME_DAT;
-                    if (File.Exists(playerNamePath))
-                        playerName = File.ReadAllText(playerNamePath);
-
-                    profiles.Add(new Profile(profileName, playerName));
-                }
-
-                bool isProfileExist = false;
-
-                for (int i = 0; i < profiles.Count; i++)
-                {
-                    if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
+                    for (int i = 0; i < profileDirectories.Length; i++)
                     {
-                        isProfileExist = true;
-                        break;
-                    }
-                }
+                        int indexOfLastSlah = profileDirectories[i].LastIndexOf("\\");
+                        string profileName = profileDirectories[i].Substring(indexOfLastSlah + 1);
 
-                if (!isProfileExist)
-                    settings[PLAYER_PROFILE] = profiles[0].ProfileName;
+                        string playerName = "Player";
+                        string playerNamePath = profileDirectories[i] + "\\" + NAME_DAT;
+                        if (File.Exists(playerNamePath))
+                            playerName = File.ReadAllText(playerNamePath);
+
+                        profiles.Add(new Profile(profileName, playerName));
+                    }
+
+                    bool isProfileExist = false;
+
+                    for (int i = 0; i < profiles.Count; i++)
+                    {
+                        if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
+                        {
+                            isProfileExist = true;
+                            break;
+                        }
+                    }
+
+                    if (!isProfileExist)
+                        settings[PLAYER_PROFILE] = profiles[0].ProfileName;
+                }
             }
         }
 
@@ -1333,7 +1337,7 @@ namespace DoW_Mod_Manager
 
             for (int i = 0; i < profiles.Count; i++)
             {
-                if (profiles[i].PlayerName == currentPLayerName)
+                if (currentPLayerName == profiles[i].PlayerName)
                 {
                     string profilePathToRename = PROFILES_PATH + "\\" + profiles[i].ProfileName + "\\" + NAME_DAT;
                     string playersNewName = newPlayerTextBox.Text;

@@ -413,10 +413,17 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void RequiredModsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (requiredModsList.SelectedItem.ToString().Contains("MISSING"))
-                fixMissingModButton.Enabled = true;
-            else
-                fixMissingModButton.Enabled = false;
+            try
+            {
+                if (requiredModsList.SelectedItem.ToString().Contains("MISSING"))
+                    fixMissingModButton.Enabled = true;
+                else
+                    fixMissingModButton.Enabled = false;
+            }
+            catch (Exception)
+            {
+                requiredModsList.SelectedIndex = 0;
+            }
         }
 
         /// <summary>

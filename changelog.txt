@@ -1,5 +1,10 @@
 # Changelog
-(All changes in 1.53 - 2.0.0 were made by IgorTheLight, excluding patch 1.6.1)
+(All changes in 1.53 - 2.0.1 were made by IgorTheLight, excluding patch 1.6.1)
+
+## Version 2.0.1:
+
+- Fixed a crash where user tries to click on an empty space in RequiredMods when it has only one item
+- Fixed a crash where user didn't have any Profiles and tries to click on "SETTINGS" button
 
 ## Version 2.0.0:
 
