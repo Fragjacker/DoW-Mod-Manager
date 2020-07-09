@@ -142,7 +142,7 @@
             // 
             this.specialThanks2Label.AutoSize = true;
             this.specialThanks2Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.specialThanks2Label.Location = new System.Drawing.Point(22, 39);
+            this.specialThanks2Label.Location = new System.Drawing.Point(22, 40);
             this.specialThanks2Label.Name = "specialThanks2Label";
             this.specialThanks2Label.Size = new System.Drawing.Size(185, 13);
             this.specialThanks2Label.TabIndex = 10;
@@ -162,7 +162,7 @@
             // 
             this.specialThanks1LinkLabel.AutoSize = true;
             this.specialThanks1LinkLabel.LinkColor = System.Drawing.Color.DodgerBlue;
-            this.specialThanks1LinkLabel.Location = new System.Drawing.Point(244, 16);
+            this.specialThanks1LinkLabel.Location = new System.Drawing.Point(250, 17);
             this.specialThanks1LinkLabel.Name = "specialThanks1LinkLabel";
             this.specialThanks1LinkLabel.Size = new System.Drawing.Size(60, 13);
             this.specialThanks1LinkLabel.TabIndex = 11;
@@ -174,7 +174,7 @@
             // 
             this.specialThanks2LinkLabel.AutoSize = true;
             this.specialThanks2LinkLabel.LinkColor = System.Drawing.Color.DodgerBlue;
-            this.specialThanks2LinkLabel.Location = new System.Drawing.Point(244, 38);
+            this.specialThanks2LinkLabel.Location = new System.Drawing.Point(250, 40);
             this.specialThanks2LinkLabel.Name = "specialThanks2LinkLabel";
             this.specialThanks2LinkLabel.Size = new System.Drawing.Size(60, 13);
             this.specialThanks2LinkLabel.TabIndex = 12;
@@ -207,7 +207,7 @@
             // 
             this.specialThanks3LinkLabel.AutoSize = true;
             this.specialThanks3LinkLabel.LinkColor = System.Drawing.Color.DodgerBlue;
-            this.specialThanks3LinkLabel.Location = new System.Drawing.Point(245, 61);
+            this.specialThanks3LinkLabel.Location = new System.Drawing.Point(251, 62);
             this.specialThanks3LinkLabel.Name = "specialThanks3LinkLabel";
             this.specialThanks3LinkLabel.Size = new System.Drawing.Size(60, 13);
             this.specialThanks3LinkLabel.TabIndex = 16;
@@ -219,7 +219,7 @@
             // 
             this.specialThanks3Label.AutoSize = true;
             this.specialThanks3Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.specialThanks3Label.Location = new System.Drawing.Point(22, 61);
+            this.specialThanks3Label.Location = new System.Drawing.Point(22, 62);
             this.specialThanks3Label.Name = "specialThanks3Label";
             this.specialThanks3Label.Size = new System.Drawing.Size(214, 13);
             this.specialThanks3Label.TabIndex = 15;

@@ -338,7 +338,7 @@ namespace DoW_Mod_Manager
                             AllValidModules.Add(newItem);
 
                             if (modVersion.Length > 0)
-                                newItem += $"  (Version{modVersion})";
+                                newItem += $"   (Version{modVersion})";
 
                             installedModsListBox.Items.Add(newItem);
                         }

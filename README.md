@@ -1,11 +1,11 @@
 ![dow_mod_manager_showcase_1 8 1](https://user-images.githubusercontent.com/19975052/84770552-0cc11a80-afd8-11ea-96c3-b68324b99272.png)
-# DoW Mod Manager v1.8.2
+# DoW Mod Manager v2.0.0
 
 This application allows for an easy launch of mods and management of large collections of mods for Warhammer 40K Dawn of War series.
 
 ## INSTALLATION:
 
-- In order to install the Mod Manager drop the "DoW Mod Manager v1.8.2.exe" into your primary game directory which is either:
+- In order to install the Mod Manager drop the "DoW Mod Manager v2.0.0.exe" into your primary game directory which is either:
 
   - "..\Dawn of War - Soulstorm\"
   or
@@ -19,7 +19,7 @@ This application allows for an easy launch of mods and management of large colle
 
 ## MOD MANAGER USAGE:
 
-1. Once everything is in place launch the "DoW Mod Manager v1.8.2.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop for convenience and faster access)
+1. Once everything is in place launch the "DoW Mod Manager v2.0.0.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop for convenience and faster access)
 
 2. Select a Mod from the left listing and it'll show if all necessary dependency Mods are installed and if that is given, lets you directly launch the desired Mod
 
@@ -34,12 +34,17 @@ This application allows for an easy launch of mods and management of large colle
 
 - **START MOD**: Starts the Game with the selected Advanced Start Options and the selected Mod if all dependency mods are installed.
 
-- **SETTINGS**: You could change game settings without launching the game. It also let's you change some HIDDEN game settings!
-Some sliders don't work yet.
+- **SETTINGS**: You could change game settings without launching the game. It also let's you change some HIDDEN game settings! From there you could also start System Performance Manager
 
 - **Download Mod...**: This button will open the new Download Manager window where you could download one (or how much you like) of popular mods. If mod has a patch - it will be downloaded too! Wait 5 seconds and mod will start downloading.
 
+- **Check for errors**: This button will start a search for any critical errors in warnings.log. All errors would be presented to user
+
 - **TOGGLE LAA**: This button allows for convenient activation and deactivation of the LAA flag for the Soulstorm.exe and GraphicsConfig.exe
+
+- **Fix MISSING**: This button will start a Mod Downloader and send it a missing module name so user could download it just in one click!
+
+- **About and Updates**: This will open "About" window so user could read some useful information (such as authors names, license and changelog). Also there is a "Update" button which makes updating DoW Mod Manager very easy!
 
 - **LAA Labels** : These two labels will show if both the Soulstorm.exe and GraphicsConfig.exe are LAA patched. Since the UA Mod and many other mods push the game engine really hard towards it's limits
 it's recommended to have the LAA(Large Address Awareness AKA. 4GB Patch) activated on both executables to reduce the chance for the game crashing when playing mods. Since most people use the LAA Patch in Online
