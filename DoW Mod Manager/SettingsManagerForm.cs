@@ -660,7 +660,7 @@ namespace DoW_Mod_Manager
                               $"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},\r\n" +
                               $"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},\r\n" +
                               "}\r\n" +
-                              "player_preferences = " +
+                              "player_preferences = \r\n" +
                               "{\r\n" +
                               "\tcampaign_played_disorder = false,\r\n" +
                               "\tcampaign_played_order = false,\r\n" +
