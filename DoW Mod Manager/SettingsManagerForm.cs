@@ -381,15 +381,36 @@ namespace DoW_Mod_Manager
         {
             // Now we could set all ComboBoxes (METALLBAWHKSESS!!!) and CheckBoxes in our Form
             // Fun fact: Convert.ToBoolean("true") works but Convert.ToBoolean("1") fails. Only Convert.ToBoolean(1) is a good alternative
-            full3DCameraCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[CAMERA_DETAIL]));
+            try
+            {
+                full3DCameraCheckBox.Checked = Convert.ToBoolean(settings[CAMERA_DETAIL]);
+            }
+            catch (Exception)
+            {
+                full3DCameraCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[CAMERA_DETAIL]));
+            }
             // Skipp CurrtentMod setting
             dynamicLightsComboBox.SelectedIndex = Convert.ToInt32(settings[DYNAMIC_LIGHTS]);
             worldEventsComboBox.SelectedIndex = Convert.ToInt32(settings[EVENT_DETAIL_LEVEL]);
             // Skip Force Watch Movies setting because it doesn't really works
-            betterTeamcoloredTexturexCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[FULLRES_TEAMCOLOUR]));
+            try
+            {
+                betterTeamcoloredTexturexCheckBox.Checked = Convert.ToBoolean(settings[FULLRES_TEAMCOLOUR]);
+            }
+            catch (Exception)
+            {
+                betterTeamcoloredTexturexCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[FULLRES_TEAMCOLOUR]));
+            }
             effectsDetailComboBox.SelectedIndex = Convert.ToInt32(settings[FX_DETAIL_LEVEL]);
             modelDetailComboBox.SelectedIndex = Convert.ToInt32(settings[MODEL_DETAIL]);
-            parentalControlCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[PARENTAL_CONTROL]));
+            try
+            {
+                parentalControlCheckBox.Checked = Convert.ToBoolean(settings[PARENTAL_CONTROL]);
+            }
+            catch (Exception)
+            {
+                parentalControlCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[PARENTAL_CONTROL]));
+            }
             persistentBodiesComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_BODIES]);
             persistentScarringComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_DECALS]);
             if (profiles.Count > 0)
@@ -409,7 +430,14 @@ namespace DoW_Mod_Manager
 
             loginAttemptsComboBox.SelectedItem = settings[RL_SSO_NUM_TIMES_SHOWN];
             activeVideocardComboBox.SelectedItem = settings[SCREEN_ADAPTER];
-            antialiasingCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_ANIALIAS]));
+            try
+            {
+                antialiasingCheckBox.Checked = Convert.ToBoolean(settings[SCREEN_ANIALIAS]);
+            }
+            catch (Exception)
+            {
+                antialiasingCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_ANIALIAS]));
+            }
             switch (settings[SCREEN_DEPTH])
             {
                 case "32":
@@ -433,7 +461,14 @@ namespace DoW_Mod_Manager
                 refreshRateComboBox.SelectedItem = "Auto";
             else
                 refreshRateComboBox.SelectedItem = settings[SCREEN_REFRESH] + " Hz";
-            windowedCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_WINDOWED]));
+            try
+            {
+                windowedCheckBox.Checked = Convert.ToBoolean(settings[SCREEN_WINDOWED]);
+            }
+            catch (Exception)
+            {
+                windowedCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_WINDOWED]));
+            }
             int index = 0;
             if (settings[SHADOW_BLOB] == "1")
             {
@@ -446,7 +481,14 @@ namespace DoW_Mod_Manager
                 }
             }
             shadowsDetailComboBox.SelectedIndex = index;
-            soundEnabledCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SOUND_ENABLED]));
+            try
+            {
+                soundEnabledCheckBox.Checked = Convert.ToBoolean(settings[SOUND_ENABLED]);
+            }
+            catch (Exception)
+            {
+                soundEnabledCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SOUND_ENABLED]));
+            }
             if (settings[SOUND_LIMIT_SAMPLES] == "1")       // We have to invert it for covienience
                 randomizedSoundsCheckBox.Checked = false;
             else
@@ -467,7 +509,14 @@ namespace DoW_Mod_Manager
             terrainDetailComboBox.SelectedIndex = Convert.ToInt32(settings[TERRAIN_ENABLE_FOW_BLUR]);
             textureDetailComboBox.SelectedIndex = Convert.ToInt32(settings[TEXTURE_DETAIL]);
             // Skip TotalMatchces setting
-            unitsOcclusionCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[UNIT_OCCLUSION]));
+            try
+            {
+                unitsOcclusionCheckBox.Checked = Convert.ToBoolean(settings[UNIT_OCCLUSION]);
+            }
+            catch (Exception)
+            {
+                unitsOcclusionCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[UNIT_OCCLUSION]));
+            }
 
             ReadSettingsFromPlayercfgLUA();
         }
@@ -501,13 +550,27 @@ namespace DoW_Mod_Manager
 
                                 if (line.Contains(INVERT_DECLINATION))
                                 {
-                                    inverseDeclinationCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(stringValue));
+                                    try
+                                    {
+                                        inverseDeclinationCheckBox.Checked = Convert.ToBoolean(stringValue);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        inverseDeclinationCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(stringValue));
+                                    }
                                     settings[INVERT_DECLINATION] = stringValue;
                                     continue;
                                 }
                                 else if (line.Contains(INVERT_PAN))
                                 {
-                                    inversePanCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(stringValue));
+                                    try
+                                    {
+                                        inversePanCheckBox.Checked = Convert.ToBoolean(stringValue);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        inversePanCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(stringValue));
+                                    }
                                     settings[INVERT_PAN] = stringValue;
                                     continue;
                                 }
