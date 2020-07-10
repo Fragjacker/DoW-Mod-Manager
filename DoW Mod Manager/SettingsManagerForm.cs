@@ -1276,13 +1276,17 @@ namespace DoW_Mod_Manager
                     string profilePathToDelete = PROFILES_PATH + "\\" + profiles[i].ProfileName;
 
                     if (Directory.Exists(profilePathToDelete))
+                    {
                         Directory.Delete(profilePathToDelete, true);
+
+                        currentPlayerComboBox.Items.RemoveAt(i);
+                    }
 
                     break;
                 }
             }
 
-            FindAllProfilesInDirectory(true);
+            FindAllProfilesInDirectory(clearProfiles: true);
             InitializeGUIWithSettings();
         }
 
@@ -1316,7 +1320,7 @@ namespace DoW_Mod_Manager
                 newPlayerTextBox.Text = "";
                 deleteProfileButton.Enabled = true;
 
-                FindAllProfilesInDirectory(true);
+                FindAllProfilesInDirectory(clearProfiles: true);
                 InitializeGUIWithSettings();
             }
             catch (Exception ex)
