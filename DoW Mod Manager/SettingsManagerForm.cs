@@ -1284,8 +1284,6 @@ namespace DoW_Mod_Manager
 
             FindAllProfilesInDirectory(true);
             InitializeGUIWithSettings();
-
-            ReadSettingsFromPlayercfgLUA();
         }
 
         private void CreateProfileButton_Click(object sender, EventArgs e)
@@ -1318,12 +1316,8 @@ namespace DoW_Mod_Manager
                 newPlayerTextBox.Text = "";
                 deleteProfileButton.Enabled = true;
 
-                if (currentPlayerComboBox.Items.Count > 0)
-                {
-                    FindAllProfilesInDirectory(true);
-                    InitializeGUIWithSettings();
-                }
-
+                FindAllProfilesInDirectory(true);
+                InitializeGUIWithSettings();
             }
             catch (Exception ex)
             {
