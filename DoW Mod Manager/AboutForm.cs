@@ -121,7 +121,7 @@ namespace DoW_Mod_Manager
             ThemedMessageBox.Show("Download completed!\nApplication will restart to take effect", "Good news!");
 
             Process.Start(executablePath);
-            Application.Exit();
+            ModManagerForm.TerminateApp();
         }
 
         private void SpecialThanks1LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

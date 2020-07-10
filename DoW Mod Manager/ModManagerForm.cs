@@ -170,6 +170,23 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
+        /// This method properly terminates the Application
+        /// </summary>
+        public static void TerminateApp()
+        {
+            if (Application.MessageLoop)
+            {
+                // WinForms app
+                Application.Exit();
+            }
+            else
+            {
+                // Console app
+                Environment.Exit(1);
+            }
+        }
+
+        /// <summary>
         /// This method is called when Form is about to be closed.
         /// </summary>
         /// <param name="source"></param>
@@ -354,7 +371,7 @@ namespace DoW_Mod_Manager
                 {
                     ThemedMessageBox.Show("No mods were found in the specified directory! Please check your current directory again!", "Warning!");
                     isMessageBoxOnScreen = true;
-                    Application.Exit();
+                    TerminateApp();
                 }
             }
         }
@@ -994,7 +1011,7 @@ namespace DoW_Mod_Manager
             {
                 ThemedMessageBox.Show("Neither found the Soulstorm, Dark Crusade, Winter Assault nor Original in this directory!", "ERROR:");
                 isMessageBoxOnScreen = true;
-                Application.Exit();
+                TerminateApp();
             }
 
             return "";
@@ -1013,7 +1030,7 @@ namespace DoW_Mod_Manager
                 {
                     ThemedMessageBox.Show(GraphicsConfigEXE + " was not found!", "ERROR:");
                     isMessageBoxOnScreen = true;
-                    Application.Exit();
+                    TerminateApp();
                 }
             }
         }
