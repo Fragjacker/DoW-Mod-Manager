@@ -718,9 +718,6 @@ namespace DoW_Mod_Manager
             }
             else
             {
-                if (!Directory.Exists(PROFILES_PATH))
-                    Directory.CreateDirectory(PROFILES_PATH);
-
                 string str2 = "Controls = \r\n" +
                               "{\r\n" +
                               $"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},\r\n" +
@@ -1366,21 +1363,25 @@ namespace DoW_Mod_Manager
 
         private void CreateProfileButton_Click(object sender, EventArgs e)
         {
-            string[] profiles = Directory.GetDirectories(PROFILES_PATH);
-            int[] profilesIndexes = new int[profiles.Length];
             int indexOfNewProfile = 1;
 
-            for (int i = 0; i < profiles.Length; i++)
+            if (Directory.Exists(PROFILES_PATH))
             {
-                // Delete the full patch
-                int indexOfLastSlah = profiles[i].LastIndexOf("\\");
-                profiles[i] = profiles[i].Substring(indexOfLastSlah + 1);
+                string[] profiles = Directory.GetDirectories(PROFILES_PATH);
+                int[] profilesIndexes = new int[profiles.Length];
 
-                // Delete the "Profile" part of the string and convert the rest to int
-                profilesIndexes[i] = Convert.ToInt32(profiles[i].Substring(7));
+                for (int i = 0; i < profiles.Length; i++)
+                {
+                    // Delete the full patch
+                    int indexOfLastSlah = profiles[i].LastIndexOf("\\");
+                    profiles[i] = profiles[i].Substring(indexOfLastSlah + 1);
 
-                if (indexOfNewProfile == profilesIndexes[i])
-                    indexOfNewProfile++;
+                    // Delete the "Profile" part of the string and convert the rest to int
+                    profilesIndexes[i] = Convert.ToInt32(profiles[i].Substring(7));
+
+                    if (indexOfNewProfile == profilesIndexes[i])
+                        indexOfNewProfile++;
+                }
             }
 
             string newProfileName = PROFILE + indexOfNewProfile;
@@ -1390,7 +1391,7 @@ namespace DoW_Mod_Manager
             try
             {
                 File.WriteAllText(newProfilePath + "\\" + NAME_DAT, newPlayerTextBox.Text, Encoding.GetEncoding("utf-16"));
-                
+
                 newPlayerTextBox.Text = "";
                 deleteProfileButton.Enabled = true;
 
