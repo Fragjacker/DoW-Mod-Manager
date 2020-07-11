@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Security.Permissions;
 using System.Reflection;
 using System.Threading;
+using System.Runtime.CompilerServices;
 
 namespace DoW_Mod_Manager
 {
@@ -22,22 +23,8 @@ namespace DoW_Mod_Manager
 
         private const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;
 
-        private readonly string currentDir = Directory.GetCurrentDirectory();
-
-        private bool[] isInstalled;                                                 // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the FilePaths is installed or not.
-        private bool isGameEXELAAPatched = false;
-        private bool isGraphicsConfigLAAPatched = false;
-        private bool isMessageBoxOnScreen = false;
-        private bool isOldGame;
-
-        public readonly string CurrentGameEXE = "";
-        public readonly string GraphicsConfigEXE = "GraphicsConfig.exe";
-        public string[] ModuleFilePaths;
-        public string[] ModFolderPaths;
-        public List<string> AllFoundModules;                                        // Contains the list of all available Mods that will be used by the Mod Merger
-        public List<string> AllValidModules;                                        // Contains the list of all playable Mods that will be used by the Mod Merger
-
         private const string CONFIG_FILE_NAME = "DoW Mod Manager.ini";
+        private const string WARNINGS_LOG = "warnings.log";
 
         private const string CHOICE_INDEX = "ChoiceIndex";
         public const string DEV = "Dev";
@@ -45,19 +32,36 @@ namespace DoW_Mod_Manager
         public const string FORCE_HIGH_POLY = "ForceHighPoly";
         public const string OPTIMIZATIONS = "Optimizations";
 
+        // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the FilePaths is installed or not.
+        private bool[] isInstalled;
+        private bool isGameEXELAAPatched = false;
+        private bool isGraphicsConfigLAAPatched = false;
+        private bool isMessageBoxOnScreen = false;
+        private bool isOldGame;
+        private string dowProcessName = "";
+
+        public readonly string CurrentDir = Directory.GetCurrentDirectory();
+        public readonly string CurrentGameEXE = "";
+        public readonly string GraphicsConfigEXE = "GraphicsConfig.exe";
+        public string[] ModuleFilePaths;
+        public string[] ModFolderPaths;
+        public List<string> AllFoundModules;                                        // Contains the list of all available Mods that will be used by the Mod Merger
+        public List<string> AllValidModules;                                        // Contains the list of all playable Mods that will be used by the Mod Merger
+        public bool IsTimerResolutionLowered = false;
+
         // Don't make Settings readonly or it couldn't be changed from outside the class!
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "<Pending>")]
         private Dictionary<string, int> settings = new Dictionary<string, int>
         {
-            [CHOICE_INDEX]    = 0,
-            [DEV]             = 0,
-            [NO_MOVIES]       = 1,
+            [CHOICE_INDEX] = 0,
+            [DEV] = 0,
+            [NO_MOVIES] = 1,
             [FORCE_HIGH_POLY] = 0,
-            [OPTIMIZATIONS]   = 0
+            [OPTIMIZATIONS] = 0
         };
 
         /// <summary>
-        ///  Initializes all the necessary components used by the GUI
+        /// Initializes all the necessary components used by the GUI
         /// </summary>
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public ModManagerForm()
@@ -73,7 +77,7 @@ namespace DoW_Mod_Manager
             // Read DoW Mod Manager.ini file and load settings in memory
             if (File.Exists(CONFIG_FILE_NAME))
             {
-                // Read every line of config file and try to ignore or correct all the possible mistakes
+                // Read every line of config file and try to ignore or correct all common mistakes
                 string[] lines = File.ReadAllLines(CONFIG_FILE_NAME);
                 for (int i = 0; i < lines.Length; i++)
                 {
@@ -90,7 +94,6 @@ namespace DoW_Mod_Manager
                         {
                             string setting = Convert.ToString(line.Substring(0, firstIndexOfEqualSign));
                             int value;
-
                             try
                             {
                                 value = Convert.ToInt32(line.Substring(firstIndexOfEqualSign + 1, line.Length - firstIndexOfEqualSign - 1));
@@ -100,6 +103,7 @@ namespace DoW_Mod_Manager
                                 value = 0;
                             }
 
+                            // TODO: Maybe change "if-else" to "switch"?
                             if (setting == CHOICE_INDEX)
                             {
                                 if (value >= 0)
@@ -151,11 +155,11 @@ namespace DoW_Mod_Manager
             CurrentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
 
-            currentDirTextBox.Text = currentDir;
+            currentDirTextBox.Text = CurrentDir;
             SetUpAllNecessaryMods();
-            isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(currentDir, CurrentGameEXE)[0]);
+            isGameEXELAAPatched = IsLargeAware(Directory.GetFiles(CurrentDir, CurrentGameEXE)[0]);
             SetGameLAALabelText();
-            isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(currentDir, GraphicsConfigEXE)[0]);
+            isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(CurrentDir, GraphicsConfigEXE)[0]);
             SetGraphicsConfigLAALabelText();
 
             // Watch for any changes in game directory
@@ -165,6 +169,28 @@ namespace DoW_Mod_Manager
             installedModsListBox.Select();
         }
 
+        /// <summary>
+        /// This method properly terminates the Application
+        /// </summary>
+        public static void TerminateApp()
+        {
+            if (Application.MessageLoop)
+            {
+                // WinForms app
+                Application.Exit();
+            }
+            else
+            {
+                // Console app
+                Environment.Exit(1);
+            }
+        }
+
+        /// <summary>
+        /// This method is called when Form is about to be closed.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
             string str = $"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n" +
@@ -173,10 +199,51 @@ namespace DoW_Mod_Manager
                          $"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n" +
                          $"{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}";
             File.WriteAllText(CONFIG_FILE_NAME, str);
+
+            // If Timer Resolution was lowered we have to keep DoW Mod Manager alive or Timer Resolution will be reset
+            if (IsTimerResolutionLowered)
+            {
+                // Threads could work even if application would be closed
+                new Thread(() =>
+                {
+                    int triesCount = 0;
+                    string procName = "";
+                    Process dowOrModManager = Process.GetCurrentProcess();      // Set it to ModManager first
+
+                    // Remember DoW process Name but if DoW is not launched - just terminate the Thread
+                    if (dowProcessName.Length > 0)
+                        procName = dowProcessName;
+                    else
+                        return;
+
+                    // We will try 30 times and then Thread will be terminated regardless
+                    while (triesCount < 30)
+                    {
+                        Thread.Sleep(1000);
+                        try
+                        {
+                            Process[] dowCandidate = Process.GetProcessesByName(procName);
+                            dowOrModManager = dowCandidate[0];
+                            break;                                              // We've done what we intended to do
+                        }
+                        catch (Exception)
+                        {
+                            triesCount++;
+                        }
+                    }
+
+                    // Wait until DoW would exit and then terminate the Thread
+                    while (!dowOrModManager.HasExited)
+                    {
+                        Thread.Sleep(10000);
+                    }
+                }
+                ).Start();
+            }
         }
 
         /// <summary>
-        /// This function handles the reselection of a previously selected mod.
+        /// This method handles the reselection of a previously selected mod.
         /// </summary>
         private void ReselectSavedMod()
         {
@@ -189,11 +256,11 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This adds FileSystem watcher to capture any file changes in the game directories.
+        /// This method adds FileSystem watcher to capture any file changes in the game directories.
         /// </summary>
         private void AddFileSystemWatcher()
         {
-            fileSystemWatcher1.Path = currentDir;
+            fileSystemWatcher1.Path = CurrentDir;
 
             fileSystemWatcher1.NotifyFilter = NotifyFilters.LastAccess
                                     | NotifyFilters.LastWrite
@@ -210,7 +277,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function defines the event handlers for when some file was changed.
+        /// This method defines the event handlers for when some file was changed.
         /// </summary>
         /// <param name="source"></param>
         /// <param name="e"></param>
@@ -225,63 +292,25 @@ namespace DoW_Mod_Manager
         public void SetUpAllNecessaryMods()
         {
             GetMods();
-            GetModFoldersFromFile();
+            CheckModFoldersFromFile();
             ReselectSavedMod();
         }
 
         /// <summary>
-        /// Checks if the Mods are actually REALLY installed by checking if their asset folders are present by the name specified within the .module files "Modfolder" tagline
+        /// This method finds all installed *.module files and displays them in the Installed Mods Listbox without extension
         /// </summary>
-        public void CheckforInstalledMods()
-        {
-            startModButton.Enabled = true;
-
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark.png");
-            pictureBox.Image = Image.FromStream(myStream);
-
-            string localstring;
-            string folderPath;
-            int itemsCount = requiredModsList.Items.Count;
-            isInstalled = new bool[itemsCount];
-
-            for (int i = 0; i < itemsCount; i++)
-            {
-                folderPath = currentDir + "\\" + ModFolderPaths[i];
-
-                if (Directory.Exists(folderPath))
-                {
-                    localstring = requiredModsList.Items[i].ToString();
-                    requiredModsList.Items.RemoveAt(i);
-                    requiredModsList.Items.Insert(i, localstring + "...INSTALLED!");
-                    isInstalled[i] = true;
-                }
-                else
-                {
-                    localstring = requiredModsList.Items[i].ToString();
-                    requiredModsList.Items.RemoveAt(i);
-                    requiredModsList.Items.Insert(i, localstring + "...MISSING!");
-                    isInstalled[i] = false;
-                    startModButton.Enabled = false;
-
-                    myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross.png");
-                    pictureBox.Image = Image.FromStream(myStream);
-                }
-            }
-            myStream.Close();
-        }
-
-        /// <summary>
-        /// Finds all installed .module files and displays them in the Installed Mods Listbox without their .module extension
-        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void GetMods()
         {
-            List<string> newfilePathsList = new List<string>();        // Make a new list for the new Pathitems
+            // Make a new list for the new Pathitems
+            List<string> newfilePathsList = new List<string>();
             AllFoundModules = new List<string>();
             AllValidModules = new List<string>();
 
             installedModsListBox.Items.Clear();
 
-            ModuleFilePaths = Directory.GetFiles(currentDir, "*.module");
+            ModuleFilePaths = Directory.GetFiles(CurrentDir, "*.module");
             if (ModuleFilePaths.Length > 0)
             {
                 for (int i = 0; i < ModuleFilePaths.Length; i++)
@@ -296,76 +325,55 @@ namespace DoW_Mod_Manager
                     // Find the List of ALL found module files for the Mod Merger available Mods List
                     AllFoundModules.Add(fileName);
 
-                    // Read the *.module file to see if the mod is playable
+                    // Read the *.module file to see the version and if the mod is playable
                     using (StreamReader file = new StreamReader(filePath))
                     {
                         string line;
+                        bool isPlayable = false;
+                        string modVersion = "";
 
                         // Filter the unplayable mods and populate the List only with playable mods
                         while ((line = file.ReadLine()) != null)
                         {
-                            if (ModIsPlayable(line))
-                            {
-                                newfilePathsList.Add(ModuleFilePaths[i]);
-                                installedModsListBox.Items.Add(fileName);
-                                AllValidModules.Add(fileName);
-                            }
+                            // Winter Assault of Original doesn't have a "Playable" state
+                            if (line.Contains("Playable = 1") || isOldGame)
+                                isPlayable = true;
 
-                            // We will not find unplayable mods in Original or Winter Assault - there was no "Playable" state
-                            if (isOldGame)
-                                break;
+                            // Add information about a version of a mod
+                            if (line.Contains("ModVersion"))
+                            {
+                                int indexOfEqualSigh = line.IndexOf('=');
+                                modVersion = line.Substring(indexOfEqualSigh + 1, line.Length - indexOfEqualSigh - 1);
+                            }
+                        }
+
+                        if (isPlayable)
+                        {
+                            string newItem = fileName;
+
+                            newfilePathsList.Add(ModuleFilePaths[i]);
+                            AllValidModules.Add(newItem);
+
+                            if (modVersion.Length > 0)
+                                newItem += $"   (Version{modVersion})";
+
+                            installedModsListBox.Items.Add(newItem);
                         }
                     }
                 }
 
-                ModuleFilePaths = newfilePathsList.ToArray();        //Override the old array that contained unplayable mods with the new one.
+                // Override the old array that contained unplayable mods with the new one.
+                ModuleFilePaths = newfilePathsList.ToArray();        
             }
             else
             {
                 if (!isMessageBoxOnScreen)
                 {
-                    MessageBox.Show("No mods were found in the specified directory! Please check your current directory again!");
+                    ThemedMessageBox.Show("No mods were found in the specified directory! Please check your current directory again!", "Warning!");
                     isMessageBoxOnScreen = true;
-                    Application.Exit();
+                    TerminateApp();
                 }
             }
-        }
-
-
-
-
-
-       /// <summary>
-        /// This function returns 'true' if a Mod is set as "Playable = 1" in the .module file 
-        /// </summary>
-        /// <param name="textline"></param>
-        /// <returns></returns>
-	 private bool ModIsPlayable(string modName)
-        {
-            // Original or Winter Assault module file don't have a "Playable" state
-            if (isOldGame)
-                return true;
-
-            // It must be lower case!
-            const string pattern = "playable = 1";
-
-            modName = modName.ToLower();
-            return modName.Contains(pattern);
-        }
-
-        private bool IsModRequired(string modName)
-        {
-            const string pattern = "RequiredMod";
-            const string patternCommented1 = ";;";
-            const string patternCommented2 = "--";
-            const string patternCommented3 = "//";
-
-            if (modName.Contains(pattern))
-                return true;
-            if (modName.StartsWith(patternCommented1) || modName.StartsWith(patternCommented2) || modName.StartsWith(patternCommented3))
-                return false;
-
-            return false;
         }
 
         /// <summary>
@@ -378,6 +386,7 @@ namespace DoW_Mod_Manager
             startModButton.Enabled = true;
 
             int index = installedModsListBox.SelectedIndex;
+
             if (index < 0 || index >= installedModsListBox.Items.Count)
             {
                 index = settings[CHOICE_INDEX];
@@ -386,41 +395,70 @@ namespace DoW_Mod_Manager
             else
                 settings[CHOICE_INDEX] = index;
 
-            string currentPath = ModuleFilePaths[index];
-            string line;
+            string currentModuleFilePath = ModuleFilePaths[index];
 
             requiredModsList.Items.Clear();
 
             // Read the file and display it line by line.
-            using (StreamReader file = new StreamReader(currentPath))
+            using (StreamReader file = new StreamReader(currentModuleFilePath))
             {
+                string line;
+
                 // Populate the Required Mods List with entries from the .module file
                 while ((line = file.ReadLine()) != null)
                 {
-                    if (IsModRequired(line))
+                    if (line.StartsWith(";;") || line.StartsWith("--") || line.StartsWith("//"))
+                        continue;
+
+                    if (line.Contains("RequiredMod"))
+                    {
+                        line = GetValueFromLine(line, false);
+                        
                         requiredModsList.Items.Add(line);
+                    }
                 }
-                GetModFoldersFromFile();
+
+                CheckModFoldersFromFile();
                 CheckforInstalledMods();
             }
         }
 
         /// <summary>
-        ///  This method checks if the Mod Assett folders, specified in each .module file, do actually exist
+        /// When selecting a different required Mod, check if fixMod button is needed
         /// </summary>
-        private void GetModFoldersFromFile()
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RequiredModsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (requiredModsList.SelectedItem.ToString().Contains("MISSING"))
+                    fixMissingModButton.Enabled = true;
+                else
+                    fixMissingModButton.Enabled = false;
+            }
+            catch (Exception)
+            {
+                requiredModsList.SelectedIndex = 0;
+            }
+        }
+
+        /// <summary>
+        /// This method checks if the Mod Assett folders, specified in each *.module file, do actually exist
+        /// </summary>
+        private void CheckModFoldersFromFile()
         {
             int requiredModsCount = requiredModsList.Items.Count;
             ModFolderPaths = new string[requiredModsCount];
 
-            // Read the file and display it line by line.
+            // Read the file line by line and check for "ModFolder" attribute
             for (int i = 0; i < requiredModsCount; i++)
             {
-                string currentPath = currentDir + "\\" + GetValueFromLine(requiredModsList.Items[i].ToString(), false) + ".module";
-                
-                if (File.Exists(currentPath))
+                string moduleFilePath = CurrentDir + "\\" + requiredModsList.Items[i].ToString() + ".module";
+
+                if (File.Exists(moduleFilePath))
                 {
-                    using (StreamReader file = new StreamReader(currentPath))
+                    using (StreamReader file = new StreamReader(moduleFilePath))
                     {
                         string line;
 
@@ -436,13 +474,64 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// Checks if the Mods are actually REALLY installed by checking if their asset folders are present by the name specified within the *.module files "Modfolder" tagline
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void CheckforInstalledMods()
+        {
+            startModButton.Enabled = true;
+            fixMissingModButton.Enabled = false;
+
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.checkmark.png");
+            pictureBox.Image = Image.FromStream(myStream);
+
+            string requredMod;
+            string folderPath;
+            int itemsCount = requiredModsList.Items.Count;
+            isInstalled = new bool[itemsCount];
+
+            for (int i = 0; i < itemsCount; i++)
+            {
+                folderPath = CurrentDir + "\\" + ModFolderPaths[i];
+
+                requredMod = requiredModsList.Items[i].ToString();
+                requiredModsList.Items.RemoveAt(i);
+
+                if (Directory.Exists(folderPath))
+                {
+                    requiredModsList.Items.Insert(i, requredMod + " ...INSTALLED!");
+                    isInstalled[i] = true;
+                }
+                else
+                {
+                    requiredModsList.Items.Insert(i, requredMod + " ...MISSING!");
+                    isInstalled[i] = false;
+                    startModButton.Enabled = false;
+
+                    myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.cross.png");
+                    pictureBox.Image = Image.FromStream(myStream);
+                }
+            }
+            myStream.Close();
+        }
+
+        /// <summary>
+        /// This method gets a value from a line of text
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="deleteModule"></param>
+        /// <returns>string</returns>
         private string GetValueFromLine(string line, bool deleteModule)
         {
-            int indexOfEqual = line.IndexOf('=');
+            int indexOfEqualSigh = line.IndexOf('=');
 
-            if (indexOfEqual > 0)
+            if (indexOfEqualSigh > 0)
             {
-                line = line.Substring(indexOfEqual + 1, line.Length - indexOfEqual - 1);
+                // Deleting all chars before equal sigh
+                line = line.Substring(indexOfEqualSigh + 1, line.Length - indexOfEqualSigh - 1);
+
                 if (deleteModule)
                     return line.Replace(" ", "").Replace(".module", "");
                 else
@@ -457,7 +546,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-	private void StartVanillaGameButton_Click(object sender, EventArgs e)
+        private void StartVanillaGameButton_Click(object sender, EventArgs e)
         {
             StartGameWithOptions("W40k");
         }
@@ -472,6 +561,10 @@ namespace DoW_Mod_Manager
             StartGameWithOptions(installedModsListBox.SelectedItem.ToString());
         }
 
+        /// <summary>
+        /// This method handles starting an instance of CurrentGameEXE with arguments
+        /// </summary>
+        /// <param name="modName"></param>
         private void StartGameWithOptions(string modName)
         {
             string arguments = "-modname " + modName;
@@ -489,30 +582,31 @@ namespace DoW_Mod_Manager
             proc.StartInfo.Arguments = arguments;
             proc.Start();
 
+            dowProcessName = proc.ProcessName;
+
             if (settings[OPTIMIZATIONS] == 1)
             {
                 // Threads could work even if application would be closed
                 new Thread(() =>
                 {
                     int triesCount = 0;
-                    string procName = proc.ProcessName;
+                    string procName = dowProcessName;
 
-                    TRY_AGAIN:
-                    triesCount++;
-
-                    // We can't change priority or affinity of the game right after it starts
-                    Thread.Sleep(1000);
-                    try
+                    // We will try 30 times and then Thread will be terminated regardless
+                    while (triesCount < 30)
                     {
-                        Process[] dow = Process.GetProcessesByName(procName);
-                        dow[0].PriorityClass = ProcessPriorityClass.High;
-                        dow[0].ProcessorAffinity = (IntPtr)0x0006;          // Affinity 6 means using only CPU threads 2 and 3 (6 = 0110)
-                    }
-                    catch (Exception)
-                    {
-                        // We will try 30 times and then Thread will be terminated regardless
-                        if (triesCount < 30)
-                            goto TRY_AGAIN;
+                        Thread.Sleep(1000);
+                        try
+                        {
+                            Process[] dow = Process.GetProcessesByName(procName);
+                            dow[0].PriorityClass = ProcessPriorityClass.High;
+                            dow[0].ProcessorAffinity = (IntPtr)0x0006;          // Affinity 6 means using only CPU threads 2 and 3 (6 = 0110)
+                            break;                                              // We've done what we intended to do
+                        }
+                        catch (Exception)
+                        {
+                            triesCount++;
+                        }
                     }
                 }
                 ).Start();
@@ -578,7 +672,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function collects and displays the list of required mods for a selected mod in order to function correctly.
+        /// This method collects and displays the list of required mods for a selected mod in order to function correctly.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -596,7 +690,11 @@ namespace DoW_Mod_Manager
 
             // Draw the current item text based on the current 
             // Font and the custom brush settings.
-            e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(), e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+            e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(),
+                                  e.Font,
+                                  myBrush,
+                                  e.Bounds,
+                                  StringFormat.GenericDefault);
 
             // If the ListBox has focus, draw a focus rectangle 
             // around the selected item.
@@ -614,22 +712,84 @@ namespace DoW_Mod_Manager
             downloaderForm.Show();
         }
 
-        private void ModMergeButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// This method opens the Mod Downloader form and gives it a mod name to search for
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FixMissingModButton_Click(object sender, EventArgs e)
         {
-            ModMergerForm mergerWindow = new ModMergerForm(this);
-            mergerWindow.Show();
+            if (requiredModsList.SelectedItem == null)
+                return;
+
+            string modName = requiredModsList.SelectedItem.ToString();
+
+            int indexOfSpace = modName.IndexOf(" ");
+            modName = modName.Substring(0, indexOfSpace);
+
+            if (modName == "W40k" || modName == "WXP" || modName == "DXP2")
+            {
+                ThemedMessageBox.Show("You are missing one of the base modules! Reinstall the game to fix it", "Warning!");
+                return;
+            }
+
+            ModDownloaderForm downloaderForm = new ModDownloaderForm(this, modName);
+            downloaderForm.Show();
         }
 
         /// <summary>
-        /// This function draws the LAA text for the Soulstorm label depending on whether the flag is true (Green) or false (Red).
+        /// This method opens the Mod Merger form when the button is clicked.
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ModMergeButton_Click(object sender, EventArgs e)
+        {
+            ModMergerForm mergerForm = new ModMergerForm(this);
+            mergerForm.Show();
+        }
 
+        /// <summary>
+        /// This method opens the Settings Manager form when the button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SettingsButton_Click(object sender, EventArgs e)
         {
             SettingsManagerForm settingsForm = new SettingsManagerForm(this);
             settingsForm.Show();
         }
 
+        /// <summary>
+        /// This method check for errors in warnings.log and shows them to user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CheckForErrorsButton_Click(object sender, EventArgs e)
+        {
+            string line;
+            string errors = "";
+
+            if (File.Exists(WARNINGS_LOG))
+            {
+                using (StreamReader logFile = new StreamReader(WARNINGS_LOG))
+                {
+                    while ((line = logFile.ReadLine()) != null)
+                    {
+                        if (line.Contains("Fatal Data Error"))
+                            errors += line + "\n";
+                    }
+                }
+
+                if (errors.Length > 0)
+                    ThemedMessageBox.Show(errors, "Errors:");
+                else
+                    ThemedMessageBox.Show($"No errors were found in {WARNINGS_LOG}!", "Errors:");
+            }
+        }
+
+        /// <summary>
+        /// This method draws the LAA text for the game label depending on whether the flag is true (Green) or false (Red).
+        /// </summary>
         private void SetGameLAALabelText()
         {
             if (isGameEXELAAPatched)
@@ -645,7 +805,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function draws the LAA text for the GraphicsConfig label depending on whether the flag is true (Green) or false (Red).
+        /// This method draws the LAA text for the GraphicsConfig label depending on whether the flag is true (Green) or false (Red).
         /// </summary>
         private void SetGraphicsConfigLAALabelText()
         {
@@ -662,7 +822,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function instigates the test if a given EXE is LAA patched or not.
+        /// This method instigates the test if a given EXE is LAA patched or not.
         /// </summary>
         /// <param name="file"></param>
         /// <returns>bool</returns>
@@ -691,13 +851,14 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function performs the necessary data operations in order to toggle the LAA for a given EXE file back and forth.
+        /// This method performs the necessary data operations in order to toggle the LAA for a given EXE file back and forth.
         /// </summary>
         /// <param name="file"></param>
         /// <returns>bool</returns>
         static bool ToggleLAA(string file)
         {
             bool result = false;
+
             using (FileStream fs = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
             {
                 BinaryReader br = new BinaryReader(fs);
@@ -750,12 +911,12 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function checks if a file is yet still opened and thus blocked.
+        /// This method checks if a file is yet still opened and thus blocked.
         /// It prevents crashes when attempting to write to files not yet closed.
         /// </summary>
         /// <param name="file"></param>
         /// <returns>bool</returns>
-	private bool IsFileNotLocked(string file)
+        private bool IsFileNotLocked(string file)
         {
             FileStream fs = null;
             try
@@ -789,8 +950,8 @@ namespace DoW_Mod_Manager
         private void ButtonToggleLAA_Click(object sender, EventArgs e)
         {
             // Check if the Game is LAA Patched and fill in the Label properly
-            string currentGamePath = currentDir + "\\" + CurrentGameEXE;
-            string currentGraphucsConfigPath = currentDir + "\\" + GraphicsConfigEXE;
+            string currentGamePath = CurrentDir + "\\" + CurrentGameEXE;
+            string currentGraphucsConfigPath = CurrentDir + "\\" + GraphicsConfigEXE;
 
             if (IsFileNotLocked(currentGamePath) && IsFileNotLocked(currentGraphucsConfigPath))
             {
@@ -810,25 +971,28 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function scans for either the Soulstorm or the Dark Crusade version of the game.
+        /// This method scans for either the Soulstorm, Dark Crusade, Winter Assault or Original version of the game.
         /// </summary>
+        /// <returns>string</returns>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string GetCurrentGameEXE()
         {
-            if (File.Exists(currentDir + "\\" + GameExecutable.SOULSTORM))
+            if (File.Exists(CurrentDir + "\\" + GameExecutable.SOULSTORM))
             {
                 currentDirectoryLabel.Text = "     Your current Soulstorm directory";
                 isOldGame = false;
                 return GameExecutable.SOULSTORM;
             }
 
-            if (File.Exists(currentDir + "\\" + GameExecutable.DARK_CRUSADE))
+            if (File.Exists(CurrentDir + "\\" + GameExecutable.DARK_CRUSADE))
             {
                 currentDirectoryLabel.Text = "  Your current Dark Crusade directory";
                 isOldGame = false;
                 return GameExecutable.DARK_CRUSADE;
             }
 
-            if (File.Exists(currentDir + "\\" + GameExecutable.WINTER_ASSAULT))
+            if (File.Exists(CurrentDir + "\\" + GameExecutable.WINTER_ASSAULT))
             {
                 currentDirectoryLabel.Text = "Your current Winter Assault directory";
                 isOldGame = true;
@@ -836,7 +1000,7 @@ namespace DoW_Mod_Manager
             }
 
             // That part of the code will never be reached if you have Original + WA
-            if (File.Exists(currentDir + "\\" + GameExecutable.ORIGINAL))
+            if (File.Exists(CurrentDir + "\\" + GameExecutable.ORIGINAL))
             {
                 currentDirectoryLabel.Text = "   Your current Dawn of War directory";
                 isOldGame = true;
@@ -845,23 +1009,28 @@ namespace DoW_Mod_Manager
 
             if (!isMessageBoxOnScreen)
             {
-                MessageBox.Show("ERROR: Neither found the Soulstorm, Dark Crusade, Winter Assault nor Original in this directory!");
+                ThemedMessageBox.Show("Neither found the Soulstorm, Dark Crusade, Winter Assault nor Original in this directory!", "ERROR:");
                 isMessageBoxOnScreen = true;
-                Application.Exit();
+                TerminateApp();
             }
 
             return "";
         }
 
+        /// <summary>
+        /// This method scans for GraphicsConfig.exe
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CheckForGraphicsConfigEXE()
         {
-            if (!File.Exists(currentDir + "\\" + GraphicsConfigEXE))
+            if (!File.Exists(CurrentDir + "\\" + GraphicsConfigEXE))
             {
                 if (!isMessageBoxOnScreen)
                 {
-                    MessageBox.Show("ERROR: " + GraphicsConfigEXE + " was not found!");
+                    ThemedMessageBox.Show(GraphicsConfigEXE + " was not found!", "ERROR:");
                     isMessageBoxOnScreen = true;
-                    Application.Exit();
+                    TerminateApp();
                 }
             }
         }
@@ -869,9 +1038,11 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This method can be used ouside this class to change a setting and update the GUI
         /// </summary>
+        /// <param name="setting"></param>
+        /// <param name="newValue"></param>
         public void ChangeSetting(string setting, int newValue)
         {
-            // Makes sure that newValue is in range of acceptable values
+            // Makes sure that newValue is in range of acceptable values. Basically a Clamp() method
             if (newValue < 0)
                 newValue = 0;
             else if (newValue > 1)
@@ -896,6 +1067,15 @@ namespace DoW_Mod_Manager
                     optimizationsCheckBox.Checked = Convert.ToBoolean(newValue);
                     break;
             }
+        }
+
+        /// <summary>
+        /// This method opens an AboutForm
+        /// </summary>
+        private void HomePageLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AboutForm about = new AboutForm();
+            about.Show();
         }
     }
 }

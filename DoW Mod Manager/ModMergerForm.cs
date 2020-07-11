@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace DoW_Mod_Manager
@@ -44,7 +45,9 @@ namespace DoW_Mod_Manager
         public ModMergerForm(ModManagerForm Form)
         {
             InitializeComponent();
+
             modManager = Form;
+
             GetLoadableMods();
 
             // Use the same icon as executable
@@ -64,7 +67,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// Gets all available Mods from the Mod Manager Panel
+        /// Gets all available Mods from the Mod Manager Form
         /// </summary>
         private void GetAvailableMods()
         {
@@ -113,6 +116,8 @@ namespace DoW_Mod_Manager
             HideUnavailableMods();
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void HideUnavailableMods()
         {
             GetAvailableMods();                             // Get a Fresh new List everytime
@@ -125,6 +130,8 @@ namespace DoW_Mod_Manager
             }
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SortInactiveModsToBottom()
         {
             List<Mod> inactiveModsList = new List<Mod>();
@@ -144,6 +151,8 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Fills the Used Mods Listbox with the Mods that are currently set as RequiredMod inside the .module file
         /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void GetActiveModsFromFile()
         {
             int index = loadedModBox.SelectedIndex;
@@ -164,6 +173,8 @@ namespace DoW_Mod_Manager
             }
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string GetValueFromLine(string line, bool deleteModule)
         {
             int indexOfEqual = line.IndexOf('=');
@@ -180,6 +191,8 @@ namespace DoW_Mod_Manager
                 return "";
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string IsModRequired(string modName)
         {
             const string pattern = "RequiredMod";
@@ -226,94 +239,108 @@ namespace DoW_Mod_Manager
 
             // Draw the current item text based on the current 
             // Font and the custom brush settings.
-            e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(), e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+            e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(),
+                                  e.Font,
+                                  myBrush,
+                                  e.Bounds,
+                                  StringFormat.GenericDefault);
 
             // If the ListBox has focus, draw a focus rectangle 
             // around the selected item.
             e.DrawFocusRectangle();
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnablePlusButton()
         {
             buttonAdd.Enabled = true;
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.plus.png");
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.plus.png");
             buttonAdd.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void DisablePlusButton()
         {
             buttonAdd.Enabled = false;
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.plus_disabled.png");
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.plus_disabled.png");
             buttonAdd.BackgroundImage = Image.FromStream(myStream);
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnableMinusButton()
         {
             buttonRemove.Enabled = true;
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.minus.png");
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.minus.png");
             buttonRemove.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void DisableMinusButton()
         {
             buttonRemove.Enabled = false;
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.minus_disabled.png");
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.minus_disabled.png");
             buttonRemove.BackgroundImage = Image.FromStream(myStream);
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnableCheckmarkButton()
         {
             buttonActivate.Enabled = true;
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark.png");
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.checkmark.png");
             buttonActivate.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void DisableCheckmarkButton()
         {
             buttonActivate.Enabled = false;
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.Checkmark_disabled.png");
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.checkmark_disabled.png");
             buttonActivate.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void EnableCrossButton()
         {
             buttonDeactivate.Enabled = true;
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross.png");
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.cross.png");
             buttonDeactivate.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void DisableCrossButton()
         {
             buttonDeactivate.Enabled = false;
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.cross_disabled.png");
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.cross_disabled.png");
             buttonDeactivate.BackgroundImage = Image.FromStream(myStream);
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnableArrowUpButton()
         {
             buttonArrowUp.Enabled = true;
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.arrow_up.png");
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.arrow_up.png");
             buttonArrowUp.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void DisableArrowUpButton()
         {
             buttonArrowUp.Enabled = false;
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.arrow_up_disabled.png");
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.arrow_up_disabled.png");
             buttonArrowUp.BackgroundImage = Image.FromStream(myStream);
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnableArrowDownButton()
         {
             buttonArrowDown.Enabled = true;
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.arrow_down.png");
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.arrow_down.png");
             buttonArrowDown.BackgroundImage = Image.FromStream(myStream);
         }
 
         private void DisableArrowDownButton()
         {
             buttonArrowDown.Enabled = false;
-            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.DoW_Mod_Manager_Resources.arrow_down_disabled.png");
+            Stream myStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DoW_Mod_Manager.Resources.arrow_down_disabled.png");
             buttonArrowDown.BackgroundImage = Image.FromStream(myStream);
         }
 
@@ -420,7 +447,7 @@ namespace DoW_Mod_Manager
             ReselectLastItems();
 
             // Show a Succesprompt
-            MessageBox.Show("Module file changes were successfully applied!", "Saving successful");
+            ThemedMessageBox.Show("Module file changes were successfully applied!", "Saving successful");
         }
 
         private void ButtonActivate_Click(object sender, EventArgs e)

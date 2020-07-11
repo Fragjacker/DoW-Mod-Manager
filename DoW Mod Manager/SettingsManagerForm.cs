@@ -1,17 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Text;
 using System.Windows.Forms;
 
 namespace DoW_Mod_Manager
 {
     public partial class SettingsManagerForm : Form
     {
-        private const string SETTINGS_FILE = "Local.ini";
+        public class Profile
+        {
+            public string ProfileName;
+            public string PlayerName;
 
+            public Profile(string profileName, string playerName)
+            {
+                ProfileName = profileName;
+                PlayerName = playerName;
+            }
+        }
+        
         private const string CANCEL_LABEL = "CANCEL";
         private const string CLOSE_LABEL = "CLOSE";
+
+        private const string SETTINGS_FILE = "Local.ini";
 
         // Here are all settings from Local.ini in right order
         private const string CAMERA_DETAIL = "cameradetail";
@@ -49,12 +64,30 @@ namespace DoW_Mod_Manager
         private const string TOTAL_MATCHES = "total_matches";
         private const string UNIT_OCCLUSION = "unit_occlusion";
 
+        private readonly string PROFILES_PATH;
+        private const string NAME_DAT = "name.dat";
+        private const string PLAYERCONFIG = "playercfg.lua";
+        private const string PROFILE = "Profile";
+
+        // Here are some usefull settings from playercfg.lua in right order
+        private const string INVERT_DECLINATION = "invertDeclination";
+        private const string INVERT_PAN = "invertPan";
+        private const string SCROLL_RATE = "scrollRate";
+
+        private const string SOUND_VOLUME_AMBIENT = "VolumeAmbient";
+        private const string SOUND_VOLUME_MUSIC = "VolumeMusic";
+        private const string SOUND_VOLUME_SFX = "VolumeSfx";
+        private const string SOUND_VOLUME_VOICE = "VolumeVoice";
+
         private readonly ModManagerForm modManager;
 
         private bool enableHighPoly = false;
         private bool disableHighPoly = false;
 
+        // Not the same settings as in ModManagerForm
         private Dictionary<string, string> settings;
+
+        private List<Profile> profiles;
 
         public SettingsManagerForm(ModManagerForm form)
         {
@@ -65,16 +98,85 @@ namespace DoW_Mod_Manager
             // Use the same icon as executable
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            InitializeSettings();
+            // You could change PROFILES_PATH only in constructor because it's readonly
+            PROFILES_PATH = modManager.CurrentDir + "\\Profiles";
 
-            // Read from Local.ini
+            InitializeSettingsWithDefaults();
+
+            ReadSettingsFromLocalINI();
+
+            FindAllProfilesInDirectory(clearProfiles: false);
+
+            InitializeGUIWithSettings();
+
+            closeButton.Text = CLOSE_LABEL;
+            saveButton.Enabled = false;
+        }
+
+        private void InitializeSettingsWithDefaults()
+        {
+            settings = new Dictionary<string, string>
+            {
+                // For Local.ini
+                [CAMERA_DETAIL] = "1",
+                [CURRENT_MOD] = "W40k",
+                [DYNAMIC_LIGHTS] = "2",
+                [EVENT_DETAIL_LEVEL] = "2",
+                [FORCE_WATCH_MOVIES] = "1",
+                [FULLRES_TEAMCOLOUR] = "0",
+                [FX_DETAIL_LEVEL] = "2",
+                [MODEL_DETAIL] = "2",
+                [PARENTAL_CONTROL] = "0",
+                [PERSISTENT_BODIES] = "0",
+                [PERSISTENT_DECALS] = "0",
+                [PLAYER_PROFILE] = "Profile1",
+                [RL_SSO_NUM_TIMES_SHOWN] = "1",
+                [SCREEN_ADAPTER] = "0",
+                [SCREEN_ANIALIAS] = "0",
+                [SCREEN_DEPTH] = "32",
+                [SCREEN_DEVICE] = "Dx9 : Hardware TnL",
+                [SCREEN_GAMMA] = "10",
+                [SCREEN_HEIGHT] = "768",
+                [SCREEN_NO_VSYNC] = "0",
+                [SCREEN_REFRESH] = "0",
+                [SCREEN_WIDTH] = "1024",
+                [SCREEN_WINDOWED] = "0",
+                [SHADOW_BLOB] = "0",
+                [SHADOW_MAP] = "0",
+                [SHADOW_VOLUME] = "0",
+                [SOUND_ENABLED] = "1",
+                [SOUND_LIMIT_SAMPLES] = "0",
+                [SOUND_NR_CHANNELS] = "32",
+                [SOUND_QUALITY] = "2",
+                [TERRAIN_ENABLE_FOW_BLUR] = "0",
+                [TEXTURE_DETAIL] = "1",
+                [TOTAL_MATCHES] = "0",
+                [UNIT_OCCLUSION] = "0",
+
+                // For playercfg.lua
+                [INVERT_DECLINATION] = "0",
+                [INVERT_PAN] = "1",
+                [SCROLL_RATE] = "1",
+
+                [SOUND_VOLUME_AMBIENT] = "0.75",
+                [SOUND_VOLUME_MUSIC] = "0.75",
+                [SOUND_VOLUME_SFX] = "0.75",
+                [SOUND_VOLUME_VOICE] = "0.75"
+            };
+
+            profiles = new List<Profile>();
+        }
+
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void ReadSettingsFromLocalINI()
+        {
             if (File.Exists(SETTINGS_FILE))
             {
                 string[] lines = File.ReadAllLines(SETTINGS_FILE);
                 for (int i = 0; i < lines.Length; i++)
                 {
-                    string line = lines[i];
-                    line = line.Trim();
+                    string line = lines[i].Trim();
 
                     int firstIndexOfEqualSign = line.IndexOf('=');
                     int lastIndexOfEqualSign = line.LastIndexOf('=');
@@ -133,7 +235,7 @@ namespace DoW_Mod_Manager
                                         settings[PERSISTENT_DECALS] = value;
                                     break;
                                 case PLAYER_PROFILE:
-                                    if (value.Contains("Profile"))
+                                    if (value.Contains(PROFILE))
                                         settings[PLAYER_PROFILE] = value;
                                     break;
                                 case RL_SSO_NUM_TIMES_SHOWN:
@@ -231,74 +333,111 @@ namespace DoW_Mod_Manager
             }
             else
                 saveButton.Enabled = true;
-
-            InitializeGUIWithSettings();
-
-            cancelButton.Text = CLOSE_LABEL;
-            saveButton.Enabled = false;
         }
 
-        private void InitializeSettings()
+        private void FindAllProfilesInDirectory(bool clearProfiles)
         {
-            // Here are all the default values
-            settings = new Dictionary<string, string>
+            if (clearProfiles)
+                profiles.Clear();
+
+            if (Directory.Exists(PROFILES_PATH))
             {
-                [CAMERA_DETAIL] = "1",
-                [CURRENT_MOD] = "dxp2",
-                [DYNAMIC_LIGHTS] = "2",
-                [EVENT_DETAIL_LEVEL] = "2",
-                [FORCE_WATCH_MOVIES] = "1",
-                [FULLRES_TEAMCOLOUR] = "0",
-                [FX_DETAIL_LEVEL] = "2",
-                [MODEL_DETAIL] = "2",
-                [PARENTAL_CONTROL] = "0",
-                [PERSISTENT_BODIES] = "0",
-                [PERSISTENT_DECALS] = "0",
-                [PLAYER_PROFILE] = "Profile1",
-                [RL_SSO_NUM_TIMES_SHOWN] = "1",
-                [SCREEN_ADAPTER] = "0",
-                [SCREEN_ANIALIAS] = "0",
-                [SCREEN_DEPTH] = "32",
-                [SCREEN_DEVICE] = "Dx9 : Hardware TnL",
-                [SCREEN_GAMMA] = "10",
-                [SCREEN_HEIGHT] = "768",
-                [SCREEN_NO_VSYNC] = "0",
-                [SCREEN_REFRESH] = "0",
-                [SCREEN_WIDTH] = "1024",
-                [SCREEN_WINDOWED] = "0",
-                [SHADOW_BLOB] = "0",
-                [SHADOW_MAP] = "0",
-                [SHADOW_VOLUME] = "0",
-                [SOUND_ENABLED] = "1",
-                [SOUND_LIMIT_SAMPLES] = "0",
-                [SOUND_NR_CHANNELS] = "32",
-                [SOUND_QUALITY] = "2",
-                [TERRAIN_ENABLE_FOW_BLUR] = "0",
-                [TEXTURE_DETAIL] = "1",
-                [TOTAL_MATCHES] = "0",
-                [UNIT_OCCLUSION] = "0"
-            };
+                string[] profileDirectories = Directory.GetDirectories(PROFILES_PATH);
+
+                // Check if there are at least one Profile directory
+                if (profileDirectories.Length > 0)
+                {
+                    for (int i = 0; i < profileDirectories.Length; i++)
+                    {
+                        int indexOfLastSlah = profileDirectories[i].LastIndexOf("\\");
+                        string profileName = profileDirectories[i].Substring(indexOfLastSlah + 1);
+
+                        string playerName = "Player";
+                        string playerNamePath = profileDirectories[i] + "\\" + NAME_DAT;
+                        if (File.Exists(playerNamePath))
+                            playerName = File.ReadAllText(playerNamePath);
+
+                        profiles.Add(new Profile(profileName, playerName));
+                    }
+
+                    bool isProfileExist = false;
+
+                    for (int i = 0; i < profiles.Count; i++)
+                    {
+                        if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
+                        {
+                            isProfileExist = true;
+                            break;
+                        }
+                    }
+
+                    if (!isProfileExist)
+                        settings[PLAYER_PROFILE] = profiles[0].ProfileName;
+                }
+            }
         }
 
         private void InitializeGUIWithSettings()
         {
             // Now we could set all ComboBoxes (METALLBAWHKSESS!!!) and CheckBoxes in our Form
             // Fun fact: Convert.ToBoolean("true") works but Convert.ToBoolean("1") fails. Only Convert.ToBoolean(1) is a good alternative
-            full3DCameraCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[CAMERA_DETAIL]));
+            try
+            {
+                full3DCameraCheckBox.Checked = Convert.ToBoolean(settings[CAMERA_DETAIL]);
+            }
+            catch (Exception)
+            {
+                full3DCameraCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[CAMERA_DETAIL]));
+            }
             // Skipp CurrtentMod setting
             dynamicLightsComboBox.SelectedIndex = Convert.ToInt32(settings[DYNAMIC_LIGHTS]);
             worldEventsComboBox.SelectedIndex = Convert.ToInt32(settings[EVENT_DETAIL_LEVEL]);
-            // Skip Force Watch Movies setting
-            betterTeamcoloredTexturexCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[FULLRES_TEAMCOLOUR]));
+            // Skip Force Watch Movies setting because it doesn't really works
+            try
+            {
+                betterTeamcoloredTexturexCheckBox.Checked = Convert.ToBoolean(settings[FULLRES_TEAMCOLOUR]);
+            }
+            catch (Exception)
+            {
+                betterTeamcoloredTexturexCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[FULLRES_TEAMCOLOUR]));
+            }
             effectsDetailComboBox.SelectedIndex = Convert.ToInt32(settings[FX_DETAIL_LEVEL]);
             modelDetailComboBox.SelectedIndex = Convert.ToInt32(settings[MODEL_DETAIL]);
-            parentalControlCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[PARENTAL_CONTROL]));
+            try
+            {
+                parentalControlCheckBox.Checked = Convert.ToBoolean(settings[PARENTAL_CONTROL]);
+            }
+            catch (Exception)
+            {
+                parentalControlCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[PARENTAL_CONTROL]));
+            }
             persistentBodiesComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_BODIES]);
             persistentScarringComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_DECALS]);
-            currentPlayerComboBox.SelectedItem = settings[PLAYER_PROFILE];
-            unknownSettingComboBox.SelectedItem = settings[RL_SSO_NUM_TIMES_SHOWN];
+            if (profiles.Count > 0)
+            {
+                currentPlayerComboBox.Items.Clear();
+
+                for (int i = 0; i < profiles.Count; i++)
+                {
+                    currentPlayerComboBox.Items.Add(profiles[i].PlayerName);
+
+                    if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
+                        currentPlayerComboBox.SelectedIndex = i;
+                }
+            }
+            else
+                deleteProfileButton.Enabled = false;
+
+            loginAttemptsComboBox.SelectedItem = settings[RL_SSO_NUM_TIMES_SHOWN];
             activeVideocardComboBox.SelectedItem = settings[SCREEN_ADAPTER];
-            antialiasingCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_ANIALIAS]));
+            try
+            {
+                antialiasingCheckBox.Checked = Convert.ToBoolean(settings[SCREEN_ANIALIAS]);
+            }
+            catch (Exception)
+            {
+                antialiasingCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_ANIALIAS]));
+            }
             switch (settings[SCREEN_DEPTH])
             {
                 case "32":
@@ -322,7 +461,14 @@ namespace DoW_Mod_Manager
                 refreshRateComboBox.SelectedItem = "Auto";
             else
                 refreshRateComboBox.SelectedItem = settings[SCREEN_REFRESH] + " Hz";
-            windowedCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_WINDOWED]));
+            try
+            {
+                windowedCheckBox.Checked = Convert.ToBoolean(settings[SCREEN_WINDOWED]);
+            }
+            catch (Exception)
+            {
+                windowedCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_WINDOWED]));
+            }
             int index = 0;
             if (settings[SHADOW_BLOB] == "1")
             {
@@ -335,7 +481,14 @@ namespace DoW_Mod_Manager
                 }
             }
             shadowsDetailComboBox.SelectedIndex = index;
-            soundEnabledCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SOUND_ENABLED]));
+            try
+            {
+                soundEnabledCheckBox.Checked = Convert.ToBoolean(settings[SOUND_ENABLED]);
+            }
+            catch (Exception)
+            {
+                soundEnabledCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SOUND_ENABLED]));
+            }
             if (settings[SOUND_LIMIT_SAMPLES] == "1")       // We have to invert it for covienience
                 randomizedSoundsCheckBox.Checked = false;
             else
@@ -356,12 +509,130 @@ namespace DoW_Mod_Manager
             terrainDetailComboBox.SelectedIndex = Convert.ToInt32(settings[TERRAIN_ENABLE_FOW_BLUR]);
             textureDetailComboBox.SelectedIndex = Convert.ToInt32(settings[TEXTURE_DETAIL]);
             // Skip TotalMatchces setting
-            unitsOcclusionCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[UNIT_OCCLUSION]));
+            try
+            {
+                unitsOcclusionCheckBox.Checked = Convert.ToBoolean(settings[UNIT_OCCLUSION]);
+            }
+            catch (Exception)
+            {
+                unitsOcclusionCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[UNIT_OCCLUSION]));
+            }
+
+            ReadSettingsFromPlayercfgLUA();
+        }
+
+        // TODO: Investigate why this method is called twice after SettingManagerForm is launched
+        private void ReadSettingsFromPlayercfgLUA()
+        {
+            string profileName = PROFILE + (currentPlayerComboBox.SelectedIndex + 1);
+            string pathToPlayerConfig = PROFILES_PATH + "\\" + profileName + "\\" + PLAYERCONFIG;
+
+            if (File.Exists(pathToPlayerConfig))
+            {
+                using (StreamReader file = new StreamReader(pathToPlayerConfig))
+                {
+                    string line;
+
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        bool lastSetting = false;
+                        
+                        if (line.EndsWith(","))
+                        {
+                            line = line.Replace(" ", "");
+
+                            int indexOfEqualSign = line.IndexOf('=');
+
+                            if (indexOfEqualSign > 0)
+                            {
+                                string stringValue = line.Substring(indexOfEqualSign + 1, line.Length - indexOfEqualSign - 2);
+                                TrackBar trackBarToChange;
+
+                                if (line.Contains(INVERT_DECLINATION))
+                                {
+                                    try
+                                    {
+                                        inverseDeclinationCheckBox.Checked = Convert.ToBoolean(stringValue);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        inverseDeclinationCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(stringValue));
+                                    }
+                                    settings[INVERT_DECLINATION] = stringValue;
+                                    continue;
+                                }
+                                else if (line.Contains(INVERT_PAN))
+                                {
+                                    try
+                                    {
+                                        inversePanCheckBox.Checked = Convert.ToBoolean(stringValue);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        inversePanCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(stringValue));
+                                    }
+                                    settings[INVERT_PAN] = stringValue;
+                                    continue;
+                                }
+                                else if (line.Contains(SCROLL_RATE))
+                                {
+                                    trackBarToChange = scrollRateTrackBar;
+                                    settings[SCROLL_RATE] = stringValue;
+                                }
+                                else if (line.Contains(SOUND_VOLUME_AMBIENT))
+                                {
+                                    trackBarToChange = ambientVolumeTrackBar;
+                                    settings[SOUND_VOLUME_AMBIENT] = stringValue;
+                                }
+                                else if (line.Contains(SOUND_VOLUME_MUSIC))
+                                {
+                                    trackBarToChange = musicVolumeTrackBar;
+                                    settings[SOUND_VOLUME_MUSIC] = stringValue;
+                                }
+                                else if (line.Contains(SOUND_VOLUME_SFX))
+                                {
+                                    trackBarToChange = effectsVolumeTrackBar;
+                                    settings[SOUND_VOLUME_SFX] = stringValue;
+                                }
+                                else if (line.Contains(SOUND_VOLUME_VOICE))
+                                {
+                                    trackBarToChange = voiceVolumeTrackBar;
+                                    settings[SOUND_VOLUME_VOICE] = stringValue;
+                                    lastSetting = true;
+                                }
+                                else
+                                    continue;
+
+                                double doubleValue;
+
+                                // In some cultures decimal point is actually a comma
+                                doubleValue = Convert.ToDouble(stringValue, new CultureInfo("en-US"));
+
+                                // Original value could be between 0 and 1 (float) but TrackBar values could be only between 0 and 100 (int)
+                                trackBarToChange.Value = Convert.ToInt32(doubleValue * 100d);
+
+                                // We read all the settings that we are interesed in
+                                if (lastSetting)
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            // There is no Profile selected
+            if (currentPlayerComboBox.Text.Length == 0)
+            {
+                closeButton.Text = CLOSE_LABEL;
+                saveButton.Enabled = false;
+                return;
+            }
+
             // You have to use \r\n instead of \n or Dawn of War will NOT recognise the end of the line!
+            // Save settings that are stored in Local.ini
             string str = $"[global]\r\n" +
                          $"{CAMERA_DETAIL}={settings[CAMERA_DETAIL]}\r\n" +
                          $"{CURRENT_MOD}={settings[CURRENT_MOD]}\r\n" +
@@ -410,29 +681,92 @@ namespace DoW_Mod_Manager
                 disableHighPoly = false;
             }
 
-            cancelButton.Text = CLOSE_LABEL;
+            // Save settings that are stored in playercfg.lua
+            // TODO: Use Streams insted of reading and writing the whoile file at once
+            string pathToPlayerConfig = PROFILES_PATH + "\\" + PROFILE + (currentPlayerComboBox.SelectedIndex + 1).ToString() + "\\" + PLAYERCONFIG;
+
+            if (File.Exists(pathToPlayerConfig))
+            {
+                string[] lines = File.ReadAllLines(pathToPlayerConfig);
+
+                for (int i = 0; i <lines.Length; i++)
+                {
+                    if (lines[i].EndsWith(","))
+                    {
+                        if (lines[i].Contains(INVERT_DECLINATION))
+                            lines[i] = $"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},";
+                        else if (lines[i].Contains(INVERT_PAN))
+                            lines[i] = $"\t{INVERT_PAN} = {settings[INVERT_PAN]},";
+                        else if (lines[i].Contains(SCROLL_RATE))
+                            lines[i] = $"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},";
+                        else if (lines[i].Contains(SOUND_VOLUME_AMBIENT))
+                            lines[i] = $"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},";
+                        else if (lines[i].Contains(SOUND_VOLUME_MUSIC))
+                            lines[i] = $"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},";
+                        else if (lines[i].Contains(SOUND_VOLUME_SFX))
+                            lines[i] = $"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},";
+                        else if (lines[i].Contains(SOUND_VOLUME_VOICE))
+                        {
+                            lines[i] = $"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},";
+                            
+                            // We found all the settings we searched for
+                            break;
+                        }
+                    }
+                }
+                File.WriteAllLines(pathToPlayerConfig, lines);
+            }
+            else
+            {
+                string str2 = "Controls = \r\n" +
+                              "{\r\n" +
+                              $"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},\r\n" +
+                              $"\t{INVERT_PAN} = {settings[INVERT_PAN]},\r\n" +
+                              $"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},\r\n" +
+                              "}\r\n" +
+                              "Sound = \r\n" +
+                              "{\r\n" +
+                              $"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},\r\n" +
+                              $"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},\r\n" +
+                              $"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},\r\n" +
+                              $"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},\r\n" +
+                              "}\r\n" +
+                              "player_preferences = \r\n" +
+                              "{\r\n" +
+                              "\tcampaign_played_disorder = false,\r\n" +
+                              "\tcampaign_played_order = false,\r\n" +
+                              "\tforce_name = \"Blood Ravens\",\r\n" +
+                              "\trace = \"space_marine_race\",\r\n" +
+                              "}\r\n";
+                File.WriteAllText(pathToPlayerConfig, str2);
+            }
+
+            closeButton.Text = CLOSE_LABEL;
             saveButton.Enabled = false;
         }
 
         private void DefaultsButton_Click(object sender, EventArgs e)
         {
-            InitializeSettings();
+            InitializeSettingsWithDefaults();
             InitializeGUIWithSettings();
+
             saveButton.Enabled = true;
             defaultsButton.Enabled = false;
             saveButton.Focus();
         }
 
-        private void CancelButton_Click(object sender, EventArgs e)
+        private void CloseButton_Click(object sender, EventArgs e)
         {
             Close();
         }
 
         private void CurrentPlayerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settings[PLAYER_PROFILE] = currentPlayerComboBox.SelectedItem.ToString();
+            ReadSettingsFromPlayercfgLUA();
 
-            cancelButton.Text = CANCEL_LABEL;
+            settings[PLAYER_PROFILE] = PROFILE + (currentPlayerComboBox.SelectedIndex + 1).ToString();
+
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -444,31 +778,52 @@ namespace DoW_Mod_Manager
             else
                 settings[PARENTAL_CONTROL] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
 
         private void InversePanCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            if (inversePanCheckBox.Checked)
+                settings[INVERT_PAN] = "1";
+            else
+                settings[INVERT_PAN] = "0";
+
+            closeButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void InverseDeclinationCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            if (inverseDeclinationCheckBox.Checked)
+                settings[INVERT_DECLINATION] = "1";
+            else
+                settings[INVERT_DECLINATION] = "0";
+
+            closeButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void ScrollRateTrackBar_Scroll(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            double doubleValue = Convert.ToDouble(scrollRateTrackBar.Value);
+            double settingValue = doubleValue / 100d;
+
+            settings[SCROLL_RATE] = settingValue.ToString("F5", new CultureInfo("en-US"));
+
+            closeButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
-        private void UnknownSettingComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void LoginAttemptsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settings[RL_SSO_NUM_TIMES_SHOWN] = unknownSettingComboBox.SelectedItem.ToString();
+            settings[RL_SSO_NUM_TIMES_SHOWN] = loginAttemptsComboBox.SelectedItem.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -477,7 +832,7 @@ namespace DoW_Mod_Manager
         {
             settings[SCREEN_ADAPTER] = activeVideocardComboBox.SelectedItem.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -486,7 +841,7 @@ namespace DoW_Mod_Manager
         {
             settings[SCREEN_DEVICE] = rendererComboBox.SelectedItem.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -499,7 +854,7 @@ namespace DoW_Mod_Manager
             settings[SCREEN_WIDTH] = str.Substring(0, x);
             settings[SCREEN_HEIGHT] = str.Substring(x + 1, str.Length - x - 1);
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -514,7 +869,7 @@ namespace DoW_Mod_Manager
             else
                 settings[SCREEN_REFRESH] = str.Substring(0, indexOfSpace);
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -534,16 +889,19 @@ namespace DoW_Mod_Manager
                     break;
             }
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
 
         private void GammaTrackBar_Scroll(object sender, EventArgs e)
         {
-            settings[SCREEN_GAMMA] = gammaTrackBar.Value.ToString();
+            double doubleValue = Convert.ToDouble(gammaTrackBar.Value);
+            double settingValue = doubleValue / 100d;
 
-            cancelButton.Text = CANCEL_LABEL;
+            settings[SCREEN_GAMMA] = settingValue.ToString("F5", new CultureInfo("en-US"));
+
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -555,7 +913,7 @@ namespace DoW_Mod_Manager
             else
                 settings[SCREEN_NO_VSYNC] = "1";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -567,7 +925,7 @@ namespace DoW_Mod_Manager
             else
                 settings[SCREEN_WINDOWED] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -579,7 +937,7 @@ namespace DoW_Mod_Manager
             else
                 settings[SCREEN_ANIALIAS] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -588,7 +946,7 @@ namespace DoW_Mod_Manager
         {
             settings[TEXTURE_DETAIL] = textureDetailComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -597,7 +955,7 @@ namespace DoW_Mod_Manager
         {
             settings[MODEL_DETAIL] = modelDetailComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -606,7 +964,7 @@ namespace DoW_Mod_Manager
         {
             settings[TERRAIN_ENABLE_FOW_BLUR] = terrainDetailComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -618,7 +976,7 @@ namespace DoW_Mod_Manager
             else
                 settings[FULLRES_TEAMCOLOUR] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -644,7 +1002,7 @@ namespace DoW_Mod_Manager
                     break;
             }
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -653,7 +1011,7 @@ namespace DoW_Mod_Manager
         {
             settings[EVENT_DETAIL_LEVEL] = worldEventsComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -662,7 +1020,7 @@ namespace DoW_Mod_Manager
         {
             settings[FX_DETAIL_LEVEL] = effectsDetailComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -671,7 +1029,7 @@ namespace DoW_Mod_Manager
         {
             settings[PERSISTENT_BODIES] = persistentBodiesComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -680,7 +1038,7 @@ namespace DoW_Mod_Manager
         {
             settings[PERSISTENT_DECALS] = persistentScarringComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -689,7 +1047,7 @@ namespace DoW_Mod_Manager
         {
             settings[DYNAMIC_LIGHTS] = dynamicLightsComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -701,7 +1059,7 @@ namespace DoW_Mod_Manager
             else
                 settings[CAMERA_DETAIL] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -713,7 +1071,7 @@ namespace DoW_Mod_Manager
             else
                 settings[UNIT_OCCLUSION] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -725,7 +1083,7 @@ namespace DoW_Mod_Manager
             else
                 settings[SOUND_ENABLED] = "0";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -737,7 +1095,7 @@ namespace DoW_Mod_Manager
             else
                 settings[SOUND_LIMIT_SAMPLES] = "1";
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -746,7 +1104,7 @@ namespace DoW_Mod_Manager
         {
             settings[SOUND_QUALITY] = soundQualityComboBox.SelectedIndex.ToString();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
@@ -766,29 +1124,57 @@ namespace DoW_Mod_Manager
                     break;
             }
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
 
         private void AmbientVolumeTarckBar_Scroll(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            double doubleValue = Convert.ToDouble(ambientVolumeTrackBar.Value);
+            double settingValue = doubleValue / 100d;
+
+            settings[SOUND_VOLUME_AMBIENT] = settingValue.ToString("F5", new CultureInfo("en-US"));
+
+            closeButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void EffectsVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            double doubleValue = Convert.ToDouble(effectsVolumeTrackBar.Value);
+            double settingValue = doubleValue / 100d;
+
+            settings[SOUND_VOLUME_SFX] = settingValue.ToString("F5", new CultureInfo("en-US"));
+
+            closeButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void VoiceVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            double doubleValue = Convert.ToDouble(voiceVolumeTrackBar.Value);
+            double settingValue = doubleValue / 100d;
+
+            settings[SOUND_VOLUME_VOICE] = settingValue.ToString("F5", new CultureInfo("en-US"));
+
+            closeButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void MusicVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
-            // Can't find this setting!
+            double doubleValue = Convert.ToDouble(musicVolumeTrackBar.Value);
+            double settingValue = doubleValue / 100d;
+
+            settings[SOUND_VOLUME_MUSIC] = settingValue.ToString("F5", new CultureInfo("en-US"));
+
+            closeButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
         }
 
         private void LowGraphicsButton_Click(object sender, EventArgs e)
@@ -813,7 +1199,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
@@ -839,7 +1225,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
@@ -865,7 +1251,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
@@ -881,7 +1267,7 @@ namespace DoW_Mod_Manager
             settings[MODEL_DETAIL] = "2";
             settings[PERSISTENT_BODIES] = "3";
             settings[PERSISTENT_DECALS] = "2";
-            settings[SCREEN_ANIALIAS] = "1";                            // Testing needed!
+            settings[SCREEN_ANIALIAS] = "1";
             settings[SCREEN_DEPTH] = "32";
             settings[SHADOW_BLOB] = "1";
             settings[SHADOW_MAP] = "1";
@@ -893,7 +1279,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
@@ -908,7 +1294,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
@@ -923,7 +1309,7 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
@@ -938,10 +1324,131 @@ namespace DoW_Mod_Manager
 
             InitializeGUIWithSettings();
 
-            cancelButton.Text = CANCEL_LABEL;
+            closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
+        }
+
+        private void SystemPerformanceManagerButton_Click(object sender, EventArgs e)
+        {
+            SystemPerformanceManagerForm systemPerformance = new SystemPerformanceManagerForm(modManager);
+            systemPerformance.Show();
+        }
+
+        private void DeleteProfileButton_Click(object sender, EventArgs e)
+        {
+            string playerNameToDelete = currentPlayerComboBox.SelectedItem.ToString();
+
+            for (int i = 0; i < profiles.Count; i++)
+            {
+                if (playerNameToDelete == profiles[i].PlayerName)
+                {
+                    string profilePathToDelete = PROFILES_PATH + "\\" + profiles[i].ProfileName;
+
+                    if (Directory.Exists(profilePathToDelete))
+                    {
+                        Directory.Delete(profilePathToDelete, true);
+
+                        currentPlayerComboBox.Items.RemoveAt(i);
+                    }
+
+                    break;
+                }
+            }
+
+            FindAllProfilesInDirectory(clearProfiles: true);
+            InitializeGUIWithSettings();
+        }
+
+        private void CreateProfileButton_Click(object sender, EventArgs e)
+        {
+            int indexOfNewProfile = 1;
+
+            if (Directory.Exists(PROFILES_PATH))
+            {
+                string[] profiles = Directory.GetDirectories(PROFILES_PATH);
+                int[] profilesIndexes = new int[profiles.Length];
+
+                for (int i = 0; i < profiles.Length; i++)
+                {
+                    // Delete the full patch
+                    int indexOfLastSlah = profiles[i].LastIndexOf("\\");
+                    profiles[i] = profiles[i].Substring(indexOfLastSlah + 1);
+
+                    // Delete the "Profile" part of the string and convert the rest to int
+                    profilesIndexes[i] = Convert.ToInt32(profiles[i].Substring(7));
+
+                    if (indexOfNewProfile == profilesIndexes[i])
+                        indexOfNewProfile++;
+                }
+            }
+
+            string newProfileName = PROFILE + indexOfNewProfile;
+            string newProfilePath = PROFILES_PATH + "\\" + newProfileName;
+
+            Directory.CreateDirectory(newProfilePath);
+            try
+            {
+                File.WriteAllText(newProfilePath + "\\" + NAME_DAT, newPlayerTextBox.Text, Encoding.GetEncoding("utf-16"));
+
+                newPlayerTextBox.Text = "";
+                deleteProfileButton.Enabled = true;
+
+                FindAllProfilesInDirectory(clearProfiles: true);
+                InitializeGUIWithSettings();
+            }
+            catch (Exception ex)
+            {
+                ThemedMessageBox.Show(ex.Message, "Error:");
+            }
+        }
+
+        private void RenameProfileButton_Click(object sender, EventArgs e)
+        {
+            string currentPLayerName = currentPlayerComboBox.SelectedItem.ToString();
+
+            for (int i = 0; i < profiles.Count; i++)
+            {
+                if (currentPLayerName == profiles[i].PlayerName)
+                {
+                    string profilePathToRename = PROFILES_PATH + "\\" + profiles[i].ProfileName + "\\" + NAME_DAT;
+                    string playersNewName = newPlayerTextBox.Text;
+                    try
+                    {
+                        File.WriteAllText(profilePathToRename, playersNewName, Encoding.GetEncoding("utf-16"));
+
+                        profiles[i].PlayerName = playersNewName;
+                        newPlayerTextBox.Text = "";
+
+                        int selectedIndex = currentPlayerComboBox.SelectedIndex;
+                        currentPlayerComboBox.Items.RemoveAt(i);
+                        currentPlayerComboBox.Items.Insert(i, playersNewName);
+                        currentPlayerComboBox.SelectedIndex = selectedIndex;
+                    }
+                    catch (Exception ex)
+                    {
+                        ThemedMessageBox.Show(ex.Message, "Error:");
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        private void NewPlayerTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (newPlayerTextBox.TextLength > 0)
+            {
+                createProfileButton.Enabled = true;
+                if (currentPlayerComboBox.Text.Length > 0)
+                    renameProfileButton.Enabled = true;
+            }
+            else
+            {
+                createProfileButton.Enabled = false;
+                renameProfileButton.Enabled = false;
+            }
         }
     }
 }

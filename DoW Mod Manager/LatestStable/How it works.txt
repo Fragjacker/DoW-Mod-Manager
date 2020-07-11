@@ -1,0 +1,1 @@
+To enable autoupdates you just have to run "CopyExecutableHere.cmd"

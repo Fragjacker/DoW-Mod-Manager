@@ -30,11 +30,17 @@
         {
             this.settingsLabel = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
-            this.cancelButton = new System.Windows.Forms.Button();
+            this.closeButton = new System.Windows.Forms.Button();
             this.defaultsButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.generalTabPage = new System.Windows.Forms.TabPage();
-            this.unknownSettingComboBox = new System.Windows.Forms.ComboBox();
+            this.renameProfileButton = new System.Windows.Forms.Button();
+            this.newPlayerTextBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.createProfileButton = new System.Windows.Forms.Button();
+            this.deleteProfileButton = new System.Windows.Forms.Button();
+            this.systemPerformanceManagerButton = new System.Windows.Forms.Button();
+            this.loginAttemptsComboBox = new System.Windows.Forms.ComboBox();
             this.loginAttemptsLabel = new System.Windows.Forms.Label();
             this.scrollRateTrackBar = new System.Windows.Forms.TrackBar();
             this.scrollRateLabel = new System.Windows.Forms.Label();
@@ -108,7 +114,7 @@
             this.voiceVolumeLabel = new System.Windows.Forms.Label();
             this.effectsVolumeTrackBar = new System.Windows.Forms.TrackBar();
             this.effectsVolumeLabel = new System.Windows.Forms.Label();
-            this.ambientVolumeTarckBar = new System.Windows.Forms.TrackBar();
+            this.ambientVolumeTrackBar = new System.Windows.Forms.TrackBar();
             this.ambientVolumeLabel = new System.Windows.Forms.Label();
             this.soundChannelsComboBox = new System.Windows.Forms.ComboBox();
             this.soundChannelsLabel = new System.Windows.Forms.Label();
@@ -125,59 +131,58 @@
             ((System.ComponentModel.ISupportInitialize)(this.musicVolumeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.voiceVolumeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.effectsVolumeTrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ambientVolumeTarckBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ambientVolumeTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // settingsLabel
             // 
             this.settingsLabel.AutoSize = true;
             this.settingsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.settingsLabel.Location = new System.Drawing.Point(17, 16);
-            this.settingsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.settingsLabel.Location = new System.Drawing.Point(13, 13);
             this.settingsLabel.Name = "settingsLabel";
-            this.settingsLabel.Size = new System.Drawing.Size(59, 16);
+            this.settingsLabel.Size = new System.Drawing.Size(48, 13);
             this.settingsLabel.TabIndex = 0;
             this.settingsLabel.Text = "Settings:";
             // 
             // saveButton
             // 
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.saveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.saveButton.Enabled = false;
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.saveButton.Location = new System.Drawing.Point(21, 764);
-            this.saveButton.Margin = new System.Windows.Forms.Padding(4);
+            this.saveButton.Location = new System.Drawing.Point(16, 621);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(145, 47);
+            this.saveButton.Size = new System.Drawing.Size(109, 38);
             this.saveButton.TabIndex = 2;
             this.saveButton.Text = "SAVE";
             this.saveButton.UseVisualStyleBackColor = false;
             this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // cancelButton
+            // closeButton
             // 
-            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cancelButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cancelButton.Location = new System.Drawing.Point(581, 764);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(4);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(145, 47);
-            this.cancelButton.TabIndex = 3;
-            this.cancelButton.Text = "CLOSE";
-            this.cancelButton.UseVisualStyleBackColor = false;
-            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.closeButton.Location = new System.Drawing.Point(436, 621);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(109, 38);
+            this.closeButton.TabIndex = 3;
+            this.closeButton.Text = "CLOSE";
+            this.closeButton.UseVisualStyleBackColor = false;
+            this.closeButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // defaultsButton
             // 
             this.defaultsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.defaultsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.defaultsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.defaultsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.defaultsButton.Location = new System.Drawing.Point(299, 764);
-            this.defaultsButton.Margin = new System.Windows.Forms.Padding(4);
+            this.defaultsButton.Location = new System.Drawing.Point(224, 621);
             this.defaultsButton.Name = "defaultsButton";
-            this.defaultsButton.Size = new System.Drawing.Size(145, 47);
+            this.defaultsButton.Size = new System.Drawing.Size(109, 38);
             this.defaultsButton.TabIndex = 1;
             this.defaultsButton.Text = "DEFAULTS";
             this.defaultsButton.UseVisualStyleBackColor = false;
@@ -191,17 +196,22 @@
             this.tabControl1.Controls.Add(this.generalTabPage);
             this.tabControl1.Controls.Add(this.videoTabPage);
             this.tabControl1.Controls.Add(this.audioTabPage);
-            this.tabControl1.Location = new System.Drawing.Point(21, 36);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.tabControl1.Location = new System.Drawing.Point(16, 29);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(705, 709);
+            this.tabControl1.Size = new System.Drawing.Size(529, 576);
             this.tabControl1.TabIndex = 5;
             // 
             // generalTabPage
             // 
             this.generalTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.generalTabPage.Controls.Add(this.unknownSettingComboBox);
+            this.generalTabPage.Controls.Add(this.renameProfileButton);
+            this.generalTabPage.Controls.Add(this.newPlayerTextBox);
+            this.generalTabPage.Controls.Add(this.label2);
+            this.generalTabPage.Controls.Add(this.createProfileButton);
+            this.generalTabPage.Controls.Add(this.deleteProfileButton);
+            this.generalTabPage.Controls.Add(this.systemPerformanceManagerButton);
+            this.generalTabPage.Controls.Add(this.loginAttemptsComboBox);
             this.generalTabPage.Controls.Add(this.loginAttemptsLabel);
             this.generalTabPage.Controls.Add(this.scrollRateTrackBar);
             this.generalTabPage.Controls.Add(this.scrollRateLabel);
@@ -214,18 +224,98 @@
             this.generalTabPage.Controls.Add(this.parentalControlLabel);
             this.generalTabPage.Controls.Add(this.currentPlayerComboBox);
             this.generalTabPage.Controls.Add(this.currentPlayerLabel);
-            this.generalTabPage.Location = new System.Drawing.Point(4, 25);
-            this.generalTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.generalTabPage.Location = new System.Drawing.Point(4, 22);
             this.generalTabPage.Name = "generalTabPage";
-            this.generalTabPage.Size = new System.Drawing.Size(697, 680);
+            this.generalTabPage.Size = new System.Drawing.Size(521, 550);
             this.generalTabPage.TabIndex = 3;
             this.generalTabPage.Text = "General";
             // 
-            // unknownSettingComboBox
+            // renameProfileButton
             // 
-            this.unknownSettingComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.unknownSettingComboBox.FormattingEnabled = true;
-            this.unknownSettingComboBox.Items.AddRange(new object[] {
+            this.renameProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.renameProfileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.renameProfileButton.Enabled = false;
+            this.renameProfileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.renameProfileButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.renameProfileButton.Location = new System.Drawing.Point(387, 50);
+            this.renameProfileButton.Name = "renameProfileButton";
+            this.renameProfileButton.Size = new System.Drawing.Size(109, 38);
+            this.renameProfileButton.TabIndex = 60;
+            this.renameProfileButton.Text = "Rename Profile";
+            this.renameProfileButton.UseVisualStyleBackColor = false;
+            this.renameProfileButton.Click += new System.EventHandler(this.RenameProfileButton_Click);
+            // 
+            // newPlayerTextBox
+            // 
+            this.newPlayerTextBox.Location = new System.Drawing.Point(117, 59);
+            this.newPlayerTextBox.MaxLength = 16;
+            this.newPlayerTextBox.Name = "newPlayerTextBox";
+            this.newPlayerTextBox.Size = new System.Drawing.Size(121, 20);
+            this.newPlayerTextBox.TabIndex = 59;
+            this.newPlayerTextBox.TextChanged += new System.EventHandler(this.NewPlayerTextBox_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.label2.Location = new System.Drawing.Point(13, 61);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(95, 13);
+            this.label2.TabIndex = 58;
+            this.label2.Text = "New Player Name:";
+            // 
+            // createProfileButton
+            // 
+            this.createProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.createProfileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.createProfileButton.Enabled = false;
+            this.createProfileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.createProfileButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.createProfileButton.Location = new System.Drawing.Point(261, 50);
+            this.createProfileButton.Name = "createProfileButton";
+            this.createProfileButton.Size = new System.Drawing.Size(109, 38);
+            this.createProfileButton.TabIndex = 57;
+            this.createProfileButton.Text = "Create Profile";
+            this.createProfileButton.UseVisualStyleBackColor = false;
+            this.createProfileButton.Click += new System.EventHandler(this.CreateProfileButton_Click);
+            // 
+            // deleteProfileButton
+            // 
+            this.deleteProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.deleteProfileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.deleteProfileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.deleteProfileButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.deleteProfileButton.Location = new System.Drawing.Point(261, 8);
+            this.deleteProfileButton.Name = "deleteProfileButton";
+            this.deleteProfileButton.Size = new System.Drawing.Size(109, 38);
+            this.deleteProfileButton.TabIndex = 56;
+            this.deleteProfileButton.Text = "Delete Profile";
+            this.deleteProfileButton.UseVisualStyleBackColor = false;
+            this.deleteProfileButton.Click += new System.EventHandler(this.DeleteProfileButton_Click);
+            // 
+            // systemPerformanceManagerButton
+            // 
+            this.systemPerformanceManagerButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.systemPerformanceManagerButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.systemPerformanceManagerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.systemPerformanceManagerButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.systemPerformanceManagerButton.Location = new System.Drawing.Point(191, 486);
+            this.systemPerformanceManagerButton.Name = "systemPerformanceManagerButton";
+            this.systemPerformanceManagerButton.Size = new System.Drawing.Size(134, 38);
+            this.systemPerformanceManagerButton.TabIndex = 55;
+            this.systemPerformanceManagerButton.Text = "System Performance Manager";
+            this.systemPerformanceManagerButton.UseVisualStyleBackColor = false;
+            this.systemPerformanceManagerButton.Click += new System.EventHandler(this.SystemPerformanceManagerButton_Click);
+            // 
+            // loginAttemptsComboBox
+            // 
+            this.loginAttemptsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.loginAttemptsComboBox.FormattingEnabled = true;
+            this.loginAttemptsComboBox.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -233,53 +323,48 @@
             "4",
             "5",
             "6"});
-            this.unknownSettingComboBox.Location = new System.Drawing.Point(156, 258);
-            this.unknownSettingComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.unknownSettingComboBox.Name = "unknownSettingComboBox";
-            this.unknownSettingComboBox.Size = new System.Drawing.Size(160, 24);
-            this.unknownSettingComboBox.TabIndex = 54;
-            this.unknownSettingComboBox.SelectedIndexChanged += new System.EventHandler(this.UnknownSettingComboBox_SelectedIndexChanged);
+            this.loginAttemptsComboBox.Location = new System.Drawing.Point(117, 251);
+            this.loginAttemptsComboBox.Name = "loginAttemptsComboBox";
+            this.loginAttemptsComboBox.Size = new System.Drawing.Size(121, 21);
+            this.loginAttemptsComboBox.TabIndex = 54;
+            this.loginAttemptsComboBox.SelectedIndexChanged += new System.EventHandler(this.LoginAttemptsComboBox_SelectedIndexChanged);
             // 
             // loginAttemptsLabel
             // 
             this.loginAttemptsLabel.AutoSize = true;
             this.loginAttemptsLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.loginAttemptsLabel.Location = new System.Drawing.Point(17, 261);
-            this.loginAttemptsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.loginAttemptsLabel.Location = new System.Drawing.Point(13, 254);
             this.loginAttemptsLabel.Name = "loginAttemptsLabel";
-            this.loginAttemptsLabel.Size = new System.Drawing.Size(99, 16);
+            this.loginAttemptsLabel.Size = new System.Drawing.Size(80, 13);
             this.loginAttemptsLabel.TabIndex = 53;
             this.loginAttemptsLabel.Text = "Login Attempts:";
             // 
             // scrollRateTrackBar
             // 
-            this.scrollRateTrackBar.LargeChange = 1;
-            this.scrollRateTrackBar.Location = new System.Drawing.Point(155, 209);
-            this.scrollRateTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.scrollRateTrackBar.Maximum = 15;
-            this.scrollRateTrackBar.Minimum = 5;
+            this.scrollRateTrackBar.LargeChange = 20;
+            this.scrollRateTrackBar.Location = new System.Drawing.Point(116, 212);
+            this.scrollRateTrackBar.Maximum = 210;
+            this.scrollRateTrackBar.Minimum = 10;
             this.scrollRateTrackBar.Name = "scrollRateTrackBar";
-            this.scrollRateTrackBar.Size = new System.Drawing.Size(161, 45);
+            this.scrollRateTrackBar.Size = new System.Drawing.Size(121, 45);
             this.scrollRateTrackBar.TabIndex = 52;
-            this.scrollRateTrackBar.Value = 10;
+            this.scrollRateTrackBar.Value = 100;
             this.scrollRateTrackBar.Scroll += new System.EventHandler(this.ScrollRateTrackBar_Scroll);
             // 
             // scrollRateLabel
             // 
             this.scrollRateLabel.AutoSize = true;
             this.scrollRateLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.scrollRateLabel.Location = new System.Drawing.Point(17, 213);
-            this.scrollRateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.scrollRateLabel.Location = new System.Drawing.Point(13, 215);
             this.scrollRateLabel.Name = "scrollRateLabel";
-            this.scrollRateLabel.Size = new System.Drawing.Size(77, 16);
+            this.scrollRateLabel.Size = new System.Drawing.Size(62, 13);
             this.scrollRateLabel.TabIndex = 51;
             this.scrollRateLabel.Text = "Scroll Rate:";
             // 
             // inverseDeclinationCheckBox
             // 
             this.inverseDeclinationCheckBox.AutoSize = true;
-            this.inverseDeclinationCheckBox.Location = new System.Drawing.Point(155, 167);
-            this.inverseDeclinationCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.inverseDeclinationCheckBox.Location = new System.Drawing.Point(116, 178);
             this.inverseDeclinationCheckBox.Name = "inverseDeclinationCheckBox";
             this.inverseDeclinationCheckBox.Size = new System.Drawing.Size(15, 14);
             this.inverseDeclinationCheckBox.TabIndex = 50;
@@ -290,18 +375,16 @@
             // 
             this.inverseDeclinationLabel.AutoSize = true;
             this.inverseDeclinationLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.inverseDeclinationLabel.Location = new System.Drawing.Point(17, 165);
-            this.inverseDeclinationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.inverseDeclinationLabel.Location = new System.Drawing.Point(13, 176);
             this.inverseDeclinationLabel.Name = "inverseDeclinationLabel";
-            this.inverseDeclinationLabel.Size = new System.Drawing.Size(125, 16);
+            this.inverseDeclinationLabel.Size = new System.Drawing.Size(101, 13);
             this.inverseDeclinationLabel.TabIndex = 49;
             this.inverseDeclinationLabel.Text = "Inverse Declination:";
             // 
             // inversePanCheckBox
             // 
             this.inversePanCheckBox.AutoSize = true;
-            this.inversePanCheckBox.Location = new System.Drawing.Point(155, 120);
-            this.inversePanCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.inversePanCheckBox.Location = new System.Drawing.Point(116, 140);
             this.inversePanCheckBox.Name = "inversePanCheckBox";
             this.inversePanCheckBox.Size = new System.Drawing.Size(15, 14);
             this.inversePanCheckBox.TabIndex = 48;
@@ -312,10 +395,9 @@
             // 
             this.inversePanLabel.AutoSize = true;
             this.inversePanLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.inversePanLabel.Location = new System.Drawing.Point(17, 118);
-            this.inversePanLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.inversePanLabel.Location = new System.Drawing.Point(13, 138);
             this.inversePanLabel.Name = "inversePanLabel";
-            this.inversePanLabel.Size = new System.Drawing.Size(82, 16);
+            this.inversePanLabel.Size = new System.Drawing.Size(67, 13);
             this.inversePanLabel.TabIndex = 47;
             this.inversePanLabel.Text = "Inverse Pan:";
             // 
@@ -324,18 +406,16 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.Cyan;
-            this.label3.Location = new System.Drawing.Point(453, 658);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(340, 535);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(230, 16);
+            this.label3.Size = new System.Drawing.Size(183, 13);
             this.label3.TabIndex = 46;
             this.label3.Text = "* All cyan settings are hidden in game";
             // 
             // parentalControlCheckBox
             // 
             this.parentalControlCheckBox.AutoSize = true;
-            this.parentalControlCheckBox.Location = new System.Drawing.Point(155, 73);
-            this.parentalControlCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.parentalControlCheckBox.Location = new System.Drawing.Point(116, 101);
             this.parentalControlCheckBox.Name = "parentalControlCheckBox";
             this.parentalControlCheckBox.Size = new System.Drawing.Size(15, 14);
             this.parentalControlCheckBox.TabIndex = 22;
@@ -346,10 +426,9 @@
             // 
             this.parentalControlLabel.AutoSize = true;
             this.parentalControlLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.parentalControlLabel.Location = new System.Drawing.Point(17, 72);
-            this.parentalControlLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.parentalControlLabel.Location = new System.Drawing.Point(13, 100);
             this.parentalControlLabel.Name = "parentalControlLabel";
-            this.parentalControlLabel.Size = new System.Drawing.Size(106, 16);
+            this.parentalControlLabel.Size = new System.Drawing.Size(85, 13);
             this.parentalControlLabel.TabIndex = 21;
             this.parentalControlLabel.Text = "Parental Control:";
             // 
@@ -357,15 +436,9 @@
             // 
             this.currentPlayerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.currentPlayerComboBox.FormattingEnabled = true;
-            this.currentPlayerComboBox.Items.AddRange(new object[] {
-            "Profile1",
-            "Profile2",
-            "Profile3",
-            "Profile4"});
-            this.currentPlayerComboBox.Location = new System.Drawing.Point(155, 22);
-            this.currentPlayerComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.currentPlayerComboBox.Location = new System.Drawing.Point(116, 18);
             this.currentPlayerComboBox.Name = "currentPlayerComboBox";
-            this.currentPlayerComboBox.Size = new System.Drawing.Size(160, 24);
+            this.currentPlayerComboBox.Size = new System.Drawing.Size(121, 21);
             this.currentPlayerComboBox.TabIndex = 20;
             this.currentPlayerComboBox.SelectedIndexChanged += new System.EventHandler(this.CurrentPlayerComboBox_SelectedIndexChanged);
             // 
@@ -373,10 +446,9 @@
             // 
             this.currentPlayerLabel.AutoSize = true;
             this.currentPlayerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.currentPlayerLabel.Location = new System.Drawing.Point(17, 25);
-            this.currentPlayerLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.currentPlayerLabel.Location = new System.Drawing.Point(13, 20);
             this.currentPlayerLabel.Name = "currentPlayerLabel";
-            this.currentPlayerLabel.Size = new System.Drawing.Size(95, 16);
+            this.currentPlayerLabel.Size = new System.Drawing.Size(76, 13);
             this.currentPlayerLabel.TabIndex = 19;
             this.currentPlayerLabel.Text = "Current Player:";
             // 
@@ -430,23 +502,22 @@
             this.videoTabPage.Controls.Add(this.gammaLabel);
             this.videoTabPage.Controls.Add(this.screenResolutionComboBox);
             this.videoTabPage.Controls.Add(this.screenResolutionLabel);
-            this.videoTabPage.Location = new System.Drawing.Point(4, 25);
-            this.videoTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.videoTabPage.Location = new System.Drawing.Point(4, 22);
             this.videoTabPage.Name = "videoTabPage";
-            this.videoTabPage.Padding = new System.Windows.Forms.Padding(4);
-            this.videoTabPage.Size = new System.Drawing.Size(697, 680);
+            this.videoTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.videoTabPage.Size = new System.Drawing.Size(521, 550);
             this.videoTabPage.TabIndex = 0;
             this.videoTabPage.Text = "Video";
             // 
             // ultraGraphicsButton
             // 
             this.ultraGraphicsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ultraGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ultraGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ultraGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.ultraGraphicsButton.Location = new System.Drawing.Point(529, 598);
-            this.ultraGraphicsButton.Margin = new System.Windows.Forms.Padding(4);
+            this.ultraGraphicsButton.Location = new System.Drawing.Point(397, 486);
             this.ultraGraphicsButton.Name = "ultraGraphicsButton";
-            this.ultraGraphicsButton.Size = new System.Drawing.Size(125, 47);
+            this.ultraGraphicsButton.Size = new System.Drawing.Size(94, 38);
             this.ultraGraphicsButton.TabIndex = 48;
             this.ultraGraphicsButton.Text = "ULTRA";
             this.ultraGraphicsButton.UseVisualStyleBackColor = false;
@@ -456,12 +527,12 @@
             // 
             this.highGraphicsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.highGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.highGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.highGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.highGraphicsButton.Location = new System.Drawing.Point(368, 598);
-            this.highGraphicsButton.Margin = new System.Windows.Forms.Padding(4);
+            this.highGraphicsButton.Location = new System.Drawing.Point(276, 486);
             this.highGraphicsButton.Name = "highGraphicsButton";
-            this.highGraphicsButton.Size = new System.Drawing.Size(125, 47);
+            this.highGraphicsButton.Size = new System.Drawing.Size(94, 38);
             this.highGraphicsButton.TabIndex = 47;
             this.highGraphicsButton.Text = "HIGH";
             this.highGraphicsButton.UseVisualStyleBackColor = false;
@@ -471,12 +542,12 @@
             // 
             this.mediumButtomGraphics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.mediumButtomGraphics.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.mediumButtomGraphics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mediumButtomGraphics.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.mediumButtomGraphics.Location = new System.Drawing.Point(206, 598);
-            this.mediumButtomGraphics.Margin = new System.Windows.Forms.Padding(4);
+            this.mediumButtomGraphics.Location = new System.Drawing.Point(154, 486);
             this.mediumButtomGraphics.Name = "mediumButtomGraphics";
-            this.mediumButtomGraphics.Size = new System.Drawing.Size(125, 47);
+            this.mediumButtomGraphics.Size = new System.Drawing.Size(94, 38);
             this.mediumButtomGraphics.TabIndex = 46;
             this.mediumButtomGraphics.Text = "MEDIUM";
             this.mediumButtomGraphics.UseVisualStyleBackColor = false;
@@ -485,12 +556,12 @@
             // lowGraphicsButton
             // 
             this.lowGraphicsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lowGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.lowGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lowGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.lowGraphicsButton.Location = new System.Drawing.Point(43, 598);
-            this.lowGraphicsButton.Margin = new System.Windows.Forms.Padding(4);
+            this.lowGraphicsButton.Location = new System.Drawing.Point(32, 486);
             this.lowGraphicsButton.Name = "lowGraphicsButton";
-            this.lowGraphicsButton.Size = new System.Drawing.Size(125, 47);
+            this.lowGraphicsButton.Size = new System.Drawing.Size(94, 38);
             this.lowGraphicsButton.TabIndex = 6;
             this.lowGraphicsButton.Text = "LOW";
             this.lowGraphicsButton.UseVisualStyleBackColor = false;
@@ -501,10 +572,9 @@
             this.cyanLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cyanLabel.AutoSize = true;
             this.cyanLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.cyanLabel.Location = new System.Drawing.Point(453, 658);
-            this.cyanLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.cyanLabel.Location = new System.Drawing.Point(340, 535);
             this.cyanLabel.Name = "cyanLabel";
-            this.cyanLabel.Size = new System.Drawing.Size(230, 16);
+            this.cyanLabel.Size = new System.Drawing.Size(183, 13);
             this.cyanLabel.TabIndex = 45;
             this.cyanLabel.Text = "* All cyan settings are hidden in game";
             // 
@@ -517,10 +587,9 @@
             "Low",
             "Medium",
             "High"});
-            this.dynamicLightsComboBox.Location = new System.Drawing.Point(484, 302);
-            this.dynamicLightsComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.dynamicLightsComboBox.Location = new System.Drawing.Point(363, 245);
             this.dynamicLightsComboBox.Name = "dynamicLightsComboBox";
-            this.dynamicLightsComboBox.Size = new System.Drawing.Size(160, 24);
+            this.dynamicLightsComboBox.Size = new System.Drawing.Size(121, 21);
             this.dynamicLightsComboBox.TabIndex = 42;
             this.dynamicLightsComboBox.SelectedIndexChanged += new System.EventHandler(this.DynamicLightsComboBox_SelectedIndexChanged);
             // 
@@ -528,10 +597,9 @@
             // 
             this.dynamicLightLabel.AutoSize = true;
             this.dynamicLightLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.dynamicLightLabel.Location = new System.Drawing.Point(351, 306);
-            this.dynamicLightLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.dynamicLightLabel.Location = new System.Drawing.Point(263, 249);
             this.dynamicLightLabel.Name = "dynamicLightLabel";
-            this.dynamicLightLabel.Size = new System.Drawing.Size(95, 16);
+            this.dynamicLightLabel.Size = new System.Drawing.Size(77, 13);
             this.dynamicLightLabel.TabIndex = 41;
             this.dynamicLightLabel.Text = "Dynamic Light:";
             // 
@@ -543,10 +611,9 @@
             "Low",
             "Medium",
             "High"});
-            this.effectsDetailComboBox.Location = new System.Drawing.Point(484, 161);
-            this.effectsDetailComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.effectsDetailComboBox.Location = new System.Drawing.Point(363, 131);
             this.effectsDetailComboBox.Name = "effectsDetailComboBox";
-            this.effectsDetailComboBox.Size = new System.Drawing.Size(160, 24);
+            this.effectsDetailComboBox.Size = new System.Drawing.Size(121, 21);
             this.effectsDetailComboBox.TabIndex = 40;
             this.effectsDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.EffectsDetailComboBox_SelectedIndexChanged);
             // 
@@ -554,10 +621,9 @@
             // 
             this.effectsDetailLabel.AutoSize = true;
             this.effectsDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.effectsDetailLabel.Location = new System.Drawing.Point(351, 164);
-            this.effectsDetailLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.effectsDetailLabel.Location = new System.Drawing.Point(263, 133);
             this.effectsDetailLabel.Name = "effectsDetailLabel";
-            this.effectsDetailLabel.Size = new System.Drawing.Size(86, 16);
+            this.effectsDetailLabel.Size = new System.Drawing.Size(70, 13);
             this.effectsDetailLabel.TabIndex = 39;
             this.effectsDetailLabel.Text = "Effects Detail";
             // 
@@ -569,10 +635,9 @@
             "Low",
             "Medium",
             "High"});
-            this.worldEventsComboBox.Location = new System.Drawing.Point(484, 114);
-            this.worldEventsComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.worldEventsComboBox.Location = new System.Drawing.Point(363, 93);
             this.worldEventsComboBox.Name = "worldEventsComboBox";
-            this.worldEventsComboBox.Size = new System.Drawing.Size(160, 24);
+            this.worldEventsComboBox.Size = new System.Drawing.Size(121, 21);
             this.worldEventsComboBox.TabIndex = 38;
             this.worldEventsComboBox.SelectedIndexChanged += new System.EventHandler(this.WorldEventsComboBox_SelectedIndexChanged);
             // 
@@ -580,10 +645,9 @@
             // 
             this.worldEventsLabel.AutoSize = true;
             this.worldEventsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.worldEventsLabel.Location = new System.Drawing.Point(351, 117);
-            this.worldEventsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.worldEventsLabel.Location = new System.Drawing.Point(263, 95);
             this.worldEventsLabel.Name = "worldEventsLabel";
-            this.worldEventsLabel.Size = new System.Drawing.Size(91, 16);
+            this.worldEventsLabel.Size = new System.Drawing.Size(74, 13);
             this.worldEventsLabel.TabIndex = 37;
             this.worldEventsLabel.Text = "World Events:";
             // 
@@ -596,10 +660,9 @@
             "Low (Blob)",
             "Medium (Blob + Map)",
             "High (Blob + Map + Volume)"});
-            this.shadowsDetailComboBox.Location = new System.Drawing.Point(484, 68);
-            this.shadowsDetailComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.shadowsDetailComboBox.Location = new System.Drawing.Point(363, 55);
             this.shadowsDetailComboBox.Name = "shadowsDetailComboBox";
-            this.shadowsDetailComboBox.Size = new System.Drawing.Size(160, 24);
+            this.shadowsDetailComboBox.Size = new System.Drawing.Size(121, 21);
             this.shadowsDetailComboBox.TabIndex = 36;
             this.shadowsDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.ShadowsDetailComboBox_SelectedIndexChanged);
             // 
@@ -607,18 +670,16 @@
             // 
             this.shadowsLabel.AutoSize = true;
             this.shadowsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.shadowsLabel.Location = new System.Drawing.Point(351, 71);
-            this.shadowsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.shadowsLabel.Location = new System.Drawing.Point(263, 58);
             this.shadowsLabel.Name = "shadowsLabel";
-            this.shadowsLabel.Size = new System.Drawing.Size(105, 16);
+            this.shadowsLabel.Size = new System.Drawing.Size(84, 13);
             this.shadowsLabel.TabIndex = 35;
             this.shadowsLabel.Text = "Shadows Detail:";
             // 
             // full3DCameraCheckBox
             // 
             this.full3DCameraCheckBox.AutoSize = true;
-            this.full3DCameraCheckBox.Location = new System.Drawing.Point(484, 351);
-            this.full3DCameraCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.full3DCameraCheckBox.Location = new System.Drawing.Point(363, 285);
             this.full3DCameraCheckBox.Name = "full3DCameraCheckBox";
             this.full3DCameraCheckBox.Size = new System.Drawing.Size(15, 14);
             this.full3DCameraCheckBox.TabIndex = 34;
@@ -629,10 +690,9 @@
             // 
             this.full3DCameraLabel.AutoSize = true;
             this.full3DCameraLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.full3DCameraLabel.Location = new System.Drawing.Point(353, 349);
-            this.full3DCameraLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.full3DCameraLabel.Location = new System.Drawing.Point(265, 285);
             this.full3DCameraLabel.Name = "full3DCameraLabel";
-            this.full3DCameraLabel.Size = new System.Drawing.Size(103, 16);
+            this.full3DCameraLabel.Size = new System.Drawing.Size(82, 13);
             this.full3DCameraLabel.TabIndex = 33;
             this.full3DCameraLabel.Text = "Full 3D Camera:";
             // 
@@ -644,10 +704,9 @@
             "Low",
             "Medium",
             "High"});
-            this.persistentScarringComboBox.Location = new System.Drawing.Point(484, 255);
-            this.persistentScarringComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.persistentScarringComboBox.Location = new System.Drawing.Point(363, 207);
             this.persistentScarringComboBox.Name = "persistentScarringComboBox";
-            this.persistentScarringComboBox.Size = new System.Drawing.Size(160, 24);
+            this.persistentScarringComboBox.Size = new System.Drawing.Size(121, 21);
             this.persistentScarringComboBox.TabIndex = 32;
             this.persistentScarringComboBox.SelectedIndexChanged += new System.EventHandler(this.PersistentScarringComboBox_SelectedIndexChanged);
             // 
@@ -655,18 +714,16 @@
             // 
             this.persistentScarringLabel.AutoSize = true;
             this.persistentScarringLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.persistentScarringLabel.Location = new System.Drawing.Point(351, 258);
-            this.persistentScarringLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.persistentScarringLabel.Location = new System.Drawing.Point(263, 210);
             this.persistentScarringLabel.Name = "persistentScarringLabel";
-            this.persistentScarringLabel.Size = new System.Drawing.Size(123, 16);
+            this.persistentScarringLabel.Size = new System.Drawing.Size(98, 13);
             this.persistentScarringLabel.TabIndex = 31;
             this.persistentScarringLabel.Text = "Persistent Scarring:";
             // 
             // betterTeamcoloredTexturexCheckBox
             // 
             this.betterTeamcoloredTexturexCheckBox.AutoSize = true;
-            this.betterTeamcoloredTexturexCheckBox.Location = new System.Drawing.Point(569, 27);
-            this.betterTeamcoloredTexturexCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.betterTeamcoloredTexturexCheckBox.Location = new System.Drawing.Point(427, 20);
             this.betterTeamcoloredTexturexCheckBox.Name = "betterTeamcoloredTexturexCheckBox";
             this.betterTeamcoloredTexturexCheckBox.Size = new System.Drawing.Size(15, 14);
             this.betterTeamcoloredTexturexCheckBox.TabIndex = 30;
@@ -677,18 +734,16 @@
             // 
             this.betterTeamcoloredTexturesLabel.AutoSize = true;
             this.betterTeamcoloredTexturesLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.betterTeamcoloredTexturesLabel.Location = new System.Drawing.Point(351, 25);
-            this.betterTeamcoloredTexturesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.betterTeamcoloredTexturesLabel.Location = new System.Drawing.Point(263, 20);
             this.betterTeamcoloredTexturesLabel.Name = "betterTeamcoloredTexturesLabel";
-            this.betterTeamcoloredTexturesLabel.Size = new System.Drawing.Size(186, 16);
+            this.betterTeamcoloredTexturesLabel.Size = new System.Drawing.Size(147, 13);
             this.betterTeamcoloredTexturesLabel.TabIndex = 29;
             this.betterTeamcoloredTexturesLabel.Text = "Better Teamcolored Textures:";
             // 
             // unitsOcclusionCheckBox
             // 
             this.unitsOcclusionCheckBox.AutoSize = true;
-            this.unitsOcclusionCheckBox.Location = new System.Drawing.Point(484, 395);
-            this.unitsOcclusionCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.unitsOcclusionCheckBox.Location = new System.Drawing.Point(363, 320);
             this.unitsOcclusionCheckBox.Name = "unitsOcclusionCheckBox";
             this.unitsOcclusionCheckBox.Size = new System.Drawing.Size(15, 14);
             this.unitsOcclusionCheckBox.TabIndex = 28;
@@ -699,10 +754,9 @@
             // 
             this.unitsOcclusionLabel.AutoSize = true;
             this.unitsOcclusionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.unitsOcclusionLabel.Location = new System.Drawing.Point(353, 393);
-            this.unitsOcclusionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.unitsOcclusionLabel.Location = new System.Drawing.Point(265, 320);
             this.unitsOcclusionLabel.Name = "unitsOcclusionLabel";
-            this.unitsOcclusionLabel.Size = new System.Drawing.Size(103, 16);
+            this.unitsOcclusionLabel.Size = new System.Drawing.Size(84, 13);
             this.unitsOcclusionLabel.TabIndex = 27;
             this.unitsOcclusionLabel.Text = "Units Occlusion:";
             // 
@@ -715,10 +769,9 @@
             "Low",
             "Medium",
             "High"});
-            this.persistentBodiesComboBox.Location = new System.Drawing.Point(484, 208);
-            this.persistentBodiesComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.persistentBodiesComboBox.Location = new System.Drawing.Point(363, 169);
             this.persistentBodiesComboBox.Name = "persistentBodiesComboBox";
-            this.persistentBodiesComboBox.Size = new System.Drawing.Size(160, 24);
+            this.persistentBodiesComboBox.Size = new System.Drawing.Size(121, 21);
             this.persistentBodiesComboBox.TabIndex = 26;
             this.persistentBodiesComboBox.SelectedIndexChanged += new System.EventHandler(this.PersistentBodiesComboBox_SelectedIndexChanged);
             // 
@@ -726,10 +779,9 @@
             // 
             this.persistentBodiesLabel.AutoSize = true;
             this.persistentBodiesLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.persistentBodiesLabel.Location = new System.Drawing.Point(351, 212);
-            this.persistentBodiesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.persistentBodiesLabel.Location = new System.Drawing.Point(263, 172);
             this.persistentBodiesLabel.Name = "persistentBodiesLabel";
-            this.persistentBodiesLabel.Size = new System.Drawing.Size(116, 16);
+            this.persistentBodiesLabel.Size = new System.Drawing.Size(91, 13);
             this.persistentBodiesLabel.TabIndex = 25;
             this.persistentBodiesLabel.Text = "Persistent Bodies:";
             // 
@@ -741,10 +793,9 @@
             "Low",
             "Medium",
             "High"});
-            this.terrainDetailComboBox.Location = new System.Drawing.Point(151, 532);
-            this.terrainDetailComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.terrainDetailComboBox.Location = new System.Drawing.Point(113, 433);
             this.terrainDetailComboBox.Name = "terrainDetailComboBox";
-            this.terrainDetailComboBox.Size = new System.Drawing.Size(160, 24);
+            this.terrainDetailComboBox.Size = new System.Drawing.Size(121, 21);
             this.terrainDetailComboBox.TabIndex = 24;
             this.terrainDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.TerrainDetailComboBox_SelectedIndexChanged);
             // 
@@ -752,10 +803,9 @@
             // 
             this.terrainDetailLabel.AutoSize = true;
             this.terrainDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.terrainDetailLabel.Location = new System.Drawing.Point(12, 536);
-            this.terrainDetailLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.terrainDetailLabel.Location = new System.Drawing.Point(9, 437);
             this.terrainDetailLabel.Name = "terrainDetailLabel";
-            this.terrainDetailLabel.Size = new System.Drawing.Size(92, 16);
+            this.terrainDetailLabel.Size = new System.Drawing.Size(73, 13);
             this.terrainDetailLabel.TabIndex = 23;
             this.terrainDetailLabel.Text = "Terrain Detail:";
             // 
@@ -767,10 +817,9 @@
             "Low",
             "Medium",
             "High"});
-            this.modelDetailComboBox.Location = new System.Drawing.Point(151, 483);
-            this.modelDetailComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.modelDetailComboBox.Location = new System.Drawing.Point(113, 393);
             this.modelDetailComboBox.Name = "modelDetailComboBox";
-            this.modelDetailComboBox.Size = new System.Drawing.Size(160, 24);
+            this.modelDetailComboBox.Size = new System.Drawing.Size(121, 21);
             this.modelDetailComboBox.TabIndex = 22;
             this.modelDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.ModelDetailComboBox_SelectedIndexChanged);
             // 
@@ -778,10 +827,9 @@
             // 
             this.modelDetailLabel.AutoSize = true;
             this.modelDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.modelDetailLabel.Location = new System.Drawing.Point(13, 487);
-            this.modelDetailLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.modelDetailLabel.Location = new System.Drawing.Point(10, 397);
             this.modelDetailLabel.Name = "modelDetailLabel";
-            this.modelDetailLabel.Size = new System.Drawing.Size(87, 16);
+            this.modelDetailLabel.Size = new System.Drawing.Size(69, 13);
             this.modelDetailLabel.TabIndex = 21;
             this.modelDetailLabel.Text = "Model Detail:";
             // 
@@ -793,10 +841,9 @@
             "Low",
             "Medium",
             "High"});
-            this.textureDetailComboBox.Location = new System.Drawing.Point(151, 435);
-            this.textureDetailComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.textureDetailComboBox.Location = new System.Drawing.Point(113, 354);
             this.textureDetailComboBox.Name = "textureDetailComboBox";
-            this.textureDetailComboBox.Size = new System.Drawing.Size(160, 24);
+            this.textureDetailComboBox.Size = new System.Drawing.Size(121, 21);
             this.textureDetailComboBox.TabIndex = 20;
             this.textureDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.TextureDetailComboBox_SelectedIndexChanged);
             // 
@@ -804,10 +851,9 @@
             // 
             this.textureDetailLabel.AutoSize = true;
             this.textureDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.textureDetailLabel.Location = new System.Drawing.Point(13, 439);
-            this.textureDetailLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.textureDetailLabel.Location = new System.Drawing.Point(10, 358);
             this.textureDetailLabel.Name = "textureDetailLabel";
-            this.textureDetailLabel.Size = new System.Drawing.Size(94, 16);
+            this.textureDetailLabel.Size = new System.Drawing.Size(76, 13);
             this.textureDetailLabel.TabIndex = 19;
             this.textureDetailLabel.Text = "Texture Detail:";
             // 
@@ -817,10 +863,9 @@
             this.rendererComboBox.FormattingEnabled = true;
             this.rendererComboBox.Items.AddRange(new object[] {
             "Dx9 : Hardware TnL"});
-            this.rendererComboBox.Location = new System.Drawing.Point(151, 68);
-            this.rendererComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.rendererComboBox.Location = new System.Drawing.Point(113, 55);
             this.rendererComboBox.Name = "rendererComboBox";
-            this.rendererComboBox.Size = new System.Drawing.Size(160, 24);
+            this.rendererComboBox.Size = new System.Drawing.Size(121, 21);
             this.rendererComboBox.TabIndex = 18;
             this.rendererComboBox.SelectedIndexChanged += new System.EventHandler(this.RendererComboBox_SelectedIndexChanged);
             // 
@@ -828,10 +873,9 @@
             // 
             this.rendererLabel.AutoSize = true;
             this.rendererLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.rendererLabel.Location = new System.Drawing.Point(13, 71);
-            this.rendererLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.rendererLabel.Location = new System.Drawing.Point(10, 58);
             this.rendererLabel.Name = "rendererLabel";
-            this.rendererLabel.Size = new System.Drawing.Size(68, 16);
+            this.rendererLabel.Size = new System.Drawing.Size(54, 13);
             this.rendererLabel.TabIndex = 17;
             this.rendererLabel.Text = "Renderer:";
             // 
@@ -843,10 +887,9 @@
             "16 bit",
             "24 bit (HighColor - experimental)",
             "32 bit (TrueColor)"});
-            this.colorDepthComboBox.Location = new System.Drawing.Point(151, 208);
-            this.colorDepthComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.colorDepthComboBox.Location = new System.Drawing.Point(113, 169);
             this.colorDepthComboBox.Name = "colorDepthComboBox";
-            this.colorDepthComboBox.Size = new System.Drawing.Size(160, 24);
+            this.colorDepthComboBox.Size = new System.Drawing.Size(121, 21);
             this.colorDepthComboBox.TabIndex = 16;
             this.colorDepthComboBox.SelectedIndexChanged += new System.EventHandler(this.ColorDepthComboBox_SelectedIndexChanged);
             // 
@@ -854,10 +897,9 @@
             // 
             this.colorDepthLabel.AutoSize = true;
             this.colorDepthLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.colorDepthLabel.Location = new System.Drawing.Point(13, 212);
-            this.colorDepthLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.colorDepthLabel.Location = new System.Drawing.Point(10, 172);
             this.colorDepthLabel.Name = "colorDepthLabel";
-            this.colorDepthLabel.Size = new System.Drawing.Size(82, 16);
+            this.colorDepthLabel.Size = new System.Drawing.Size(66, 13);
             this.colorDepthLabel.TabIndex = 15;
             this.colorDepthLabel.Text = "Color Depth:";
             // 
@@ -870,10 +912,9 @@
             "1",
             "2",
             "3"});
-            this.activeVideocardComboBox.Location = new System.Drawing.Point(151, 22);
-            this.activeVideocardComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.activeVideocardComboBox.Location = new System.Drawing.Point(113, 18);
             this.activeVideocardComboBox.Name = "activeVideocardComboBox";
-            this.activeVideocardComboBox.Size = new System.Drawing.Size(160, 24);
+            this.activeVideocardComboBox.Size = new System.Drawing.Size(121, 21);
             this.activeVideocardComboBox.TabIndex = 14;
             this.activeVideocardComboBox.SelectedIndexChanged += new System.EventHandler(this.ActiveVideocardComboBox_SelectedIndexChanged);
             // 
@@ -881,18 +922,16 @@
             // 
             this.activeVideocardLabel.AutoSize = true;
             this.activeVideocardLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.activeVideocardLabel.Location = new System.Drawing.Point(13, 25);
-            this.activeVideocardLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.activeVideocardLabel.Location = new System.Drawing.Point(10, 20);
             this.activeVideocardLabel.Name = "activeVideocardLabel";
-            this.activeVideocardLabel.Size = new System.Drawing.Size(114, 16);
+            this.activeVideocardLabel.Size = new System.Drawing.Size(91, 13);
             this.activeVideocardLabel.TabIndex = 13;
             this.activeVideocardLabel.Text = "Active Videocard:";
             // 
             // antialiasingCheckBox
             // 
             this.antialiasingCheckBox.AutoSize = true;
-            this.antialiasingCheckBox.Location = new System.Drawing.Point(151, 392);
-            this.antialiasingCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.antialiasingCheckBox.Location = new System.Drawing.Point(113, 320);
             this.antialiasingCheckBox.Name = "antialiasingCheckBox";
             this.antialiasingCheckBox.Size = new System.Drawing.Size(15, 14);
             this.antialiasingCheckBox.TabIndex = 12;
@@ -903,10 +942,9 @@
             // 
             this.antialiasingLabel.AutoSize = true;
             this.antialiasingLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.antialiasingLabel.Location = new System.Drawing.Point(13, 392);
-            this.antialiasingLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.antialiasingLabel.Location = new System.Drawing.Point(10, 320);
             this.antialiasingLabel.Name = "antialiasingLabel";
-            this.antialiasingLabel.Size = new System.Drawing.Size(84, 16);
+            this.antialiasingLabel.Size = new System.Drawing.Size(66, 13);
             this.antialiasingLabel.TabIndex = 11;
             this.antialiasingLabel.Text = "Anti-aliasing:";
             // 
@@ -923,10 +961,9 @@
             "75 Hz",
             "60 Hz",
             "59 Hz"});
-            this.refreshRateComboBox.Location = new System.Drawing.Point(151, 161);
-            this.refreshRateComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.refreshRateComboBox.Location = new System.Drawing.Point(113, 131);
             this.refreshRateComboBox.Name = "refreshRateComboBox";
-            this.refreshRateComboBox.Size = new System.Drawing.Size(160, 24);
+            this.refreshRateComboBox.Size = new System.Drawing.Size(121, 21);
             this.refreshRateComboBox.TabIndex = 10;
             this.refreshRateComboBox.SelectedIndexChanged += new System.EventHandler(this.RefreshRateComboBox_SelectedIndexChanged);
             // 
@@ -934,18 +971,16 @@
             // 
             this.refreshRateLabel.AutoSize = true;
             this.refreshRateLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.refreshRateLabel.Location = new System.Drawing.Point(14, 164);
-            this.refreshRateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.refreshRateLabel.Location = new System.Drawing.Point(10, 133);
             this.refreshRateLabel.Name = "refreshRateLabel";
-            this.refreshRateLabel.Size = new System.Drawing.Size(90, 16);
+            this.refreshRateLabel.Size = new System.Drawing.Size(73, 13);
             this.refreshRateLabel.TabIndex = 9;
             this.refreshRateLabel.Text = "Refresh Rate:";
             // 
             // windowedCheckBox
             // 
             this.windowedCheckBox.AutoSize = true;
-            this.windowedCheckBox.Location = new System.Drawing.Point(151, 349);
-            this.windowedCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.windowedCheckBox.Location = new System.Drawing.Point(113, 285);
             this.windowedCheckBox.Name = "windowedCheckBox";
             this.windowedCheckBox.Size = new System.Drawing.Size(15, 14);
             this.windowedCheckBox.TabIndex = 8;
@@ -956,18 +991,16 @@
             // 
             this.windowedLabel.AutoSize = true;
             this.windowedLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.windowedLabel.Location = new System.Drawing.Point(13, 349);
-            this.windowedLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.windowedLabel.Location = new System.Drawing.Point(10, 285);
             this.windowedLabel.Name = "windowedLabel";
-            this.windowedLabel.Size = new System.Drawing.Size(75, 16);
+            this.windowedLabel.Size = new System.Drawing.Size(61, 13);
             this.windowedLabel.TabIndex = 7;
             this.windowedLabel.Text = "Windowed:";
             // 
             // vSyncCheckBox
             // 
             this.vSyncCheckBox.AutoSize = true;
-            this.vSyncCheckBox.Location = new System.Drawing.Point(151, 305);
-            this.vSyncCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.vSyncCheckBox.Location = new System.Drawing.Point(113, 248);
             this.vSyncCheckBox.Name = "vSyncCheckBox";
             this.vSyncCheckBox.Size = new System.Drawing.Size(15, 14);
             this.vSyncCheckBox.TabIndex = 6;
@@ -978,22 +1011,20 @@
             // 
             this.vSyncLabel.AutoSize = true;
             this.vSyncLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.vSyncLabel.Location = new System.Drawing.Point(13, 306);
-            this.vSyncLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.vSyncLabel.Location = new System.Drawing.Point(10, 249);
             this.vSyncLabel.Name = "vSyncLabel";
-            this.vSyncLabel.Size = new System.Drawing.Size(54, 16);
+            this.vSyncLabel.Size = new System.Drawing.Size(44, 13);
             this.vSyncLabel.TabIndex = 5;
             this.vSyncLabel.Text = "V-Sync:";
             // 
             // gammaTrackBar
             // 
             this.gammaTrackBar.LargeChange = 1;
-            this.gammaTrackBar.Location = new System.Drawing.Point(151, 256);
-            this.gammaTrackBar.Margin = new System.Windows.Forms.Padding(4);
+            this.gammaTrackBar.Location = new System.Drawing.Point(113, 208);
             this.gammaTrackBar.Maximum = 15;
             this.gammaTrackBar.Minimum = 5;
             this.gammaTrackBar.Name = "gammaTrackBar";
-            this.gammaTrackBar.Size = new System.Drawing.Size(161, 45);
+            this.gammaTrackBar.Size = new System.Drawing.Size(121, 45);
             this.gammaTrackBar.TabIndex = 4;
             this.gammaTrackBar.Value = 10;
             this.gammaTrackBar.Scroll += new System.EventHandler(this.GammaTrackBar_Scroll);
@@ -1002,10 +1033,9 @@
             // 
             this.gammaLabel.AutoSize = true;
             this.gammaLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.gammaLabel.Location = new System.Drawing.Point(13, 258);
-            this.gammaLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.gammaLabel.Location = new System.Drawing.Point(10, 210);
             this.gammaLabel.Name = "gammaLabel";
-            this.gammaLabel.Size = new System.Drawing.Size(59, 16);
+            this.gammaLabel.Size = new System.Drawing.Size(46, 13);
             this.gammaLabel.TabIndex = 2;
             this.gammaLabel.Text = "Gamma:";
             // 
@@ -1033,10 +1063,9 @@
             "1152×864",
             "1024×768",
             "800×600"});
-            this.screenResolutionComboBox.Location = new System.Drawing.Point(151, 114);
-            this.screenResolutionComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.screenResolutionComboBox.Location = new System.Drawing.Point(113, 93);
             this.screenResolutionComboBox.Name = "screenResolutionComboBox";
-            this.screenResolutionComboBox.Size = new System.Drawing.Size(160, 24);
+            this.screenResolutionComboBox.Size = new System.Drawing.Size(121, 21);
             this.screenResolutionComboBox.TabIndex = 1;
             this.screenResolutionComboBox.SelectedIndexChanged += new System.EventHandler(this.ScreenResolutionComboBox_SelectedIndexChanged);
             // 
@@ -1044,10 +1073,9 @@
             // 
             this.screenResolutionLabel.AutoSize = true;
             this.screenResolutionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.screenResolutionLabel.Location = new System.Drawing.Point(12, 117);
-            this.screenResolutionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.screenResolutionLabel.Location = new System.Drawing.Point(9, 95);
             this.screenResolutionLabel.Name = "screenResolutionLabel";
-            this.screenResolutionLabel.Size = new System.Drawing.Size(121, 16);
+            this.screenResolutionLabel.Size = new System.Drawing.Size(97, 13);
             this.screenResolutionLabel.TabIndex = 0;
             this.screenResolutionLabel.Text = "Screen Resolution:";
             // 
@@ -1066,7 +1094,7 @@
             this.audioTabPage.Controls.Add(this.voiceVolumeLabel);
             this.audioTabPage.Controls.Add(this.effectsVolumeTrackBar);
             this.audioTabPage.Controls.Add(this.effectsVolumeLabel);
-            this.audioTabPage.Controls.Add(this.ambientVolumeTarckBar);
+            this.audioTabPage.Controls.Add(this.ambientVolumeTrackBar);
             this.audioTabPage.Controls.Add(this.ambientVolumeLabel);
             this.audioTabPage.Controls.Add(this.soundChannelsComboBox);
             this.audioTabPage.Controls.Add(this.soundChannelsLabel);
@@ -1074,11 +1102,10 @@
             this.audioTabPage.Controls.Add(this.soundQualityLabel);
             this.audioTabPage.Controls.Add(this.randomizedSoundsCheckBox);
             this.audioTabPage.Controls.Add(this.randomizedSoundsLabel);
-            this.audioTabPage.Location = new System.Drawing.Point(4, 25);
-            this.audioTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.audioTabPage.Location = new System.Drawing.Point(4, 22);
             this.audioTabPage.Name = "audioTabPage";
-            this.audioTabPage.Padding = new System.Windows.Forms.Padding(4);
-            this.audioTabPage.Size = new System.Drawing.Size(697, 680);
+            this.audioTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.audioTabPage.Size = new System.Drawing.Size(521, 550);
             this.audioTabPage.TabIndex = 1;
             this.audioTabPage.Text = "Audio";
             // 
@@ -1086,12 +1113,12 @@
             // 
             this.highAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.highAudioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.highAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.highAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.highAudioButton.Location = new System.Drawing.Point(499, 597);
-            this.highAudioButton.Margin = new System.Windows.Forms.Padding(4);
+            this.highAudioButton.Location = new System.Drawing.Point(374, 485);
             this.highAudioButton.Name = "highAudioButton";
-            this.highAudioButton.Size = new System.Drawing.Size(125, 47);
+            this.highAudioButton.Size = new System.Drawing.Size(94, 38);
             this.highAudioButton.TabIndex = 54;
             this.highAudioButton.Text = "HIGH";
             this.highAudioButton.UseVisualStyleBackColor = false;
@@ -1101,12 +1128,12 @@
             // 
             this.mediumAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.mediumAudioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.mediumAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mediumAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.mediumAudioButton.Location = new System.Drawing.Point(286, 597);
-            this.mediumAudioButton.Margin = new System.Windows.Forms.Padding(4);
+            this.mediumAudioButton.Location = new System.Drawing.Point(214, 485);
             this.mediumAudioButton.Name = "mediumAudioButton";
-            this.mediumAudioButton.Size = new System.Drawing.Size(125, 47);
+            this.mediumAudioButton.Size = new System.Drawing.Size(94, 38);
             this.mediumAudioButton.TabIndex = 53;
             this.mediumAudioButton.Text = "MEDIUM";
             this.mediumAudioButton.UseVisualStyleBackColor = false;
@@ -1115,12 +1142,12 @@
             // lowAudioButton
             // 
             this.lowAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lowAudioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.lowAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lowAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.lowAudioButton.Location = new System.Drawing.Point(78, 597);
-            this.lowAudioButton.Margin = new System.Windows.Forms.Padding(4);
+            this.lowAudioButton.Location = new System.Drawing.Point(58, 485);
             this.lowAudioButton.Name = "lowAudioButton";
-            this.lowAudioButton.Size = new System.Drawing.Size(125, 47);
+            this.lowAudioButton.Size = new System.Drawing.Size(94, 38);
             this.lowAudioButton.TabIndex = 52;
             this.lowAudioButton.Text = "LOW";
             this.lowAudioButton.UseVisualStyleBackColor = false;
@@ -1131,18 +1158,16 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Cyan;
-            this.label1.Location = new System.Drawing.Point(454, 658);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(340, 535);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(230, 16);
+            this.label1.Size = new System.Drawing.Size(183, 13);
             this.label1.TabIndex = 51;
             this.label1.Text = "* All cyan settings are hidden in game";
             // 
             // soundEnabledCheckBox
             // 
             this.soundEnabledCheckBox.AutoSize = true;
-            this.soundEnabledCheckBox.Location = new System.Drawing.Point(152, 27);
-            this.soundEnabledCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.soundEnabledCheckBox.Location = new System.Drawing.Point(114, 21);
             this.soundEnabledCheckBox.Name = "soundEnabledCheckBox";
             this.soundEnabledCheckBox.Size = new System.Drawing.Size(15, 14);
             this.soundEnabledCheckBox.TabIndex = 50;
@@ -1153,106 +1178,97 @@
             // 
             this.soundEnabledLabel.AutoSize = true;
             this.soundEnabledLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.soundEnabledLabel.Location = new System.Drawing.Point(14, 25);
-            this.soundEnabledLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.soundEnabledLabel.Location = new System.Drawing.Point(10, 20);
             this.soundEnabledLabel.Name = "soundEnabledLabel";
-            this.soundEnabledLabel.Size = new System.Drawing.Size(104, 16);
+            this.soundEnabledLabel.Size = new System.Drawing.Size(83, 13);
             this.soundEnabledLabel.TabIndex = 49;
             this.soundEnabledLabel.Text = "Sound Enabled:";
             // 
             // musicVolumeTrackBar
             // 
-            this.musicVolumeTrackBar.LargeChange = 1;
-            this.musicVolumeTrackBar.Location = new System.Drawing.Point(152, 362);
-            this.musicVolumeTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.musicVolumeTrackBar.Maximum = 15;
-            this.musicVolumeTrackBar.Minimum = 5;
+            this.musicVolumeTrackBar.LargeChange = 10;
+            this.musicVolumeTrackBar.Location = new System.Drawing.Point(114, 294);
+            this.musicVolumeTrackBar.Maximum = 100;
             this.musicVolumeTrackBar.Name = "musicVolumeTrackBar";
-            this.musicVolumeTrackBar.Size = new System.Drawing.Size(161, 45);
+            this.musicVolumeTrackBar.Size = new System.Drawing.Size(121, 45);
+            this.musicVolumeTrackBar.SmallChange = 5;
             this.musicVolumeTrackBar.TabIndex = 48;
-            this.musicVolumeTrackBar.Value = 10;
+            this.musicVolumeTrackBar.Value = 50;
             this.musicVolumeTrackBar.Scroll += new System.EventHandler(this.MusicVolumeTrackBar_Scroll);
             // 
             // musicVolumeLabel
             // 
             this.musicVolumeLabel.AutoSize = true;
             this.musicVolumeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.musicVolumeLabel.Location = new System.Drawing.Point(14, 366);
-            this.musicVolumeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.musicVolumeLabel.Location = new System.Drawing.Point(10, 297);
             this.musicVolumeLabel.Name = "musicVolumeLabel";
-            this.musicVolumeLabel.Size = new System.Drawing.Size(95, 16);
+            this.musicVolumeLabel.Size = new System.Drawing.Size(76, 13);
             this.musicVolumeLabel.TabIndex = 47;
             this.musicVolumeLabel.Text = "Music Volume:";
             // 
             // voiceVolumeTrackBar
             // 
-            this.voiceVolumeTrackBar.LargeChange = 1;
-            this.voiceVolumeTrackBar.Location = new System.Drawing.Point(152, 310);
-            this.voiceVolumeTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.voiceVolumeTrackBar.Maximum = 15;
-            this.voiceVolumeTrackBar.Minimum = 5;
+            this.voiceVolumeTrackBar.LargeChange = 10;
+            this.voiceVolumeTrackBar.Location = new System.Drawing.Point(114, 252);
+            this.voiceVolumeTrackBar.Maximum = 100;
             this.voiceVolumeTrackBar.Name = "voiceVolumeTrackBar";
-            this.voiceVolumeTrackBar.Size = new System.Drawing.Size(161, 45);
+            this.voiceVolumeTrackBar.Size = new System.Drawing.Size(121, 45);
+            this.voiceVolumeTrackBar.SmallChange = 5;
             this.voiceVolumeTrackBar.TabIndex = 46;
-            this.voiceVolumeTrackBar.Value = 10;
+            this.voiceVolumeTrackBar.Value = 50;
             this.voiceVolumeTrackBar.Scroll += new System.EventHandler(this.VoiceVolumeTrackBar_Scroll);
             // 
             // voiceVolumeLabel
             // 
             this.voiceVolumeLabel.AutoSize = true;
             this.voiceVolumeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.voiceVolumeLabel.Location = new System.Drawing.Point(14, 314);
-            this.voiceVolumeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.voiceVolumeLabel.Location = new System.Drawing.Point(10, 255);
             this.voiceVolumeLabel.Name = "voiceVolumeLabel";
-            this.voiceVolumeLabel.Size = new System.Drawing.Size(92, 16);
+            this.voiceVolumeLabel.Size = new System.Drawing.Size(72, 13);
             this.voiceVolumeLabel.TabIndex = 45;
             this.voiceVolumeLabel.Text = "VoiceVolume:";
             // 
             // effectsVolumeTrackBar
             // 
-            this.effectsVolumeTrackBar.LargeChange = 1;
-            this.effectsVolumeTrackBar.Location = new System.Drawing.Point(152, 256);
-            this.effectsVolumeTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.effectsVolumeTrackBar.Maximum = 15;
-            this.effectsVolumeTrackBar.Minimum = 5;
+            this.effectsVolumeTrackBar.LargeChange = 10;
+            this.effectsVolumeTrackBar.Location = new System.Drawing.Point(114, 208);
+            this.effectsVolumeTrackBar.Maximum = 100;
             this.effectsVolumeTrackBar.Name = "effectsVolumeTrackBar";
-            this.effectsVolumeTrackBar.Size = new System.Drawing.Size(161, 45);
+            this.effectsVolumeTrackBar.Size = new System.Drawing.Size(121, 45);
+            this.effectsVolumeTrackBar.SmallChange = 5;
             this.effectsVolumeTrackBar.TabIndex = 44;
-            this.effectsVolumeTrackBar.Value = 10;
+            this.effectsVolumeTrackBar.Value = 50;
             this.effectsVolumeTrackBar.Scroll += new System.EventHandler(this.EffectsVolumeTrackBar_Scroll);
             // 
             // effectsVolumeLabel
             // 
             this.effectsVolumeLabel.AutoSize = true;
             this.effectsVolumeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.effectsVolumeLabel.Location = new System.Drawing.Point(14, 260);
-            this.effectsVolumeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.effectsVolumeLabel.Location = new System.Drawing.Point(10, 211);
             this.effectsVolumeLabel.Name = "effectsVolumeLabel";
-            this.effectsVolumeLabel.Size = new System.Drawing.Size(100, 16);
+            this.effectsVolumeLabel.Size = new System.Drawing.Size(81, 13);
             this.effectsVolumeLabel.TabIndex = 43;
             this.effectsVolumeLabel.Text = "Effects Volume:";
             // 
-            // ambientVolumeTarckBar
+            // ambientVolumeTrackBar
             // 
-            this.ambientVolumeTarckBar.LargeChange = 1;
-            this.ambientVolumeTarckBar.Location = new System.Drawing.Point(152, 203);
-            this.ambientVolumeTarckBar.Margin = new System.Windows.Forms.Padding(4);
-            this.ambientVolumeTarckBar.Maximum = 15;
-            this.ambientVolumeTarckBar.Minimum = 5;
-            this.ambientVolumeTarckBar.Name = "ambientVolumeTarckBar";
-            this.ambientVolumeTarckBar.Size = new System.Drawing.Size(161, 45);
-            this.ambientVolumeTarckBar.TabIndex = 42;
-            this.ambientVolumeTarckBar.Value = 10;
-            this.ambientVolumeTarckBar.Scroll += new System.EventHandler(this.AmbientVolumeTarckBar_Scroll);
+            this.ambientVolumeTrackBar.LargeChange = 10;
+            this.ambientVolumeTrackBar.Location = new System.Drawing.Point(114, 165);
+            this.ambientVolumeTrackBar.Maximum = 100;
+            this.ambientVolumeTrackBar.Name = "ambientVolumeTrackBar";
+            this.ambientVolumeTrackBar.Size = new System.Drawing.Size(121, 45);
+            this.ambientVolumeTrackBar.SmallChange = 5;
+            this.ambientVolumeTrackBar.TabIndex = 42;
+            this.ambientVolumeTrackBar.Value = 50;
+            this.ambientVolumeTrackBar.Scroll += new System.EventHandler(this.AmbientVolumeTarckBar_Scroll);
             // 
             // ambientVolumeLabel
             // 
             this.ambientVolumeLabel.AutoSize = true;
             this.ambientVolumeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.ambientVolumeLabel.Location = new System.Drawing.Point(14, 207);
-            this.ambientVolumeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ambientVolumeLabel.Location = new System.Drawing.Point(10, 168);
             this.ambientVolumeLabel.Name = "ambientVolumeLabel";
-            this.ambientVolumeLabel.Size = new System.Drawing.Size(109, 16);
+            this.ambientVolumeLabel.Size = new System.Drawing.Size(86, 13);
             this.ambientVolumeLabel.TabIndex = 41;
             this.ambientVolumeLabel.Text = "Ambient Volume:";
             // 
@@ -1264,10 +1280,9 @@
             "Low (16)",
             "Medium (32)",
             "High (64)"});
-            this.soundChannelsComboBox.Location = new System.Drawing.Point(152, 154);
-            this.soundChannelsComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.soundChannelsComboBox.Location = new System.Drawing.Point(114, 125);
             this.soundChannelsComboBox.Name = "soundChannelsComboBox";
-            this.soundChannelsComboBox.Size = new System.Drawing.Size(160, 24);
+            this.soundChannelsComboBox.Size = new System.Drawing.Size(121, 21);
             this.soundChannelsComboBox.TabIndex = 40;
             this.soundChannelsComboBox.SelectedIndexChanged += new System.EventHandler(this.SoundChannelsComboBox_SelectedIndexChanged);
             // 
@@ -1275,10 +1290,9 @@
             // 
             this.soundChannelsLabel.AutoSize = true;
             this.soundChannelsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.soundChannelsLabel.Location = new System.Drawing.Point(14, 158);
-            this.soundChannelsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.soundChannelsLabel.Location = new System.Drawing.Point(10, 128);
             this.soundChannelsLabel.Name = "soundChannelsLabel";
-            this.soundChannelsLabel.Size = new System.Drawing.Size(109, 16);
+            this.soundChannelsLabel.Size = new System.Drawing.Size(88, 13);
             this.soundChannelsLabel.TabIndex = 39;
             this.soundChannelsLabel.Text = "Sound Channels:";
             // 
@@ -1290,10 +1304,9 @@
             "Low",
             "Medium",
             "High"});
-            this.soundQualityComboBox.Location = new System.Drawing.Point(152, 105);
-            this.soundQualityComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.soundQualityComboBox.Location = new System.Drawing.Point(114, 86);
             this.soundQualityComboBox.Name = "soundQualityComboBox";
-            this.soundQualityComboBox.Size = new System.Drawing.Size(160, 24);
+            this.soundQualityComboBox.Size = new System.Drawing.Size(121, 21);
             this.soundQualityComboBox.TabIndex = 38;
             this.soundQualityComboBox.SelectedIndexChanged += new System.EventHandler(this.SoundQualityComboBox_SelectedIndexChanged);
             // 
@@ -1301,18 +1314,16 @@
             // 
             this.soundQualityLabel.AutoSize = true;
             this.soundQualityLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.soundQualityLabel.Location = new System.Drawing.Point(14, 109);
-            this.soundQualityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.soundQualityLabel.Location = new System.Drawing.Point(10, 89);
             this.soundQualityLabel.Name = "soundQualityLabel";
-            this.soundQualityLabel.Size = new System.Drawing.Size(94, 16);
+            this.soundQualityLabel.Size = new System.Drawing.Size(76, 13);
             this.soundQualityLabel.TabIndex = 37;
             this.soundQualityLabel.Text = "Sound Quality:";
             // 
             // randomizedSoundsCheckBox
             // 
             this.randomizedSoundsCheckBox.AutoSize = true;
-            this.randomizedSoundsCheckBox.Location = new System.Drawing.Point(152, 68);
-            this.randomizedSoundsCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.randomizedSoundsCheckBox.Location = new System.Drawing.Point(114, 55);
             this.randomizedSoundsCheckBox.Name = "randomizedSoundsCheckBox";
             this.randomizedSoundsCheckBox.Size = new System.Drawing.Size(15, 14);
             this.randomizedSoundsCheckBox.TabIndex = 36;
@@ -1323,28 +1334,26 @@
             // 
             this.randomizedSoundsLabel.AutoSize = true;
             this.randomizedSoundsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.randomizedSoundsLabel.Location = new System.Drawing.Point(14, 66);
-            this.randomizedSoundsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.randomizedSoundsLabel.Location = new System.Drawing.Point(10, 54);
             this.randomizedSoundsLabel.Name = "randomizedSoundsLabel";
-            this.randomizedSoundsLabel.Size = new System.Drawing.Size(136, 16);
+            this.randomizedSoundsLabel.Size = new System.Drawing.Size(107, 13);
             this.randomizedSoundsLabel.TabIndex = 35;
             this.randomizedSoundsLabel.Text = "Randomizes Sounds:";
             // 
             // SettingsManagerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.ClientSize = new System.Drawing.Size(763, 826);
+            this.ClientSize = new System.Drawing.Size(572, 671);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.closeButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.defaultsButton);
             this.Controls.Add(this.settingsLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(757, 545);
+            this.MinimumSize = new System.Drawing.Size(572, 450);
             this.Name = "SettingsManagerForm";
             this.Text = "Settings Manager";
             this.tabControl1.ResumeLayout(false);
@@ -1359,7 +1368,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.musicVolumeTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.voiceVolumeTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.effectsVolumeTrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ambientVolumeTarckBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ambientVolumeTrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1369,7 +1378,7 @@
 
         private System.Windows.Forms.Label settingsLabel;
         private System.Windows.Forms.Button saveButton;
-        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button defaultsButton;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage videoTabPage;
@@ -1428,7 +1437,7 @@
         private System.Windows.Forms.Label voiceVolumeLabel;
         private System.Windows.Forms.TrackBar effectsVolumeTrackBar;
         private System.Windows.Forms.Label effectsVolumeLabel;
-        private System.Windows.Forms.TrackBar ambientVolumeTarckBar;
+        private System.Windows.Forms.TrackBar ambientVolumeTrackBar;
         private System.Windows.Forms.Label ambientVolumeLabel;
         private System.Windows.Forms.ComboBox soundChannelsComboBox;
         private System.Windows.Forms.Label soundChannelsLabel;
@@ -1446,7 +1455,7 @@
         private System.Windows.Forms.Label inverseDeclinationLabel;
         private System.Windows.Forms.CheckBox inversePanCheckBox;
         private System.Windows.Forms.Label inversePanLabel;
-        private System.Windows.Forms.ComboBox unknownSettingComboBox;
+        private System.Windows.Forms.ComboBox loginAttemptsComboBox;
         private System.Windows.Forms.Label loginAttemptsLabel;
         private System.Windows.Forms.Button ultraGraphicsButton;
         private System.Windows.Forms.Button highGraphicsButton;
@@ -1455,5 +1464,11 @@
         private System.Windows.Forms.Button highAudioButton;
         private System.Windows.Forms.Button mediumAudioButton;
         private System.Windows.Forms.Button lowAudioButton;
+        private System.Windows.Forms.Button systemPerformanceManagerButton;
+        private System.Windows.Forms.Button createProfileButton;
+        private System.Windows.Forms.Button deleteProfileButton;
+        private System.Windows.Forms.TextBox newPlayerTextBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button renameProfileButton;
     }
 }
