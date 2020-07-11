@@ -5,6 +5,7 @@
 
 - Fixed a crash where user tries to click on an empty space in RequiredMods when it has only one item
 - Fixed a crash where user didn't have any Profiles and tries to click on "SETTINGS" button
+- Fixed a crash where user would try to save an empty Profile
 - Application.Exit() was changed to a more correct way of terminating a program (thanks, FragJacker!)
 - A few small tweaks
 

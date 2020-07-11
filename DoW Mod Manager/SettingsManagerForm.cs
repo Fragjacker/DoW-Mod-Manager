@@ -623,6 +623,14 @@ namespace DoW_Mod_Manager
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            // There is no Profile selected
+            if (currentPlayerComboBox.Text.Length == 0)
+            {
+                closeButton.Text = CLOSE_LABEL;
+                saveButton.Enabled = false;
+                return;
+            }
+
             // You have to use \r\n instead of \n or Dawn of War will NOT recognise the end of the line!
             // Save settings that are stored in Local.ini
             string str = $"[global]\r\n" +
