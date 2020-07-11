@@ -718,6 +718,9 @@ namespace DoW_Mod_Manager
             }
             else
             {
+                if (!Directory.Exists(PROFILES_PATH))
+                    Directory.CreateDirectory(PROFILES_PATH);
+
                 string str2 = "Controls = \r\n" +
                               "{\r\n" +
                               $"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},\r\n" +
