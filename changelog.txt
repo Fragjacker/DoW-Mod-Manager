@@ -1,5 +1,15 @@
 # Changelog
-(All changes in 1.53 - 2.0.1 were made by IgorTheLight, excluding patch 1.6.1)
+(All changes in 1.53 - 2.0.2 were made by IgorTheLight, excluding patch 1.6.1)
+
+## Version 2.0.2:
+
+- If there is a missing mod - it will be selected so user could easily find it
+- All code has been refactored (where needed)
+- Optimization: refactored GetLoadedMods() method in ModMergerForm - it's x1.15 times faster! 0.86 ms vs 0.99 ms
+- Optimization: refactored GetAvailableMods() method in ModMergerForm - it's x11.75 times faster! 0.08 ms vs 0.94 ms
+- There is no more storing an unnecessary reference to a new Form when it's been created
+- Added annotations for all methods in ModManagerForm
+- Small optimizations here and there
 
 ## Version 2.0.1:
 

@@ -136,8 +136,8 @@ namespace DoW_Mod_Manager
             this.requiredModsList.ScrollAlwaysVisible = true;
             this.requiredModsList.Size = new System.Drawing.Size(418, 381);
             this.requiredModsList.TabIndex = 5;
-            this.requiredModsList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.RequiredModsList_DrawItem);
             this.requiredModsList.SelectedIndexChanged += new System.EventHandler(this.RequiredModsList_SelectedIndexChanged);
+
             // 
             // startModButton
             // 
@@ -197,7 +197,6 @@ namespace DoW_Mod_Manager
             this.devCheckBox.TabIndex = 10;
             this.devCheckBox.Text = "-dev: Developers Mode";
             this.devCheckBox.UseVisualStyleBackColor = true;
-            this.devCheckBox.CheckedChanged += new System.EventHandler(this.DevCheckBox_CheckedChanged);
             // 
             // nomoviesCheckBox
             // 
@@ -211,7 +210,6 @@ namespace DoW_Mod_Manager
             this.nomoviesCheckBox.TabIndex = 11;
             this.nomoviesCheckBox.Text = "-nomovies: No Intro Movies";
             this.nomoviesCheckBox.UseVisualStyleBackColor = true;
-            this.nomoviesCheckBox.CheckedChanged += new System.EventHandler(this.NomoviesCheckBox_CheckedChanged);
             // 
             // highpolyCheckBox
             // 
@@ -223,7 +221,6 @@ namespace DoW_Mod_Manager
             this.highpolyCheckBox.TabIndex = 12;
             this.highpolyCheckBox.Text = "-forcehighpoly: High Poly models at any Distance";
             this.highpolyCheckBox.UseVisualStyleBackColor = true;
-            this.highpolyCheckBox.CheckedChanged += new System.EventHandler(this.HighpolyCheckBox_CheckedChanged);
             // 
             // optimizationsCheckBox
             // 
@@ -235,7 +232,6 @@ namespace DoW_Mod_Manager
             this.optimizationsCheckBox.TabIndex = 13;
             this.optimizationsCheckBox.Text = "/high /affinity 6: Set to highest thread priority and CPU affinity";
             this.optimizationsCheckBox.UseVisualStyleBackColor = true;
-            this.optimizationsCheckBox.CheckedChanged += new System.EventHandler(this.OptimizationsCheckBox_CheckedChanged);
             // 
             // mergeButton
             // 

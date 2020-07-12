@@ -118,7 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="changelogTextBox.Text" xml:space="preserve">
-    <value>## Version 2.0.1:
+    <value>## ## Version 2.0.2:
+
+- If there is a missing mod - it will be selected so user could easily find it
+- All code has been refactored (where needed)
+- Optimization: refactored GetLoadedMods() method in ModMergerForm - it's x1.15 times faster! 0.86 ms vs 0.99 ms
+- Optimization: refactored GetAvailableMods() method in ModMergerForm - it's x11.75 times faster! 0.08 ms vs 0.94 ms
+- There is no more storing an unnecessary reference to a new Form when it's been created
+- Added annotations for all methods in ModManagerForm
+- Small optimizations here and there
+    
+## Version 2.0.1:
 
 - Fixed a crash where user tries to click on an empty space in RequiredMods when it has only one item
 - Fixed a crash where user didn't have any Profiles and tries to click on "SETTINGS" button
