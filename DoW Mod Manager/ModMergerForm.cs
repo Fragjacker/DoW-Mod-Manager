@@ -189,37 +189,12 @@ namespace DoW_Mod_Manager
                     if (line.Contains("RequiredMod"))
                     {
                         if (line.StartsWith(";;") || line.StartsWith("//"))
-                            modlist.Add(new Mod(GetValueFromLine(line, false), MOD_INACTIVE));
+                            modlist.Add(new Mod(Program.GetValueFromLine(line, false), MOD_INACTIVE));
                         else
-                            modlist.Add(new Mod(GetValueFromLine(line, false), MOD_ACTIVE));
+                            modlist.Add(new Mod(Program.GetValueFromLine(line, false), MOD_ACTIVE));
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// This method gets a value from a line of text
-        /// </summary>
-        /// <param name="line"></param>
-        /// <param name="deleteModule"></param>
-        /// <returns>string</returns>
-        // TODO: there is 100% identical method in ModManagerForm!
-        private string GetValueFromLine(string line, bool deleteModule)
-        {
-            int indexOfEqualSigh = line.IndexOf('=');
-
-            if (indexOfEqualSigh > 0)
-            {
-                // Deleting all chars before equal sigh
-                line = line.Substring(indexOfEqualSigh + 1, line.Length - indexOfEqualSigh - 1);
-                
-                if (deleteModule)
-                    return line.Replace(" ", "").Replace(".module", "");
-                else
-                    return line.Replace(" ", "");
-            }
-            else
-                return "";
         }
 
         /// <summary>

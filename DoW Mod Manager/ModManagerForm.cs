@@ -8,6 +8,7 @@ using System.Security.Permissions;
 using System.Reflection;
 using System.Threading;
 using System.Runtime.CompilerServices;
+using System.Runtime;
 
 namespace DoW_Mod_Manager
 {
@@ -24,6 +25,7 @@ namespace DoW_Mod_Manager
         private const int IMAGE_FILE_LARGE_ADDRESS_AWARE = 0x20;
 
         private const string CONFIG_FILE_NAME = "DoW Mod Manager.ini";
+        private const string JIT_PROFILE_FILE_NAME = "DoW Mod Manager.JITProfile";
         private const string WARNINGS_LOG = "warnings.log";
 
         private const string CHOICE_INDEX = "ChoiceIndex";
@@ -63,9 +65,15 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// Initializes all the necessary components used by the GUI
         /// </summary>
+        // We need this PermissionSet because we are using FilesystemWatcher
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public ModManagerForm()
         {
+            // Defines where to store JIT profiles
+            ProfileOptimization.SetProfileRoot(CurrentDir);
+            // Enables Multicore JIT with the specified profile
+            ProfileOptimization.StartProfile(JIT_PROFILE_FILE_NAME);
+
             InitializeComponent();
 
             // Sets Title of the form to be the same as Assembly Name
@@ -558,7 +566,7 @@ namespace DoW_Mod_Manager
 
                     if (line.Contains("RequiredMod"))
                     {
-                        line = GetValueFromLine(line, false);
+                        line = Program.GetValueFromLine(line, false);
                         
                         requiredModsList.Items.Add(line);
                     }
@@ -567,30 +575,6 @@ namespace DoW_Mod_Manager
                 LoadModFoldersFromFile();
                 CheckforInstalledMods();
             }
-        }
-
-        /// <summary>
-        /// This method gets a value from a line of text
-        /// </summary>
-        /// <param name="line"></param>
-        /// <param name="deleteModule"></param>
-        /// <returns>string</returns>
-        private string GetValueFromLine(string line, bool deleteModule)
-        {
-            int indexOfEqualSigh = line.IndexOf('=');
-
-            if (indexOfEqualSigh > 0)
-            {
-                // Deleting all chars before equal sigh
-                line = line.Substring(indexOfEqualSigh + 1, line.Length - indexOfEqualSigh - 1);
-
-                if (deleteModule)
-                    return line.Replace(" ", "").Replace(".module", "");
-                else
-                    return line.Replace(" ", "");
-            }
-            else
-                return "";
         }
 
         /// <summary>
@@ -617,7 +601,7 @@ namespace DoW_Mod_Manager
                         while ((line = file.ReadLine()) != null)
                         {
                             if (line.Contains("ModFolder"))
-                                ModFolderPaths[i] = GetValueFromLine(line, true);
+                                ModFolderPaths[i] = Program.GetValueFromLine(line, true);
                         }
                     }
                 }
