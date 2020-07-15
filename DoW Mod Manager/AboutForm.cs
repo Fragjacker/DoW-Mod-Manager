@@ -5,16 +5,20 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using IWshRuntimeLibrary;
 
 namespace DoW_Mod_Manager
 {
     public partial class AboutForm : Form
     {
-        private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/IgorTheLight/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
+        private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/Fragjacker/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
 
-        private readonly string executableURL  = "https://github.com/IgorTheLight/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
+        private readonly string executableURL  = "https://github.com/Fragjacker/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
         private string executablePath = Directory.GetCurrentDirectory();
+        private string oldexecutablePath = "";
+        private string latestStringVersion = "";
 
         public AboutForm()
         {
@@ -25,6 +29,7 @@ namespace DoW_Mod_Manager
 
             pictureBox.Image = Icon.ToBitmap();
         }
+
         private void HomePageButton_Click(object sender, System.EventArgs e)
         {
             Process.Start("https://github.com/Fragjacker/DoW-Mod-Manager");
@@ -43,7 +48,7 @@ namespace DoW_Mod_Manager
             int currentVersion = Convert.ToInt32(currentStringVersion.Replace(".", ""));
 
             // Checking version mentioned in "version" file on github
-            string latestStringVersion = DownloadString(VERSION_TEXT_URL);
+            latestStringVersion = DownloadString(VERSION_TEXT_URL);
             if (latestStringVersion.Length == 0)
             {
                 ThemedMessageBox.Show("There is no data in \"version\" file on GitHub!", "Warning!");
@@ -63,6 +68,7 @@ namespace DoW_Mod_Manager
 
             if (currentVersion < latestVersion)
             {
+                oldexecutablePath = executablePath + $"\\DoW Mod Manager v{currentStringVersion}.exe";
                 executablePath += $"\\DoW Mod Manager v{latestStringVersion}.exe";
                 DownloadFile(executableURL, executablePath);
             }
@@ -70,7 +76,39 @@ namespace DoW_Mod_Manager
                 ThemedMessageBox.Show("You have the latest version!", "Good news!");
         }
 
-        public string DownloadString(string address)
+        /// <summary>
+        /// This method terminates the original program, deletes the old executable, starts the new app
+        /// and creates a new shortcut on the desktop for it.
+        /// This code was taken from https://www.codeproject.com/articles/31454/how-to-make-your-application-delete-itself-immedia.
+        /// </summary>
+        private void CleanupAndStartApp()
+        {
+            // Start new downloaded executable
+            Process.Start(executablePath);
+            // Delete the old executable after 3 seconds have passed using cmd!
+            Process.Start("cmd.exe", "/C choice /C Y /N /D Y /T 3 & Del \"" + oldexecutablePath + "\"");
+            CreateShortcut($"DoW Mod Manager v{latestStringVersion}");
+            Program.TerminateApp();
+        }
+
+        /// <summary>
+        /// This method creates a new shortcut of a newly created Mod Manager file!
+        /// </summary>
+        /// <param name="shortcutName"></param>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void CreateShortcut(string shortcutName)
+        {
+            string shortcutLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), shortcutName + ".lnk");
+            WshShell shell = new WshShell();
+            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
+
+            shortcut.Description = "The latest version of the DoW Mod Manager!";   // The description of the shortcut
+            shortcut.TargetPath = executablePath;                                  // The path of the file that will launch when the shortcut is run
+            shortcut.Save();                                                       // Save the shortcut
+        }
+
+        private string DownloadString(string address)
         {
             string str = "";
 
@@ -121,7 +159,7 @@ namespace DoW_Mod_Manager
             ThemedMessageBox.Show("Download completed!\nApplication will restart to take effect", "Good news!");
 
             Process.Start(executablePath);
-            Program.TerminateApp();
+            CleanupAndStartApp();
         }
 
         private void SpecialThanks1LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -6,7 +6,8 @@
 - If there is a missing mod - it will be selected so user could easily find it
 - All code has been refactored (where needed)
 - Optimization: refactored GetLoadedMods() method in ModMergerForm - it's x1.15 times faster! 0.86 ms vs 0.99 ms
-- Optimization: JIT compiler uses Profiler so it could use multiple threads now - ModManagerForm starts x1.27 times faster! 434 ms instead of 550 ms
+- Optimization: JIT compiler uses Profiler so it could use multiple threads now - ModManagerForm starts x1.27 times faster! 434 ms instead of 550 ms (It has to improve calculation speed in all parts of application!)
+- After downloading a new version, old version of DoW Mod Manager will be deleted and a new shortcut will be created on the user's Desktop (thanks, FragJacker!)
 - In ModMergerForm Mod.State is an enum now instead of a string. That may increase some operations and reduce memory usage
 - There is no more storing an unnecessary reference to a new Form when it's been created
 - Added annotations for all methods in ModManagerForm
