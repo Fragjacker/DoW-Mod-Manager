@@ -167,6 +167,9 @@ namespace DoW_Mod_Manager
 
             // Sets the focus to the mod list
             installedModsListBox.Select();
+
+            // Once all is done check for updates lastly.
+            DownloadHelper.SilentCheckForUpdates();
         }
 
         /// <summary>
