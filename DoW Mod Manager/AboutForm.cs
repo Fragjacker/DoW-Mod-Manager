@@ -13,10 +13,9 @@ namespace DoW_Mod_Manager
 {
     public partial class AboutForm : Form
     {
-        // !
-        private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/IgorTheLight/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
-        // !
-        private readonly string executableURL  = "https://github.com/IgorTheLight/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
+        private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/Fragjacker/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
+        private readonly string executableURL = "https://github.com/Fragjacker/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
+        
         private string executablePath = Directory.GetCurrentDirectory();
         private string oldexecutablePath = "";
         private string latestStringVersion = "";
@@ -77,38 +76,6 @@ namespace DoW_Mod_Manager
                 ThemedMessageBox.Show("You have the latest version!", "Good news!");
         }
 
-        /// <summary>
-        /// This method terminates the original program, deletes the old executable, starts the new app
-        /// and creates a new shortcut on the desktop for it.
-        /// This code was taken from https://www.codeproject.com/articles/31454/how-to-make-your-application-delete-itself-immedia.
-        /// </summary>
-        private void CleanupAndStartApp()
-        {
-            // Start new downloaded executable
-            Process.Start(executablePath);
-            // Delete the old executable after 3 seconds have passed using cmd!
-            Process.Start("cmd.exe", "/C choice /C Y /N /D Y /T 3 & Del \"" + oldexecutablePath + "\"");
-            CreateShortcut($"DoW Mod Manager v{latestStringVersion}");
-            Program.TerminateApp();
-        }
-
-        /// <summary>
-        /// This method creates a new shortcut of a newly created Mod Manager file!
-        /// </summary>
-        /// <param name="shortcutName"></param>
-        // Request the inlining of this method
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void CreateShortcut(string shortcutName)
-        {
-            string shortcutLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), shortcutName + ".lnk");
-            WshShell shell = new WshShell();
-            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
-
-            shortcut.Description = "The latest version of the DoW Mod Manager!";   // The description of the shortcut
-            shortcut.TargetPath = executablePath;                                  // The path of the file that will launch when the shortcut is run
-            shortcut.Save();                                                       // Save the shortcut
-        }
-
         private string DownloadString(string address)
         {
             string str = "";
@@ -159,9 +126,39 @@ namespace DoW_Mod_Manager
         {
             ThemedMessageBox.Show("Download completed!\nApplication will restart to take effect", "Good news!");
 
-            Process.Start(executablePath);
-            Program.TerminateApp();
             CleanupAndStartApp();
+        }
+
+        /// <summary>
+        /// This method terminates the original program, deletes the old executable, starts the new app
+        /// and creates a new shortcut on the desktop for it.
+        /// This code was taken from https://www.codeproject.com/articles/31454/how-to-make-your-application-delete-itself-immedia.
+        /// </summary>
+        private void CleanupAndStartApp()
+        {
+            // Start new downloaded executable
+            Process.Start(executablePath);
+            // Delete the old executable after 3 seconds have passed using cmd!
+            Process.Start("cmd.exe", "/C choice /C Y /N /D Y /T 3 & Del \"" + oldexecutablePath + "\"");
+            CreateShortcut($"DoW Mod Manager v{latestStringVersion}.lnk");
+            Program.TerminateApp();
+        }
+
+        /// <summary>
+        /// This method creates a new shortcut of a newly created Mod Manager file!
+        /// </summary>
+        /// <param name="shortcutName"></param>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void CreateShortcut(string shortcutName)
+        {
+            string shortcutLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), shortcutName);
+            WshShell shell = new WshShell();
+            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
+
+            shortcut.Description = "The latest version of the DoW Mod Manager!";
+            shortcut.TargetPath = executablePath;
+            shortcut.Save();
         }
 
         private void SpecialThanks1LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
