@@ -13,9 +13,10 @@ namespace DoW_Mod_Manager
 {
     public partial class AboutForm : Form
     {
-        private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/Fragjacker/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
-
-        private readonly string executableURL  = "https://github.com/Fragjacker/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
+        // !
+        private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/IgorTheLight/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
+        // !
+        private readonly string executableURL  = "https://github.com/IgorTheLight/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
         private string executablePath = Directory.GetCurrentDirectory();
         private string oldexecutablePath = "";
         private string latestStringVersion = "";
