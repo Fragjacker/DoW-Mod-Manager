@@ -112,7 +112,10 @@ namespace DoW_Mod_Manager
             nomoviesCheckBox.CheckedChanged += new EventHandler(NomoviesCheckBox_CheckedChanged);
             highpolyCheckBox.CheckedChanged += new EventHandler(HighpolyCheckBox_CheckedChanged);
             optimizationsCheckBox.CheckedChanged += new EventHandler(OptimizationsCheckBox_CheckedChanged);
-        }
+
+            // Once all is done check for updates lastly.
+            DownloadHelper.SilentCheckForUpdates();
+	}
 
         /// <summary>
         /// This method Read DoW Mod Manager.ini file and load settings in memory

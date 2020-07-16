@@ -36,13 +36,14 @@
             // 
             // messageLabel
             // 
-            this.messageLabel.AutoSize = true;
+            this.messageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.messageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.messageLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.messageLabel.Location = new System.Drawing.Point(10, 20);
-            this.messageLabel.Margin = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            this.messageLabel.Location = new System.Drawing.Point(10, 10);
+            this.messageLabel.Margin = new System.Windows.Forms.Padding(10);
             this.messageLabel.Name = "messageLabel";
-            this.messageLabel.Size = new System.Drawing.Size(28, 13);
+            this.messageLabel.Size = new System.Drawing.Size(273, 53);
             this.messageLabel.TabIndex = 0;
             this.messageLabel.Text = "Text";
             // 
@@ -52,7 +53,7 @@
             this.OKButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OKButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.OKButton.Location = new System.Drawing.Point(39, 58);
+            this.OKButton.Location = new System.Drawing.Point(93, 89);
             this.OKButton.Margin = new System.Windows.Forms.Padding(10, 10, 10, 14);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(106, 38);
@@ -66,17 +67,16 @@
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.OKButton, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.messageLabel, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.OKButton, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(184, 110);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(293, 141);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // MessageForm
@@ -85,19 +85,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.ClientSize = new System.Drawing.Size(184, 109);
+            this.ClientSize = new System.Drawing.Size(293, 141);
+            this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(199, 148);
+            this.MinimumSize = new System.Drawing.Size(199, 120);
             this.Name = "MessageForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
