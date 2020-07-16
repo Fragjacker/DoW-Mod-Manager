@@ -70,9 +70,9 @@ namespace DoW_Mod_Manager
         public ModManagerForm()
         {
             // Defines where to store JIT profiles
-            //ProfileOptimization.SetProfileRoot(CurrentDir);
+            ProfileOptimization.SetProfileRoot(CurrentDir);
             // Enables Multicore JIT with the specified profile
-            //ProfileOptimization.StartProfile(JIT_PROFILE_FILE_NAME);
+            ProfileOptimization.StartProfile(JIT_PROFILE_FILE_NAME);
 
             InitializeComponent();
 
@@ -112,7 +112,10 @@ namespace DoW_Mod_Manager
             nomoviesCheckBox.CheckedChanged += new EventHandler(NomoviesCheckBox_CheckedChanged);
             highpolyCheckBox.CheckedChanged += new EventHandler(HighpolyCheckBox_CheckedChanged);
             optimizationsCheckBox.CheckedChanged += new EventHandler(OptimizationsCheckBox_CheckedChanged);
-        }
+
+            // Once all is done check for updates lastly.
+            DownloadHelper.SilentCheckForUpdates();
+	}
 
         /// <summary>
         /// This method Read DoW Mod Manager.ini file and load settings in memory

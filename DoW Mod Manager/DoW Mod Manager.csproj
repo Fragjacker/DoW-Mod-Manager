@@ -56,6 +56,13 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DialogueForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogueForm.Designer.cs">
+      <DependentUpon>DialogueForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadHelper.cs" />
     <Compile Include="MessageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +105,9 @@
     <Compile Include="WinApiCalls.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogueForm.resx">
+      <DependentUpon>DialogueForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MessageForm.resx">
       <DependentUpon>MessageForm.cs</DependentUpon>
@@ -167,8 +177,4 @@
     </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
 </Project>
