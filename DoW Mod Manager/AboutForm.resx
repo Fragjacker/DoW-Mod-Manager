@@ -118,7 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="changelogTextBox.Text" xml:space="preserve">
-    <value>## Version 2.0.2:
+    <value>## Version 2.0.3:
+
+- Added a query on startup to ask the user to update the application if a new version is available.
+- Added code to create a new shortcut of the updated DoW Mod Manager version on the desktop after the application update has succeeded.
+- Added the feature that the old DoW Mod Manager version will be deleted after the update has finished.
+- Refactored code for easier access internally.
+
+## Version 2.0.2:
 
 - If there is a missing mod - it will be selected so user could easily find it
 - All code has been refactored (where needed)
