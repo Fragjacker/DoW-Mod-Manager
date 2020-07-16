@@ -3,6 +3,10 @@
 
 ## Version 2.0.2:
 
+- Optimization: changed modlist.Add() to a proper List initialization - it's x1.04 times faster. Yay? 2.7 ms vs 2.8 ms. At least it looks cleaner now.
+
+## Version 2.0.2:
+
 - If there is a missing mod - it will be selected so user could easily find it
 - All code has been refactored (where needed)
 - Optimization: refactored GetLoadedMods() method in ModMergerForm - it's x1.15 times faster! 0.86 ms vs 0.99 ms

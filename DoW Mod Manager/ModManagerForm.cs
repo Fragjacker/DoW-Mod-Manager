@@ -70,9 +70,9 @@ namespace DoW_Mod_Manager
         public ModManagerForm()
         {
             // Defines where to store JIT profiles
-            ProfileOptimization.SetProfileRoot(CurrentDir);
+            //ProfileOptimization.SetProfileRoot(CurrentDir);
             // Enables Multicore JIT with the specified profile
-            ProfileOptimization.StartProfile(JIT_PROFILE_FILE_NAME);
+            //ProfileOptimization.StartProfile(JIT_PROFILE_FILE_NAME);
 
             InitializeComponent();
 

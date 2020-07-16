@@ -35,7 +35,7 @@ namespace DoW_Mod_Manager
         private bool hasNoInactiveMods = false;
 
         /// <summary>
-        /// Creates the Form of the Mod Merger WIndows
+        /// Creates the Form of the Mod Merger Window
         /// </summary>
         /// <param name="Form"></param>
         public ModMergerForm(ModManagerForm Form)
