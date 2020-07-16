@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -42,9 +41,6 @@ namespace DoW_Mod_Manager
         /// <param name="moduleFileName"></param>
         public ModDownloaderForm(ModManagerForm form, string moduleFileName = "")
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            
             InitializeComponent();
 
             modManager = form;
@@ -890,21 +886,21 @@ namespace DoW_Mod_Manager
             findByModuleName = false;
             modListBox.Select();
 
-            sw.Stop();
-            MessageBox.Show(sw.Elapsed.ToString());
             // AddRange(new Mod()) 3.5 ms
             // Add(new Mod())      2.87 ms
             // { new Mod() }       2.7 ms
+            // AddRange() is the slowest? NANI? BAKANA! :-)
         }
 
         /// <summary>
         /// This method adds mods to the modlist based on what version of Dawn of War was detected
         /// </summary>
         // Request the inlining of this method
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void AddModsToTheModlist()
-        {
-        }
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //private void AddModsToTheModlist()
+        //{
+
+        //}
 
         private void OpenModDBButton_Click(object sender, EventArgs e)
         {

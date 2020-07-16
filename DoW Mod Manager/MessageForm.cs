@@ -19,7 +19,7 @@ namespace DoW_Mod_Manager
     }
 
     /// <summary>
-    /// Your custom message box helper.
+    /// A custom MessageBox helper.
     /// </summary>
     public static class ThemedMessageBox
     {

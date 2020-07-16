@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace DoW_Mod_Manager
@@ -16,6 +15,7 @@ namespace DoW_Mod_Manager
 
             pictureBox.Image = Icon.ToBitmap();
         }
+
         private void HomePageButton_Click(object sender, System.EventArgs e)
         {
             Process.Start("https://github.com/Fragjacker/DoW-Mod-Manager");
@@ -28,15 +28,8 @@ namespace DoW_Mod_Manager
 
         private void UpdateButton_Click(object sender, System.EventArgs e)
         {
-            DownloadHelper.CheckForUpdates();
+            DownloadHelper.CheckForUpdates(silently: false);
         }
-
-        //private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        //{
-        //    MessageBox.Show(e.ProgressPercentage + " %");
-        //}
-
-
 
         private void SpecialThanks1LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

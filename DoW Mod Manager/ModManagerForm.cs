@@ -107,15 +107,15 @@ namespace DoW_Mod_Manager
 
             // We have to add those methods to the EventHandler here so we could avoid accidental firing of those methods after we would change the state of the CheckBox
             requiredModsList.DrawItem += new DrawItemEventHandler(RequiredModsList_DrawItem);
-            
+
             devCheckBox.CheckedChanged += new EventHandler(DevCheckBox_CheckedChanged);
             nomoviesCheckBox.CheckedChanged += new EventHandler(NomoviesCheckBox_CheckedChanged);
             highpolyCheckBox.CheckedChanged += new EventHandler(HighpolyCheckBox_CheckedChanged);
             optimizationsCheckBox.CheckedChanged += new EventHandler(OptimizationsCheckBox_CheckedChanged);
 
             // Once all is done check for updates lastly.
-            DownloadHelper.SilentCheckForUpdates();
-	}
+            DownloadHelper.CheckForUpdates(silently: true);
+        }
 
         /// <summary>
         /// This method Read DoW Mod Manager.ini file and load settings in memory
@@ -570,7 +570,7 @@ namespace DoW_Mod_Manager
                     if (line.Contains("RequiredMod"))
                     {
                         line = Program.GetValueFromLine(line, false);
-                        
+
                         requiredModsList.Items.Add(line);
                     }
                 }

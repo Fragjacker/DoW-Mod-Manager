@@ -10,64 +10,64 @@ namespace DoW_Mod_Manager
 {
     class DownloadHelper
     {
-        private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/Fragjacker/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
-        private static readonly string executableURL = "https://github.com/Fragjacker/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
+        // ! Change link address back to master!
+        private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/Fragjacker/DoW-Mod-Manager/feature_test/DoW%20Mod%20Manager/LatestStable/version";
+        // ! Change link address back to master!
+        private static readonly string executableURL = "https://github.com/Fragjacker/DoW-Mod-Manager/raw/feature_test/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
 
         private static string executablePath = Directory.GetCurrentDirectory();
         private static string oldexecutablePath = "";
         private static string latestStringVersion = "";
-        private static string currentStringVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString().Remove(5);
-        private static int currentVersion = Convert.ToInt32(currentStringVersion.Replace(".", ""));
+        private static readonly string currentStringVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString().Remove(5);
+        private static readonly int currentVersion = Convert.ToInt32(currentStringVersion.Replace(".", ""));
 
-        public static void CheckForUpdates()
+        public static void CheckForUpdates(bool silently)
         {
             // Checking version mentioned in "version" file on github
             latestStringVersion = DownloadString(VERSION_TEXT_URL);
-            if (latestStringVersion.Length == 0)
-            {
-                ThemedMessageBox.Show("There is no data in \"version\" file on GitHub!", "Warning!");
-                return;
-            }
 
             int latestVersion;
-            try
+
+            // TODO: It would be a good idea to further differentiate between "true" and "false" branches
+            if (silently)
             {
-                latestVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
-            }
-            catch (Exception ex)
-            {
-                ThemedMessageBox.Show("There is something wrong with version number in \"version\" file on GitHub!\n" + ex.Message, "Warning!");
-                return;
-            }
-            if (currentVersion < latestVersion)
-            {
-                DownloadUpdate();
+                if (latestStringVersion.Length == 0)
+                    return;
+
+                try
+                {
+                    latestVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+
+                if (currentVersion < latestVersion)
+                    ThemedDialogueBox.Show($"The new DoW Mod Manager v{latestStringVersion} is available. Do you wish to update now?", "New update available");
             }
             else
-                ThemedMessageBox.Show("You have the latest version!", "Good news!");
-        }
+            {
+                if (latestStringVersion.Length == 0)
+                {
+                    ThemedMessageBox.Show("There is no data in \"version\" file on GitHub!", "Warning!");
+                    return;
+                }
 
-        public static void SilentCheckForUpdates()
-        {
-            // Checking version mentioned in "version" file on github
-            latestStringVersion = DownloadString(VERSION_TEXT_URL);
-            if (latestStringVersion.Length == 0)
-            {
-                return;
-            }
+                try
+                {
+                    latestVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
+                }
+                catch (Exception ex)
+                {
+                    ThemedMessageBox.Show("There is something wrong with version number in \"version\" file on GitHub!\n" + ex.Message, "Warning!");
+                    return;
+                }
 
-            int latestVersion;
-            try
-            {
-                latestVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
-            }
-            catch (Exception ex)
-            {
-                return;
-            }
-            if (currentVersion < latestVersion)
-            {
-                ThemedDialogueBox.Show($"The new DoW Mod Manager v{latestStringVersion} is available. Do you wish to update now?", "New update available");
+                if (currentVersion < latestVersion)
+                    DownloadUpdate();
+                else
+                    ThemedMessageBox.Show("You have the latest version!", "Good news!");
             }
         }
 
@@ -119,6 +119,11 @@ namespace DoW_Mod_Manager
             }
         }
 
+        //private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        //{
+        //    ThemedMessageBox.Show(e.ProgressPercentage + " %");
+        //}
+
         private static void Completed(object sender, AsyncCompletedEventArgs e)
         {
             ThemedMessageBox.Show("Download completed!\nApplication will restart to take effect", "Good news!");
@@ -126,7 +131,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function terminates the original program, deletes the old executable, starts the new app
+        /// This method terminates the original program, deletes the old executable, starts the new app
         /// and creates a new shortcut on the desktop for it.
         /// Delete code was taken from https://www.codeproject.com/articles/31454/how-to-make-your-application-delete-itself-immedia.
         /// </summary>
@@ -141,18 +146,18 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function creates a new shortcut of a newly created Mod Manager file!
+        /// This method creates a new shortcut of a newly created Mod Manager file!
         /// </summary>
         /// <param name="shortcutName"></param>
         private static void CreateShortcut(string shortcutName)
         {
-            string shortcutLocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), shortcutName + ".lnk");
+            string shortcutLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), shortcutName + ".lnk");
             WshShell shell = new WshShell();
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
 
-            shortcut.Description = $"The latest DoW Mod Manager v{latestStringVersion}";   // The description of the shortcut
-            shortcut.TargetPath = executablePath;                 // The path of the file that will launch when the shortcut is run
-            shortcut.Save();                                    // Save the shortcut
+            shortcut.Description = $"The latest DoW Mod Manager v{latestStringVersion}";
+            shortcut.TargetPath = executablePath;
+            shortcut.Save();
         }
     }
 }
