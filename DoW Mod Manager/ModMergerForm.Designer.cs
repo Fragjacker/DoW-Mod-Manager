@@ -150,7 +150,7 @@
             // 
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.buttonAdd.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.plus;
+            this.buttonAdd.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.plus_disabled;
             this.buttonAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
@@ -161,13 +161,14 @@
             this.AddModTooltip.SetToolTip(this.buttonAdd, "Adds selected mod from below to the above list of active mods to be loaded in-gam" +
         "e.");
             this.buttonAdd.UseVisualStyleBackColor = false;
+            this.buttonAdd.Enabled = false;
             this.buttonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // buttonRemove
             // 
             this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.buttonRemove.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.minus;
+            this.buttonRemove.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.minus_disabled;
             this.buttonRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
@@ -178,13 +179,14 @@
             this.RemoveModTooltip.SetToolTip(this.buttonRemove, "Remove selected mod from the list above and reinsert it to the list of available " +
         "Mods below.");
             this.buttonRemove.UseVisualStyleBackColor = false;
+            this.buttonRemove.Enabled = false;
             this.buttonRemove.Click += new System.EventHandler(this.ButtonRemove_Click);
             // 
             // buttonArrowUp
             // 
             this.buttonArrowUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonArrowUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.buttonArrowUp.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.arrow_up;
+            this.buttonArrowUp.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.arrow_up_disabled;
             this.buttonArrowUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonArrowUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonArrowUp.Location = new System.Drawing.Point(405, 55);
@@ -193,13 +195,14 @@
             this.buttonArrowUp.TabIndex = 6;
             this.ArrowUpTooltip.SetToolTip(this.buttonArrowUp, "Move selected Mod one row up in the sort order.");
             this.buttonArrowUp.UseVisualStyleBackColor = false;
+            this.buttonArrowUp.Enabled = false;
             this.buttonArrowUp.Click += new System.EventHandler(this.ButtonArrowUp_Click);
             // 
             // buttonArrowDown
             // 
             this.buttonArrowDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonArrowDown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.buttonArrowDown.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.arrow_down;
+            this.buttonArrowDown.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.arrow_down_disabled;
             this.buttonArrowDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonArrowDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonArrowDown.Location = new System.Drawing.Point(405, 107);
@@ -208,13 +211,14 @@
             this.buttonArrowDown.TabIndex = 6;
             this.ArrowDownTooltip.SetToolTip(this.buttonArrowDown, "Move selected Mod one row down in the sort order.");
             this.buttonArrowDown.UseVisualStyleBackColor = false;
+            this.buttonArrowDown.Enabled = false;
             this.buttonArrowDown.Click += new System.EventHandler(this.ButtonArrowDown_Click);
             // 
             // buttonActivate
             // 
             this.buttonActivate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonActivate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.buttonActivate.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.checkmark;
+            this.buttonActivate.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.checkmark_disabled;
             this.buttonActivate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonActivate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonActivate.Location = new System.Drawing.Point(405, 3);
@@ -223,13 +227,14 @@
             this.buttonActivate.TabIndex = 6;
             this.ActivationButtonTooltip.SetToolTip(this.buttonActivate, "Set selected Mod as active.");
             this.buttonActivate.UseVisualStyleBackColor = false;
+            this.buttonActivate.Enabled = false;
             this.buttonActivate.Click += new System.EventHandler(this.ButtonActivate_Click);
             // 
             // buttonDeactivate
             // 
             this.buttonDeactivate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDeactivate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.buttonDeactivate.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.cross;
+            this.buttonDeactivate.BackgroundImage = global::DoW_Mod_Manager.Properties.Resources.cross_disabled;
             this.buttonDeactivate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonDeactivate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDeactivate.Location = new System.Drawing.Point(405, 161);
@@ -239,6 +244,7 @@
             this.DeactivationButtonTooltip.SetToolTip(this.buttonDeactivate, "Set the selected Mod as inactive. That mod won\'t be loaded in-game but will stay " +
         "inside the module file for later possible activation.");
             this.buttonDeactivate.UseVisualStyleBackColor = false;
+            this.buttonDeactivate.Enabled = false;
             this.buttonDeactivate.Click += new System.EventHandler(this.ButtonDeactivate_Click);
             // 
             // loadedModBox

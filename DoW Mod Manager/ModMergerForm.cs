@@ -10,18 +10,14 @@ namespace DoW_Mod_Manager
 {
     public partial class ModMergerForm : Form
     {
-        //public enum ModState { Inactive, Active, Pending }
-
-        private const string MOD_ACTIVE = "Active";
-        private const string MOD_INACTIVE = "Inactive";
-        private const string MOD_PENDING = "Pending";
+        public enum ModState { Inactive, Active, Pending }
 
         public class Mod
         {
             public string Name;
-            public string State;
+            public ModState State;
 
-            public Mod(string name, string state)
+            public Mod(string name, ModState state)
             {
                 Name = name;
                 State = state;
@@ -53,83 +49,76 @@ namespace DoW_Mod_Manager
             // Use the same icon as executable
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            // Disable All buttons at first
-            DisableArrowDownButton();
-            DisableArrowUpButton();
-            DisableCheckmarkButton();
-            DisableCrossButton();
-            DisableMinusButton();
-            DisablePlusButton();
-
             // Disable the simpler textboxes
             UsedModsList.Enabled = false;
             AvailableModsList.Enabled = false;
         }
 
         /// <summary>
-        /// Gets all available Mods from the Mod Manager Form
-        /// </summary>
-        private void GetAvailableMods()
-        {
-            AvailableModsList.Items.Clear();
-            AvailableModsList.Items.AddRange(modManager.AllFoundModules.ToArray());
-        }
-
-        /// <summary>
         /// Gets all of the loadable Mods for the Dropdown list
         /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void GetLoadableMods()
         {
             loadedModBox.Items.Clear();
 
             int modCount = modManager.AllValidModules.Count;
-            string[] modsList = new string[modCount];
-
             for (int i = 0; i < modCount; i++)
             {
-                modsList[i] = modManager.AllValidModules[i];
+                loadedModBox.Items.Add(modManager.AllValidModules[i]);
             }
-
-            loadedModBox.Items.AddRange(modsList);
         }
 
+        /// <summary>
+        /// Gets all available Mods from the Mod Manager Form
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void GetAvailableMods()
+        {
+            AvailableModsList.Items.Clear();
+
+            AvailableModsList.Items.AddRange(modManager.AllFoundModules.ToArray());
+        }
+
+        /// <summary>
+        /// This method hides or reinserts last selected mod
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void HideOrReinsertLastSelectedMod()
         {
             if (lastItem != null && !AvailableModsList.Items.Contains(lastItem))
                 AvailableModsList.Items.Insert(lastDropDownItemIndex, lastItem);
-
-            lastItem = loadedModBox.SelectedItem;           //Stores the last selected item in order to reinsert it once the selection changes again.
+            
+            // Stores the last selected item in order to reinsert it once the selection changes again.
+            lastItem = loadedModBox.SelectedItem;
             lastDropDownItemIndex = AvailableModsList.Items.IndexOf(lastItem);
 
             AvailableModsList.Items.Remove(loadedModBox.SelectedItem);
         }
 
+        /// <summary>
+        /// This method draws all required mods from a list
+        /// </summary>
         private void DrawAllRequiredModsFromList()
         {
             UsedModsList.Items.Clear();
+
             SortInactiveModsToBottom();
 
             for (int i = 0; i < modlist.Count; i++)
             {
                 UsedModsList.Items.Add(modlist[i].Name + " ..." + modlist[i].State);
             }
+
             HideUnavailableMods();
         }
 
-        // Request the inlining of this method
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void HideUnavailableMods()
-        {
-            GetAvailableMods();                             // Get a Fresh new List everytime
-            HideOrReinsertLastSelectedMod();
-
-            for (int i = 0; i < modlist.Count; i++)
-            {
-                if (AvailableModsList.Items.Contains(modlist[i].Name))
-                    AvailableModsList.Items.Remove(modlist[i].Name);
-            }
-        }
-
+        /// <summary>
+        /// This method sorts all inactive mods to bottom
+        /// </summary>
         // Request the inlining of this method
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SortInactiveModsToBottom()
@@ -138,14 +127,35 @@ namespace DoW_Mod_Manager
 
             for (int i = 0; i < modlist.Count; i++)
             {
-                if (modlist[i].State.Equals(MOD_INACTIVE))
+                if (modlist[i].State.Equals(ModState.Inactive))
                 {
                     inactiveModsList.Add(modlist[i]);
                     modlist.RemoveAt(i);
-                    i--;                                    // Go one step Back to stay in place for enxt entry
+
+                    // Go one step Back to stay in place for next entry
+                    i--;
                 }
             }
             modlist.AddRange(inactiveModsList);
+        }
+
+        /// <summary>
+        /// This method hides all unavailable mods
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void HideUnavailableMods()
+        {
+            // Get a Fresh new List everytime
+            GetAvailableMods();
+
+            HideOrReinsertLastSelectedMod();
+
+            for (int i = 0; i < modlist.Count; i++)
+            {
+                if (AvailableModsList.Items.Contains(modlist[i].Name))
+                    AvailableModsList.Items.Remove(modlist[i].Name);
+            }
         }
 
         /// <summary>
@@ -156,56 +166,27 @@ namespace DoW_Mod_Manager
         private void GetActiveModsFromFile()
         {
             int index = loadedModBox.SelectedIndex;
-            string currentPath = modManager.ModuleFilePaths[index];
-            string line;
+            string currentModuleFilePath = modManager.ModuleFilePaths[index];
 
             modlist.Clear();
 
             // Read the file and display it line by line.
-            using (StreamReader file = new StreamReader(currentPath))
+            using (StreamReader file = new StreamReader(currentModuleFilePath))
             {
+                string line;
+
                 // Populate the Required Mods List with entries from the .module file
                 while ((line = file.ReadLine()) != null)
                 {
                     if (line.Contains("RequiredMod"))
-                        modlist.Add(new Mod(GetValueFromLine(line, false), IsModRequired(line)));
+                    {
+                        if (line.StartsWith(";;") || line.StartsWith("//"))
+                            modlist.Add(new Mod(Program.GetValueFromLine(line, false), ModState.Inactive));
+                        else
+                            modlist.Add(new Mod(Program.GetValueFromLine(line, false), ModState.Active));
+                    }
                 }
             }
-        }
-
-        // Request the inlining of this method
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private string GetValueFromLine(string line, bool deleteModule)
-        {
-            int indexOfEqual = line.IndexOf('=');
-
-            if (indexOfEqual > 0)
-            {
-                line = line.Substring(indexOfEqual + 1, line.Length - indexOfEqual - 1);
-                if (deleteModule)
-                    return line.Replace(" ", "").Replace(".module", "");
-                else
-                    return line.Replace(" ", "");
-            }
-            else
-                return "";
-        }
-
-        // Request the inlining of this method
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private string IsModRequired(string modName)
-        {
-            const string pattern = "RequiredMod";
-            const string patternCommented1 = ";;";
-            const string patternCommented2 = "--";
-            const string patternCommented3 = "//";
-
-            if (modName.Contains(pattern))
-                return MOD_ACTIVE;
-            if (modName.StartsWith(patternCommented1) || modName.StartsWith(patternCommented2) || modName.StartsWith(patternCommented3))
-                return MOD_INACTIVE;
-
-            return MOD_INACTIVE;
         }
 
         /// <summary>
@@ -213,7 +194,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void UsedModsList_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e)
+        private void UsedModsList_DrawItem(object sender, DrawItemEventArgs e)
         {
             // Draw the background of the ListBox control for each item.
             e.DrawBackground();
@@ -223,13 +204,13 @@ namespace DoW_Mod_Manager
             //This switch accesses the Mod Struct and gets the current State of the selected Mod
             switch (modlist[e.Index].State)
             {
-                case MOD_ACTIVE:
+                case ModState.Active:
                     myBrush = Brushes.Green;
                     break;
-                case MOD_INACTIVE:
+                case ModState.Inactive:
                     myBrush = Brushes.Red;
                     break;
-                case MOD_PENDING:
+                case ModState.Pending:
                     myBrush = Brushes.Orange;
                     break;
                 default:
@@ -242,14 +223,16 @@ namespace DoW_Mod_Manager
             e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(),
                                   e.Font,
                                   myBrush,
-                                  e.Bounds,
-                                  StringFormat.GenericDefault);
+                                  e.Bounds);
 
             // If the ListBox has focus, draw a focus rectangle 
             // around the selected item.
             e.DrawFocusRectangle();
         }
 
+        /// <summary>
+        /// This method enables Plus Button (buttonAdd)
+        /// </summary>
         // Request the inlining of this method
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnablePlusButton()
@@ -259,6 +242,11 @@ namespace DoW_Mod_Manager
             buttonAdd.BackgroundImage = Image.FromStream(myStream);
         }
 
+        /// <summary>
+        /// This method disables Plus Button (buttonAdd)
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void DisablePlusButton()
         {
             buttonAdd.Enabled = false;
@@ -266,6 +254,9 @@ namespace DoW_Mod_Manager
             buttonAdd.BackgroundImage = Image.FromStream(myStream);
         }
 
+        /// <summary>
+        /// This method enables minus Button (buttonRemove)
+        /// </summary>
         // Request the inlining of this method
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnableMinusButton()
@@ -275,6 +266,11 @@ namespace DoW_Mod_Manager
             buttonRemove.BackgroundImage = Image.FromStream(myStream);
         }
 
+        /// <summary>
+        /// This method disables minus Button (buttonRemove)
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void DisableMinusButton()
         {
             buttonRemove.Enabled = false;
@@ -282,6 +278,9 @@ namespace DoW_Mod_Manager
             buttonRemove.BackgroundImage = Image.FromStream(myStream);
         }
 
+        /// <summary>
+        /// This method enables Checkmark Button (buttonActivate)
+        /// </summary>
         // Request the inlining of this method
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnableCheckmarkButton()
@@ -291,6 +290,11 @@ namespace DoW_Mod_Manager
             buttonActivate.BackgroundImage = Image.FromStream(myStream);
         }
 
+        /// <summary>
+        /// This method disables Checkmark Button (buttonActivate)
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void DisableCheckmarkButton()
         {
             buttonActivate.Enabled = false;
@@ -298,6 +302,11 @@ namespace DoW_Mod_Manager
             buttonActivate.BackgroundImage = Image.FromStream(myStream);
         }
 
+        /// <summary>
+        /// This method enables Cross Button (buttonDeactivate)
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnableCrossButton()
         {
             buttonDeactivate.Enabled = true;
@@ -305,6 +314,11 @@ namespace DoW_Mod_Manager
             buttonDeactivate.BackgroundImage = Image.FromStream(myStream);
         }
 
+        /// <summary>
+        /// This method disables Cross Button (buttonDeactivate)
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void DisableCrossButton()
         {
             buttonDeactivate.Enabled = false;
@@ -312,6 +326,9 @@ namespace DoW_Mod_Manager
             buttonDeactivate.BackgroundImage = Image.FromStream(myStream);
         }
 
+        /// <summary>
+        /// This method enables ArrowUp Button (buttonArrowUp)
+        /// </summary>
         // Request the inlining of this method
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnableArrowUpButton()
@@ -321,6 +338,11 @@ namespace DoW_Mod_Manager
             buttonArrowUp.BackgroundImage = Image.FromStream(myStream);
         }
 
+        /// <summary>
+        /// This method disables ArrowUp Button (buttonArrowUp)
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void DisableArrowUpButton()
         {
             buttonArrowUp.Enabled = false;
@@ -328,6 +350,9 @@ namespace DoW_Mod_Manager
             buttonArrowUp.BackgroundImage = Image.FromStream(myStream);
         }
 
+        /// <summary>
+        /// This method enables ArrowDown Button (buttonArrowDown)
+        /// </summary>
         // Request the inlining of this method
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnableArrowDownButton()
@@ -337,6 +362,11 @@ namespace DoW_Mod_Manager
             buttonArrowDown.BackgroundImage = Image.FromStream(myStream);
         }
 
+        /// <summary>
+        /// This method disables ArrowDown Button (buttonArrowDown)
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void DisableArrowDownButton()
         {
             buttonArrowDown.Enabled = false;
@@ -344,6 +374,9 @@ namespace DoW_Mod_Manager
             buttonArrowDown.BackgroundImage = Image.FromStream(myStream);
         }
 
+        /// <summary>
+        /// This method swaps top and bottom mods up
+        /// </summary>
         private void ButtonArrowUp_Click(object sender, EventArgs e)
         {
             Mod topItem, bottomItem;
@@ -370,6 +403,9 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This method swaps top and bottom mods down
+        /// </summary>
         private void ButtonArrowDown_Click(object sender, EventArgs e)
         {
             Mod topItem, bottomItem;
@@ -399,15 +435,18 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This method saves changes to the *.module file
+        /// </summary>
         private void ButtonSaveFile_Click(object sender, EventArgs e)
         {
             string filePath = modManager.ModuleFilePaths[loadedModBox.SelectedIndex];
-            string modString;
-            string line;
             List<string> listOfMods = new List<string>();
 
             using (StreamReader sr = new StreamReader(filePath))
             {
+                string line;
+
                 // Populate the Required Mods List with entries from the .module file
                 while ((line = sr.ReadLine()) != null && !line.Contains("RequiredMod"))
                 {
@@ -415,19 +454,24 @@ namespace DoW_Mod_Manager
                 }
             }
 
-            // Write more info into the list of text
+            string modString = "";
+
+            // Write more info into the list of mods
             for (int i = 0; i < modlist.Count; i++)
             {
-                if (modlist[i].State.Equals(MOD_ACTIVE))
+                switch (modlist[i].State)
                 {
-                    modString = "RequiredMod." + (i + 1) + " = " + modlist[i].Name;
-                    listOfMods.Add(modString);
+                    case ModState.Active:
+                        break;
+                    case ModState.Inactive:
+                        modString = "//";
+                        break;
+                    case ModState.Pending:
+                        break;
                 }
-                if (modlist[i].State.Equals(MOD_INACTIVE))
-                {
-                    modString = "//RequiredMod." + (i + 1) + " = " + modlist[i].Name;
-                    listOfMods.Add(modString);
-                }
+
+                modString += "RequiredMod." + (i + 1) + " = " + modlist[i].Name;
+                listOfMods.Add(modString);
             }
 
             // Finally write the stuff
@@ -450,97 +494,106 @@ namespace DoW_Mod_Manager
             ThemedMessageBox.Show("Module file changes were successfully applied!", "Saving successful");
         }
 
+        /// <summary>
+        /// This method activates mod
+        /// </summary>
         private void ButtonActivate_Click(object sender, EventArgs e)
         {
-            int lastSelectedIndex = 0;
+            int lastSelectedIndex;
 
             // Get the currently selected element from the Used Mods List
-            int selection = UsedModsList.SelectedIndex;
+            int currentIndex = UsedModsList.SelectedIndex;
 
-            if (selection != -1)
-            {
-                // Toggle it to be active
-                SetModState(selection, MOD_ACTIVE);
-                lastSelectedIndex = UsedModsList.SelectedIndex;
-            }
-            else if (selection == -1)
+            if (currentIndex == -1)
             {
                 lastSelectedIndex = 0;
                 UsedModsList.SelectedIndex = lastSelectedIndex;
+            }
+            else
+            {
+                // Toggle it to be active
+                SetModState(currentIndex, ModState.Active);
+                lastSelectedIndex = UsedModsList.SelectedIndex;
             }
 
             // Redraw the List of Items
             DrawAllRequiredModsFromList();
 
             // Reselect Elements at the last place
-            if (ModlistContainsNoActiveMods())
+            if (DoesModlistContainsNoActiveMods())
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
                 EnableCrossButton();
             }
-            if (ModlistContainsNoInactiveMods())
+            if (DoesModlistContainsNoInactiveMods())
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
                 DisableCheckmarkButton();
             }
-            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == MOD_ACTIVE)
+            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Active)
                 UsedModsList.SelectedIndex = lastSelectedIndex;
-            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == MOD_INACTIVE)
+            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Inactive)
                 UsedModsList.SelectedIndex = lastSelectedIndex;
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != MOD_ACTIVE)
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != ModState.Active)
                 UsedModsList.SelectedIndex = lastSelectedIndex + 1;
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == MOD_ACTIVE)
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Active)
                 UsedModsList.SelectedIndex = lastSelectedIndex + 1;
         }
 
+        /// <summary>
+        /// This method deactivates mod
+        /// </summary>
         private void ButtonDeactivate_Click(object sender, EventArgs e)
         {
-            int lastSelectedIndex = 0;
+            int lastSelectedIndex;
 
             // Get the currently selected element from the Used Mods List
-            int selection = UsedModsList.SelectedIndex;
+            int currentIndex = UsedModsList.SelectedIndex;
 
-            if (selection != -1)
+            if (currentIndex == 1)
+            {
+                lastSelectedIndex = 0;
+                UsedModsList.SelectedIndex = lastSelectedIndex;
+            }
+            else
             {
                 // Store last position
                 lastSelectedIndex = UsedModsList.SelectedIndex;
 
                 // Toggle it to be inactive
-                if (selection == 0 && modlist[1].State == MOD_INACTIVE)
+                if (currentIndex == 0 && modlist[1].State == ModState.Inactive)
                 {
-                    SetModState(selection, MOD_ACTIVE);
+                    SetModState(currentIndex, ModState.Active);
                     DisableCrossButton();
                 }
                 else
-                    SetModState(selection, MOD_INACTIVE);
-            }
-            else if (selection == 1)
-            {
-                lastSelectedIndex = 0;
-                UsedModsList.SelectedIndex = lastSelectedIndex;
+                    SetModState(currentIndex, ModState.Inactive);
             }
 
             // Redraw the List of Items
             DrawAllRequiredModsFromList();
 
             // Reselect Elements at the last place
-            if (ModlistContainsNoActiveMods())
+            if (DoesModlistContainsNoActiveMods())
             {
                 UsedModsList.SelectedIndex = lastSelectedIndex;
                 DisableCrossButton();
             }
-            if (ModlistContainsNoInactiveMods())
+            if (DoesModlistContainsNoInactiveMods())
                 UsedModsList.SelectedIndex = lastSelectedIndex;
-            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == MOD_INACTIVE)
+            if (lastSelectedIndex == (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Inactive)
                 UsedModsList.SelectedIndex = lastSelectedIndex - 1;
-            if (lastSelectedIndex == 0 && modlist[lastSelectedIndex + 1].State == MOD_INACTIVE)
+            if (lastSelectedIndex == 0 && modlist[lastSelectedIndex + 1].State == ModState.Inactive)
                 UsedModsList.SelectedIndex = lastSelectedIndex;
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != MOD_INACTIVE)
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State != ModState.Inactive)
                 UsedModsList.SelectedIndex = lastSelectedIndex;
-            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == MOD_INACTIVE)
+            else if (lastSelectedIndex < (UsedModsList.Items.Count - 1) && modlist[lastSelectedIndex].State == ModState.Inactive)
                 UsedModsList.SelectedIndex = lastSelectedIndex - 1;
         }
 
+        /// <summary>
+        /// This method adds a mod
+        /// </summary>
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
             int lastSelectedIndex = 0;
@@ -552,7 +605,7 @@ namespace DoW_Mod_Manager
                 lastSelectedIndex = AvailableModsList.SelectedIndex;
 
                 // Add the Mod to the selection of used Mods
-                modlist.Add(new Mod(newMod, MOD_ACTIVE));
+                modlist.Add(new Mod(newMod, ModState.Active));
             }
 
             // TODO: Make new Mods be pending again on beeing Added
@@ -570,17 +623,20 @@ namespace DoW_Mod_Manager
                 DisablePlusButton();
         }
 
+        /// <summary>
+        /// This method removes a mod
+        /// </summary>
         private void ButtonRemove_Click(object sender, EventArgs e)
         {
             int lastSelectedIndex = 0;
 
             // Get the new addable Mod candidate
-            int delMod = UsedModsList.SelectedIndex;
+            int modIndexToDelete = UsedModsList.SelectedIndex;
 
-            if (delMod != -1)
+            if (modIndexToDelete != -1)
             {
                 // Add the Mod to the selection of used Mods
-                modlist.RemoveAt(delMod);
+                modlist.RemoveAt(modIndexToDelete);
                 lastSelectedIndex = UsedModsList.SelectedIndex;
             }
 
@@ -602,13 +658,17 @@ namespace DoW_Mod_Manager
             }
         }
 
-        private bool ModlistContainsNoInactiveMods()
+        /// <summary>
+        /// This method checks if modList contains Inactive mods or not
+        /// </summary>
+        /// <returns>bool</returns>
+        private bool DoesModlistContainsNoInactiveMods()
         {
             hasNoInactiveMods = true;
 
             for (int i = 0; i < modlist.Count; i++)
             {
-                if (modlist[i].State == MOD_INACTIVE)
+                if (modlist[i].State == ModState.Inactive)
                 {
                     hasNoInactiveMods = false;
                     break;
@@ -618,13 +678,17 @@ namespace DoW_Mod_Manager
             return hasNoInactiveMods;
         }
 
-        private bool ModlistContainsNoActiveMods()
+        /// <summary>
+        /// This method checks if modList contains Active mods or not
+        /// </summary>
+        /// <returns>bool</returns>
+        private bool DoesModlistContainsNoActiveMods()
         {
             hasNoActiveMods = true;
 
             for (int i = 0; i < modlist.Count; i++)
             {
-                if (modlist[i].State == MOD_ACTIVE)
+                if (modlist[i].State == ModState.Active)
                 {
                     hasNoActiveMods = false;
                     break;
@@ -634,15 +698,20 @@ namespace DoW_Mod_Manager
             return hasNoActiveMods;
         }
 
-        private void SetModState(int count, string state)
+        /// <summary>
+        /// This method sets the state of a mod in a modList
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="state"></param>
+        private void SetModState(int index, ModState state)
         {
             // Use this if Mod is a class
-            modlist[count].State = state;
+            modlist[index].State = state;
 
             // Use this if Mod is a struct
-            //Mod currentMod = modlist[count];
+            //Mod currentMod = modlist[index];
             //currentMod.State = state;
-            //modlist[count] = currentMod;
+            //modlist[index] = currentMod;
         }
 
         /// <summary>
@@ -651,8 +720,8 @@ namespace DoW_Mod_Manager
         private void LoadedModBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             GetActiveModsFromFile();
-            ModlistContainsNoActiveMods();
-            ModlistContainsNoInactiveMods();
+            DoesModlistContainsNoActiveMods();
+            DoesModlistContainsNoInactiveMods();
 
             if (modlist.Count != 0)
             {
@@ -669,9 +738,13 @@ namespace DoW_Mod_Manager
                 GetAvailableMods();
                 HideOrReinsertLastSelectedMod();
             }
+
             ReselectLastItems();
         }
 
+        /// <summary>
+        /// Changes selected used mod
+        /// </summary>
         private void UsedModsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (UsedModsList.SelectedItem != null)
@@ -680,25 +753,26 @@ namespace DoW_Mod_Manager
                 EnableMinusButton();
                 EnableArrowUpButton();
                 EnableArrowDownButton();
+
                 lastUsedModIndex = UsedModsList.SelectedIndex;
                 AvailableModsList.ClearSelected();
                 lastAvailableModIndex = -1;
 
-                // This activates/deactivates that Buttons to toggle Mods active/inactive depending if there's only Active or only Inactive Mods Left
-                if (modlist[UsedModsList.SelectedIndex].State.Equals(MOD_INACTIVE))
+                // This activates/deactivates Buttons that toggles Mods active/inactive depending if there's only Active or only Inactive Mods Left
+                if (modlist[UsedModsList.SelectedIndex].State.Equals(ModState.Inactive))
                 {
                     EnableCheckmarkButton();
                     DisableCrossButton();
                 }
                 if (modlist.Count > 1)
                 {
-                    if (UsedModsList.SelectedIndex == 0 && modlist[UsedModsList.SelectedIndex + 1].State.Equals(MOD_INACTIVE) && modlist[UsedModsList.SelectedIndex].State.Equals(MOD_ACTIVE))
+                    if (UsedModsList.SelectedIndex == 0 && modlist[UsedModsList.SelectedIndex + 1].State.Equals(ModState.Inactive) && modlist[UsedModsList.SelectedIndex].State.Equals(ModState.Active))
                     {
                         DisableCheckmarkButton();
                         DisableCrossButton();
                         DisableMinusButton();
                     }
-                    else if (modlist[UsedModsList.SelectedIndex].State.Equals(MOD_ACTIVE))
+                    else if (modlist[UsedModsList.SelectedIndex].State.Equals(ModState.Active))
                     {
                         DisableCheckmarkButton();
                         EnableCrossButton();
@@ -706,7 +780,7 @@ namespace DoW_Mod_Manager
                 }
                 else if (modlist.Count == 1)
                 {
-                    if (modlist[UsedModsList.SelectedIndex].State.Equals(MOD_ACTIVE))
+                    if (modlist[UsedModsList.SelectedIndex].State.Equals(ModState.Active))
                     {
                         DisableCheckmarkButton();
                         DisableCrossButton();
@@ -716,6 +790,9 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// Changes selected availabe mod
+        /// </summary>
         private void AvailableModsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (AvailableModsList.SelectedItem != null)
@@ -726,6 +803,7 @@ namespace DoW_Mod_Manager
                 DisableArrowUpButton();
                 DisableArrowDownButton();
                 DisableCrossButton();
+
                 lastAvailableModIndex = AvailableModsList.SelectedIndex;
                 UsedModsList.ClearSelected();
                 lastUsedModIndex = -1;
@@ -733,13 +811,14 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function reselects the last selected available mod, used mod and loaded mod.
+        /// This method reselects the last selected available mod, used mod and loaded mod.
         /// </summary>
         private void ReselectLastItems() 
         {
             // Safety checks for the mods list since they can change in size during runtime
             int numAvailableMods = AvailableModsList.Items.Count;
             int numLoadedMods = UsedModsList.Items.Count;
+
             if (lastAvailableModIndex != -1 && numAvailableMods > 0)
             {
                 if (lastAvailableModIndex < numAvailableMods)
