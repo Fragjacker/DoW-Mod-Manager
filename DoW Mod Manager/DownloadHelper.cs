@@ -10,10 +10,8 @@ namespace DoW_Mod_Manager
 {
     class DownloadHelper
     {
-        // ! Change link address back to master!
-        private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/Fragjacker/DoW-Mod-Manager/feature_test/DoW%20Mod%20Manager/LatestStable/version";
-        // ! Change link address back to master!
-        private static readonly string executableURL = "https://github.com/Fragjacker/DoW-Mod-Manager/raw/feature_test/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
+        private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/Fragjacker/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
+        private static readonly string executableURL = "https://github.com/Fragjacker/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
 
         private static string executablePath = Directory.GetCurrentDirectory();
         private static string oldexecutablePath = "";

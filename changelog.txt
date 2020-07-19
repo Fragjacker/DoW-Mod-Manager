@@ -1,7 +1,7 @@
 # Changelog
-(All changes in 1.53 - 2.0.2 were made by IgorTheLight, excluding patch 1.6.1 and 2.0.3)
+(All changes in 1.53 - 2.0.3 were made by IgorTheLight, excluding patch 1.6.1 and 2.0.3)
 
-## Version 2.0.2:
+## Version 2.0.3:
 
 - Added a query on startup to ask the user to update the application if a new version is available.
 - Added code to create a new shortcut of the updated DoW Mod Manager version on the desktop after the application update has succeeded.
