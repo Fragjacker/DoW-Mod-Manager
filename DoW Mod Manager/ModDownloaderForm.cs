@@ -54,453 +54,6 @@ namespace DoW_Mod_Manager
             {
                 popularModsLabel.Text += "Soulstorm:";
 
-                //modlist.Add(new Mod("Adeptus Mechanicus: Explorators mod   (Version RC 1.1)",
-                //    "AdeptusMechanicus",
-                //    "https://www.moddb.com/mods/adeptus-mechanicus",
-                //    "https://www.moddb.com/downloads/start/122435?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fadeptus-mechanicus%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Black Templars - No Remorse! No Fear!   (Version Beta 5 + Patch 5.5.022)",
-                //    "BTmod",
-                //    "https://www.moddb.com/mods/black-templars-kaurava-crusade",
-                //    "https://www.moddb.com/downloads/start/47751?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fblack-templars-kaurava-crusade%2Fdownloads",
-                //    "https://www.moddb.com/downloads/start/93653?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fblack-templars-kaurava-crusade%2Fdownloads"));
-
-                //modlist.Add(new Mod("Blood Angels mod: By the Blood of Sanguinius!   (Version Beta 1.98)",
-                //    "Blood_Angels_SS",
-                //    "https://www.moddb.com/mods/stevocarty",
-                //    "https://www.moddb.com/downloads/start/103615?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fstevocarty%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Chaos Daemons Mod   (Version 2.0)",
-                //    "Chaos_Daemons",
-                //    "https://www.moddb.com/mods/daemons-mod",
-                //    "https://www.moddb.com/downloads/start/93757?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fdaemons-mod%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("CornCobMan\'s Fun Mod   (Version 1.88.4)",
-                //    "CornCobMod",
-                //    "https://www.moddb.com/mods/corncobmans-fun-mod-for-soulstorm",
-                //    "https://www.moddb.com/downloads/start/196666?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fcorncobmans-fun-mod-for-soulstorm%2Fdownloads",
-                //    "https://www.moddb.com/downloads/start/196743?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fcorncobmans-fun-mod-for-soulstorm%2Fdownloads"));
-
-                //modlist.Add(new Mod("Dark Angels mod: Repent! For tomorrow you die!   (Version 4.0)",
-                //    "Dark_Angels",
-                //    "https://www.moddb.com/mods/dark-angels-mod",
-                //    "https://www.moddb.com/downloads/start/179584?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fdark-angels-mod%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Dawn Of Skirmish AI Mod   (Version 3.20)",
-                //    "dowai",
-                //    "https://www.moddb.com/mods/black-templars-kaurava-crusade/downloads/dawn-of-skirmish-ai-mod-v320-for-dowsoulstorm",
-                //    "https://www.moddb.com/downloads/start/96961?referer=https%3A%2F%2Fwww.google.com%2F",
-                //    ""));
-
-                //modlist.Add(new Mod("Dawn of War: Strongholds   (Version 1.7.0 + Patch 1.7.6)",
-                //    "stronghold_missions_ss",
-                //    "https://www.moddb.com/mods/soulstorm-strongholds",
-                //    "https://www.moddb.com/downloads/start/136305?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fsoulstorm-strongholds%2Fdownloads",
-                //    "https://www.moddb.com/downloads/start/195179?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fsoulstorm-strongholds%2Fdownloads"));
-
-                //modlist.Add(new Mod("DoWPro   (Version 3.69.4)",
-                //    "DoWpro",
-                //    "https://www.moddb.com/mods/dowpro",
-                //    "https://www.moddb.com/downloads/start/182958?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fdowpro%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("DoW40k: Firestorm over Kaurava   (Version 2)",
-                //    "DoW40k_SS",
-                //    "https://www.moddb.com/mods/dawn-of-warhammer-40k-firestorm-over-kronus",
-                //    "https://www.moddb.com/downloads/start/82196?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fdawn-of-warhammer-40k-firestorm-over-kronus%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Emperor\'s Children mod:For the Glory of Slaanesh!   (Version 1.3)",
-                //    "Emperors_Children",
-                //    "https://www.moddb.com/mods/emperors-children-modfor-the-glory-of-slaanesh",
-                //    "https://www.moddb.com/downloads/start/178558?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Femperors-children-modfor-the-glory-of-slaanesh%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("FreeUI mod  (Version 2.46)",
-                //    "FreeUI",
-                //    "https://www.moddb.com/mods/unification-mod-dawn-of-war-soulstorm/downloads/freeui",
-                //    "https://www.moddb.com/downloads/start/132081?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Funification-mod-dawn-of-war-soulstorm%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Hard_mod   (Version 0.0.2)",
-                //    "BaMod",
-                //    "https://www.moddb.com/mods/hard-mod",
-                //    "https://www.moddb.com/downloads/start/174556?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fhard-mod%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("HD Dawn Of War   (Version 1.0.0)",
-                //    "",
-                //    "https://www.moddb.com/mods/sister-of-battle-hd-retextures-by-leonardgoog",
-                //    "https://www.moddb.com/downloads/start/63755?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fsister-of-battle-hd-retextures-by-leonardgoog%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Imperial Fists   (Version 3.0)",
-                //    "Imperial_Fists",
-                //    "https://www.moddb.com/mods/imperial-fists",
-                //    "https://www.moddb.com/downloads/start/196897?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fimperial-fists%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Inquisition: Daemonhunt   (Version 3.5)",
-                //    "Inquisition_Daemonhunt",
-                //    "https://www.moddb.com/mods/daemonhunters-mod",
-                //    "https://www.moddb.com/downloads/start/177251?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fdaemonhunters-mod%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Legion of the Damned mod: In dedicato imperatum!   (Version Beta 0.666 + Patch 0.7)",
-                //    "LotD",
-                //    "https://www.moddb.com/mods/legion-of-the-damned-modification-for-soulstorm",
-                //    "https://www.moddb.com/downloads/start/108154?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Flegion-of-the-damned-modification-for-soulstorm%2Fdownloads",
-                //    "https://www.moddb.com/downloads/start/122434?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Flegion-of-the-damned-modification-for-soulstorm%2Fdownloads"));
-
-                //modlist.Add(new Mod("Men of Praetoria   (Version Beta 0.8)",
-                //    "Praetorian_mod",
-                //    "https://www.moddb.com/mods/men-of-praetoria",
-                //    "https://www.moddb.com/downloads/start/116144?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fmen-of-praetoria%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Night Lords mod: We have come for you!   (Version 0.7.29)",
-                //    "Night_Lords",
-                //    "https://www.moddb.com/mods/night-lords-modification-for-soulstorm",
-                //    "https://www.moddb.com/downloads/start/140247?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fnight-lords-modification-for-soulstorm%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Objective Points SS   (Version 17.4.2020)",
-                //    "objective_points_SS",
-                //    "https://www.moddb.com/mods/unification-mod-dawn-of-war-soulstorm/downloads/objective-points-ss-v1742020-for-dowdc-and-dowss",
-                //    "https://www.moddb.com/downloads/start/192702?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Funification-mod-dawn-of-war-soulstorm%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("RAGE:World Eaters Warbands   (Version 2.0 + Patch 2.15)",
-                //    "RAGE",
-                //    "https://www.moddb.com/mods/rage-world-eaters-warband",
-                //    "https://www.moddb.com/downloads/start/101179?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Frage-world-eaters-warband%2Fdownloads",
-                //    "https://www.moddb.com/downloads/start/101765?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Frage-world-eaters-warband%2Fdownloads"));
-
-                //modlist.Add(new Mod("Redux Mod   (Version Beta 0.9 + Patch 0.9.3)",
-                //    "Redux",
-                //    "https://www.moddb.com/mods/eranthis-project",
-                //    "https://www.moddb.com/downloads/start/190876?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Feranthis-project%2Fdownloads",
-                //    "https://www.moddb.com/downloads/start/195426?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Feranthis-project%2Fdownloads"));
-
-                //modlist.Add(new Mod("Renegade Guard   (Version 0.93)",
-                //    "Renegade_Guard",
-                //    "https://www.moddb.com/mods/renegade-guard",
-                //    "https://www.moddb.com/downloads/start/135315?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Frenegade-guard%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Salamanders mod REFORGED: Unto the Anvil of War!   (Version 2.0 + Patch 2.01)",
-                //    "Salamanders",
-                //    "https://www.moddb.com/mods/salamanders-mod-for-soulstorm",
-                //    "https://www.moddb.com/downloads/start/184518?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fsalamanders-mod-for-soulstorm%2Fdownloads",
-                //    "https://www.moddb.com/downloads/start/184624?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fsalamanders-mod-for-soulstorm%2Fdownloads"));
-
-                //modlist.Add(new Mod("Space Wolves   (Version 0.77)",
-                //    "Space_Wolves",
-                //    "https://www.moddb.com/mods/space-wolves",
-                //    "https://www.moddb.com/downloads/start/189241?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fspace-wolves%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Steel Legion - Armageddon   (Version 1.0 + SimplePatch)",
-                //    "Steel_Legions_SS",
-                //    "https://www.moddb.com/mods/steel-legion-armageddon",
-                //    "http://www.mediafire.com/?etfl8eu94mkmbyk",
-                //    "http://www.mediafire.com/file/ec7st9hj8lnry7h/Steel_Legions_SS_1.0_Simple+Patch.rar"));
-
-                //modlist.Add(new Mod("Soulstorm Bugfix Mod   (Version 1.56)",
-                //    "Bugfix",
-                //    "https://www.moddb.com/mods/soulstorm-bugfix-mod",
-                //    "https://www.moddb.com/downloads/start/124372?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fsoulstorm-bugfix-mod%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Tartarus and Lorn V Campaigns for Soulstorm   (Version 3 + Patch 3.1)",
-                //    "CampaignMissions",
-                //    "https://www.moddb.com/mods/tartarus-and-lorn-v-campaigns-for-soulstorm",
-                //    "https://www.moddb.com/downloads/start/170256?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Ftartarus-and-lorn-v-campaigns-for-soulstorm%2Fdownloads",
-                //    "https://www.moddb.com/downloads/start/170654?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Ftartarus-and-lorn-v-campaigns-for-soulstorm%2Fdownloads"));
-
-                //modlist.Add(new Mod("The Dance Macabre - Harlequins Mod   (Version 2.4)",
-                //    "TheDanceMacabre",
-                //    "https://www.moddb.com/mods/the-dance-macabre-harlequins-mod-for-soulstorm",
-                //    "https://www.moddb.com/downloads/start/181447?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fthe-dance-macabre-harlequins-mod-for-soulstorm%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Thirteenth Company Mod   (Version 0.22)",
-                //    "thirteenth_company_mod",
-                //    "https://www.moddb.com/mods/thirteenth-company-mod-for-dawn-of-war-soulstorm",
-                //    "https://www.moddb.com/downloads/start/176576?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fthirteenth-company-mod-for-dawn-of-war-soulstorm%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Thousand Sons mod: Knowledge Is Power!   (Version 2.0)",
-                //    "Thousand_Sons",
-                //    "https://www.moddb.com/mods/thousand-sons-mod",
-                //    "https://www.moddb.com/downloads/start/116283?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fthousand-sons-mod%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Titanium Wars Mod for Soulstorm   (Version 1.00.27)",
-                //    "TitaniumWars_SS",
-                //    "https://www.moddb.com/mods/titanium-wars-mod-ss",
-                //    "https://rutracker.org/forum/dl.php?t=4859187",
-                //    ""));
-
-                //modlist.Add(new Mod("Tyranid Mod   (Version Beta 0.5b2)",
-                //    "Tyranids",
-                //    "https://www.moddb.com/mods/tyranid-mod",
-                //    "https://www.moddb.com/downloads/start/46895?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Ftyranid-mod%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Unification Mod   (Version 4.68)",
-                //    "Unification_New_Races",
-                //    "https://www.moddb.com/mods/unification-mod-dawn-of-war-soulstorm",
-                //    "https://www.moddb.com/downloads/start/132080?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Funification-mod-dawn-of-war-soulstorm%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Ultimate Apocalypse Mod   (Version 1.88.731)",
-                //    "UltimateApocalypse_THB",
-                //    "https://www.moddb.com/mods/ultimate-apocalypse-mod",
-                //    "https://www.moddb.com/downloads/start/192014?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fultimate-apocalypse-mod%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Vostroyan Firstborn Modification for Soulstorm   (Version 1.23)",
-                //    "Vostroyan_Firstborn",
-                //    "https://www.moddb.com/mods/vostroyan-firstborn-modification-for-soulstorm",
-                //    "https://www.moddb.com/downloads/start/127232?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fvostroyan-firstborn-modification-for-soulstorm%2Fdownloads",
-                //    ""));
-
-                //modlist.Add(new Mod("Witch Hunters: Adepta Sororitas   (Version 2.6)",
-                //    "Witch_Hunters",
-                //    "https://www.moddb.com/mods/witch-hunters-mod-for-soulstorm",
-                //    "https://www.moddb.com/downloads/start/177550?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fwitch-hunters-mod-for-soulstorm%2Fdownloads",
-                //    ""));
-
-                //modlist.AddRange(new[]
-                //{
-                //    new Mod("Adeptus Mechanicus: Explorators mod   (Version RC 1.1)",
-                //            "AdeptusMechanicus",
-                //            "https://www.moddb.com/mods/adeptus-mechanicus",
-                //            "https://www.moddb.com/downloads/start/122435?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fadeptus-mechanicus%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Black Templars - No Remorse! No Fear!   (Version Beta 5 + Patch 5.5.022)",
-                //            "BTmod",
-                //            "https://www.moddb.com/mods/black-templars-kaurava-crusade",
-                //            "https://www.moddb.com/downloads/start/47751?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fblack-templars-kaurava-crusade%2Fdownloads",
-                //            "https://www.moddb.com/downloads/start/93653?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fblack-templars-kaurava-crusade%2Fdownloads"),
-
-                //    new Mod("Blood Angels mod: By the Blood of Sanguinius!   (Version Beta 1.98)",
-                //            "Blood_Angels_SS",
-                //            "https://www.moddb.com/mods/stevocarty",
-                //            "https://www.moddb.com/downloads/start/103615?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fstevocarty%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Chaos Daemons Mod   (Version 2.0)",
-                //            "Chaos_Daemons",
-                //            "https://www.moddb.com/mods/daemons-mod",
-                //            "https://www.moddb.com/downloads/start/93757?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fdaemons-mod%2Fdownloads",
-                //            ""),
-
-                //    new Mod("CornCobMan\'s Fun Mod   (Version 1.88.4)",
-                //            "CornCobMod",
-                //            "https://www.moddb.com/mods/corncobmans-fun-mod-for-soulstorm",
-                //            "https://www.moddb.com/downloads/start/196666?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fcorncobmans-fun-mod-for-soulstorm%2Fdownloads",
-                //            "https://www.moddb.com/downloads/start/196743?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fcorncobmans-fun-mod-for-soulstorm%2Fdownloads"),
-
-                //    new Mod("Dark Angels mod: Repent! For tomorrow you die!   (Version 4.0)",
-                //            "Dark_Angels",
-                //            "https://www.moddb.com/mods/dark-angels-mod",
-                //            "https://www.moddb.com/downloads/start/179584?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fdark-angels-mod%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Dawn Of Skirmish AI Mod   (Version 3.20)",
-                //            "dowai",
-                //            "https://www.moddb.com/mods/black-templars-kaurava-crusade/downloads/dawn-of-skirmish-ai-mod-v320-for-dowsoulstorm",
-                //            "https://www.moddb.com/downloads/start/96961?referer=https%3A%2F%2Fwww.google.com%2F",
-                //            ""),
-
-                //    new Mod("Dawn of War: Strongholds   (Version 1.7.0 + Patch 1.7.6)",
-                //            "stronghold_missions_ss",
-                //            "https://www.moddb.com/mods/soulstorm-strongholds",
-                //            "https://www.moddb.com/downloads/start/136305?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fsoulstorm-strongholds%2Fdownloads",
-                //            "https://www.moddb.com/downloads/start/195179?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fsoulstorm-strongholds%2Fdownloads"),
-
-                //    new Mod("DoWPro   (Version 3.69.4)",
-                //            "DoWpro",
-                //            "https://www.moddb.com/mods/dowpro",
-                //            "https://www.moddb.com/downloads/start/182958?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fdowpro%2Fdownloads",
-                //            ""),
-
-                //    new Mod("DoW40k: Firestorm over Kaurava   (Version 2)",
-                //            "DoW40k_SS",
-                //            "https://www.moddb.com/mods/dawn-of-warhammer-40k-firestorm-over-kronus",
-                //            "https://www.moddb.com/downloads/start/82196?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fdawn-of-warhammer-40k-firestorm-over-kronus%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Emperor\'s Children mod:For the Glory of Slaanesh!   (Version 1.3)",
-                //            "Emperors_Children",
-                //            "https://www.moddb.com/mods/emperors-children-modfor-the-glory-of-slaanesh",
-                //            "https://www.moddb.com/downloads/start/178558?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Femperors-children-modfor-the-glory-of-slaanesh%2Fdownloads",
-                //            ""),
-
-                //    new Mod("FreeUI   (Version 2.46)",
-                //            "FreeUI",
-                //            "https://www.moddb.com/mods/unification-mod-dawn-of-war-soulstorm/downloads/freeui",
-                //            "https://www.moddb.com/downloads/start/132081?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Funification-mod-dawn-of-war-soulstorm%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Hard_mod   (Version 0.0.2)",
-                //            "BaMod",
-                //            "https://www.moddb.com/mods/hard-mod",
-                //            "https://www.moddb.com/downloads/start/174556?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fhard-mod%2Fdownloads",
-                //            ""),
-
-                //    new Mod("HD Dawn Of War   (Version 1.0.0)",
-                //            "",
-                //            "https://www.moddb.com/mods/sister-of-battle-hd-retextures-by-leonardgoog",
-                //            "https://www.moddb.com/downloads/start/63755?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fsister-of-battle-hd-retextures-by-leonardgoog%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Imperial Fists   (Version 3.0)",
-                //            "Imperial_Fists",
-                //            "https://www.moddb.com/mods/imperial-fists",
-                //            "https://www.moddb.com/downloads/start/196897?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fimperial-fists%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Inquisition: Daemonhunt   (Version 3.5)",
-                //            "Inquisition_Daemonhunt",
-                //            "https://www.moddb.com/mods/daemonhunters-mod",
-                //            "https://www.moddb.com/downloads/start/177251?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fdaemonhunters-mod%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Legion of the Damned mod: In dedicato imperatum!   (Version Beta 0.666 + Patch 0.7)",
-                //            "LotD",
-                //            "https://www.moddb.com/mods/legion-of-the-damned-modification-for-soulstorm",
-                //            "https://www.moddb.com/downloads/start/108154?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Flegion-of-the-damned-modification-for-soulstorm%2Fdownloads",
-                //            "https://www.moddb.com/downloads/start/122434?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Flegion-of-the-damned-modification-for-soulstorm%2Fdownloads"),
-
-                //    new Mod("Men of Praetoria   (Version Beta 0.8)",
-                //            "Praetorian_mod",
-                //            "https://www.moddb.com/mods/men-of-praetoria",
-                //            "https://www.moddb.com/downloads/start/116144?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fmen-of-praetoria%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Night Lords mod: We have come for you!   (Version 0.7.29)",
-                //            "Night_Lords",
-                //            "https://www.moddb.com/mods/night-lords-modification-for-soulstorm",
-                //            "https://www.moddb.com/downloads/start/140247?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fnight-lords-modification-for-soulstorm%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Objective Points SS   (Version 17.4.2020)",
-                //            "objective_points_SS",
-                //            "https://www.moddb.com/mods/unification-mod-dawn-of-war-soulstorm/downloads/objective-points-ss-v1742020-for-dowdc-and-dowss",
-                //            "https://www.moddb.com/downloads/start/192702?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Funification-mod-dawn-of-war-soulstorm%2Fdownloads",
-                //            ""),
-
-                //    new Mod("RAGE:World Eaters Warbands   (Version 2.0 + Patch 2.15)",
-                //            "RAGE",
-                //            "https://www.moddb.com/mods/rage-world-eaters-warband",
-                //            "https://www.moddb.com/downloads/start/101179?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Frage-world-eaters-warband%2Fdownloads",
-                //            "https://www.moddb.com/downloads/start/101765?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Frage-world-eaters-warband%2Fdownloads"),
-
-                //    new Mod("Redux Mod   (Version Beta 0.9 + Patch 0.9.3)",
-                //            "Redux",
-                //            "https://www.moddb.com/mods/eranthis-project",
-                //            "https://www.moddb.com/downloads/start/190876?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Feranthis-project%2Fdownloads",
-                //            "https://www.moddb.com/downloads/start/195426?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Feranthis-project%2Fdownloads"),
-
-                //    new Mod("Renegade Guard   (Version 0.93)",
-                //            "Renegade_Guard",
-                //            "https://www.moddb.com/mods/renegade-guard",
-                //            "https://www.moddb.com/downloads/start/135315?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Frenegade-guard%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Salamanders mod REFORGED: Unto the Anvil of War!   (Version 2.0 + Patch 2.01)",
-                //            "Salamanders",
-                //            "https://www.moddb.com/mods/salamanders-mod-for-soulstorm",
-                //            "https://www.moddb.com/downloads/start/184518?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fsalamanders-mod-for-soulstorm%2Fdownloads",
-                //            "https://www.moddb.com/downloads/start/184624?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fsalamanders-mod-for-soulstorm%2Fdownloads"),
-
-                //    new Mod("Space Wolves   (Version 0.77)",
-                //            "Space_Wolves",
-                //            "https://www.moddb.com/mods/space-wolves",
-                //            "https://www.moddb.com/downloads/start/189241?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fspace-wolves%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Steel Legion - Armageddon   (Version 1.0 + SimplePatch)",
-                //            "Steel_Legions_SS",
-                //            "https://www.moddb.com/mods/steel-legion-armageddon",
-                //            "http://www.mediafire.com/?etfl8eu94mkmbyk",
-                //            "http://www.mediafire.com/file/ec7st9hj8lnry7h/Steel_Legions_SS_1.0_Simple+Patch.rar"),
-
-                //    new Mod("Soulstorm Bugfix Mod   (Version 1.56)",
-                //            "Bugfix",
-                //            "https://www.moddb.com/mods/soulstorm-bugfix-mod",
-                //            "https://www.moddb.com/downloads/start/124372?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fsoulstorm-bugfix-mod%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Tartarus and Lorn V Campaigns for Soulstorm   (Version 3 + Patch 3.1)",
-                //            "CampaignMissions",
-                //            "https://www.moddb.com/mods/tartarus-and-lorn-v-campaigns-for-soulstorm",
-                //            "https://www.moddb.com/downloads/start/170256?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Ftartarus-and-lorn-v-campaigns-for-soulstorm%2Fdownloads",
-                //            "https://www.moddb.com/downloads/start/170654?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Ftartarus-and-lorn-v-campaigns-for-soulstorm%2Fdownloads"),
-
-                //    new Mod("The Dance Macabre - Harlequins Mod   (Version 2.4)",
-                //            "TheDanceMacabre",
-                //            "https://www.moddb.com/mods/the-dance-macabre-harlequins-mod-for-soulstorm",
-                //            "https://www.moddb.com/downloads/start/181447?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fthe-dance-macabre-harlequins-mod-for-soulstorm%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Thirteenth Company Mod   (Version 0.22)",
-                //            "thirteenth_company_mod",
-                //            "https://www.moddb.com/mods/thirteenth-company-mod-for-dawn-of-war-soulstorm",
-                //            "https://www.moddb.com/downloads/start/176576?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fthirteenth-company-mod-for-dawn-of-war-soulstorm%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Thousand Sons mod: Knowledge Is Power!   (Version 2.0)",
-                //            "Thousand_Sons",
-                //            "https://www.moddb.com/mods/thousand-sons-mod",
-                //            "https://www.moddb.com/downloads/start/116283?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fthousand-sons-mod%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Titanium Wars Mod for Soulstorm   (Version 1.00.27)",
-                //            "TitaniumWars_SS",
-                //            "https://www.moddb.com/mods/titanium-wars-mod-ss",
-                //            "https://rutracker.org/forum/dl.php?t=4859187",
-                //            ""),
-
-                //    new Mod("Tyranid Mod   (Version Beta 0.5b2)",
-                //            "Tyranids",
-                //            "https://www.moddb.com/mods/tyranid-mod",
-                //            "https://www.moddb.com/downloads/start/46895?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Ftyranid-mod%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Unification Mod   (Version 4.68)",
-                //            "Unification_New_Races",
-                //            "https://www.moddb.com/mods/unification-mod-dawn-of-war-soulstorm",
-                //            "https://www.moddb.com/downloads/start/132080?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Funification-mod-dawn-of-war-soulstorm%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Ultimate Apocalypse Mod   (Version 1.88.731)",
-                //            "UltimateApocalypse_THB",
-                //            "https://www.moddb.com/mods/ultimate-apocalypse-mod",
-                //            "https://www.moddb.com/downloads/start/192014?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fultimate-apocalypse-mod%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Vostroyan Firstborn Modification for Soulstorm   (Version 1.23)",
-                //            "Vostroyan_Firstborn",
-                //            "https://www.moddb.com/mods/vostroyan-firstborn-modification-for-soulstorm",
-                //            "https://www.moddb.com/downloads/start/127232?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fvostroyan-firstborn-modification-for-soulstorm%2Fdownloads",
-                //            ""),
-
-                //    new Mod("Witch Hunters: Adepta Sororitas   (Version 2.6)",
-                //            "Witch_Hunters",
-                //            "https://www.moddb.com/mods/witch-hunters-mod-for-soulstorm",
-                //            "https://www.moddb.com/downloads/start/177550?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fwitch-hunters-mod-for-soulstorm%2Fdownloads",
-                //            "")
-                //});
-
                 modlist = new List<Mod>()
                 {
                     new Mod("Adeptus Mechanicus: Explorators mod   (Version RC 1.1)",
@@ -893,20 +446,16 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method adds mods to the modlist based on what version of Dawn of War was detected
+        /// This method opens the ModDB.com web page
         /// </summary>
-        // Request the inlining of this method
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //private void AddModsToTheModlist()
-        //{
-
-        //}
-
         private void OpenModDBButton_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.moddb.com/games/dawn-of-war/mods?sort=rating-desc");
         }
 
+        /// <summary>
+        /// This method opens selected mod web page
+        /// </summary>
         private void OpenModPageButton_Click(object sender, EventArgs e)
         {
             if (modListBox.SelectedItem == null)
@@ -924,6 +473,9 @@ namespace DoW_Mod_Manager
                 Process.Start(siteAddress);
         }
 
+        /// <summary>
+        /// This method downloads selected mod
+        /// </summary>
         private void DownloadModButton_Click(object sender, EventArgs e)
         {
             if (modListBox.SelectedItem == null)
@@ -951,6 +503,9 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This method reatcs to changes in searchTextBox.Text
+        /// </summary>
         private void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
             modListBox.Items.Clear();
@@ -990,6 +545,9 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This method reatcs to changes in searchTextBox.Focused
+        /// </summary>
         private void SearchTextBox_Enter(object sender, EventArgs e)
         {
             if (searchTextBox.Text == SEARCH_TEXT)
@@ -999,6 +557,9 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This method reatcs to changes in searchTextBox.Focused
+        /// </summary>
         private void SearchTextBox_Leave(object sender, EventArgs e)
         {
             if (searchTextBox.Text == "")

@@ -1,5 +1,13 @@
 # Changelog
-(All changes in 1.53 - 2.0.3 were made by IgorTheLight, excluding patch 1.6.1 and 2.0.3)
+(All changes in 1.53 - 2.0.4 were made by IgorTheLight, excluding patch 1.6.1 and 2.0.3)
+
+## Version 2.0.4:
+
+- Deleted all unused code and added descriptions to all methods in ModDownloaderForm
+- added descriptions to all methods in SettingsManagerForm
+- Optimization: all checkboxes and trackbars are not triggered when initialized (in SettingsManagerForm) - it's x1.2 times faster! 42.7 ms vs 51.1 ms
+- Optimization: changed string to StringBuilder() in SaveButton_Click() method  (in SettingsManagerForm) - it's x1.125 faster! 4.0 ms vs 4.5 ms
+- Optimization: changed string to StringBuilder() in ModManagerForm_Closing() method  (in ModManagerForm) - it's x1.09 faster! 4.3 ms vs 4.7 ms
 
 ## Version 2.0.3:
 

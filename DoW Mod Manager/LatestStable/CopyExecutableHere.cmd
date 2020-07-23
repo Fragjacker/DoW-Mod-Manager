@@ -1,5 +1,5 @@
 del *.exe
-cd ..
+PUSHD ..
 copy bin\Release\*.exe LatestStable\
-cd LatestStable
+POPD
 rename *.exe "DoW Mod Manager.exe"

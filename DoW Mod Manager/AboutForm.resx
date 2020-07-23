@@ -118,7 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="changelogTextBox.Text" xml:space="preserve">
-    <value> ## Version 2.0.3:
+    <value> ## Version 2.0.4:
+
+- Deleted all unused code and added descriptions to all methods in ModDownloaderForm
+- added descriptions to all methods in SettingsManagerForm
+- Optimization: all checkboxes and trackbars are not triggered when initialized (in SettingsManagerForm) - it's x1.2 times faster! 42.7 ms vs 51.1 ms
+- Optimization: changed string to StringBuilder() in SaveButton_Click() method  (in SettingsManagerForm) - it's x1.125 faster! 4.0 ms vs 4.5 ms
+- Optimization: changed string to StringBuilder() in ModManagerForm_Closing() method  (in ModManagerForm) - it's x1.09 faster! 4.3 ms vs 4.7 ms
+    
+## Version 2.0.3:
 
 - Added a query on startup to ask the user to update the application if a new version is available.
 - Added code to create a new shortcut of the updated DoW Mod Manager version on the desktop after the application update has succeeded.

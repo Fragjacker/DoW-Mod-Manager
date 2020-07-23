@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Threading;
 using System.Runtime.CompilerServices;
 using System.Runtime;
+using System.Text;
 
 namespace DoW_Mod_Manager
 {
@@ -69,6 +70,8 @@ namespace DoW_Mod_Manager
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public ModManagerForm()
         {
+            // Enable Multithreaded JIT compilation. It's a bad idea to use it with AOT compilation
+            // So: Singethreaded JIT compilation < Multithreaded JIT compilation < AOT compilation < Native code (we don't have this option)
             // Defines where to store JIT profiles
             ProfileOptimization.SetProfileRoot(CurrentDir);
             // Enables Multicore JIT with the specified profile
@@ -113,7 +116,7 @@ namespace DoW_Mod_Manager
             highpolyCheckBox.CheckedChanged += new EventHandler(HighpolyCheckBox_CheckedChanged);
             optimizationsCheckBox.CheckedChanged += new EventHandler(OptimizationsCheckBox_CheckedChanged);
 
-            // Once all is done check for updates lastly.
+            // Once all is done check for updates.
             DownloadHelper.CheckForUpdates(silently: true);
         }
 
@@ -471,12 +474,14 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
-            string str = $"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n" +
-                         $"{DEV}={settings[DEV]}\n" +
-                         $"{NO_MOVIES}={settings[NO_MOVIES]}\n" +
-                         $"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n" +
-                         $"{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}";
-            File.WriteAllText(CONFIG_FILE_NAME, str);
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n");
+            sb.Append($"{DEV}={settings[DEV]}\n");
+            sb.Append($"{NO_MOVIES}={settings[NO_MOVIES]}\n");
+            sb.Append($"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n");
+            sb.Append($"{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}");
+
+            File.WriteAllText(CONFIG_FILE_NAME, sb.ToString());
 
             // If Timer Resolution was lowered we have to keep DoW Mod Manager alive or Timer Resolution will be reset
             if (IsTimerResolutionLowered)
