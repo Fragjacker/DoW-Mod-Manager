@@ -3,6 +3,7 @@
 
 ## Version 2.0.4:
 
+- Added ability to disable autoupdates in DoW Mod Manager.ini
 - Deleted all unused code and added descriptions to all methods in ModDownloaderForm
 - added descriptions to all methods in SettingsManagerForm
 - Optimization: all checkboxes and trackbars are not triggered when initialized (in SettingsManagerForm) - it's x1.2 times faster! 42.7 ms vs 51.1 ms

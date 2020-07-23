@@ -34,6 +34,7 @@ namespace DoW_Mod_Manager
         public const string NO_MOVIES = "NoMovies";
         public const string FORCE_HIGH_POLY = "ForceHighPoly";
         public const string OPTIMIZATIONS = "Optimizations";
+        public const string AUTOUPDATE = "Autoupdate";
 
         // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the FilePaths is installed or not.
         private bool[] isInstalled;
@@ -60,7 +61,8 @@ namespace DoW_Mod_Manager
             [DEV] = 0,
             [NO_MOVIES] = 1,
             [FORCE_HIGH_POLY] = 0,
-            [OPTIMIZATIONS] = 0
+            [OPTIMIZATIONS] = 0,
+            [AUTOUPDATE] = 1
         };
 
         /// <summary>
@@ -89,7 +91,11 @@ namespace DoW_Mod_Manager
 
             ReselectSavedMod();
 
-            InitializeGUIWithSettings();
+            // Initialize checkboxes with settings
+            devCheckBox.Checked = settings[DEV] == 1;
+            nomoviesCheckBox.Checked = settings[NO_MOVIES] == 1;
+            highpolyCheckBox.Checked = settings[FORCE_HIGH_POLY] == 1;
+            optimizationsCheckBox.Checked = settings[OPTIMIZATIONS] == 1;
 
             CurrentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
@@ -116,8 +122,11 @@ namespace DoW_Mod_Manager
             highpolyCheckBox.CheckedChanged += new EventHandler(HighpolyCheckBox_CheckedChanged);
             optimizationsCheckBox.CheckedChanged += new EventHandler(OptimizationsCheckBox_CheckedChanged);
 
-            // Once all is done check for updates.
-            DownloadHelper.CheckForUpdates(silently: true);
+            if (settings[AUTOUPDATE] == 1)
+            {
+                // Once all is done check for updates.
+                DownloadHelper.CheckForUpdates(silently: true);
+            }
         }
 
         /// <summary>
@@ -155,26 +164,39 @@ namespace DoW_Mod_Manager
                                 value = 0;
                             }
 
-                            // TODO: Maybe change "if-else" to "switch"?
-                            if (setting == CHOICE_INDEX)
+                            switch (setting)
                             {
-                                if (value >= 0)
-                                    settings[setting] = value;
-                                else
-                                    settings[setting] = 0;
-                            }
-
-                            if (setting == DEV || setting == NO_MOVIES || setting == FORCE_HIGH_POLY || setting == OPTIMIZATIONS)
-                            {
-                                if (value == 0 || value == 1)
-                                    settings[setting] = value;
-                                else
-                                {
-                                    if (value > 1)
-                                        settings[setting] = 1;
+                                case CHOICE_INDEX:
+                                    if (value >= 0)
+                                        settings[setting] = value;
                                     else
                                         settings[setting] = 0;
-                                }
+                                    break;
+                                case DEV:
+                                case NO_MOVIES:
+                                case FORCE_HIGH_POLY:
+                                case OPTIMIZATIONS:
+                                    if (value == 0 || value == 1)
+                                        settings[setting] = value;
+                                    else
+                                    {
+                                        if (value > 1)
+                                            settings[setting] = 1;
+                                        else
+                                            settings[setting] = 0;
+                                    }
+                                    break;
+                                case AUTOUPDATE:
+                                    if (value == 0 || value == 1)
+                                        settings[setting] = value;
+                                    else
+                                    {
+                                        if (value > 1)
+                                            settings[setting] = 1;
+                                        else
+                                            settings[setting] = 0;
+                                    }
+                                    break;
                             }
                         }
                     }
@@ -195,35 +217,6 @@ namespace DoW_Mod_Manager
                 installedModsListBox.SelectedIndex = index;
             else
                 installedModsListBox.SelectedIndex = installedModsListBox.Items.Count - 1;
-        }
-
-        /// <summary>
-        /// This method Initializes all checkboxes with settings from a Dictionaty
-        /// </summary>
-        /// <returns>string</returns>
-        // Request the inlining of this method
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void InitializeGUIWithSettings()
-        {
-            if (Convert.ToBoolean(settings[DEV]))
-                devCheckBox.Checked = true;
-            else
-                devCheckBox.Checked = false;
-
-            if (Convert.ToBoolean(settings[NO_MOVIES]))
-                nomoviesCheckBox.Checked = true;
-            else
-                nomoviesCheckBox.Checked = false;
-
-            if (Convert.ToBoolean(settings[FORCE_HIGH_POLY]))
-                highpolyCheckBox.Checked = true;
-            else
-                highpolyCheckBox.Checked = false;
-
-            if (Convert.ToBoolean(settings[OPTIMIZATIONS]))
-                optimizationsCheckBox.Checked = true;
-            else
-                optimizationsCheckBox.Checked = false;
         }
 
         /// <summary>
@@ -479,7 +472,8 @@ namespace DoW_Mod_Manager
             sb.Append($"{DEV}={settings[DEV]}\n");
             sb.Append($"{NO_MOVIES}={settings[NO_MOVIES]}\n");
             sb.Append($"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n");
-            sb.Append($"{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}");
+            sb.Append($"{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}\n");
+            sb.Append($"{AUTOUPDATE}={settings[AUTOUPDATE]}");
 
             File.WriteAllText(CONFIG_FILE_NAME, sb.ToString());
 
@@ -574,7 +568,7 @@ namespace DoW_Mod_Manager
 
                     if (line.Contains("RequiredMod"))
                     {
-                        line = Program.GetValueFromLine(line, false);
+                        line = Program.GetValueFromLine(line, deleteModule: false);
 
                         requiredModsList.Items.Add(line);
                     }
@@ -609,7 +603,7 @@ namespace DoW_Mod_Manager
                         while ((line = file.ReadLine()) != null)
                         {
                             if (line.Contains("ModFolder"))
-                                ModFolderPaths[i] = Program.GetValueFromLine(line, true);
+                                ModFolderPaths[i] = Program.GetValueFromLine(line, deleteModule: true);
                         }
                     }
                 }

@@ -120,12 +120,13 @@
   <data name="changelogTextBox.Text" xml:space="preserve">
     <value> ## Version 2.0.4:
 
+- Added ability to disable autoupdates in DoW Mod Manager.ini
 - Deleted all unused code and added descriptions to all methods in ModDownloaderForm
 - added descriptions to all methods in SettingsManagerForm
 - Optimization: all checkboxes and trackbars are not triggered when initialized (in SettingsManagerForm) - it's x1.2 times faster! 42.7 ms vs 51.1 ms
 - Optimization: changed string to StringBuilder() in SaveButton_Click() method  (in SettingsManagerForm) - it's x1.125 faster! 4.0 ms vs 4.5 ms
 - Optimization: changed string to StringBuilder() in ModManagerForm_Closing() method  (in ModManagerForm) - it's x1.09 faster! 4.3 ms vs 4.7 ms
-    
+
 ## Version 2.0.3:
 
 - Added a query on startup to ask the user to update the application if a new version is available.
@@ -145,7 +146,7 @@
 - There is no more storing an unnecessary reference to a new Form when it's been created
 - Added annotations for all methods in ModManagerForm
 - Small optimizations here and there
-    
+
 ## Version 2.0.1:
 
 - Fixed a crash where user tries to click on an empty space in RequiredMods when it has only one item
