@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace DoW_Mod_Manager
 {
@@ -21,7 +22,7 @@ namespace DoW_Mod_Manager
 
         public static void CheckForUpdates(bool silently)
         {
-            // Checking version mentioned in "version" file on github
+            // Checking version mentioned in "version" file on GitHub
             latestStringVersion = DownloadString(VERSION_TEXT_URL);
 
             int latestVersion;
@@ -69,6 +70,8 @@ namespace DoW_Mod_Manager
             }
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void DownloadUpdate()
         {
             oldexecutablePath = executablePath + $"\\DoW Mod Manager v{currentStringVersion}.exe";

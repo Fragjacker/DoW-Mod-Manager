@@ -45,6 +45,9 @@
             this.specialThanks3Label = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.aboutTabPage = new System.Windows.Forms.TabPage();
+            this.AOTCompilationCheckBox = new System.Windows.Forms.CheckBox();
+            this.multithreadedJITCompilationCheckBox = new System.Windows.Forms.CheckBox();
+            this.autoupdateCheckBox = new System.Windows.Forms.CheckBox();
             this.aboutLabel = new System.Windows.Forms.Label();
             this.authorsTabPage = new System.Windows.Forms.TabPage();
             this.specialThanksTabPage = new System.Windows.Forms.TabPage();
@@ -245,6 +248,9 @@
             // aboutTabPage
             // 
             this.aboutTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.aboutTabPage.Controls.Add(this.AOTCompilationCheckBox);
+            this.aboutTabPage.Controls.Add(this.multithreadedJITCompilationCheckBox);
+            this.aboutTabPage.Controls.Add(this.autoupdateCheckBox);
             this.aboutTabPage.Controls.Add(this.aboutLabel);
             this.aboutTabPage.Controls.Add(this.pictureBox);
             this.aboutTabPage.Location = new System.Drawing.Point(4, 22);
@@ -253,6 +259,39 @@
             this.aboutTabPage.Size = new System.Drawing.Size(406, 167);
             this.aboutTabPage.TabIndex = 0;
             this.aboutTabPage.Text = "About";
+            // 
+            // AOTCompilationCheckBox
+            // 
+            this.AOTCompilationCheckBox.AutoSize = true;
+            this.AOTCompilationCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.AOTCompilationCheckBox.Location = new System.Drawing.Point(229, 140);
+            this.AOTCompilationCheckBox.Name = "AOTCompilationCheckBox";
+            this.AOTCompilationCheckBox.Size = new System.Drawing.Size(151, 17);
+            this.AOTCompilationCheckBox.TabIndex = 13;
+            this.AOTCompilationCheckBox.Text = "AOT compilation (the best)";
+            this.AOTCompilationCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // multithreadedJITCompilationCheckBox
+            // 
+            this.multithreadedJITCompilationCheckBox.AutoSize = true;
+            this.multithreadedJITCompilationCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.multithreadedJITCompilationCheckBox.Location = new System.Drawing.Point(229, 115);
+            this.multithreadedJITCompilationCheckBox.Name = "multithreadedJITCompilationCheckBox";
+            this.multithreadedJITCompilationCheckBox.Size = new System.Drawing.Size(164, 17);
+            this.multithreadedJITCompilationCheckBox.TabIndex = 12;
+            this.multithreadedJITCompilationCheckBox.Text = "Multithreaded JIT compilation";
+            this.multithreadedJITCompilationCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // autoupdateCheckBox
+            // 
+            this.autoupdateCheckBox.AutoSize = true;
+            this.autoupdateCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.autoupdateCheckBox.Location = new System.Drawing.Point(90, 115);
+            this.autoupdateCheckBox.Name = "autoupdateCheckBox";
+            this.autoupdateCheckBox.Size = new System.Drawing.Size(86, 17);
+            this.autoupdateCheckBox.TabIndex = 11;
+            this.autoupdateCheckBox.Text = "Autoupdates";
+            this.autoupdateCheckBox.UseVisualStyleBackColor = true;
             // 
             // aboutLabel
             // 
@@ -466,5 +505,8 @@
         private System.Windows.Forms.TextBox licenceTextBox;
         private System.Windows.Forms.Label aboutLabel;
         private System.Windows.Forms.TextBox changelogTextBox;
+        private System.Windows.Forms.CheckBox AOTCompilationCheckBox;
+        private System.Windows.Forms.CheckBox multithreadedJITCompilationCheckBox;
+        private System.Windows.Forms.CheckBox autoupdateCheckBox;
     }
 }
