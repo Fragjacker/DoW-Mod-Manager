@@ -886,11 +886,6 @@
             // 
             this.activeVideocardComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.activeVideocardComboBox.FormattingEnabled = true;
-            this.activeVideocardComboBox.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3"});
             this.activeVideocardComboBox.Location = new System.Drawing.Point(113, 18);
             this.activeVideocardComboBox.Name = "activeVideocardComboBox";
             this.activeVideocardComboBox.Size = new System.Drawing.Size(121, 21);

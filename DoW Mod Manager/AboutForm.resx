@@ -123,6 +123,7 @@
 - Optimization: added ability to use AOT compiler - the fastest way to execute .NET application! 557 ms and 9788 Kb of RAM (default singlethreaded JIT compilation) vs 432 ms and 9876 Kb of RAM (Multithreaded JIT compilation) vs 363 ms and 6316 Kb of RAM (AOT compilation)
 - Added ability to disable Multithreaded JIT compilation in DoW Mod Manager.ini and in AboutForm
 - Added ability to disable autoupdates in DoW Mod Manager.ini and in AboutForm
+- "Active Videocard" option in SettingsManagerForm now shows user's videocard name instead of a number
 - Deleted all unused code and added descriptions to all methods in ModDownloaderForm
 - Added descriptions to all methods in SettingsManagerForm
 - Optimization: all checkboxes and trackbars are not triggered when initialized (in SettingsManagerForm) - it's x1.2 times faster! 42.7 ms vs 51.1 ms

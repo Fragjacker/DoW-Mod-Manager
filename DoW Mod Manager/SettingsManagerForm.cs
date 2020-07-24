@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Management;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
@@ -533,7 +534,20 @@ namespace DoW_Mod_Manager
                     deleteProfileButton.Enabled = false;
 
                 loginAttemptsComboBox.SelectedItem = settings[RL_SSO_NUM_TIMES_SHOWN];
-                activeVideocardComboBox.SelectedItem = settings[SCREEN_ADAPTER];
+                // Test for oerformance!
+                List<string> videocards = GetAllVideocards();
+                int currentScreenAdapter = Convert.ToInt32(settings[SCREEN_ADAPTER]);
+
+                activeVideocardComboBox.Items.AddRange(videocards.ToArray());
+                if (currentScreenAdapter <= videocards.Count)
+                    activeVideocardComboBox.SelectedIndex = currentScreenAdapter;
+                else
+                {
+                    activeVideocardComboBox.SelectedIndex = 0;
+                    settings[SCREEN_ADAPTER] = "0";
+                    WriteSettings(localINI: true, playercgfLUA: false);
+                }
+                // Test for oerformance!
                 antialiasingCheckBox.Checked = settings[SCREEN_ANIALIAS] == "1";
                 switch (settings[SCREEN_DEPTH])
                 {
@@ -613,9 +627,47 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method saves all settings to their respective files
+        /// This method will find all the videocards
+        /// </summary>
+        /// <returns>List<string></returns>
+        // TODO: this method may benefit from an optimization pass!
+        private List<string> GetAllVideocards()
+        {
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
+            List<string> videocards = new List<string>();
+
+            foreach (ManagementObject mo in searcher.Get())
+            {
+                PropertyData currentBitsPerPixel = mo.Properties["CurrentBitsPerPixel"];
+                PropertyData description = mo.Properties["Description"];
+                
+                if (currentBitsPerPixel != null && description != null)
+                {
+                    if (currentBitsPerPixel.Value != null)
+                        videocards.Add(description.Value.ToString());
+                }
+            }
+
+            return videocards;
+        }
+
+        /// <summary>
+        /// This method reacts on SaveButton press
         /// </summary>
         private void SaveButton_Click(object sender, EventArgs e)
+        {
+            WriteSettings(localINI: true, playercgfLUA: true);
+
+            closeButton.Text = CLOSE_LABEL;
+            saveButton.Enabled = false;
+        }
+
+        /// <summary>
+        /// This method saves all settings to their respective files
+        /// </summary>
+        /// <param name="localINI"></param>
+        /// <param name="playercgfLUA"></param>
+        private void WriteSettings(bool localINI, bool playercgfLUA)
         {
             // There is no Profile selected
             if (currentPlayerComboBox.Text.Length == 0)
@@ -625,46 +677,115 @@ namespace DoW_Mod_Manager
                 return;
             }
 
-            // You have to use "\r\n" instead of "\n" or Dawn of War will NOT recognise the end of the line!
-            // Save settings that are stored in Local.ini
-            StringBuilder sb = new StringBuilder();
-            sb.Append($"[global]\r\n");
-            sb.Append($"{CAMERA_DETAIL}={settings[CAMERA_DETAIL]}\r\n");
-            sb.Append($"{CURRENT_MOD}={settings[CURRENT_MOD]}\r\n");
-            sb.Append($"{DYNAMIC_LIGHTS}={settings[DYNAMIC_LIGHTS]}\r\n");
-            sb.Append($"{EVENT_DETAIL_LEVEL}={settings[EVENT_DETAIL_LEVEL]}\r\n");
-            sb.Append($"{FORCE_WATCH_MOVIES}={settings[FORCE_WATCH_MOVIES]}\r\n");
-            sb.Append($"{FULLRES_TEAMCOLOUR}={settings[FULLRES_TEAMCOLOUR]}\r\n");
-            sb.Append($"{FX_DETAIL_LEVEL}={settings[FX_DETAIL_LEVEL]}\r\n");
-            sb.Append($"{MODEL_DETAIL}={settings[MODEL_DETAIL]}\r\n");
-            sb.Append($"{PARENTAL_CONTROL}={settings[PARENTAL_CONTROL]}\r\n");
-            sb.Append($"{PERSISTENT_BODIES}={settings[PERSISTENT_BODIES]}\r\n");
-            sb.Append($"{PERSISTENT_DECALS}={settings[PERSISTENT_DECALS]}\r\n");
-            sb.Append($"{PLAYER_PROFILE}={settings[PLAYER_PROFILE]}\r\n");
-            sb.Append($"{RL_SSO_NUM_TIMES_SHOWN}={settings[RL_SSO_NUM_TIMES_SHOWN]}\r\n");
-            sb.Append($"{SCREEN_ADAPTER}={settings[SCREEN_ADAPTER]}\r\n");
-            sb.Append($"{SCREEN_ANIALIAS}={settings[SCREEN_ANIALIAS]}\r\n");
-            sb.Append($"{SCREEN_DEPTH}={settings[SCREEN_DEPTH]}\r\n");
-            sb.Append($"{SCREEN_DEVICE}={settings[SCREEN_DEVICE]}\r\n");
-            sb.Append($"{SCREEN_GAMMA}={settings[SCREEN_GAMMA]}\r\n");
-            sb.Append($"{SCREEN_HEIGHT}={settings[SCREEN_HEIGHT]}\r\n");
-            sb.Append($"{SCREEN_NO_VSYNC}={settings[SCREEN_NO_VSYNC]}\r\n");
-            sb.Append($"{SCREEN_REFRESH}={settings[SCREEN_REFRESH]}\r\n");
-            sb.Append($"{SCREEN_WIDTH}={settings[SCREEN_WIDTH]}\r\n");
-            sb.Append($"{SCREEN_WINDOWED}={settings[SCREEN_WINDOWED]}\r\n");
-            sb.Append($"{SHADOW_BLOB}={settings[SHADOW_BLOB]}\r\n");
-            sb.Append($"{SHADOW_MAP}={settings[SHADOW_MAP]}\r\n");
-            sb.Append($"{SHADOW_VOLUME}={settings[SHADOW_VOLUME]}\r\n");
-            sb.Append($"{SOUND_ENABLED}={settings[SOUND_ENABLED]}\r\n");
-            sb.Append($"{SOUND_LIMIT_SAMPLES}={settings[SOUND_LIMIT_SAMPLES]}\r\n");
-            sb.Append($"{SOUND_NR_CHANNELS}={settings[SOUND_NR_CHANNELS]}\r\n");
-            sb.Append($"{SOUND_QUALITY}={settings[SOUND_QUALITY]}\r\n");
-            sb.Append($"{TERRAIN_ENABLE_FOW_BLUR}={settings[TERRAIN_ENABLE_FOW_BLUR]}\r\n");
-            sb.Append($"{TEXTURE_DETAIL}={settings[TEXTURE_DETAIL]}\r\n");
-            sb.Append($"{TOTAL_MATCHES}={settings[TOTAL_MATCHES]}\r\n");
-            sb.Append($"{UNIT_OCCLUSION}={settings[UNIT_OCCLUSION]}");
+            if (localINI)
+            {
+                // You have to use "\r\n" instead of "\n" or Dawn of War will NOT recognise the end of the line!
+                // Save settings that are stored in Local.ini
+                StringBuilder sb = new StringBuilder();
+                sb.Append($"[global]\r\n");
+                sb.Append($"{CAMERA_DETAIL}={settings[CAMERA_DETAIL]}\r\n");
+                sb.Append($"{CURRENT_MOD}={settings[CURRENT_MOD]}\r\n");
+                sb.Append($"{DYNAMIC_LIGHTS}={settings[DYNAMIC_LIGHTS]}\r\n");
+                sb.Append($"{EVENT_DETAIL_LEVEL}={settings[EVENT_DETAIL_LEVEL]}\r\n");
+                sb.Append($"{FORCE_WATCH_MOVIES}={settings[FORCE_WATCH_MOVIES]}\r\n");
+                sb.Append($"{FULLRES_TEAMCOLOUR}={settings[FULLRES_TEAMCOLOUR]}\r\n");
+                sb.Append($"{FX_DETAIL_LEVEL}={settings[FX_DETAIL_LEVEL]}\r\n");
+                sb.Append($"{MODEL_DETAIL}={settings[MODEL_DETAIL]}\r\n");
+                sb.Append($"{PARENTAL_CONTROL}={settings[PARENTAL_CONTROL]}\r\n");
+                sb.Append($"{PERSISTENT_BODIES}={settings[PERSISTENT_BODIES]}\r\n");
+                sb.Append($"{PERSISTENT_DECALS}={settings[PERSISTENT_DECALS]}\r\n");
+                sb.Append($"{PLAYER_PROFILE}={settings[PLAYER_PROFILE]}\r\n");
+                sb.Append($"{RL_SSO_NUM_TIMES_SHOWN}={settings[RL_SSO_NUM_TIMES_SHOWN]}\r\n");
+                sb.Append($"{SCREEN_ADAPTER}={settings[SCREEN_ADAPTER]}\r\n");
+                sb.Append($"{SCREEN_ANIALIAS}={settings[SCREEN_ANIALIAS]}\r\n");
+                sb.Append($"{SCREEN_DEPTH}={settings[SCREEN_DEPTH]}\r\n");
+                sb.Append($"{SCREEN_DEVICE}={settings[SCREEN_DEVICE]}\r\n");
+                sb.Append($"{SCREEN_GAMMA}={settings[SCREEN_GAMMA]}\r\n");
+                sb.Append($"{SCREEN_HEIGHT}={settings[SCREEN_HEIGHT]}\r\n");
+                sb.Append($"{SCREEN_NO_VSYNC}={settings[SCREEN_NO_VSYNC]}\r\n");
+                sb.Append($"{SCREEN_REFRESH}={settings[SCREEN_REFRESH]}\r\n");
+                sb.Append($"{SCREEN_WIDTH}={settings[SCREEN_WIDTH]}\r\n");
+                sb.Append($"{SCREEN_WINDOWED}={settings[SCREEN_WINDOWED]}\r\n");
+                sb.Append($"{SHADOW_BLOB}={settings[SHADOW_BLOB]}\r\n");
+                sb.Append($"{SHADOW_MAP}={settings[SHADOW_MAP]}\r\n");
+                sb.Append($"{SHADOW_VOLUME}={settings[SHADOW_VOLUME]}\r\n");
+                sb.Append($"{SOUND_ENABLED}={settings[SOUND_ENABLED]}\r\n");
+                sb.Append($"{SOUND_LIMIT_SAMPLES}={settings[SOUND_LIMIT_SAMPLES]}\r\n");
+                sb.Append($"{SOUND_NR_CHANNELS}={settings[SOUND_NR_CHANNELS]}\r\n");
+                sb.Append($"{SOUND_QUALITY}={settings[SOUND_QUALITY]}\r\n");
+                sb.Append($"{TERRAIN_ENABLE_FOW_BLUR}={settings[TERRAIN_ENABLE_FOW_BLUR]}\r\n");
+                sb.Append($"{TEXTURE_DETAIL}={settings[TEXTURE_DETAIL]}\r\n");
+                sb.Append($"{TOTAL_MATCHES}={settings[TOTAL_MATCHES]}\r\n");
+                sb.Append($"{UNIT_OCCLUSION}={settings[UNIT_OCCLUSION]}");
 
-            File.WriteAllText(SETTINGS_FILE, sb.ToString());
+                File.WriteAllText(SETTINGS_FILE, sb.ToString());
+            }
+
+            if (playercgfLUA)
+            {
+                // Save settings that are stored in playercfg.lua
+                // TODO: Use Streams insted of reading and writing the whoile file at once
+                string pathToPlayerConfig = PROFILES_PATH + "\\" + PROFILE + (currentPlayerComboBox.SelectedIndex + 1).ToString() + "\\" + PLAYERCONFIG;
+
+                if (File.Exists(pathToPlayerConfig))
+                {
+                    string[] lines = File.ReadAllLines(pathToPlayerConfig);
+
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        if (lines[i].EndsWith(","))
+                        {
+                            if (lines[i].Contains(INVERT_DECLINATION))
+                                lines[i] = $"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},";
+                            else if (lines[i].Contains(INVERT_PAN))
+                                lines[i] = $"\t{INVERT_PAN} = {settings[INVERT_PAN]},";
+                            else if (lines[i].Contains(SCROLL_RATE))
+                                lines[i] = $"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},";
+                            else if (lines[i].Contains(SOUND_VOLUME_AMBIENT))
+                                lines[i] = $"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},";
+                            else if (lines[i].Contains(SOUND_VOLUME_MUSIC))
+                                lines[i] = $"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},";
+                            else if (lines[i].Contains(SOUND_VOLUME_SFX))
+                                lines[i] = $"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},";
+                            else if (lines[i].Contains(SOUND_VOLUME_VOICE))
+                            {
+                                lines[i] = $"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},";
+
+                                // We found all the settings we searched for
+                                break;
+                            }
+                        }
+                    }
+                    File.WriteAllLines(pathToPlayerConfig, lines);
+                }
+                else
+                {
+                    StringBuilder sb = new StringBuilder();
+
+                    sb.Append("Controls = \r\n");
+                    sb.Append("{\r\n");
+                    sb.Append($"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},\r\n");
+                    sb.Append($"\t{INVERT_PAN} = {settings[INVERT_PAN]},\r\n");
+                    sb.Append($"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},\r\n");
+                    sb.Append("}\r\n");
+                    sb.Append("Sound = \r\n");
+                    sb.Append("{\r\n");
+                    sb.Append($"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},\r\n");
+                    sb.Append($"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},\r\n");
+                    sb.Append($"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},\r\n");
+                    sb.Append($"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},\r\n");
+                    sb.Append("}\r\n");
+                    sb.Append("player_preferences = \r\n");
+                    sb.Append("{\r\n");
+                    sb.Append("\tcampaign_played_disorder = false,\r\n");
+                    sb.Append("\tcampaign_played_order = false,\r\n");
+                    sb.Append("\tforce_name = \"Blood Ravens\",\r\n");
+                    sb.Append("\trace = \"space_marine_race\",\r\n");
+                    sb.Append("}\r\n");
+
+                    File.WriteAllText(pathToPlayerConfig, sb.ToString());
+                }
+            }
 
             if (enableHighPoly)
             {
@@ -676,72 +797,6 @@ namespace DoW_Mod_Manager
                 modManager.ChangeSetting(ModManagerForm.FORCE_HIGH_POLY, 0);
                 disableHighPoly = false;
             }
-
-            // Save settings that are stored in playercfg.lua
-            // TODO: Use Streams insted of reading and writing the whoile file at once
-            string pathToPlayerConfig = PROFILES_PATH + "\\" + PROFILE + (currentPlayerComboBox.SelectedIndex + 1).ToString() + "\\" + PLAYERCONFIG;
-
-            if (File.Exists(pathToPlayerConfig))
-            {
-                string[] lines = File.ReadAllLines(pathToPlayerConfig);
-
-                for (int i = 0; i <lines.Length; i++)
-                {
-                    if (lines[i].EndsWith(","))
-                    {
-                        if (lines[i].Contains(INVERT_DECLINATION))
-                            lines[i] = $"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},";
-                        else if (lines[i].Contains(INVERT_PAN))
-                            lines[i] = $"\t{INVERT_PAN} = {settings[INVERT_PAN]},";
-                        else if (lines[i].Contains(SCROLL_RATE))
-                            lines[i] = $"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},";
-                        else if (lines[i].Contains(SOUND_VOLUME_AMBIENT))
-                            lines[i] = $"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},";
-                        else if (lines[i].Contains(SOUND_VOLUME_MUSIC))
-                            lines[i] = $"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},";
-                        else if (lines[i].Contains(SOUND_VOLUME_SFX))
-                            lines[i] = $"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},";
-                        else if (lines[i].Contains(SOUND_VOLUME_VOICE))
-                        {
-                            lines[i] = $"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},";
-                            
-                            // We found all the settings we searched for
-                            break;
-                        }
-                    }
-                }
-                File.WriteAllLines(pathToPlayerConfig, lines);
-            }
-            else
-            {
-                sb.Clear();
-
-                sb.Append("Controls = \r\n");
-                sb.Append("{\r\n");
-                sb.Append($"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},\r\n");
-                sb.Append($"\t{INVERT_PAN} = {settings[INVERT_PAN]},\r\n");
-                sb.Append($"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},\r\n");
-                sb.Append("}\r\n");
-                sb.Append("Sound = \r\n");
-                sb.Append("{\r\n");
-                sb.Append($"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},\r\n");
-                sb.Append($"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},\r\n");
-                sb.Append($"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},\r\n");
-                sb.Append($"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},\r\n");
-                sb.Append("}\r\n");
-                sb.Append("player_preferences = \r\n");
-                sb.Append("{\r\n");
-                sb.Append("\tcampaign_played_disorder = false,\r\n");
-                sb.Append("\tcampaign_played_order = false,\r\n");
-                sb.Append("\tforce_name = \"Blood Ravens\",\r\n");
-                sb.Append("\trace = \"space_marine_race\",\r\n");
-                sb.Append("}\r\n");
-
-                File.WriteAllText(pathToPlayerConfig, sb.ToString());
-            }
-
-            closeButton.Text = CLOSE_LABEL;
-            saveButton.Enabled = false;
         }
 
         /// <summary>
@@ -857,7 +912,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void ActiveVideocardComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settings[SCREEN_ADAPTER] = activeVideocardComboBox.SelectedItem.ToString();
+            settings[SCREEN_ADAPTER] = activeVideocardComboBox.SelectedIndex.ToString();
 
             closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
