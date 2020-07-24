@@ -6,10 +6,11 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 
 namespace DoW_Mod_Manager
 {
-    class DownloadHelper
+    static class DownloadHelper
     {
         private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/Fragjacker/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
         private static readonly string executableURL = "https://github.com/Fragjacker/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
@@ -20,7 +21,7 @@ namespace DoW_Mod_Manager
         private static readonly string currentStringVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString().Remove(5);
         private static readonly int currentVersion = Convert.ToInt32(currentStringVersion.Replace(".", ""));
 
-        public static void CheckForUpdates(bool silently)
+        public static DialogResult CheckForUpdates(bool silently)
         {
             // Checking version mentioned in "version" file on GitHub
             latestStringVersion = DownloadString(VERSION_TEXT_URL);
@@ -31,7 +32,7 @@ namespace DoW_Mod_Manager
             if (silently)
             {
                 if (latestStringVersion.Length == 0)
-                    return;
+                    return DialogResult.Abort;
 
                 try
                 {
@@ -39,18 +40,18 @@ namespace DoW_Mod_Manager
                 }
                 catch (Exception)
                 {
-                    return;
+                    return DialogResult.Abort;
                 }
 
                 if (currentVersion < latestVersion)
-                    ThemedDialogueBox.Show($"The new DoW Mod Manager v{latestStringVersion} is available. Do you wish to update now?", "New update available");
+                    return ThemedDialogueBox.Show($"The new DoW Mod Manager v{latestStringVersion} is available. Do you wish to update now?", "New update available");
             }
             else
             {
                 if (latestStringVersion.Length == 0)
                 {
                     ThemedMessageBox.Show("There is no data in \"version\" file on GitHub!", "Warning!");
-                    return;
+                    return DialogResult.Abort;
                 }
 
                 try
@@ -60,14 +61,21 @@ namespace DoW_Mod_Manager
                 catch (Exception ex)
                 {
                     ThemedMessageBox.Show("There is something wrong with version number in \"version\" file on GitHub!\n" + ex.Message, "Warning!");
-                    return;
+                    return DialogResult.Abort;
                 }
 
                 if (currentVersion < latestVersion)
+                {
                     DownloadUpdate();
+                    return DialogResult.OK;
+                }
                 else
+                {
                     ThemedMessageBox.Show("You have the latest version!", "Good news!");
+                    return DialogResult.Cancel;
+                }
             }
+            return DialogResult.Abort;
         }
 
         // Request the inlining of this method

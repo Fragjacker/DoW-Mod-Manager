@@ -169,7 +169,10 @@ namespace DoW_Mod_Manager
                 new Thread(() =>
                 {
                     // Once all is done check for updates.
-                    DownloadHelper.CheckForUpdates(silently: true);
+                    DialogResult result = DownloadHelper.CheckForUpdates(silently: true);
+                    
+                    if (result == DialogResult.OK && settings[AOT_COMPILATION] == 1)
+                        settings[ACTION_STATE] = (int)Action.CreateNativeImage;
                 }
                 ).Start();
             }

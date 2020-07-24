@@ -25,16 +25,16 @@ namespace DoW_Mod_Manager
     }
 
     /// <summary>
-    /// Your custom dialogue box helper.
+    /// A custom DialogueBox helper.
     /// </summary>
     public static class ThemedDialogueBox
     {
-        public static void Show(string message, string title = "")
+        public static DialogResult Show(string message, string title = "")
         {
             // "using" construct ensures the resources are freed when form is closed
             using (DialogueForm form = new DialogueForm(message, title))
             {
-                form.ShowDialog();
+                return form.ShowDialog();
             }
         }
     }

@@ -51,7 +51,10 @@ namespace DoW_Mod_Manager
 
         private void UpdateButton_Click(object sender, EventArgs e)
         {
-            DownloadHelper.CheckForUpdates(silently: false);
+            DialogResult result = DownloadHelper.CheckForUpdates(silently: false);
+
+            if (result == DialogResult.OK && modManager.GetSetting(ModManagerForm.AOT_COMPILATION) == 1)
+                modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.CreateNativeImage);
         }
 
         private void SpecialThanks1LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
