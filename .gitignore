@@ -246,3 +246,6 @@ ModelManifest.xml
 
 #JIT Profiles
 *.JITProfile
+
+#Merge stuff
+*.orig

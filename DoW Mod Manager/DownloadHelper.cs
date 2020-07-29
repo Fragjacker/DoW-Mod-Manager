@@ -166,6 +166,7 @@ namespace DoW_Mod_Manager
 
             shortcut.Description = $"The latest DoW Mod Manager v{latestStringVersion}";
             shortcut.TargetPath = executablePath;
+            shortcut.WorkingDirectory = Directory.GetCurrentDirectory();
             shortcut.Save();
         }
     }
