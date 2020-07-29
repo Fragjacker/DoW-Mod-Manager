@@ -24,19 +24,17 @@ namespace DoW_Mod_Manager
             autoupdateCheckBox.Checked = modManager.GetSetting(ModManagerForm.AUTOUPDATE) == 1;
             if (modManager.GetSetting(ModManagerForm.AOT_COMPILATION) == 1)
             {
-                AOTCompilationCheckBox.Checked = true;
-                multithreadedJITCompilationCheckBox.Enabled = false;
+                AOTCompilationRadioButton.Checked = true;
             }
             else if (modManager.GetSetting(ModManagerForm.MULTITHREADED_JIT) == 1)
             {
-                multithreadedJITCompilationCheckBox.Checked = true;
-                AOTCompilationCheckBox.Enabled = false;
+                multithreadedJITCompilationRadioButton.Checked = true;
             }
 
             // We have to add those methods to the EventHandler here so we could avoid accidental firing of those methods after we would change the state of the CheckBox
             autoupdateCheckBox.CheckedChanged += new EventHandler(AutoupdateCheckBox_CheckedChanged);
-            multithreadedJITCompilationCheckBox.CheckedChanged += new EventHandler(MultithreadedJITCompilationCheckBox_CheckedChanged);
-            AOTCompilationCheckBox.CheckedChanged += new EventHandler(AOTCompilationCheckBox_CheckedChanged);
+            multithreadedJITCompilationRadioButton.CheckedChanged += new EventHandler(multithreadedJITCompilationRadioButton_CheckedChanged);
+            AOTCompilationRadioButton.CheckedChanged += new EventHandler(AOTCompilationRadioButton_CheckedChanged);
         }
 
         private void HomePageButton_Click(object sender, EventArgs e)
@@ -80,41 +78,31 @@ namespace DoW_Mod_Manager
                 modManager.ChangeSetting(ModManagerForm.AUTOUPDATE, 0);
         }
 
-        private void MultithreadedJITCompilationCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void AOTCompilationRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            if (multithreadedJITCompilationCheckBox.Checked)
-            {
-                modManager.ChangeSetting(ModManagerForm.MULTITHREADED_JIT, 1);
-                modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.None);
-
-                AOTCompilationCheckBox.Checked = false;
-                AOTCompilationCheckBox.Enabled = false;
-            }
-            else
-            {
-                modManager.ChangeSetting(ModManagerForm.MULTITHREADED_JIT, 0);
-                modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.DeleteJITProfile);
-
-                AOTCompilationCheckBox.Enabled = true;
-            }
-        }
-
-        private void AOTCompilationCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (AOTCompilationCheckBox.Checked)
+            if (AOTCompilationRadioButton.Checked)
             {
                 modManager.ChangeSetting(ModManagerForm.AOT_COMPILATION, 1);
                 modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.CreateNativeImage);
-
-                multithreadedJITCompilationCheckBox.Checked = false;
-                multithreadedJITCompilationCheckBox.Enabled = false;
             }
             else
             {
                 modManager.ChangeSetting(ModManagerForm.AOT_COMPILATION, 0);
                 modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.DeleteNativeImage);
-                
-                multithreadedJITCompilationCheckBox.Enabled = true;
+            }
+        }
+
+        private void multithreadedJITCompilationRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (multithreadedJITCompilationRadioButton.Checked)
+            {
+                modManager.ChangeSetting(ModManagerForm.MULTITHREADED_JIT, 1);
+                modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.None);
+            }
+            else
+            {
+                modManager.ChangeSetting(ModManagerForm.MULTITHREADED_JIT, 0);
+                modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.DeleteJITProfile);
             }
         }
     }
