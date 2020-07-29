@@ -1,5 +1,28 @@
 # Changelog
-(All changes in 1.53 - 2.0.2 were made by IgorTheLight, excluding patch 1.6.1)
+(All changes in 1.53 - 2.0.4 were made by IgorTheLight, excluding patch 1.6.1 and 2.0.3)
+
+## Version 2.0.4:
+
+- Optimization: added ability to use AOT compiler - the fastest way to execute .NET application! 557 ms and 9788 Kb of RAM (default singlethreaded JIT compilation) vs 432 ms and 9876 Kb of RAM (Multithreaded JIT compilation) vs 363 ms and 6316 Kb of RAM (AOT compilation)
+- Added ability to disable Multithreaded JIT compilation in DoW Mod Manager.ini and in AboutForm
+- Added ability to disable autoupdates in DoW Mod Manager.ini and in AboutForm
+- "Active Videocard" option in SettingsManagerForm now shows user's videocard name instead of a number
+- Deleted all unused code and added descriptions to all methods in ModDownloaderForm
+- Added descriptions to all methods in SettingsManagerForm
+- Optimization: all checkboxes and trackbars are not triggered when initialized (in SettingsManagerForm) - it's x1.2 times faster! 42.7 ms vs 51.1 ms
+- Optimization: changed string to StringBuilder() in SaveButton_Click() method  (in SettingsManagerForm) - it's x1.125 faster! 4.0 ms vs 4.5 ms
+- Optimization: changed string to StringBuilder() in ModManagerForm_Closing() method  (in ModManagerForm) - it's x1.09 faster! 4.3 ms vs 4.7 ms
+- OPTIMIZATIONS string constant was renamed to DOW_OPTIMIZATIONS for less confusion
+- If AOT compilation is enabled - application will be re-optimized after an update!
+- Added an new method for getting a setting from settings Dictionary in ModManagerForm
+
+## Version 2.0.3:
+
+- Added a query on startup to ask the user to update the application if a new version is available.
+- Added code to create a new shortcut of the updated DoW Mod Manager version on the desktop after the application update has succeeded.
+- Added the feature that the old DoW Mod Manager version will be deleted after the update has finished.
+- Refactored code for easier access internally.
+- Optimization: changed modlist.Add() in ModDownloaderForm to a proper List initialization - it's x1.04 times faster. Yay? 2.7 ms vs 2.8 ms. At least it looks cleaner now.
 
 ## Version 2.0.2:
 

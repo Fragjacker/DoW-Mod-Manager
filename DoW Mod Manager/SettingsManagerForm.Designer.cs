@@ -56,7 +56,7 @@
             this.videoTabPage = new System.Windows.Forms.TabPage();
             this.ultraGraphicsButton = new System.Windows.Forms.Button();
             this.highGraphicsButton = new System.Windows.Forms.Button();
-            this.mediumButtomGraphics = new System.Windows.Forms.Button();
+            this.mediumGraphicsButton = new System.Windows.Forms.Button();
             this.lowGraphicsButton = new System.Windows.Forms.Button();
             this.cyanLabel = new System.Windows.Forms.Label();
             this.dynamicLightsComboBox = new System.Windows.Forms.ComboBox();
@@ -253,7 +253,6 @@
             this.newPlayerTextBox.Name = "newPlayerTextBox";
             this.newPlayerTextBox.Size = new System.Drawing.Size(121, 20);
             this.newPlayerTextBox.TabIndex = 59;
-            this.newPlayerTextBox.TextChanged += new System.EventHandler(this.NewPlayerTextBox_TextChanged);
             // 
             // label2
             // 
@@ -327,7 +326,6 @@
             this.loginAttemptsComboBox.Name = "loginAttemptsComboBox";
             this.loginAttemptsComboBox.Size = new System.Drawing.Size(121, 21);
             this.loginAttemptsComboBox.TabIndex = 54;
-            this.loginAttemptsComboBox.SelectedIndexChanged += new System.EventHandler(this.LoginAttemptsComboBox_SelectedIndexChanged);
             // 
             // loginAttemptsLabel
             // 
@@ -349,7 +347,6 @@
             this.scrollRateTrackBar.Size = new System.Drawing.Size(121, 45);
             this.scrollRateTrackBar.TabIndex = 52;
             this.scrollRateTrackBar.Value = 100;
-            this.scrollRateTrackBar.Scroll += new System.EventHandler(this.ScrollRateTrackBar_Scroll);
             // 
             // scrollRateLabel
             // 
@@ -369,7 +366,6 @@
             this.inverseDeclinationCheckBox.Size = new System.Drawing.Size(15, 14);
             this.inverseDeclinationCheckBox.TabIndex = 50;
             this.inverseDeclinationCheckBox.UseVisualStyleBackColor = true;
-            this.inverseDeclinationCheckBox.CheckedChanged += new System.EventHandler(this.InverseDeclinationCheckBox_CheckedChanged);
             // 
             // inverseDeclinationLabel
             // 
@@ -389,7 +385,6 @@
             this.inversePanCheckBox.Size = new System.Drawing.Size(15, 14);
             this.inversePanCheckBox.TabIndex = 48;
             this.inversePanCheckBox.UseVisualStyleBackColor = true;
-            this.inversePanCheckBox.CheckedChanged += new System.EventHandler(this.InversePanCheckBox_CheckedChanged);
             // 
             // inversePanLabel
             // 
@@ -420,7 +415,6 @@
             this.parentalControlCheckBox.Size = new System.Drawing.Size(15, 14);
             this.parentalControlCheckBox.TabIndex = 22;
             this.parentalControlCheckBox.UseVisualStyleBackColor = true;
-            this.parentalControlCheckBox.CheckedChanged += new System.EventHandler(this.ParentalControlCheckBox_CheckedChanged);
             // 
             // parentalControlLabel
             // 
@@ -440,7 +434,6 @@
             this.currentPlayerComboBox.Name = "currentPlayerComboBox";
             this.currentPlayerComboBox.Size = new System.Drawing.Size(121, 21);
             this.currentPlayerComboBox.TabIndex = 20;
-            this.currentPlayerComboBox.SelectedIndexChanged += new System.EventHandler(this.CurrentPlayerComboBox_SelectedIndexChanged);
             // 
             // currentPlayerLabel
             // 
@@ -457,7 +450,7 @@
             this.videoTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.videoTabPage.Controls.Add(this.ultraGraphicsButton);
             this.videoTabPage.Controls.Add(this.highGraphicsButton);
-            this.videoTabPage.Controls.Add(this.mediumButtomGraphics);
+            this.videoTabPage.Controls.Add(this.mediumGraphicsButton);
             this.videoTabPage.Controls.Add(this.lowGraphicsButton);
             this.videoTabPage.Controls.Add(this.cyanLabel);
             this.videoTabPage.Controls.Add(this.dynamicLightsComboBox);
@@ -538,20 +531,20 @@
             this.highGraphicsButton.UseVisualStyleBackColor = false;
             this.highGraphicsButton.Click += new System.EventHandler(this.HighGraphicsButton_Click);
             // 
-            // mediumButtomGraphics
+            // mediumGraphicsButton
             // 
-            this.mediumButtomGraphics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.mediumGraphicsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.mediumButtomGraphics.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.mediumButtomGraphics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mediumButtomGraphics.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.mediumButtomGraphics.Location = new System.Drawing.Point(154, 486);
-            this.mediumButtomGraphics.Name = "mediumButtomGraphics";
-            this.mediumButtomGraphics.Size = new System.Drawing.Size(94, 38);
-            this.mediumButtomGraphics.TabIndex = 46;
-            this.mediumButtomGraphics.Text = "MEDIUM";
-            this.mediumButtomGraphics.UseVisualStyleBackColor = false;
-            this.mediumButtomGraphics.Click += new System.EventHandler(this.MediumButtomGraphics_Click);
+            this.mediumGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.mediumGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mediumGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.mediumGraphicsButton.Location = new System.Drawing.Point(154, 486);
+            this.mediumGraphicsButton.Name = "mediumGraphicsButton";
+            this.mediumGraphicsButton.Size = new System.Drawing.Size(94, 38);
+            this.mediumGraphicsButton.TabIndex = 46;
+            this.mediumGraphicsButton.Text = "MEDIUM";
+            this.mediumGraphicsButton.UseVisualStyleBackColor = false;
+            this.mediumGraphicsButton.Click += new System.EventHandler(this.MediumGraphicsButton_Click);
             // 
             // lowGraphicsButton
             // 
@@ -591,7 +584,6 @@
             this.dynamicLightsComboBox.Name = "dynamicLightsComboBox";
             this.dynamicLightsComboBox.Size = new System.Drawing.Size(121, 21);
             this.dynamicLightsComboBox.TabIndex = 42;
-            this.dynamicLightsComboBox.SelectedIndexChanged += new System.EventHandler(this.DynamicLightsComboBox_SelectedIndexChanged);
             // 
             // dynamicLightLabel
             // 
@@ -615,7 +607,6 @@
             this.effectsDetailComboBox.Name = "effectsDetailComboBox";
             this.effectsDetailComboBox.Size = new System.Drawing.Size(121, 21);
             this.effectsDetailComboBox.TabIndex = 40;
-            this.effectsDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.EffectsDetailComboBox_SelectedIndexChanged);
             // 
             // effectsDetailLabel
             // 
@@ -639,7 +630,6 @@
             this.worldEventsComboBox.Name = "worldEventsComboBox";
             this.worldEventsComboBox.Size = new System.Drawing.Size(121, 21);
             this.worldEventsComboBox.TabIndex = 38;
-            this.worldEventsComboBox.SelectedIndexChanged += new System.EventHandler(this.WorldEventsComboBox_SelectedIndexChanged);
             // 
             // worldEventsLabel
             // 
@@ -664,7 +654,6 @@
             this.shadowsDetailComboBox.Name = "shadowsDetailComboBox";
             this.shadowsDetailComboBox.Size = new System.Drawing.Size(121, 21);
             this.shadowsDetailComboBox.TabIndex = 36;
-            this.shadowsDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.ShadowsDetailComboBox_SelectedIndexChanged);
             // 
             // shadowsLabel
             // 
@@ -684,7 +673,6 @@
             this.full3DCameraCheckBox.Size = new System.Drawing.Size(15, 14);
             this.full3DCameraCheckBox.TabIndex = 34;
             this.full3DCameraCheckBox.UseVisualStyleBackColor = true;
-            this.full3DCameraCheckBox.CheckedChanged += new System.EventHandler(this.Full3DCameraCheckBox_CheckedChanged);
             // 
             // full3DCameraLabel
             // 
@@ -708,7 +696,6 @@
             this.persistentScarringComboBox.Name = "persistentScarringComboBox";
             this.persistentScarringComboBox.Size = new System.Drawing.Size(121, 21);
             this.persistentScarringComboBox.TabIndex = 32;
-            this.persistentScarringComboBox.SelectedIndexChanged += new System.EventHandler(this.PersistentScarringComboBox_SelectedIndexChanged);
             // 
             // persistentScarringLabel
             // 
@@ -728,7 +715,6 @@
             this.betterTeamcoloredTexturexCheckBox.Size = new System.Drawing.Size(15, 14);
             this.betterTeamcoloredTexturexCheckBox.TabIndex = 30;
             this.betterTeamcoloredTexturexCheckBox.UseVisualStyleBackColor = true;
-            this.betterTeamcoloredTexturexCheckBox.CheckedChanged += new System.EventHandler(this.BetterTeamcoloredTexturexCheckBox_CheckedChanged);
             // 
             // betterTeamcoloredTexturesLabel
             // 
@@ -748,7 +734,6 @@
             this.unitsOcclusionCheckBox.Size = new System.Drawing.Size(15, 14);
             this.unitsOcclusionCheckBox.TabIndex = 28;
             this.unitsOcclusionCheckBox.UseVisualStyleBackColor = true;
-            this.unitsOcclusionCheckBox.CheckedChanged += new System.EventHandler(this.UnitsOcclusionCheckBox_CheckedChanged);
             // 
             // unitsOcclusionLabel
             // 
@@ -773,7 +758,6 @@
             this.persistentBodiesComboBox.Name = "persistentBodiesComboBox";
             this.persistentBodiesComboBox.Size = new System.Drawing.Size(121, 21);
             this.persistentBodiesComboBox.TabIndex = 26;
-            this.persistentBodiesComboBox.SelectedIndexChanged += new System.EventHandler(this.PersistentBodiesComboBox_SelectedIndexChanged);
             // 
             // persistentBodiesLabel
             // 
@@ -797,7 +781,6 @@
             this.terrainDetailComboBox.Name = "terrainDetailComboBox";
             this.terrainDetailComboBox.Size = new System.Drawing.Size(121, 21);
             this.terrainDetailComboBox.TabIndex = 24;
-            this.terrainDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.TerrainDetailComboBox_SelectedIndexChanged);
             // 
             // terrainDetailLabel
             // 
@@ -821,7 +804,6 @@
             this.modelDetailComboBox.Name = "modelDetailComboBox";
             this.modelDetailComboBox.Size = new System.Drawing.Size(121, 21);
             this.modelDetailComboBox.TabIndex = 22;
-            this.modelDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.ModelDetailComboBox_SelectedIndexChanged);
             // 
             // modelDetailLabel
             // 
@@ -845,7 +827,6 @@
             this.textureDetailComboBox.Name = "textureDetailComboBox";
             this.textureDetailComboBox.Size = new System.Drawing.Size(121, 21);
             this.textureDetailComboBox.TabIndex = 20;
-            this.textureDetailComboBox.SelectedIndexChanged += new System.EventHandler(this.TextureDetailComboBox_SelectedIndexChanged);
             // 
             // textureDetailLabel
             // 
@@ -867,7 +848,6 @@
             this.rendererComboBox.Name = "rendererComboBox";
             this.rendererComboBox.Size = new System.Drawing.Size(121, 21);
             this.rendererComboBox.TabIndex = 18;
-            this.rendererComboBox.SelectedIndexChanged += new System.EventHandler(this.RendererComboBox_SelectedIndexChanged);
             // 
             // rendererLabel
             // 
@@ -891,7 +871,6 @@
             this.colorDepthComboBox.Name = "colorDepthComboBox";
             this.colorDepthComboBox.Size = new System.Drawing.Size(121, 21);
             this.colorDepthComboBox.TabIndex = 16;
-            this.colorDepthComboBox.SelectedIndexChanged += new System.EventHandler(this.ColorDepthComboBox_SelectedIndexChanged);
             // 
             // colorDepthLabel
             // 
@@ -907,16 +886,10 @@
             // 
             this.activeVideocardComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.activeVideocardComboBox.FormattingEnabled = true;
-            this.activeVideocardComboBox.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3"});
             this.activeVideocardComboBox.Location = new System.Drawing.Point(113, 18);
             this.activeVideocardComboBox.Name = "activeVideocardComboBox";
             this.activeVideocardComboBox.Size = new System.Drawing.Size(121, 21);
             this.activeVideocardComboBox.TabIndex = 14;
-            this.activeVideocardComboBox.SelectedIndexChanged += new System.EventHandler(this.ActiveVideocardComboBox_SelectedIndexChanged);
             // 
             // activeVideocardLabel
             // 
@@ -936,7 +909,6 @@
             this.antialiasingCheckBox.Size = new System.Drawing.Size(15, 14);
             this.antialiasingCheckBox.TabIndex = 12;
             this.antialiasingCheckBox.UseVisualStyleBackColor = true;
-            this.antialiasingCheckBox.CheckedChanged += new System.EventHandler(this.AntialiasingCheckBox_CheckedChanged);
             // 
             // antialiasingLabel
             // 
@@ -965,7 +937,6 @@
             this.refreshRateComboBox.Name = "refreshRateComboBox";
             this.refreshRateComboBox.Size = new System.Drawing.Size(121, 21);
             this.refreshRateComboBox.TabIndex = 10;
-            this.refreshRateComboBox.SelectedIndexChanged += new System.EventHandler(this.RefreshRateComboBox_SelectedIndexChanged);
             // 
             // refreshRateLabel
             // 
@@ -985,7 +956,6 @@
             this.windowedCheckBox.Size = new System.Drawing.Size(15, 14);
             this.windowedCheckBox.TabIndex = 8;
             this.windowedCheckBox.UseVisualStyleBackColor = true;
-            this.windowedCheckBox.CheckedChanged += new System.EventHandler(this.WindowedCheckBox_CheckedChanged);
             // 
             // windowedLabel
             // 
@@ -1005,7 +975,6 @@
             this.vSyncCheckBox.Size = new System.Drawing.Size(15, 14);
             this.vSyncCheckBox.TabIndex = 6;
             this.vSyncCheckBox.UseVisualStyleBackColor = true;
-            this.vSyncCheckBox.CheckedChanged += new System.EventHandler(this.VSyncCheckBox_CheckedChanged);
             // 
             // vSyncLabel
             // 
@@ -1027,7 +996,6 @@
             this.gammaTrackBar.Size = new System.Drawing.Size(121, 45);
             this.gammaTrackBar.TabIndex = 4;
             this.gammaTrackBar.Value = 10;
-            this.gammaTrackBar.Scroll += new System.EventHandler(this.GammaTrackBar_Scroll);
             // 
             // gammaLabel
             // 
@@ -1067,7 +1035,6 @@
             this.screenResolutionComboBox.Name = "screenResolutionComboBox";
             this.screenResolutionComboBox.Size = new System.Drawing.Size(121, 21);
             this.screenResolutionComboBox.TabIndex = 1;
-            this.screenResolutionComboBox.SelectedIndexChanged += new System.EventHandler(this.ScreenResolutionComboBox_SelectedIndexChanged);
             // 
             // screenResolutionLabel
             // 
@@ -1172,7 +1139,6 @@
             this.soundEnabledCheckBox.Size = new System.Drawing.Size(15, 14);
             this.soundEnabledCheckBox.TabIndex = 50;
             this.soundEnabledCheckBox.UseVisualStyleBackColor = true;
-            this.soundEnabledCheckBox.CheckedChanged += new System.EventHandler(this.SoundEnabledCheckBox_CheckedChanged);
             // 
             // soundEnabledLabel
             // 
@@ -1194,7 +1160,6 @@
             this.musicVolumeTrackBar.SmallChange = 5;
             this.musicVolumeTrackBar.TabIndex = 48;
             this.musicVolumeTrackBar.Value = 50;
-            this.musicVolumeTrackBar.Scroll += new System.EventHandler(this.MusicVolumeTrackBar_Scroll);
             // 
             // musicVolumeLabel
             // 
@@ -1216,7 +1181,6 @@
             this.voiceVolumeTrackBar.SmallChange = 5;
             this.voiceVolumeTrackBar.TabIndex = 46;
             this.voiceVolumeTrackBar.Value = 50;
-            this.voiceVolumeTrackBar.Scroll += new System.EventHandler(this.VoiceVolumeTrackBar_Scroll);
             // 
             // voiceVolumeLabel
             // 
@@ -1238,7 +1202,6 @@
             this.effectsVolumeTrackBar.SmallChange = 5;
             this.effectsVolumeTrackBar.TabIndex = 44;
             this.effectsVolumeTrackBar.Value = 50;
-            this.effectsVolumeTrackBar.Scroll += new System.EventHandler(this.EffectsVolumeTrackBar_Scroll);
             // 
             // effectsVolumeLabel
             // 
@@ -1260,7 +1223,6 @@
             this.ambientVolumeTrackBar.SmallChange = 5;
             this.ambientVolumeTrackBar.TabIndex = 42;
             this.ambientVolumeTrackBar.Value = 50;
-            this.ambientVolumeTrackBar.Scroll += new System.EventHandler(this.AmbientVolumeTarckBar_Scroll);
             // 
             // ambientVolumeLabel
             // 
@@ -1284,7 +1246,6 @@
             this.soundChannelsComboBox.Name = "soundChannelsComboBox";
             this.soundChannelsComboBox.Size = new System.Drawing.Size(121, 21);
             this.soundChannelsComboBox.TabIndex = 40;
-            this.soundChannelsComboBox.SelectedIndexChanged += new System.EventHandler(this.SoundChannelsComboBox_SelectedIndexChanged);
             // 
             // soundChannelsLabel
             // 
@@ -1308,7 +1269,6 @@
             this.soundQualityComboBox.Name = "soundQualityComboBox";
             this.soundQualityComboBox.Size = new System.Drawing.Size(121, 21);
             this.soundQualityComboBox.TabIndex = 38;
-            this.soundQualityComboBox.SelectedIndexChanged += new System.EventHandler(this.SoundQualityComboBox_SelectedIndexChanged);
             // 
             // soundQualityLabel
             // 
@@ -1328,7 +1288,6 @@
             this.randomizedSoundsCheckBox.Size = new System.Drawing.Size(15, 14);
             this.randomizedSoundsCheckBox.TabIndex = 36;
             this.randomizedSoundsCheckBox.UseVisualStyleBackColor = true;
-            this.randomizedSoundsCheckBox.CheckedChanged += new System.EventHandler(this.RandomizedSoundsCheckBox_CheckedChanged);
             // 
             // randomizedSoundsLabel
             // 
@@ -1459,7 +1418,7 @@
         private System.Windows.Forms.Label loginAttemptsLabel;
         private System.Windows.Forms.Button ultraGraphicsButton;
         private System.Windows.Forms.Button highGraphicsButton;
-        private System.Windows.Forms.Button mediumButtomGraphics;
+        private System.Windows.Forms.Button mediumGraphicsButton;
         private System.Windows.Forms.Button lowGraphicsButton;
         private System.Windows.Forms.Button highAudioButton;
         private System.Windows.Forms.Button mediumAudioButton;

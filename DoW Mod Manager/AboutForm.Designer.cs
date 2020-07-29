@@ -45,6 +45,9 @@
             this.specialThanks3Label = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.aboutTabPage = new System.Windows.Forms.TabPage();
+            this.multithreadedJITCompilationRadioButton = new System.Windows.Forms.RadioButton();
+            this.AOTCompilationRadioButton = new System.Windows.Forms.RadioButton();
+            this.autoupdateCheckBox = new System.Windows.Forms.CheckBox();
             this.aboutLabel = new System.Windows.Forms.Label();
             this.authorsTabPage = new System.Windows.Forms.TabPage();
             this.specialThanksTabPage = new System.Windows.Forms.TabPage();
@@ -245,6 +248,9 @@
             // aboutTabPage
             // 
             this.aboutTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.aboutTabPage.Controls.Add(this.multithreadedJITCompilationRadioButton);
+            this.aboutTabPage.Controls.Add(this.AOTCompilationRadioButton);
+            this.aboutTabPage.Controls.Add(this.autoupdateCheckBox);
             this.aboutTabPage.Controls.Add(this.aboutLabel);
             this.aboutTabPage.Controls.Add(this.pictureBox);
             this.aboutTabPage.Location = new System.Drawing.Point(4, 22);
@@ -253,6 +259,41 @@
             this.aboutTabPage.Size = new System.Drawing.Size(406, 167);
             this.aboutTabPage.TabIndex = 0;
             this.aboutTabPage.Text = "About";
+            // 
+            // multithreadedJITCompilationRadioButton
+            // 
+            this.multithreadedJITCompilationRadioButton.AutoSize = true;
+            this.multithreadedJITCompilationRadioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.multithreadedJITCompilationRadioButton.Location = new System.Drawing.Point(230, 114);
+            this.multithreadedJITCompilationRadioButton.Name = "multithreadedJITCompilationRadioButton";
+            this.multithreadedJITCompilationRadioButton.Size = new System.Drawing.Size(163, 17);
+            this.multithreadedJITCompilationRadioButton.TabIndex = 14;
+            this.multithreadedJITCompilationRadioButton.Text = "Multithreaded JIT compilation";
+            this.multithreadedJITCompilationRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // AOTCompilationRadioButton
+            // 
+            this.AOTCompilationRadioButton.AutoSize = true;
+            this.AOTCompilationRadioButton.Checked = true;
+            this.AOTCompilationRadioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.AOTCompilationRadioButton.Location = new System.Drawing.Point(230, 137);
+            this.AOTCompilationRadioButton.Name = "AOTCompilationRadioButton";
+            this.AOTCompilationRadioButton.Size = new System.Drawing.Size(143, 17);
+            this.AOTCompilationRadioButton.TabIndex = 14;
+            this.AOTCompilationRadioButton.TabStop = true;
+            this.AOTCompilationRadioButton.Text = "AOT compilation (fastest)";
+            this.AOTCompilationRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // autoupdateCheckBox
+            // 
+            this.autoupdateCheckBox.AutoSize = true;
+            this.autoupdateCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.autoupdateCheckBox.Location = new System.Drawing.Point(90, 115);
+            this.autoupdateCheckBox.Name = "autoupdateCheckBox";
+            this.autoupdateCheckBox.Size = new System.Drawing.Size(86, 17);
+            this.autoupdateCheckBox.TabIndex = 11;
+            this.autoupdateCheckBox.Text = "Autoupdates";
+            this.autoupdateCheckBox.UseVisualStyleBackColor = true;
             // 
             // aboutLabel
             // 
@@ -466,5 +507,8 @@
         private System.Windows.Forms.TextBox licenceTextBox;
         private System.Windows.Forms.Label aboutLabel;
         private System.Windows.Forms.TextBox changelogTextBox;
+        private System.Windows.Forms.CheckBox autoupdateCheckBox;
+        private System.Windows.Forms.RadioButton AOTCompilationRadioButton;
+        private System.Windows.Forms.RadioButton multithreadedJITCompilationRadioButton;
     }
 }

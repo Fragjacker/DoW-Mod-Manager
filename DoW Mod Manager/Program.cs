@@ -12,12 +12,12 @@ namespace DoW_Mod_Manager
         {
             if (Application.MessageLoop)
             {
-                // WinForms app
+                // it's an WinForms app
                 Application.Exit();
             }
             else
             {
-                // Console app
+                // It's a Console app
                 Environment.Exit(1);
             }
         }

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DoW_Mod_Manager
@@ -27,21 +20,21 @@ namespace DoW_Mod_Manager
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 
     /// <summary>
-    /// Your custom dialogue box helper.
+    /// A custom DialogueBox helper.
     /// </summary>
     public static class ThemedDialogueBox
     {
-        public static void Show(string message, string title = "")
+        public static DialogResult Show(string message, string title = "")
         {
             // "using" construct ensures the resources are freed when form is closed
             using (DialogueForm form = new DialogueForm(message, title))
             {
-                form.ShowDialog();
+                return form.ShowDialog();
             }
         }
     }

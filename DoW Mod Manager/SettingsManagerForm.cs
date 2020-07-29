@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Management;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
@@ -28,7 +30,7 @@ namespace DoW_Mod_Manager
 
         private const string SETTINGS_FILE = "Local.ini";
 
-        // Here are all settings from Local.ini in right order
+        // Here are all settings from Local.ini in correct order
         private const string CAMERA_DETAIL = "cameradetail";
         private const string CURRENT_MOD = "currentmoddc";
         private const string DYNAMIC_LIGHTS = "dynamiclights";
@@ -69,7 +71,7 @@ namespace DoW_Mod_Manager
         private const string PLAYERCONFIG = "playercfg.lua";
         private const string PROFILE = "Profile";
 
-        // Here are some usefull settings from playercfg.lua in right order
+        // Here are some usefull settings from playercfg.lua in correct order
         private const string INVERT_DECLINATION = "invertDeclination";
         private const string INVERT_PAN = "invertPan";
         private const string SCROLL_RATE = "scrollRate";
@@ -81,14 +83,19 @@ namespace DoW_Mod_Manager
 
         private readonly ModManagerForm modManager;
 
+        // Those two settings could indicate that we need to modify DoW start options
         private bool enableHighPoly = false;
         private bool disableHighPoly = false;
 
-        // Not the same settings as in ModManagerForm
+        // Not the same settings as in ModManagerForm!
         private Dictionary<string, string> settings;
 
         private List<Profile> profiles;
 
+        /// <summary>
+        /// Creates the Form of the Settings Manager Window
+        /// </summary>
+        /// <param name="form"></param>
         public SettingsManagerForm(ModManagerForm form)
         {
             InitializeComponent();
@@ -107,12 +114,59 @@ namespace DoW_Mod_Manager
 
             FindAllProfilesInDirectory(clearProfiles: false);
 
-            InitializeGUIWithSettings();
+            ReadSettingsFromPlayercfgLUA();
+
+            InitializeGUIWithSettings(localINI: true, playercfgLUA: true);
+
+            // We have to add those methods to the EventHandler here so we could avoid accidental firing of those methods after we would change the state of the CheckBox
+            newPlayerTextBox.TextChanged += new EventHandler(NewPlayerTextBox_TextChanged);
+            loginAttemptsComboBox.SelectedIndexChanged += new EventHandler(LoginAttemptsComboBox_SelectedIndexChanged);
+            scrollRateTrackBar.Scroll += new EventHandler(ScrollRateTrackBar_Scroll);
+            inverseDeclinationCheckBox.CheckedChanged += new EventHandler(InverseDeclinationCheckBox_CheckedChanged);
+            inversePanCheckBox.CheckedChanged += new EventHandler(InversePanCheckBox_CheckedChanged);
+            parentalControlCheckBox.CheckedChanged += new EventHandler(ParentalControlCheckBox_CheckedChanged);
+            currentPlayerComboBox.SelectedIndexChanged += new EventHandler(CurrentPlayerComboBox_SelectedIndexChanged);
+            
+            dynamicLightsComboBox.SelectedIndexChanged += new EventHandler(DynamicLightsComboBox_SelectedIndexChanged);
+            effectsDetailComboBox.SelectedIndexChanged += new EventHandler(EffectsDetailComboBox_SelectedIndexChanged);
+            worldEventsComboBox.SelectedIndexChanged += new EventHandler(WorldEventsComboBox_SelectedIndexChanged);
+            shadowsDetailComboBox.SelectedIndexChanged += new EventHandler(ShadowsDetailComboBox_SelectedIndexChanged);
+            full3DCameraCheckBox.CheckedChanged += new EventHandler(Full3DCameraCheckBox_CheckedChanged);
+            persistentScarringComboBox.SelectedIndexChanged += new EventHandler(PersistentScarringComboBox_SelectedIndexChanged);
+            betterTeamcoloredTexturexCheckBox.CheckedChanged += new EventHandler(BetterTeamcoloredTexturexCheckBox_CheckedChanged);
+            unitsOcclusionCheckBox.CheckedChanged += new EventHandler(UnitsOcclusionCheckBox_CheckedChanged);
+            persistentBodiesComboBox.SelectedIndexChanged += new EventHandler(PersistentBodiesComboBox_SelectedIndexChanged);
+            terrainDetailComboBox.SelectedIndexChanged += new EventHandler(TerrainDetailComboBox_SelectedIndexChanged);
+            modelDetailComboBox.SelectedIndexChanged += new EventHandler(ModelDetailComboBox_SelectedIndexChanged);
+            textureDetailComboBox.SelectedIndexChanged += new EventHandler(TextureDetailComboBox_SelectedIndexChanged);
+            rendererComboBox.SelectedIndexChanged += new EventHandler(RendererComboBox_SelectedIndexChanged);
+            colorDepthComboBox.SelectedIndexChanged += new EventHandler(ColorDepthComboBox_SelectedIndexChanged);
+            activeVideocardComboBox.SelectedIndexChanged += new EventHandler(ActiveVideocardComboBox_SelectedIndexChanged);
+            antialiasingCheckBox.CheckedChanged += new EventHandler(AntialiasingCheckBox_CheckedChanged);
+            refreshRateComboBox.SelectedIndexChanged += new EventHandler(RefreshRateComboBox_SelectedIndexChanged);
+            windowedCheckBox.CheckedChanged += new EventHandler(WindowedCheckBox_CheckedChanged);
+            vSyncCheckBox.CheckedChanged += new EventHandler(VSyncCheckBox_CheckedChanged);
+            gammaTrackBar.Scroll += new EventHandler(GammaTrackBar_Scroll);
+            screenResolutionComboBox.SelectedIndexChanged += new EventHandler(ScreenResolutionComboBox_SelectedIndexChanged);
+            
+            soundEnabledCheckBox.CheckedChanged += new EventHandler(SoundEnabledCheckBox_CheckedChanged);
+            musicVolumeTrackBar.Scroll += new EventHandler(MusicVolumeTrackBar_Scroll);
+            voiceVolumeTrackBar.Scroll += new EventHandler(VoiceVolumeTrackBar_Scroll);
+            effectsVolumeTrackBar.Scroll += new EventHandler(EffectsVolumeTrackBar_Scroll);
+            ambientVolumeTrackBar.Scroll += new EventHandler(AmbientVolumeTarckBar_Scroll);
+            soundChannelsComboBox.SelectedIndexChanged += new EventHandler(SoundChannelsComboBox_SelectedIndexChanged);
+            soundQualityComboBox.SelectedIndexChanged += new EventHandler(SoundQualityComboBox_SelectedIndexChanged);
+            randomizedSoundsCheckBox.CheckedChanged += new EventHandler(RandomizedSoundsCheckBox_CheckedChanged);
 
             closeButton.Text = CLOSE_LABEL;
             saveButton.Enabled = false;
         }
 
+        /// <summary>
+        /// This method initializes settings Dictionary with default values
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void InitializeSettingsWithDefaults()
         {
             settings = new Dictionary<string, string>
@@ -167,6 +221,9 @@ namespace DoW_Mod_Manager
             profiles = new List<Profile>();
         }
 
+        /// <summary>
+        /// This method reads settings from Local.ini file to settings Dictionary
+        /// </summary>
         // Request the inlining of this method
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ReadSettingsFromLocalINI()
@@ -174,6 +231,7 @@ namespace DoW_Mod_Manager
             if (File.Exists(SETTINGS_FILE))
             {
                 string[] lines = File.ReadAllLines(SETTINGS_FILE);
+
                 for (int i = 0; i < lines.Length; i++)
                 {
                     string line = lines[i].Trim();
@@ -335,6 +393,11 @@ namespace DoW_Mod_Manager
                 saveButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method finds all profiles stored in Profiles directory
+        /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void FindAllProfilesInDirectory(bool clearProfiles)
         {
             if (clearProfiles)
@@ -362,6 +425,7 @@ namespace DoW_Mod_Manager
 
                     bool isProfileExist = false;
 
+                    // Checks if profile listed in settings Dictionary is really exists
                     for (int i = 0; i < profiles.Count; i++)
                     {
                         if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
@@ -377,151 +441,12 @@ namespace DoW_Mod_Manager
             }
         }
 
-        private void InitializeGUIWithSettings()
-        {
-            // Now we could set all ComboBoxes (METALLBAWHKSESS!!!) and CheckBoxes in our Form
-            // Fun fact: Convert.ToBoolean("true") works but Convert.ToBoolean("1") fails. Only Convert.ToBoolean(1) is a good alternative
-            try
-            {
-                full3DCameraCheckBox.Checked = Convert.ToBoolean(settings[CAMERA_DETAIL]);
-            }
-            catch (Exception)
-            {
-                full3DCameraCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[CAMERA_DETAIL]));
-            }
-            // Skipp CurrtentMod setting
-            dynamicLightsComboBox.SelectedIndex = Convert.ToInt32(settings[DYNAMIC_LIGHTS]);
-            worldEventsComboBox.SelectedIndex = Convert.ToInt32(settings[EVENT_DETAIL_LEVEL]);
-            // Skip Force Watch Movies setting because it doesn't really works
-            try
-            {
-                betterTeamcoloredTexturexCheckBox.Checked = Convert.ToBoolean(settings[FULLRES_TEAMCOLOUR]);
-            }
-            catch (Exception)
-            {
-                betterTeamcoloredTexturexCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[FULLRES_TEAMCOLOUR]));
-            }
-            effectsDetailComboBox.SelectedIndex = Convert.ToInt32(settings[FX_DETAIL_LEVEL]);
-            modelDetailComboBox.SelectedIndex = Convert.ToInt32(settings[MODEL_DETAIL]);
-            try
-            {
-                parentalControlCheckBox.Checked = Convert.ToBoolean(settings[PARENTAL_CONTROL]);
-            }
-            catch (Exception)
-            {
-                parentalControlCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[PARENTAL_CONTROL]));
-            }
-            persistentBodiesComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_BODIES]);
-            persistentScarringComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_DECALS]);
-            if (profiles.Count > 0)
-            {
-                currentPlayerComboBox.Items.Clear();
-
-                for (int i = 0; i < profiles.Count; i++)
-                {
-                    currentPlayerComboBox.Items.Add(profiles[i].PlayerName);
-
-                    if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
-                        currentPlayerComboBox.SelectedIndex = i;
-                }
-            }
-            else
-                deleteProfileButton.Enabled = false;
-
-            loginAttemptsComboBox.SelectedItem = settings[RL_SSO_NUM_TIMES_SHOWN];
-            activeVideocardComboBox.SelectedItem = settings[SCREEN_ADAPTER];
-            try
-            {
-                antialiasingCheckBox.Checked = Convert.ToBoolean(settings[SCREEN_ANIALIAS]);
-            }
-            catch (Exception)
-            {
-                antialiasingCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_ANIALIAS]));
-            }
-            switch (settings[SCREEN_DEPTH])
-            {
-                case "32":
-                    colorDepthComboBox.SelectedIndex = 2;
-                    break;
-                case "24":
-                    colorDepthComboBox.SelectedIndex = 1;
-                    break;
-                case "16":
-                    colorDepthComboBox.SelectedIndex = 0;
-                    break;
-            }
-            rendererComboBox.SelectedItem = settings[SCREEN_DEVICE];
-            gammaTrackBar.Value = Convert.ToInt32(settings[SCREEN_GAMMA]);
-            screenResolutionComboBox.SelectedItem = settings[SCREEN_WIDTH] + "×" + settings[SCREEN_HEIGHT];
-            if (settings[SCREEN_NO_VSYNC] == "1")       // We have to invert it for covienience
-                vSyncCheckBox.Checked = false;
-            else
-                vSyncCheckBox.Checked = true;
-            if (settings[SCREEN_REFRESH] == "0")
-                refreshRateComboBox.SelectedItem = "Auto";
-            else
-                refreshRateComboBox.SelectedItem = settings[SCREEN_REFRESH] + " Hz";
-            try
-            {
-                windowedCheckBox.Checked = Convert.ToBoolean(settings[SCREEN_WINDOWED]);
-            }
-            catch (Exception)
-            {
-                windowedCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SCREEN_WINDOWED]));
-            }
-            int index = 0;
-            if (settings[SHADOW_BLOB] == "1")
-            {
-                index = 1;
-                if (settings[SHADOW_MAP] == "1")
-                {
-                    index = 2;
-                    if (settings[SHADOW_VOLUME] == "1")
-                        index = 3;
-                }
-            }
-            shadowsDetailComboBox.SelectedIndex = index;
-            try
-            {
-                soundEnabledCheckBox.Checked = Convert.ToBoolean(settings[SOUND_ENABLED]);
-            }
-            catch (Exception)
-            {
-                soundEnabledCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[SOUND_ENABLED]));
-            }
-            if (settings[SOUND_LIMIT_SAMPLES] == "1")       // We have to invert it for covienience
-                randomizedSoundsCheckBox.Checked = false;
-            else
-                randomizedSoundsCheckBox.Checked = false;
-            switch (settings[SOUND_NR_CHANNELS])
-            {
-                case "64":
-                    soundChannelsComboBox.SelectedIndex = 2;
-                    break;
-                case "32":
-                    soundChannelsComboBox.SelectedIndex = 1;
-                    break;
-                case "16":
-                    soundChannelsComboBox.SelectedIndex = 0;
-                    break;
-            }
-            soundQualityComboBox.SelectedIndex = Convert.ToInt32(settings[SOUND_QUALITY]);
-            terrainDetailComboBox.SelectedIndex = Convert.ToInt32(settings[TERRAIN_ENABLE_FOW_BLUR]);
-            textureDetailComboBox.SelectedIndex = Convert.ToInt32(settings[TEXTURE_DETAIL]);
-            // Skip TotalMatchces setting
-            try
-            {
-                unitsOcclusionCheckBox.Checked = Convert.ToBoolean(settings[UNIT_OCCLUSION]);
-            }
-            catch (Exception)
-            {
-                unitsOcclusionCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(settings[UNIT_OCCLUSION]));
-            }
-
-            ReadSettingsFromPlayercfgLUA();
-        }
-
+        /// <summary>
+        /// This method reads settings from player.cfg to settimgs Dictionary
+        /// </summary>
         // TODO: Investigate why this method is called twice after SettingManagerForm is launched
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ReadSettingsFromPlayercfgLUA()
         {
             string profileName = PROFILE + (currentPlayerComboBox.SelectedIndex + 1);
@@ -535,8 +460,6 @@ namespace DoW_Mod_Manager
 
                     while ((line = file.ReadLine()) != null)
                     {
-                        bool lastSetting = false;
-                        
                         if (line.EndsWith(","))
                         {
                             line = line.Replace(" ", "");
@@ -546,74 +469,26 @@ namespace DoW_Mod_Manager
                             if (indexOfEqualSign > 0)
                             {
                                 string stringValue = line.Substring(indexOfEqualSign + 1, line.Length - indexOfEqualSign - 2);
-                                TrackBar trackBarToChange;
 
                                 if (line.Contains(INVERT_DECLINATION))
-                                {
-                                    try
-                                    {
-                                        inverseDeclinationCheckBox.Checked = Convert.ToBoolean(stringValue);
-                                    }
-                                    catch (Exception)
-                                    {
-                                        inverseDeclinationCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(stringValue));
-                                    }
                                     settings[INVERT_DECLINATION] = stringValue;
-                                    continue;
-                                }
                                 else if (line.Contains(INVERT_PAN))
-                                {
-                                    try
-                                    {
-                                        inversePanCheckBox.Checked = Convert.ToBoolean(stringValue);
-                                    }
-                                    catch (Exception)
-                                    {
-                                        inversePanCheckBox.Checked = Convert.ToBoolean(Convert.ToInt32(stringValue));
-                                    }
                                     settings[INVERT_PAN] = stringValue;
-                                    continue;
-                                }
                                 else if (line.Contains(SCROLL_RATE))
-                                {
-                                    trackBarToChange = scrollRateTrackBar;
                                     settings[SCROLL_RATE] = stringValue;
-                                }
                                 else if (line.Contains(SOUND_VOLUME_AMBIENT))
-                                {
-                                    trackBarToChange = ambientVolumeTrackBar;
                                     settings[SOUND_VOLUME_AMBIENT] = stringValue;
-                                }
                                 else if (line.Contains(SOUND_VOLUME_MUSIC))
-                                {
-                                    trackBarToChange = musicVolumeTrackBar;
                                     settings[SOUND_VOLUME_MUSIC] = stringValue;
-                                }
                                 else if (line.Contains(SOUND_VOLUME_SFX))
-                                {
-                                    trackBarToChange = effectsVolumeTrackBar;
                                     settings[SOUND_VOLUME_SFX] = stringValue;
-                                }
                                 else if (line.Contains(SOUND_VOLUME_VOICE))
                                 {
-                                    trackBarToChange = voiceVolumeTrackBar;
                                     settings[SOUND_VOLUME_VOICE] = stringValue;
-                                    lastSetting = true;
-                                }
-                                else
-                                    continue;
-
-                                double doubleValue;
-
-                                // In some cultures decimal point is actually a comma
-                                doubleValue = Convert.ToDouble(stringValue, new CultureInfo("en-US"));
-
-                                // Original value could be between 0 and 1 (float) but TrackBar values could be only between 0 and 100 (int)
-                                trackBarToChange.Value = Convert.ToInt32(doubleValue * 100d);
-
-                                // We read all the settings that we are interesed in
-                                if (lastSetting)
+                                    
+                                    // We found all the setting we need
                                     break;
+                                }
                             }
                         }
                     }
@@ -621,7 +496,178 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This method initializes all GUI elements with options from settings Dictioary
+        /// </summary>
+        /// <param name="localINI"></param>
+        /// <param name="playercfgLUA"></param>
+        private void InitializeGUIWithSettings(bool localINI, bool playercfgLUA)
+        {
+            if (localINI)
+            {
+                // Now we could set all ComboBoxes (METALLBAWHKSESS!!!) and CheckBoxes in our Form
+                // Fun fact: Convert.ToBoolean("true") works but Convert.ToBoolean("1") fails. Only Convert.ToBoolean(1) is a good alternative
+                full3DCameraCheckBox.Checked = settings[CAMERA_DETAIL] == "1";
+                // Skipp CurrtentMod setting
+                dynamicLightsComboBox.SelectedIndex = Convert.ToInt32(settings[DYNAMIC_LIGHTS]);
+                worldEventsComboBox.SelectedIndex = Convert.ToInt32(settings[EVENT_DETAIL_LEVEL]);
+                // Skip Force Watch Movies setting because it doesn't really work
+                betterTeamcoloredTexturexCheckBox.Checked = settings[FULLRES_TEAMCOLOUR] == "1";
+                effectsDetailComboBox.SelectedIndex = Convert.ToInt32(settings[FX_DETAIL_LEVEL]);
+                modelDetailComboBox.SelectedIndex = Convert.ToInt32(settings[MODEL_DETAIL]);
+                parentalControlCheckBox.Checked = settings[PARENTAL_CONTROL] == "1";
+                persistentBodiesComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_BODIES]);
+                persistentScarringComboBox.SelectedIndex = Convert.ToInt32(settings[PERSISTENT_DECALS]);
+                if (profiles.Count > 0)
+                {
+                    currentPlayerComboBox.Items.Clear();
+
+                    for (int i = 0; i < profiles.Count; i++)
+                    {
+                        currentPlayerComboBox.Items.Add(profiles[i].PlayerName);
+
+                        if (settings[PLAYER_PROFILE] == profiles[i].ProfileName)
+                            currentPlayerComboBox.SelectedIndex = i;
+                    }
+                }
+                else
+                    deleteProfileButton.Enabled = false;
+
+                loginAttemptsComboBox.SelectedItem = settings[RL_SSO_NUM_TIMES_SHOWN];
+                // Test for oerformance!
+                List<string> videocards = GetAllVideocards();
+                int currentScreenAdapter = Convert.ToInt32(settings[SCREEN_ADAPTER]);
+
+                activeVideocardComboBox.Items.AddRange(videocards.ToArray());
+                if (currentScreenAdapter <= videocards.Count)
+                    activeVideocardComboBox.SelectedIndex = currentScreenAdapter;
+                else
+                {
+                    activeVideocardComboBox.SelectedIndex = 0;
+                    settings[SCREEN_ADAPTER] = "0";
+                    WriteSettings(localINI: true, playercgfLUA: false);
+                }
+                // Test for oerformance!
+                antialiasingCheckBox.Checked = settings[SCREEN_ANIALIAS] == "1";
+                switch (settings[SCREEN_DEPTH])
+                {
+                    case "32":
+                        colorDepthComboBox.SelectedIndex = 2;
+                        break;
+                    case "24":
+                        colorDepthComboBox.SelectedIndex = 1;
+                        break;
+                    case "16":
+                        colorDepthComboBox.SelectedIndex = 0;
+                        break;
+                }
+                rendererComboBox.SelectedItem = settings[SCREEN_DEVICE];
+                gammaTrackBar.Value = Convert.ToInt32(settings[SCREEN_GAMMA]);
+                screenResolutionComboBox.SelectedItem = settings[SCREEN_WIDTH] + "×" + settings[SCREEN_HEIGHT];
+                if (settings[SCREEN_NO_VSYNC] == "1")       // We have to invert it for covienience
+                    vSyncCheckBox.Checked = false;
+                else
+                    vSyncCheckBox.Checked = true;
+                if (settings[SCREEN_REFRESH] == "0")
+                    refreshRateComboBox.SelectedItem = "Auto";
+                else
+                    refreshRateComboBox.SelectedItem = settings[SCREEN_REFRESH] + " Hz";
+                windowedCheckBox.Checked = settings[SCREEN_WINDOWED] == "1";
+                int index = 0;
+                if (settings[SHADOW_BLOB] == "1")
+                {
+                    index = 1;
+                    if (settings[SHADOW_MAP] == "1")
+                    {
+                        index = 2;
+                        if (settings[SHADOW_VOLUME] == "1")
+                            index = 3;
+                    }
+                }
+                shadowsDetailComboBox.SelectedIndex = index;
+                soundEnabledCheckBox.Checked = settings[SOUND_ENABLED] == "1";
+                if (settings[SOUND_LIMIT_SAMPLES] == "1")       // We have to invert it for covienience
+                    randomizedSoundsCheckBox.Checked = false;
+                else
+                    randomizedSoundsCheckBox.Checked = false;
+                switch (settings[SOUND_NR_CHANNELS])
+                {
+                    case "64":
+                        soundChannelsComboBox.SelectedIndex = 2;
+                        break;
+                    case "32":
+                        soundChannelsComboBox.SelectedIndex = 1;
+                        break;
+                    case "16":
+                        soundChannelsComboBox.SelectedIndex = 0;
+                        break;
+                }
+                soundQualityComboBox.SelectedIndex = Convert.ToInt32(settings[SOUND_QUALITY]);
+                terrainDetailComboBox.SelectedIndex = Convert.ToInt32(settings[TERRAIN_ENABLE_FOW_BLUR]);
+                textureDetailComboBox.SelectedIndex = Convert.ToInt32(settings[TEXTURE_DETAIL]);
+                // Skip TotalMatchces setting
+                unitsOcclusionCheckBox.Checked = settings[UNIT_OCCLUSION] == "1";
+            }
+
+            if (playercfgLUA)
+            {
+                inverseDeclinationCheckBox.Checked = settings[INVERT_DECLINATION] == "1";
+                inversePanCheckBox.Checked = settings[INVERT_PAN] == "1";
+                double doubleValue = Convert.ToDouble(settings[SCROLL_RATE], new CultureInfo("en-US"));
+                scrollRateTrackBar.Value = Convert.ToInt32(doubleValue * 100d);
+                doubleValue = Convert.ToDouble(settings[SOUND_VOLUME_AMBIENT], new CultureInfo("en-US"));
+                ambientVolumeTrackBar.Value = Convert.ToInt32(doubleValue * 100d);
+                doubleValue = Convert.ToDouble(settings[SOUND_VOLUME_MUSIC], new CultureInfo("en-US"));
+                musicVolumeTrackBar.Value = Convert.ToInt32(doubleValue * 100d);
+                doubleValue = Convert.ToDouble(settings[SOUND_VOLUME_SFX], new CultureInfo("en-US"));
+                effectsVolumeTrackBar.Value = Convert.ToInt32(doubleValue * 100d);
+                doubleValue = Convert.ToDouble(settings[SOUND_VOLUME_VOICE], new CultureInfo("en-US"));
+                voiceVolumeTrackBar.Value = Convert.ToInt32(doubleValue * 100d);
+            }
+        }
+
+        /// <summary>
+        /// This method will find all the videocards
+        /// </summary>
+        /// <returns>List<string></returns>
+        // TODO: this method may benefit from an optimization pass!
+        private List<string> GetAllVideocards()
+        {
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
+            List<string> videocards = new List<string>();
+
+            foreach (ManagementObject mo in searcher.Get())
+            {
+                PropertyData currentBitsPerPixel = mo.Properties["CurrentBitsPerPixel"];
+                PropertyData description = mo.Properties["Description"];
+                
+                if (currentBitsPerPixel != null && description != null)
+                {
+                    if (currentBitsPerPixel.Value != null)
+                        videocards.Add(description.Value.ToString());
+                }
+            }
+
+            return videocards;
+        }
+
+        /// <summary>
+        /// This method reacts on SaveButton press
+        /// </summary>
         private void SaveButton_Click(object sender, EventArgs e)
+        {
+            WriteSettings(localINI: true, playercgfLUA: true);
+
+            closeButton.Text = CLOSE_LABEL;
+            saveButton.Enabled = false;
+        }
+
+        /// <summary>
+        /// This method saves all settings to their respective files
+        /// </summary>
+        /// <param name="localINI"></param>
+        /// <param name="playercgfLUA"></param>
+        private void WriteSettings(bool localINI, bool playercgfLUA)
         {
             // There is no Profile selected
             if (currentPlayerComboBox.Text.Length == 0)
@@ -631,44 +677,115 @@ namespace DoW_Mod_Manager
                 return;
             }
 
-            // You have to use \r\n instead of \n or Dawn of War will NOT recognise the end of the line!
-            // Save settings that are stored in Local.ini
-            string str = $"[global]\r\n" +
-                         $"{CAMERA_DETAIL}={settings[CAMERA_DETAIL]}\r\n" +
-                         $"{CURRENT_MOD}={settings[CURRENT_MOD]}\r\n" +
-                         $"{DYNAMIC_LIGHTS}={settings[DYNAMIC_LIGHTS]}\r\n" +
-                         $"{EVENT_DETAIL_LEVEL}={settings[EVENT_DETAIL_LEVEL]}\r\n" +
-                         $"{FORCE_WATCH_MOVIES}={settings[FORCE_WATCH_MOVIES]}\r\n" +
-                         $"{FULLRES_TEAMCOLOUR}={settings[FULLRES_TEAMCOLOUR]}\r\n" +
-                         $"{FX_DETAIL_LEVEL}={settings[FX_DETAIL_LEVEL]}\r\n" +
-                         $"{MODEL_DETAIL}={settings[MODEL_DETAIL]}\r\n" +
-                         $"{PARENTAL_CONTROL}={settings[PARENTAL_CONTROL]}\r\n" +
-                         $"{PERSISTENT_BODIES}={settings[PERSISTENT_BODIES]}\r\n" +
-                         $"{PERSISTENT_DECALS}={settings[PERSISTENT_DECALS]}\r\n" +
-                         $"{PLAYER_PROFILE}={settings[PLAYER_PROFILE]}\r\n" +
-                         $"{RL_SSO_NUM_TIMES_SHOWN}={settings[RL_SSO_NUM_TIMES_SHOWN]}\r\n" +
-                         $"{SCREEN_ADAPTER}={settings[SCREEN_ADAPTER]}\r\n" +
-                         $"{SCREEN_ANIALIAS}={settings[SCREEN_ANIALIAS]}\r\n" +
-                         $"{SCREEN_DEPTH}={settings[SCREEN_DEPTH]}\r\n" +
-                         $"{SCREEN_DEVICE}={settings[SCREEN_DEVICE]}\r\n" +
-                         $"{SCREEN_GAMMA}={settings[SCREEN_GAMMA]}\r\n" +
-                         $"{SCREEN_HEIGHT}={settings[SCREEN_HEIGHT]}\r\n" +
-                         $"{SCREEN_NO_VSYNC}={settings[SCREEN_NO_VSYNC]}\r\n" +
-                         $"{SCREEN_REFRESH}={settings[SCREEN_REFRESH]}\r\n" +
-                         $"{SCREEN_WIDTH}={settings[SCREEN_WIDTH]}\r\n" +
-                         $"{SCREEN_WINDOWED}={settings[SCREEN_WINDOWED]}\r\n" +
-                         $"{SHADOW_BLOB}={settings[SHADOW_BLOB]}\r\n" +
-                         $"{SHADOW_MAP}={settings[SHADOW_MAP]}\r\n" +
-                         $"{SHADOW_VOLUME}={settings[SHADOW_VOLUME]}\r\n" +
-                         $"{SOUND_ENABLED}={settings[SOUND_ENABLED]}\r\n" +
-                         $"{SOUND_LIMIT_SAMPLES}={settings[SOUND_LIMIT_SAMPLES]}\r\n" +
-                         $"{SOUND_NR_CHANNELS}={settings[SOUND_NR_CHANNELS]}\r\n" +
-                         $"{SOUND_QUALITY}={settings[SOUND_QUALITY]}\r\n" +
-                         $"{TERRAIN_ENABLE_FOW_BLUR}={settings[TERRAIN_ENABLE_FOW_BLUR]}\r\n" +
-                         $"{TEXTURE_DETAIL}={settings[TEXTURE_DETAIL]}\r\n" +
-                         $"{TOTAL_MATCHES}={settings[TOTAL_MATCHES]}\r\n" +
-                         $"{UNIT_OCCLUSION}={settings[UNIT_OCCLUSION]}";
-            File.WriteAllText(SETTINGS_FILE, str);
+            if (localINI)
+            {
+                // You have to use "\r\n" instead of "\n" or Dawn of War will NOT recognise the end of the line!
+                // Save settings that are stored in Local.ini
+                StringBuilder sb = new StringBuilder();
+                sb.Append($"[global]\r\n");
+                sb.Append($"{CAMERA_DETAIL}={settings[CAMERA_DETAIL]}\r\n");
+                sb.Append($"{CURRENT_MOD}={settings[CURRENT_MOD]}\r\n");
+                sb.Append($"{DYNAMIC_LIGHTS}={settings[DYNAMIC_LIGHTS]}\r\n");
+                sb.Append($"{EVENT_DETAIL_LEVEL}={settings[EVENT_DETAIL_LEVEL]}\r\n");
+                sb.Append($"{FORCE_WATCH_MOVIES}={settings[FORCE_WATCH_MOVIES]}\r\n");
+                sb.Append($"{FULLRES_TEAMCOLOUR}={settings[FULLRES_TEAMCOLOUR]}\r\n");
+                sb.Append($"{FX_DETAIL_LEVEL}={settings[FX_DETAIL_LEVEL]}\r\n");
+                sb.Append($"{MODEL_DETAIL}={settings[MODEL_DETAIL]}\r\n");
+                sb.Append($"{PARENTAL_CONTROL}={settings[PARENTAL_CONTROL]}\r\n");
+                sb.Append($"{PERSISTENT_BODIES}={settings[PERSISTENT_BODIES]}\r\n");
+                sb.Append($"{PERSISTENT_DECALS}={settings[PERSISTENT_DECALS]}\r\n");
+                sb.Append($"{PLAYER_PROFILE}={settings[PLAYER_PROFILE]}\r\n");
+                sb.Append($"{RL_SSO_NUM_TIMES_SHOWN}={settings[RL_SSO_NUM_TIMES_SHOWN]}\r\n");
+                sb.Append($"{SCREEN_ADAPTER}={settings[SCREEN_ADAPTER]}\r\n");
+                sb.Append($"{SCREEN_ANIALIAS}={settings[SCREEN_ANIALIAS]}\r\n");
+                sb.Append($"{SCREEN_DEPTH}={settings[SCREEN_DEPTH]}\r\n");
+                sb.Append($"{SCREEN_DEVICE}={settings[SCREEN_DEVICE]}\r\n");
+                sb.Append($"{SCREEN_GAMMA}={settings[SCREEN_GAMMA]}\r\n");
+                sb.Append($"{SCREEN_HEIGHT}={settings[SCREEN_HEIGHT]}\r\n");
+                sb.Append($"{SCREEN_NO_VSYNC}={settings[SCREEN_NO_VSYNC]}\r\n");
+                sb.Append($"{SCREEN_REFRESH}={settings[SCREEN_REFRESH]}\r\n");
+                sb.Append($"{SCREEN_WIDTH}={settings[SCREEN_WIDTH]}\r\n");
+                sb.Append($"{SCREEN_WINDOWED}={settings[SCREEN_WINDOWED]}\r\n");
+                sb.Append($"{SHADOW_BLOB}={settings[SHADOW_BLOB]}\r\n");
+                sb.Append($"{SHADOW_MAP}={settings[SHADOW_MAP]}\r\n");
+                sb.Append($"{SHADOW_VOLUME}={settings[SHADOW_VOLUME]}\r\n");
+                sb.Append($"{SOUND_ENABLED}={settings[SOUND_ENABLED]}\r\n");
+                sb.Append($"{SOUND_LIMIT_SAMPLES}={settings[SOUND_LIMIT_SAMPLES]}\r\n");
+                sb.Append($"{SOUND_NR_CHANNELS}={settings[SOUND_NR_CHANNELS]}\r\n");
+                sb.Append($"{SOUND_QUALITY}={settings[SOUND_QUALITY]}\r\n");
+                sb.Append($"{TERRAIN_ENABLE_FOW_BLUR}={settings[TERRAIN_ENABLE_FOW_BLUR]}\r\n");
+                sb.Append($"{TEXTURE_DETAIL}={settings[TEXTURE_DETAIL]}\r\n");
+                sb.Append($"{TOTAL_MATCHES}={settings[TOTAL_MATCHES]}\r\n");
+                sb.Append($"{UNIT_OCCLUSION}={settings[UNIT_OCCLUSION]}");
+
+                File.WriteAllText(SETTINGS_FILE, sb.ToString());
+            }
+
+            if (playercgfLUA)
+            {
+                // Save settings that are stored in playercfg.lua
+                // TODO: Use Streams insted of reading and writing the whoile file at once
+                string pathToPlayerConfig = PROFILES_PATH + "\\" + PROFILE + (currentPlayerComboBox.SelectedIndex + 1).ToString() + "\\" + PLAYERCONFIG;
+
+                if (File.Exists(pathToPlayerConfig))
+                {
+                    string[] lines = File.ReadAllLines(pathToPlayerConfig);
+
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        if (lines[i].EndsWith(","))
+                        {
+                            if (lines[i].Contains(INVERT_DECLINATION))
+                                lines[i] = $"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},";
+                            else if (lines[i].Contains(INVERT_PAN))
+                                lines[i] = $"\t{INVERT_PAN} = {settings[INVERT_PAN]},";
+                            else if (lines[i].Contains(SCROLL_RATE))
+                                lines[i] = $"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},";
+                            else if (lines[i].Contains(SOUND_VOLUME_AMBIENT))
+                                lines[i] = $"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},";
+                            else if (lines[i].Contains(SOUND_VOLUME_MUSIC))
+                                lines[i] = $"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},";
+                            else if (lines[i].Contains(SOUND_VOLUME_SFX))
+                                lines[i] = $"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},";
+                            else if (lines[i].Contains(SOUND_VOLUME_VOICE))
+                            {
+                                lines[i] = $"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},";
+
+                                // We found all the settings we searched for
+                                break;
+                            }
+                        }
+                    }
+                    File.WriteAllLines(pathToPlayerConfig, lines);
+                }
+                else
+                {
+                    StringBuilder sb = new StringBuilder();
+
+                    sb.Append("Controls = \r\n");
+                    sb.Append("{\r\n");
+                    sb.Append($"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},\r\n");
+                    sb.Append($"\t{INVERT_PAN} = {settings[INVERT_PAN]},\r\n");
+                    sb.Append($"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},\r\n");
+                    sb.Append("}\r\n");
+                    sb.Append("Sound = \r\n");
+                    sb.Append("{\r\n");
+                    sb.Append($"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},\r\n");
+                    sb.Append($"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},\r\n");
+                    sb.Append($"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},\r\n");
+                    sb.Append($"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},\r\n");
+                    sb.Append("}\r\n");
+                    sb.Append("player_preferences = \r\n");
+                    sb.Append("{\r\n");
+                    sb.Append("\tcampaign_played_disorder = false,\r\n");
+                    sb.Append("\tcampaign_played_order = false,\r\n");
+                    sb.Append("\tforce_name = \"Blood Ravens\",\r\n");
+                    sb.Append("\trace = \"space_marine_race\",\r\n");
+                    sb.Append("}\r\n");
+
+                    File.WriteAllText(pathToPlayerConfig, sb.ToString());
+                }
+            }
 
             if (enableHighPoly)
             {
@@ -680,89 +797,36 @@ namespace DoW_Mod_Manager
                 modManager.ChangeSetting(ModManagerForm.FORCE_HIGH_POLY, 0);
                 disableHighPoly = false;
             }
-
-            // Save settings that are stored in playercfg.lua
-            // TODO: Use Streams insted of reading and writing the whoile file at once
-            string pathToPlayerConfig = PROFILES_PATH + "\\" + PROFILE + (currentPlayerComboBox.SelectedIndex + 1).ToString() + "\\" + PLAYERCONFIG;
-
-            if (File.Exists(pathToPlayerConfig))
-            {
-                string[] lines = File.ReadAllLines(pathToPlayerConfig);
-
-                for (int i = 0; i <lines.Length; i++)
-                {
-                    if (lines[i].EndsWith(","))
-                    {
-                        if (lines[i].Contains(INVERT_DECLINATION))
-                            lines[i] = $"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},";
-                        else if (lines[i].Contains(INVERT_PAN))
-                            lines[i] = $"\t{INVERT_PAN} = {settings[INVERT_PAN]},";
-                        else if (lines[i].Contains(SCROLL_RATE))
-                            lines[i] = $"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},";
-                        else if (lines[i].Contains(SOUND_VOLUME_AMBIENT))
-                            lines[i] = $"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},";
-                        else if (lines[i].Contains(SOUND_VOLUME_MUSIC))
-                            lines[i] = $"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},";
-                        else if (lines[i].Contains(SOUND_VOLUME_SFX))
-                            lines[i] = $"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},";
-                        else if (lines[i].Contains(SOUND_VOLUME_VOICE))
-                        {
-                            lines[i] = $"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},";
-                            
-                            // We found all the settings we searched for
-                            break;
-                        }
-                    }
-                }
-                File.WriteAllLines(pathToPlayerConfig, lines);
-            }
-            else
-            {
-                string str2 = "Controls = \r\n" +
-                              "{\r\n" +
-                              $"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},\r\n" +
-                              $"\t{INVERT_PAN} = {settings[INVERT_PAN]},\r\n" +
-                              $"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},\r\n" +
-                              "}\r\n" +
-                              "Sound = \r\n" +
-                              "{\r\n" +
-                              $"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},\r\n" +
-                              $"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},\r\n" +
-                              $"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},\r\n" +
-                              $"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},\r\n" +
-                              "}\r\n" +
-                              "player_preferences = \r\n" +
-                              "{\r\n" +
-                              "\tcampaign_played_disorder = false,\r\n" +
-                              "\tcampaign_played_order = false,\r\n" +
-                              "\tforce_name = \"Blood Ravens\",\r\n" +
-                              "\trace = \"space_marine_race\",\r\n" +
-                              "}\r\n";
-                File.WriteAllText(pathToPlayerConfig, str2);
-            }
-
-            closeButton.Text = CLOSE_LABEL;
-            saveButton.Enabled = false;
         }
 
+        /// <summary>
+        /// This method restores all settings to their default values
+        /// </summary>
         private void DefaultsButton_Click(object sender, EventArgs e)
         {
             InitializeSettingsWithDefaults();
-            InitializeGUIWithSettings();
+            InitializeGUIWithSettings(localINI: true, playercfgLUA: true);
 
             saveButton.Enabled = true;
             defaultsButton.Enabled = false;
             saveButton.Focus();
         }
 
+        /// <summary>
+        /// This method closes the SettingManagerForm
+        /// </summary>
         private void CloseButton_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// This method reacts to changes in currentPlayerComboBox.SelectedIndex
+        /// </summary>
         private void CurrentPlayerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ReadSettingsFromPlayercfgLUA();
+            InitializeGUIWithSettings(localINI: false, playercfgLUA: true);
 
             settings[PLAYER_PROFILE] = PROFILE + (currentPlayerComboBox.SelectedIndex + 1).ToString();
 
@@ -771,6 +835,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in parentalControlCheckBox.Checked
+        /// </summary>
         private void ParentalControlCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (parentalControlCheckBox.Checked)
@@ -783,6 +850,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in inversePanCheckBox.Checked
+        /// </summary>
         private void InversePanCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (inversePanCheckBox.Checked)
@@ -795,6 +865,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in inverseDeclinationCheckBox.Checked
+        /// </summary>
         private void InverseDeclinationCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (inverseDeclinationCheckBox.Checked)
@@ -807,6 +880,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in scrollRateTrackBar.Value
+        /// </summary>
         private void ScrollRateTrackBar_Scroll(object sender, EventArgs e)
         {
             double doubleValue = Convert.ToDouble(scrollRateTrackBar.Value);
@@ -819,6 +895,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in loginAttemptsComboBox.SelectedItem
+        /// </summary>
         private void LoginAttemptsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[RL_SSO_NUM_TIMES_SHOWN] = loginAttemptsComboBox.SelectedItem.ToString();
@@ -828,15 +907,21 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in activeVideocardComboBox.SelectedItem
+        /// </summary>
         private void ActiveVideocardComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settings[SCREEN_ADAPTER] = activeVideocardComboBox.SelectedItem.ToString();
+            settings[SCREEN_ADAPTER] = activeVideocardComboBox.SelectedIndex.ToString();
 
             closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in rendererComboBox.SelectedItem
+        /// </summary>
         private void RendererComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[SCREEN_DEVICE] = rendererComboBox.SelectedItem.ToString();
@@ -846,6 +931,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in screenResolutionComboBox.SelectedItem
+        /// </summary>
         private void ScreenResolutionComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string str = screenResolutionComboBox.SelectedItem.ToString();
@@ -859,6 +947,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in refreshRateComboBox.SelectedItem
+        /// </summary>
         private void RefreshRateComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string str = refreshRateComboBox.SelectedItem.ToString();
@@ -874,6 +965,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in colorDepthComboBox.SelectedIndex
+        /// </summary>
         private void ColorDepthComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (colorDepthComboBox.SelectedIndex)
@@ -894,6 +988,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in gammaTrackBar.Value
+        /// </summary>
         private void GammaTrackBar_Scroll(object sender, EventArgs e)
         {
             double doubleValue = Convert.ToDouble(gammaTrackBar.Value);
@@ -906,6 +1003,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in vSyncCheckBox.Checked
+        /// </summary>
         private void VSyncCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (vSyncCheckBox.Checked)      // We have to invert this for convienience
@@ -918,6 +1018,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in windowedCheckBox.Checked
+        /// </summary>
         private void WindowedCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (windowedCheckBox.Checked)
@@ -930,6 +1033,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in antialiasingCheckBox.Checked
+        /// </summary>
         private void AntialiasingCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (antialiasingCheckBox.Checked)
@@ -942,6 +1048,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in textureDetailComboBox.SelectedIndex
+        /// </summary>
         private void TextureDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[TEXTURE_DETAIL] = textureDetailComboBox.SelectedIndex.ToString();
@@ -951,6 +1060,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in modelDetailComboBox.SelectedIndex
+        /// </summary>
         private void ModelDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[MODEL_DETAIL] = modelDetailComboBox.SelectedIndex.ToString();
@@ -960,6 +1072,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in terrainDetailComboBox.SelectedIndex
+        /// </summary>
         private void TerrainDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[TERRAIN_ENABLE_FOW_BLUR] = terrainDetailComboBox.SelectedIndex.ToString();
@@ -969,6 +1084,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in betterTeamcoloredTexturexCheckBox.Checked
+        /// </summary>
         private void BetterTeamcoloredTexturexCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (betterTeamcoloredTexturexCheckBox.Checked)
@@ -981,6 +1099,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in shadowsDetailComboBox.SelectedIndex
+        /// </summary>
         private void ShadowsDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Using goto we could fall through even if case is not empty!
@@ -1007,6 +1128,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in worldEventsComboBox.SelectedIndex
+        /// </summary>
         private void WorldEventsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[EVENT_DETAIL_LEVEL] = worldEventsComboBox.SelectedIndex.ToString();
@@ -1016,6 +1140,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in effectsDetailComboBox.SelectedIndex
+        /// </summary>
         private void EffectsDetailComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[FX_DETAIL_LEVEL] = effectsDetailComboBox.SelectedIndex.ToString();
@@ -1025,6 +1152,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in persistentBodiesComboBox.SelectedIndex
+        /// </summary>
         private void PersistentBodiesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[PERSISTENT_BODIES] = persistentBodiesComboBox.SelectedIndex.ToString();
@@ -1034,6 +1164,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in persistentScarringComboBox.SelectedIndex
+        /// </summary>
         private void PersistentScarringComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[PERSISTENT_DECALS] = persistentScarringComboBox.SelectedIndex.ToString();
@@ -1043,6 +1176,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in dynamicLightsComboBox.SelectedIndex
+        /// </summary>
         private void DynamicLightsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[DYNAMIC_LIGHTS] = dynamicLightsComboBox.SelectedIndex.ToString();
@@ -1052,6 +1188,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in full3DCameraCheckBox.Checked
+        /// </summary>
         private void Full3DCameraCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (full3DCameraCheckBox.Checked)
@@ -1064,6 +1203,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in unitsOcclusionCheckBox.Checked
+        /// </summary>
         private void UnitsOcclusionCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (unitsOcclusionCheckBox.Checked)
@@ -1076,6 +1218,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in soundEnabledCheckBox.Checked
+        /// </summary>
         private void SoundEnabledCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (soundEnabledCheckBox.Checked)
@@ -1088,6 +1233,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in randomizedSoundsCheckBox.Checked
+        /// </summary>
         private void RandomizedSoundsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (randomizedSoundsCheckBox.Checked)       // We have to invert it for covienience
@@ -1100,6 +1248,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in soundQualityComboBox.SelectedIndex
+        /// </summary>
         private void SoundQualityComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings[SOUND_QUALITY] = soundQualityComboBox.SelectedIndex.ToString();
@@ -1109,6 +1260,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in soundChannelsComboBox.SelectedIndex
+        /// </summary>
         private void SoundChannelsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (soundChannelsComboBox.SelectedIndex)
@@ -1129,6 +1283,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in ambientVolumeTrackBar.Value
+        /// </summary>
         private void AmbientVolumeTarckBar_Scroll(object sender, EventArgs e)
         {
             double doubleValue = Convert.ToDouble(ambientVolumeTrackBar.Value);
@@ -1141,6 +1298,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in effectsVolumeTrackBar.Value
+        /// </summary>
         private void EffectsVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
             double doubleValue = Convert.ToDouble(effectsVolumeTrackBar.Value);
@@ -1153,6 +1313,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in voiceVolumeTrackBar.Value
+        /// </summary>
         private void VoiceVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
             double doubleValue = Convert.ToDouble(voiceVolumeTrackBar.Value);
@@ -1165,6 +1328,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method reacts to changes in musicVolumeTrackBar.Value
+        /// </summary>
         private void MusicVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
             double doubleValue = Convert.ToDouble(musicVolumeTrackBar.Value);
@@ -1177,6 +1343,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method sets the graphics to "Low" preset
+        /// </summary>
         private void LowGraphicsButton_Click(object sender, EventArgs e)
         {
             settings[CAMERA_DETAIL] = "0";
@@ -1197,7 +1366,7 @@ namespace DoW_Mod_Manager
 
             disableHighPoly = true;
 
-            InitializeGUIWithSettings();
+            InitializeGUIWithSettings(localINI: true, playercfgLUA: false);
 
             closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
@@ -1205,7 +1374,10 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
-        private void MediumButtomGraphics_Click(object sender, EventArgs e)
+        /// <summary>
+        /// This method sets the graphics to "Medium" preset
+        /// </summary>
+        private void MediumGraphicsButton_Click(object sender, EventArgs e)
         {
             settings[CAMERA_DETAIL] = "1";
             settings[DYNAMIC_LIGHTS] = "1";
@@ -1223,7 +1395,7 @@ namespace DoW_Mod_Manager
             settings[TERRAIN_ENABLE_FOW_BLUR] = "1";
             settings[TEXTURE_DETAIL] = "1";
 
-            InitializeGUIWithSettings();
+            InitializeGUIWithSettings(localINI: true, playercfgLUA: false);
 
             closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
@@ -1231,6 +1403,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method sets the graphics to "High" preset
+        /// </summary>
         private void HighGraphicsButton_Click(object sender, EventArgs e)
         {
             settings[CAMERA_DETAIL] = "1";
@@ -1249,7 +1424,7 @@ namespace DoW_Mod_Manager
             settings[TERRAIN_ENABLE_FOW_BLUR] = "2";
             settings[TEXTURE_DETAIL] = "2";
 
-            InitializeGUIWithSettings();
+            InitializeGUIWithSettings(localINI: true, playercfgLUA: false);
 
             closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
@@ -1257,6 +1432,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method sets the graphics to "Ultra" preset
+        /// </summary>
         private void UltraGraphicsButton_Click(object sender, EventArgs e)
         {
             settings[CAMERA_DETAIL] = "1";
@@ -1277,7 +1455,7 @@ namespace DoW_Mod_Manager
 
             enableHighPoly = true;
 
-            InitializeGUIWithSettings();
+            InitializeGUIWithSettings(localINI: true, playercfgLUA: false);
 
             closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
@@ -1285,6 +1463,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method sets the sound quality to "Low" preset
+        /// </summary>
         private void LowAudioButton_Click(object sender, EventArgs e)
         {
             settings[SOUND_ENABLED] = "1";
@@ -1292,7 +1473,7 @@ namespace DoW_Mod_Manager
             settings[SOUND_NR_CHANNELS] = "16";
             settings[SOUND_QUALITY] = "0";
 
-            InitializeGUIWithSettings();
+            InitializeGUIWithSettings(localINI: true, playercfgLUA: false);
 
             closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
@@ -1300,6 +1481,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method sets the sound quality to "Medium" preset
+        /// </summary>
         private void MediumAudioButton_Click(object sender, EventArgs e)
         {
             settings[SOUND_ENABLED] = "1";
@@ -1307,7 +1491,7 @@ namespace DoW_Mod_Manager
             settings[SOUND_NR_CHANNELS] = "32";
             settings[SOUND_QUALITY] = "1";
 
-            InitializeGUIWithSettings();
+            InitializeGUIWithSettings(localINI: true, playercfgLUA: false);
 
             closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
@@ -1315,6 +1499,9 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method sets the sound quality to "High" preset
+        /// </summary>
         private void HighAudioButton_Click(object sender, EventArgs e)
         {
             settings[SOUND_ENABLED] = "1";
@@ -1322,7 +1509,7 @@ namespace DoW_Mod_Manager
             settings[SOUND_NR_CHANNELS] = "64";
             settings[SOUND_QUALITY] = "2";
 
-            InitializeGUIWithSettings();
+            InitializeGUIWithSettings(localINI: true, playercfgLUA: false);
 
             closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
@@ -1330,12 +1517,17 @@ namespace DoW_Mod_Manager
             defaultsButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method starts the SystemPerformanceManagerForm
+        /// </summary>
         private void SystemPerformanceManagerButton_Click(object sender, EventArgs e)
         {
-            SystemPerformanceManagerForm systemPerformance = new SystemPerformanceManagerForm(modManager);
-            systemPerformance.Show();
+            new SystemPerformanceManagerForm(modManager).Show();
         }
 
+        /// <summary>
+        /// This method deletes the current selected Player Profile
+        /// </summary>
         private void DeleteProfileButton_Click(object sender, EventArgs e)
         {
             string playerNameToDelete = currentPlayerComboBox.SelectedItem.ToString();
@@ -1358,9 +1550,12 @@ namespace DoW_Mod_Manager
             }
 
             FindAllProfilesInDirectory(clearProfiles: true);
-            InitializeGUIWithSettings();
+            InitializeGUIWithSettings(localINI: true, playercfgLUA: true);
         }
 
+        /// <summary>
+        /// This method creates a new Player Profile
+        /// </summary>
         private void CreateProfileButton_Click(object sender, EventArgs e)
         {
             int indexOfNewProfile = 1;
@@ -1396,7 +1591,7 @@ namespace DoW_Mod_Manager
                 deleteProfileButton.Enabled = true;
 
                 FindAllProfilesInDirectory(clearProfiles: true);
-                InitializeGUIWithSettings();
+                InitializeGUIWithSettings(localINI: true, playercfgLUA: true);
             }
             catch (Exception ex)
             {
@@ -1404,6 +1599,9 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This method renames the current selected Player Profile
+        /// </summary>
         private void RenameProfileButton_Click(object sender, EventArgs e)
         {
             string currentPLayerName = currentPlayerComboBox.SelectedItem.ToString();
@@ -1436,6 +1634,9 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This method reacts to chanes in newPlayerTextBox.Text
+        /// </summary>
         private void NewPlayerTextBox_TextChanged(object sender, EventArgs e)
         {
             if (newPlayerTextBox.TextLength > 0)

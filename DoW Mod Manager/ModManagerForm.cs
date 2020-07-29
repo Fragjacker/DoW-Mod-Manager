@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Threading;
 using System.Runtime.CompilerServices;
 using System.Runtime;
+using System.Text;
 
 namespace DoW_Mod_Manager
 {
@@ -27,12 +28,19 @@ namespace DoW_Mod_Manager
         private const string CONFIG_FILE_NAME = "DoW Mod Manager.ini";
         private const string JIT_PROFILE_FILE_NAME = "DoW Mod Manager.JITProfile";
         private const string WARNINGS_LOG = "warnings.log";
-
+        
+        // This is a State Machine which determmens what action must be performed
+        public enum Action { None, DeleteJITProfile, CreateNativeImage, DeleteNativeImage }
+        
+        public const string ACTION_STATE = "ActionState";
         private const string CHOICE_INDEX = "ChoiceIndex";
         public const string DEV = "Dev";
         public const string NO_MOVIES = "NoMovies";
         public const string FORCE_HIGH_POLY = "ForceHighPoly";
-        public const string OPTIMIZATIONS = "Optimizations";
+        public const string DOW_OPTIMIZATIONS = "DowOptimizations";
+        public const string AUTOUPDATE = "Autoupdate";
+        public const string MULTITHREADED_JIT = "MultithreadedJIT";
+        public const string AOT_COMPILATION = "AOTCompilation";
 
         // A boolean array that maps Index-wise to the filepaths indices. Index 0 checks if required mod at index 0 in the FilePaths is installed or not.
         private bool[] isInstalled;
@@ -55,11 +63,15 @@ namespace DoW_Mod_Manager
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "<Pending>")]
         private Dictionary<string, int> settings = new Dictionary<string, int>
         {
+            [ACTION_STATE] = (int)Action.CreateNativeImage,
             [CHOICE_INDEX] = 0,
             [DEV] = 0,
             [NO_MOVIES] = 1,
             [FORCE_HIGH_POLY] = 0,
-            [OPTIMIZATIONS] = 0
+            [DOW_OPTIMIZATIONS] = 0,
+            [AUTOUPDATE] = 1,
+            [MULTITHREADED_JIT] = 0,
+            [AOT_COMPILATION] = 1
         };
 
         /// <summary>
@@ -69,10 +81,46 @@ namespace DoW_Mod_Manager
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public ModManagerForm()
         {
-            // Defines where to store JIT profiles
-            ProfileOptimization.SetProfileRoot(CurrentDir);
-            // Enables Multicore JIT with the specified profile
-            ProfileOptimization.StartProfile(JIT_PROFILE_FILE_NAME);
+            ReadSettingsFromDoWModManagerINI();
+
+            if (settings[AOT_COMPILATION] == 1)
+            {
+                if (settings[ACTION_STATE] == (int)Action.CreateNativeImage)
+                {
+                    // To enable AOT compilation we have to register DoW Mod Manager for NativeImage generation using ngen.exe
+                    string ModManagerName = AppDomain.CurrentDomain.FriendlyName;
+
+                    Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\Microsoft.NET\Framework\v4.0.30319\ngen.exe", $"install \"{ModManagerName}\"");
+                }
+                else
+                {
+                    // We will just do nothing but still will block Multothreaded JIT compilation
+                }
+            }
+            else if (settings[AOT_COMPILATION] == 0 && settings[ACTION_STATE] == (int)Action.DeleteNativeImage)
+            {
+                // To disable AOT compilation we have to unregister DoW Mod Manager for NativeImage generation using ngen.exe
+                string ModManagerName = AppDomain.CurrentDomain.FriendlyName;
+
+                Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\Microsoft.NET\Framework\v4.0.30319\ngen.exe", $"uninstall \"{ModManagerName}\"");
+            }
+            else if (settings[MULTITHREADED_JIT] == 1)
+            {
+                // Enable Multithreaded JIT compilation. It's not a smart idea to use it with AOT compilation
+                // So: Singethreaded JIT compilation < Multithreaded JIT compilation < AOT compilation < Native code (we don't have this option)
+                // Defines where to store JIT profiles
+                ProfileOptimization.SetProfileRoot(CurrentDir);
+                // Enables Multicore JIT with the specified profile
+                ProfileOptimization.StartProfile(JIT_PROFILE_FILE_NAME);
+            }
+            else if (settings[MULTITHREADED_JIT] == 0 && settings[ACTION_STATE] == (int)Action.DeleteJITProfile)
+            {
+                string JITProfilePath = CurrentDir + "\\" + JIT_PROFILE_FILE_NAME;
+                
+                if (File.Exists(JITProfilePath))
+                    File.Delete(JITProfilePath);
+            }
+            settings[ACTION_STATE] = (int)Action.None;
 
             InitializeComponent();
 
@@ -82,11 +130,13 @@ namespace DoW_Mod_Manager
             // Use the same icon as executable
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            ReadSettingsFromDoWModManagerINI();
-
             ReselectSavedMod();
 
-            InitializeGUIWithSettings();
+            // Initialize checkboxes with settings
+            devCheckBox.Checked = settings[DEV] == 1;
+            nomoviesCheckBox.Checked = settings[NO_MOVIES] == 1;
+            highpolyCheckBox.Checked = settings[FORCE_HIGH_POLY] == 1;
+            optimizationsCheckBox.Checked = settings[DOW_OPTIMIZATIONS] == 1;
 
             CurrentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
@@ -107,15 +157,26 @@ namespace DoW_Mod_Manager
 
             // We have to add those methods to the EventHandler here so we could avoid accidental firing of those methods after we would change the state of the CheckBox
             requiredModsList.DrawItem += new DrawItemEventHandler(RequiredModsList_DrawItem);
-            
+
             devCheckBox.CheckedChanged += new EventHandler(DevCheckBox_CheckedChanged);
             nomoviesCheckBox.CheckedChanged += new EventHandler(NomoviesCheckBox_CheckedChanged);
             highpolyCheckBox.CheckedChanged += new EventHandler(HighpolyCheckBox_CheckedChanged);
             optimizationsCheckBox.CheckedChanged += new EventHandler(OptimizationsCheckBox_CheckedChanged);
 
-            // Once all is done check for updates lastly.
-            DownloadHelper.SilentCheckForUpdates();
-	}
+            if (settings[AUTOUPDATE] == 1)
+            {
+                // Threads could work even if application would be closed
+                new Thread(() =>
+                {
+                    // Once all is done check for updates.
+                    DialogResult result = DownloadHelper.CheckForUpdates(silently: true);
+                    
+                    if (result == DialogResult.OK && settings[AOT_COMPILATION] == 1)
+                        settings[ACTION_STATE] = (int)Action.CreateNativeImage;
+                }
+                ).Start();
+            }
+        }
 
         /// <summary>
         /// This method Read DoW Mod Manager.ini file and load settings in memory
@@ -152,26 +213,36 @@ namespace DoW_Mod_Manager
                                 value = 0;
                             }
 
-                            // TODO: Maybe change "if-else" to "switch"?
-                            if (setting == CHOICE_INDEX)
+                            switch (setting)
                             {
-                                if (value >= 0)
-                                    settings[setting] = value;
-                                else
-                                    settings[setting] = 0;
-                            }
-
-                            if (setting == DEV || setting == NO_MOVIES || setting == FORCE_HIGH_POLY || setting == OPTIMIZATIONS)
-                            {
-                                if (value == 0 || value == 1)
-                                    settings[setting] = value;
-                                else
-                                {
-                                    if (value > 1)
-                                        settings[setting] = 1;
+                                case ACTION_STATE:
+                                    if (value <= 3)
+                                        // if value <= 3 (we have only 3 states) - do the same as in CHOICE_INDEX case
+                                        goto case CHOICE_INDEX;
+                                    break;
+                                case CHOICE_INDEX:
+                                    if (value >= 0)
+                                        settings[setting] = value;
                                     else
                                         settings[setting] = 0;
-                                }
+                                    break;
+                                case DEV:
+                                case NO_MOVIES:
+                                case FORCE_HIGH_POLY:
+                                case DOW_OPTIMIZATIONS:
+                                case AUTOUPDATE:
+                                case MULTITHREADED_JIT:
+                                case AOT_COMPILATION:
+                                    if (value == 0 || value == 1)
+                                        settings[setting] = value;
+                                    else
+                                    {
+                                        if (value > 1)
+                                            settings[setting] = 1;
+                                        else
+                                            settings[setting] = 0;
+                                    }
+                                    break;
                             }
                         }
                     }
@@ -192,35 +263,6 @@ namespace DoW_Mod_Manager
                 installedModsListBox.SelectedIndex = index;
             else
                 installedModsListBox.SelectedIndex = installedModsListBox.Items.Count - 1;
-        }
-
-        /// <summary>
-        /// This method Initializes all checkboxes with settings from a Dictionaty
-        /// </summary>
-        /// <returns>string</returns>
-        // Request the inlining of this method
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void InitializeGUIWithSettings()
-        {
-            if (Convert.ToBoolean(settings[DEV]))
-                devCheckBox.Checked = true;
-            else
-                devCheckBox.Checked = false;
-
-            if (Convert.ToBoolean(settings[NO_MOVIES]))
-                nomoviesCheckBox.Checked = true;
-            else
-                nomoviesCheckBox.Checked = false;
-
-            if (Convert.ToBoolean(settings[FORCE_HIGH_POLY]))
-                highpolyCheckBox.Checked = true;
-            else
-                highpolyCheckBox.Checked = false;
-
-            if (Convert.ToBoolean(settings[OPTIMIZATIONS]))
-                optimizationsCheckBox.Checked = true;
-            else
-                optimizationsCheckBox.Checked = false;
         }
 
         /// <summary>
@@ -471,12 +513,18 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
-            string str = $"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n" +
-                         $"{DEV}={settings[DEV]}\n" +
-                         $"{NO_MOVIES}={settings[NO_MOVIES]}\n" +
-                         $"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n" +
-                         $"{OPTIMIZATIONS}={settings[OPTIMIZATIONS]}";
-            File.WriteAllText(CONFIG_FILE_NAME, str);
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{ACTION_STATE}={settings[ACTION_STATE]}\n");
+            sb.Append($"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n");
+            sb.Append($"{DEV}={settings[DEV]}\n");
+            sb.Append($"{NO_MOVIES}={settings[NO_MOVIES]}\n");
+            sb.Append($"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n");
+            sb.Append($"{DOW_OPTIMIZATIONS}={settings[DOW_OPTIMIZATIONS]}\n");
+            sb.Append($"{AUTOUPDATE}={settings[AUTOUPDATE]}\n");
+            sb.Append($"{MULTITHREADED_JIT}={settings[MULTITHREADED_JIT]}\n");
+            sb.Append($"{AOT_COMPILATION}={settings[AOT_COMPILATION]}");
+
+            File.WriteAllText(CONFIG_FILE_NAME, sb.ToString());
 
             // If Timer Resolution was lowered we have to keep DoW Mod Manager alive or Timer Resolution will be reset
             if (IsTimerResolutionLowered)
@@ -569,8 +617,8 @@ namespace DoW_Mod_Manager
 
                     if (line.Contains("RequiredMod"))
                     {
-                        line = Program.GetValueFromLine(line, false);
-                        
+                        line = Program.GetValueFromLine(line, deleteModule: false);
+
                         requiredModsList.Items.Add(line);
                     }
                 }
@@ -604,7 +652,7 @@ namespace DoW_Mod_Manager
                         while ((line = file.ReadLine()) != null)
                         {
                             if (line.Contains("ModFolder"))
-                                ModFolderPaths[i] = Program.GetValueFromLine(line, true);
+                                ModFolderPaths[i] = Program.GetValueFromLine(line, deleteModule: true);
                         }
                     }
                 }
@@ -717,7 +765,7 @@ namespace DoW_Mod_Manager
 
             dowProcessName = proc.ProcessName;
 
-            if (settings[OPTIMIZATIONS] == 1)
+            if (settings[DOW_OPTIMIZATIONS] == 1)
             {
                 // Threads could work even if application would be closed
                 new Thread(() =>
@@ -799,9 +847,9 @@ namespace DoW_Mod_Manager
         private void OptimizationsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (optimizationsCheckBox.Checked)
-                settings[OPTIMIZATIONS] = 1;
+                settings[DOW_OPTIMIZATIONS] = 1;
             else
-                settings[OPTIMIZATIONS] = 0;
+                settings[DOW_OPTIMIZATIONS] = 0;
         }
 
         /// <summary>
@@ -1039,20 +1087,38 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
+        /// This method can be used ouside this class to get a setting
+        /// </summary>
+        /// <param name="setting"></param>
+        public int GetSetting(string setting)
+        {
+            if (settings.ContainsKey(setting))
+                return settings[setting];
+            else
+                return -1;
+        }
+
+        /// <summary>
         /// This method can be used ouside this class to change a setting and update the GUI
         /// </summary>
         /// <param name="setting"></param>
         /// <param name="newValue"></param>
         public void ChangeSetting(string setting, int newValue)
         {
-            // Makes sure that newValue is in range of acceptable values. Basically a Clamp() method
-            if (newValue < 0)
-                newValue = 0;
-            else if (newValue > 1)
-                newValue = 1;
+            if (setting != ACTION_STATE)
+            {
+                // Makes sure that newValue is in range of acceptable values. Basically a Clamp() method
+                if (newValue < 0)
+                    newValue = 0;
+                else if (newValue > 1)
+                    newValue = 1;
+            }
 
             switch (setting)
             {
+                case ACTION_STATE:
+                    settings[ACTION_STATE] = newValue;
+                    break;
                 case DEV:
                     settings[DEV] = newValue;
                     devCheckBox.Checked = Convert.ToBoolean(newValue);
@@ -1065,9 +1131,18 @@ namespace DoW_Mod_Manager
                     settings[FORCE_HIGH_POLY] = newValue;
                     highpolyCheckBox.Checked = Convert.ToBoolean(newValue);
                     break;
-                case OPTIMIZATIONS:
-                    settings[OPTIMIZATIONS] = newValue;
+                case DOW_OPTIMIZATIONS:
+                    settings[DOW_OPTIMIZATIONS] = newValue;
                     optimizationsCheckBox.Checked = Convert.ToBoolean(newValue);
+                    break;
+                case AUTOUPDATE:
+                    settings[AUTOUPDATE] = newValue;
+                    break;
+                case MULTITHREADED_JIT:
+                    settings[MULTITHREADED_JIT] = newValue;
+                    break;
+                case AOT_COMPILATION:
+                    settings[AOT_COMPILATION] = newValue;
                     break;
             }
         }
@@ -1077,7 +1152,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         private void HomePageLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            new AboutForm().Show();
+            new AboutForm(this).Show();
         }
     }
 }
