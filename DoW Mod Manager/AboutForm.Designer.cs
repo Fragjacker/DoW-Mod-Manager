@@ -45,8 +45,8 @@
             this.specialThanks3Label = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.aboutTabPage = new System.Windows.Forms.TabPage();
-            this.AOTCompilationCheckBox = new System.Windows.Forms.CheckBox();
-            this.multithreadedJITCompilationCheckBox = new System.Windows.Forms.CheckBox();
+            this.multithreadedJITCompilationRadioButton = new System.Windows.Forms.RadioButton();
+            this.AOTCompilationRadioButton = new System.Windows.Forms.RadioButton();
             this.autoupdateCheckBox = new System.Windows.Forms.CheckBox();
             this.aboutLabel = new System.Windows.Forms.Label();
             this.authorsTabPage = new System.Windows.Forms.TabPage();
@@ -248,8 +248,8 @@
             // aboutTabPage
             // 
             this.aboutTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.aboutTabPage.Controls.Add(this.AOTCompilationCheckBox);
-            this.aboutTabPage.Controls.Add(this.multithreadedJITCompilationCheckBox);
+            this.aboutTabPage.Controls.Add(this.multithreadedJITCompilationRadioButton);
+            this.aboutTabPage.Controls.Add(this.AOTCompilationRadioButton);
             this.aboutTabPage.Controls.Add(this.autoupdateCheckBox);
             this.aboutTabPage.Controls.Add(this.aboutLabel);
             this.aboutTabPage.Controls.Add(this.pictureBox);
@@ -260,27 +260,29 @@
             this.aboutTabPage.TabIndex = 0;
             this.aboutTabPage.Text = "About";
             // 
-            // AOTCompilationCheckBox
+            // multithreadedJITCompilationRadioButton
             // 
-            this.AOTCompilationCheckBox.AutoSize = true;
-            this.AOTCompilationCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.AOTCompilationCheckBox.Location = new System.Drawing.Point(229, 140);
-            this.AOTCompilationCheckBox.Name = "AOTCompilationCheckBox";
-            this.AOTCompilationCheckBox.Size = new System.Drawing.Size(151, 17);
-            this.AOTCompilationCheckBox.TabIndex = 13;
-            this.AOTCompilationCheckBox.Text = "AOT compilation (the best)";
-            this.AOTCompilationCheckBox.UseVisualStyleBackColor = true;
+            this.multithreadedJITCompilationRadioButton.AutoSize = true;
+            this.multithreadedJITCompilationRadioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.multithreadedJITCompilationRadioButton.Location = new System.Drawing.Point(230, 114);
+            this.multithreadedJITCompilationRadioButton.Name = "multithreadedJITCompilationRadioButton";
+            this.multithreadedJITCompilationRadioButton.Size = new System.Drawing.Size(163, 17);
+            this.multithreadedJITCompilationRadioButton.TabIndex = 14;
+            this.multithreadedJITCompilationRadioButton.Text = "Multithreaded JIT compilation";
+            this.multithreadedJITCompilationRadioButton.UseVisualStyleBackColor = true;
             // 
-            // multithreadedJITCompilationCheckBox
+            // AOTCompilationRadioButton
             // 
-            this.multithreadedJITCompilationCheckBox.AutoSize = true;
-            this.multithreadedJITCompilationCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.multithreadedJITCompilationCheckBox.Location = new System.Drawing.Point(229, 115);
-            this.multithreadedJITCompilationCheckBox.Name = "multithreadedJITCompilationCheckBox";
-            this.multithreadedJITCompilationCheckBox.Size = new System.Drawing.Size(164, 17);
-            this.multithreadedJITCompilationCheckBox.TabIndex = 12;
-            this.multithreadedJITCompilationCheckBox.Text = "Multithreaded JIT compilation";
-            this.multithreadedJITCompilationCheckBox.UseVisualStyleBackColor = true;
+            this.AOTCompilationRadioButton.AutoSize = true;
+            this.AOTCompilationRadioButton.Checked = true;
+            this.AOTCompilationRadioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.AOTCompilationRadioButton.Location = new System.Drawing.Point(230, 137);
+            this.AOTCompilationRadioButton.Name = "AOTCompilationRadioButton";
+            this.AOTCompilationRadioButton.Size = new System.Drawing.Size(143, 17);
+            this.AOTCompilationRadioButton.TabIndex = 14;
+            this.AOTCompilationRadioButton.TabStop = true;
+            this.AOTCompilationRadioButton.Text = "AOT compilation (fastest)";
+            this.AOTCompilationRadioButton.UseVisualStyleBackColor = true;
             // 
             // autoupdateCheckBox
             // 
@@ -505,8 +507,8 @@
         private System.Windows.Forms.TextBox licenceTextBox;
         private System.Windows.Forms.Label aboutLabel;
         private System.Windows.Forms.TextBox changelogTextBox;
-        private System.Windows.Forms.CheckBox AOTCompilationCheckBox;
-        private System.Windows.Forms.CheckBox multithreadedJITCompilationCheckBox;
         private System.Windows.Forms.CheckBox autoupdateCheckBox;
+        private System.Windows.Forms.RadioButton AOTCompilationRadioButton;
+        private System.Windows.Forms.RadioButton multithreadedJITCompilationRadioButton;
     }
 }
