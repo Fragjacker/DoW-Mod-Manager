@@ -1,4 +1,4 @@
-![mod_manager_203](https://user-images.githubusercontent.com/19975052/87793577-c0bafd00-c845-11ea-95e6-8b620887c6af.png)
+![mod_manager_v204](https://user-images.githubusercontent.com/19975052/88802861-ef24ca80-d1ab-11ea-8490-4e1d5b794dea.png)
 
 # DoW Mod Manager v2.0.4
 
