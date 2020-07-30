@@ -260,10 +260,10 @@ namespace DoW_Mod_Manager
                             "https://www.moddb.com/downloads/start/132080?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Funification-mod-dawn-of-war-soulstorm%2Fdownloads",
                             ""),
 
-                    new Mod("Ultimate Apocalypse Mod   (Version 1.88.731)",
+                    new Mod("Ultimate Apocalypse Mod   (Version 1.88.742)",
                             "UltimateApocalypse_THB",
                             "https://www.moddb.com/mods/ultimate-apocalypse-mod",
-                            "https://www.moddb.com/downloads/start/192014?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fultimate-apocalypse-mod%2Fdownloads",
+                            "http://download2336.mediafire.com/59imgnu40i4g/r74491ydd07p3tf/Ultimate+Apocalypse+Patch+-+188742.zip",
                             ""),
 
                     new Mod("Vostroyan Firstborn Modification for Soulstorm   (Version 1.23)",
@@ -285,6 +285,12 @@ namespace DoW_Mod_Manager
 
                 modlist = new List<Mod>()
                 {
+                    new Mod("Cinematic Battles   (Version 1.5)",
+                            "Cinematic_Battles",
+                            "https://www.moddb.com/mods/cinematic-battles",
+                            "https://www.moddb.com/downloads/start/193037?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fcinematic-battles%2Fdownloads",
+                            ""),
+
                     new Mod("Dawn of Steel - Steel Legion Mod   (Version 1.0)",
                             "",
                             "https://www.moddb.com/games/dawn-of-war-dark-crusade/addons/dawn-of-steel-steel-legion-mod-1-0",

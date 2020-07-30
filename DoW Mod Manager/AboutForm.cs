@@ -33,7 +33,8 @@ namespace DoW_Mod_Manager
 
             // We have to add those methods to the EventHandler here so we could avoid accidental firing of those methods after we would change the state of the CheckBox
             autoupdateCheckBox.CheckedChanged += new EventHandler(AutoupdateCheckBox_CheckedChanged);
-            multithreadedJITCompilationRadioButton.CheckedChanged += new EventHandler(multithreadedJITCompilationRadioButton_CheckedChanged);
+            singlethreadedJITCompilationRadioButton.CheckedChanged += new EventHandler(SinglethreadedJITCompilationRadioButton_CheckedChanged);
+            multithreadedJITCompilationRadioButton.CheckedChanged += new EventHandler(MultithreadedJITCompilationRadioButton_CheckedChanged);
             AOTCompilationRadioButton.CheckedChanged += new EventHandler(AOTCompilationRadioButton_CheckedChanged);
         }
 
@@ -78,31 +79,36 @@ namespace DoW_Mod_Manager
                 modManager.ChangeSetting(ModManagerForm.AUTOUPDATE, 0);
         }
 
-        private void AOTCompilationRadioButton_CheckedChanged(object sender, EventArgs e)
+        private void SinglethreadedJITCompilationRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            if (AOTCompilationRadioButton.Checked)
+            if (singlethreadedJITCompilationRadioButton.Checked)
             {
-                modManager.ChangeSetting(ModManagerForm.AOT_COMPILATION, 1);
-                modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.CreateNativeImage);
-            }
-            else
-            {
+                modManager.ChangeSetting(ModManagerForm.MULTITHREADED_JIT, 0);
                 modManager.ChangeSetting(ModManagerForm.AOT_COMPILATION, 0);
-                modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.DeleteNativeImage);
+
+                modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.DeleteJITProfileAndNativeImage);
             }
         }
 
-        private void multithreadedJITCompilationRadioButton_CheckedChanged(object sender, EventArgs e)
+        private void MultithreadedJITCompilationRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             if (multithreadedJITCompilationRadioButton.Checked)
             {
                 modManager.ChangeSetting(ModManagerForm.MULTITHREADED_JIT, 1);
-                modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.None);
+                modManager.ChangeSetting(ModManagerForm.AOT_COMPILATION, 0);
+
+                modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.DeleteNativeImage);
             }
-            else
+        }
+
+        private void AOTCompilationRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (AOTCompilationRadioButton.Checked)
             {
                 modManager.ChangeSetting(ModManagerForm.MULTITHREADED_JIT, 0);
-                modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.DeleteJITProfile);
+                modManager.ChangeSetting(ModManagerForm.AOT_COMPILATION, 1);
+
+                modManager.ChangeSetting(ModManagerForm.ACTION_STATE, (int)ModManagerForm.Action.CreateNativeImageAndDeleteJITProfile);
             }
         }
     }

@@ -54,53 +54,54 @@
             this.currentPlayerComboBox = new System.Windows.Forms.ComboBox();
             this.currentPlayerLabel = new System.Windows.Forms.Label();
             this.videoTabPage = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.activeVideocardComboBox = new System.Windows.Forms.ComboBox();
+            this.screenResolutionLabel = new System.Windows.Forms.Label();
+            this.screenResolutionComboBox = new System.Windows.Forms.ComboBox();
+            this.gammaLabel = new System.Windows.Forms.Label();
+            this.gammaTrackBar = new System.Windows.Forms.TrackBar();
+            this.vSyncLabel = new System.Windows.Forms.Label();
+            this.vSyncCheckBox = new System.Windows.Forms.CheckBox();
+            this.windowedLabel = new System.Windows.Forms.Label();
+            this.windowedCheckBox = new System.Windows.Forms.CheckBox();
+            this.refreshRateLabel = new System.Windows.Forms.Label();
+            this.refreshRateComboBox = new System.Windows.Forms.ComboBox();
+            this.antialiasingLabel = new System.Windows.Forms.Label();
+            this.antialiasingCheckBox = new System.Windows.Forms.CheckBox();
+            this.activeVideocardLabel = new System.Windows.Forms.Label();
+            this.colorDepthLabel = new System.Windows.Forms.Label();
+            this.colorDepthComboBox = new System.Windows.Forms.ComboBox();
+            this.rendererLabel = new System.Windows.Forms.Label();
+            this.rendererComboBox = new System.Windows.Forms.ComboBox();
+            this.textureDetailLabel = new System.Windows.Forms.Label();
+            this.textureDetailComboBox = new System.Windows.Forms.ComboBox();
+            this.modelDetailLabel = new System.Windows.Forms.Label();
+            this.modelDetailComboBox = new System.Windows.Forms.ComboBox();
+            this.terrainDetailLabel = new System.Windows.Forms.Label();
+            this.terrainDetailComboBox = new System.Windows.Forms.ComboBox();
+            this.betterTeamcoloredTexturesLabel = new System.Windows.Forms.Label();
+            this.persistentBodiesLabel = new System.Windows.Forms.Label();
+            this.persistentBodiesComboBox = new System.Windows.Forms.ComboBox();
+            this.unitsOcclusionLabel = new System.Windows.Forms.Label();
+            this.unitsOcclusionCheckBox = new System.Windows.Forms.CheckBox();
+            this.betterTeamcoloredTexturexCheckBox = new System.Windows.Forms.CheckBox();
+            this.dynamicLightsComboBox = new System.Windows.Forms.ComboBox();
+            this.persistentScarringLabel = new System.Windows.Forms.Label();
+            this.dynamicLightLabel = new System.Windows.Forms.Label();
+            this.persistentScarringComboBox = new System.Windows.Forms.ComboBox();
+            this.effectsDetailComboBox = new System.Windows.Forms.ComboBox();
+            this.full3DCameraLabel = new System.Windows.Forms.Label();
+            this.effectsDetailLabel = new System.Windows.Forms.Label();
+            this.full3DCameraCheckBox = new System.Windows.Forms.CheckBox();
+            this.worldEventsComboBox = new System.Windows.Forms.ComboBox();
+            this.shadowsLabel = new System.Windows.Forms.Label();
+            this.worldEventsLabel = new System.Windows.Forms.Label();
+            this.shadowsDetailComboBox = new System.Windows.Forms.ComboBox();
             this.ultraGraphicsButton = new System.Windows.Forms.Button();
             this.highGraphicsButton = new System.Windows.Forms.Button();
             this.mediumGraphicsButton = new System.Windows.Forms.Button();
             this.lowGraphicsButton = new System.Windows.Forms.Button();
             this.cyanLabel = new System.Windows.Forms.Label();
-            this.dynamicLightsComboBox = new System.Windows.Forms.ComboBox();
-            this.dynamicLightLabel = new System.Windows.Forms.Label();
-            this.effectsDetailComboBox = new System.Windows.Forms.ComboBox();
-            this.effectsDetailLabel = new System.Windows.Forms.Label();
-            this.worldEventsComboBox = new System.Windows.Forms.ComboBox();
-            this.worldEventsLabel = new System.Windows.Forms.Label();
-            this.shadowsDetailComboBox = new System.Windows.Forms.ComboBox();
-            this.shadowsLabel = new System.Windows.Forms.Label();
-            this.full3DCameraCheckBox = new System.Windows.Forms.CheckBox();
-            this.full3DCameraLabel = new System.Windows.Forms.Label();
-            this.persistentScarringComboBox = new System.Windows.Forms.ComboBox();
-            this.persistentScarringLabel = new System.Windows.Forms.Label();
-            this.betterTeamcoloredTexturexCheckBox = new System.Windows.Forms.CheckBox();
-            this.betterTeamcoloredTexturesLabel = new System.Windows.Forms.Label();
-            this.unitsOcclusionCheckBox = new System.Windows.Forms.CheckBox();
-            this.unitsOcclusionLabel = new System.Windows.Forms.Label();
-            this.persistentBodiesComboBox = new System.Windows.Forms.ComboBox();
-            this.persistentBodiesLabel = new System.Windows.Forms.Label();
-            this.terrainDetailComboBox = new System.Windows.Forms.ComboBox();
-            this.terrainDetailLabel = new System.Windows.Forms.Label();
-            this.modelDetailComboBox = new System.Windows.Forms.ComboBox();
-            this.modelDetailLabel = new System.Windows.Forms.Label();
-            this.textureDetailComboBox = new System.Windows.Forms.ComboBox();
-            this.textureDetailLabel = new System.Windows.Forms.Label();
-            this.rendererComboBox = new System.Windows.Forms.ComboBox();
-            this.rendererLabel = new System.Windows.Forms.Label();
-            this.colorDepthComboBox = new System.Windows.Forms.ComboBox();
-            this.colorDepthLabel = new System.Windows.Forms.Label();
-            this.activeVideocardComboBox = new System.Windows.Forms.ComboBox();
-            this.activeVideocardLabel = new System.Windows.Forms.Label();
-            this.antialiasingCheckBox = new System.Windows.Forms.CheckBox();
-            this.antialiasingLabel = new System.Windows.Forms.Label();
-            this.refreshRateComboBox = new System.Windows.Forms.ComboBox();
-            this.refreshRateLabel = new System.Windows.Forms.Label();
-            this.windowedCheckBox = new System.Windows.Forms.CheckBox();
-            this.windowedLabel = new System.Windows.Forms.Label();
-            this.vSyncCheckBox = new System.Windows.Forms.CheckBox();
-            this.vSyncLabel = new System.Windows.Forms.Label();
-            this.gammaTrackBar = new System.Windows.Forms.TrackBar();
-            this.gammaLabel = new System.Windows.Forms.Label();
-            this.screenResolutionComboBox = new System.Windows.Forms.ComboBox();
-            this.screenResolutionLabel = new System.Windows.Forms.Label();
             this.audioTabPage = new System.Windows.Forms.TabPage();
             this.highAudioButton = new System.Windows.Forms.Button();
             this.mediumAudioButton = new System.Windows.Forms.Button();
@@ -126,6 +127,10 @@
             this.generalTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scrollRateTrackBar)).BeginInit();
             this.videoTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gammaTrackBar)).BeginInit();
             this.audioTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.musicVolumeTrackBar)).BeginInit();
@@ -165,7 +170,7 @@
             this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.closeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.closeButton.Location = new System.Drawing.Point(436, 621);
+            this.closeButton.Location = new System.Drawing.Point(428, 621);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(109, 38);
             this.closeButton.TabIndex = 3;
@@ -175,12 +180,11 @@
             // 
             // defaultsButton
             // 
-            this.defaultsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.defaultsButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.defaultsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.defaultsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.defaultsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.defaultsButton.Location = new System.Drawing.Point(224, 621);
+            this.defaultsButton.Location = new System.Drawing.Point(220, 621);
             this.defaultsButton.Name = "defaultsButton";
             this.defaultsButton.Size = new System.Drawing.Size(109, 38);
             this.defaultsButton.TabIndex = 1;
@@ -199,7 +203,7 @@
             this.tabControl1.Location = new System.Drawing.Point(16, 29);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(529, 576);
+            this.tabControl1.Size = new System.Drawing.Size(521, 576);
             this.tabControl1.TabIndex = 5;
             // 
             // generalTabPage
@@ -226,19 +230,18 @@
             this.generalTabPage.Controls.Add(this.currentPlayerLabel);
             this.generalTabPage.Location = new System.Drawing.Point(4, 22);
             this.generalTabPage.Name = "generalTabPage";
-            this.generalTabPage.Size = new System.Drawing.Size(521, 550);
+            this.generalTabPage.Size = new System.Drawing.Size(513, 550);
             this.generalTabPage.TabIndex = 3;
             this.generalTabPage.Text = "General";
             // 
             // renameProfileButton
             // 
-            this.renameProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.renameProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.renameProfileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.renameProfileButton.Enabled = false;
             this.renameProfileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.renameProfileButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.renameProfileButton.Location = new System.Drawing.Point(387, 50);
+            this.renameProfileButton.Location = new System.Drawing.Point(379, 50);
             this.renameProfileButton.Name = "renameProfileButton";
             this.renameProfileButton.Size = new System.Drawing.Size(109, 38);
             this.renameProfileButton.TabIndex = 60;
@@ -248,10 +251,12 @@
             // 
             // newPlayerTextBox
             // 
+            this.newPlayerTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.newPlayerTextBox.Location = new System.Drawing.Point(117, 59);
             this.newPlayerTextBox.MaxLength = 16;
             this.newPlayerTextBox.Name = "newPlayerTextBox";
-            this.newPlayerTextBox.Size = new System.Drawing.Size(121, 20);
+            this.newPlayerTextBox.Size = new System.Drawing.Size(113, 20);
             this.newPlayerTextBox.TabIndex = 59;
             // 
             // label2
@@ -266,13 +271,12 @@
             // 
             // createProfileButton
             // 
-            this.createProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.createProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.createProfileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.createProfileButton.Enabled = false;
             this.createProfileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.createProfileButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.createProfileButton.Location = new System.Drawing.Point(261, 50);
+            this.createProfileButton.Location = new System.Drawing.Point(253, 50);
             this.createProfileButton.Name = "createProfileButton";
             this.createProfileButton.Size = new System.Drawing.Size(109, 38);
             this.createProfileButton.TabIndex = 57;
@@ -282,12 +286,11 @@
             // 
             // deleteProfileButton
             // 
-            this.deleteProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.deleteProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteProfileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.deleteProfileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteProfileButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.deleteProfileButton.Location = new System.Drawing.Point(261, 8);
+            this.deleteProfileButton.Location = new System.Drawing.Point(253, 8);
             this.deleteProfileButton.Name = "deleteProfileButton";
             this.deleteProfileButton.Size = new System.Drawing.Size(109, 38);
             this.deleteProfileButton.TabIndex = 56;
@@ -304,7 +307,7 @@
             this.systemPerformanceManagerButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.systemPerformanceManagerButton.Location = new System.Drawing.Point(191, 486);
             this.systemPerformanceManagerButton.Name = "systemPerformanceManagerButton";
-            this.systemPerformanceManagerButton.Size = new System.Drawing.Size(134, 38);
+            this.systemPerformanceManagerButton.Size = new System.Drawing.Size(126, 38);
             this.systemPerformanceManagerButton.TabIndex = 55;
             this.systemPerformanceManagerButton.Text = "System Performance Manager";
             this.systemPerformanceManagerButton.UseVisualStyleBackColor = false;
@@ -312,6 +315,8 @@
             // 
             // loginAttemptsComboBox
             // 
+            this.loginAttemptsComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.loginAttemptsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.loginAttemptsComboBox.FormattingEnabled = true;
             this.loginAttemptsComboBox.Items.AddRange(new object[] {
@@ -324,7 +329,7 @@
             "6"});
             this.loginAttemptsComboBox.Location = new System.Drawing.Point(117, 251);
             this.loginAttemptsComboBox.Name = "loginAttemptsComboBox";
-            this.loginAttemptsComboBox.Size = new System.Drawing.Size(121, 21);
+            this.loginAttemptsComboBox.Size = new System.Drawing.Size(113, 21);
             this.loginAttemptsComboBox.TabIndex = 54;
             // 
             // loginAttemptsLabel
@@ -339,12 +344,14 @@
             // 
             // scrollRateTrackBar
             // 
+            this.scrollRateTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.scrollRateTrackBar.LargeChange = 20;
             this.scrollRateTrackBar.Location = new System.Drawing.Point(116, 212);
             this.scrollRateTrackBar.Maximum = 210;
             this.scrollRateTrackBar.Minimum = 10;
             this.scrollRateTrackBar.Name = "scrollRateTrackBar";
-            this.scrollRateTrackBar.Size = new System.Drawing.Size(121, 45);
+            this.scrollRateTrackBar.Size = new System.Drawing.Size(113, 45);
             this.scrollRateTrackBar.TabIndex = 52;
             this.scrollRateTrackBar.Value = 100;
             // 
@@ -401,7 +408,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.Cyan;
-            this.label3.Location = new System.Drawing.Point(340, 535);
+            this.label3.Location = new System.Drawing.Point(332, 535);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(183, 13);
             this.label3.TabIndex = 46;
@@ -428,11 +435,13 @@
             // 
             // currentPlayerComboBox
             // 
+            this.currentPlayerComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.currentPlayerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.currentPlayerComboBox.FormattingEnabled = true;
             this.currentPlayerComboBox.Location = new System.Drawing.Point(116, 18);
             this.currentPlayerComboBox.Name = "currentPlayerComboBox";
-            this.currentPlayerComboBox.Size = new System.Drawing.Size(121, 21);
+            this.currentPlayerComboBox.Size = new System.Drawing.Size(113, 21);
             this.currentPlayerComboBox.TabIndex = 20;
             // 
             // currentPlayerLabel
@@ -448,567 +457,104 @@
             // videoTabPage
             // 
             this.videoTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.videoTabPage.Controls.Add(this.splitContainer1);
             this.videoTabPage.Controls.Add(this.ultraGraphicsButton);
             this.videoTabPage.Controls.Add(this.highGraphicsButton);
             this.videoTabPage.Controls.Add(this.mediumGraphicsButton);
             this.videoTabPage.Controls.Add(this.lowGraphicsButton);
             this.videoTabPage.Controls.Add(this.cyanLabel);
-            this.videoTabPage.Controls.Add(this.dynamicLightsComboBox);
-            this.videoTabPage.Controls.Add(this.dynamicLightLabel);
-            this.videoTabPage.Controls.Add(this.effectsDetailComboBox);
-            this.videoTabPage.Controls.Add(this.effectsDetailLabel);
-            this.videoTabPage.Controls.Add(this.worldEventsComboBox);
-            this.videoTabPage.Controls.Add(this.worldEventsLabel);
-            this.videoTabPage.Controls.Add(this.shadowsDetailComboBox);
-            this.videoTabPage.Controls.Add(this.shadowsLabel);
-            this.videoTabPage.Controls.Add(this.full3DCameraCheckBox);
-            this.videoTabPage.Controls.Add(this.full3DCameraLabel);
-            this.videoTabPage.Controls.Add(this.persistentScarringComboBox);
-            this.videoTabPage.Controls.Add(this.persistentScarringLabel);
-            this.videoTabPage.Controls.Add(this.betterTeamcoloredTexturexCheckBox);
-            this.videoTabPage.Controls.Add(this.betterTeamcoloredTexturesLabel);
-            this.videoTabPage.Controls.Add(this.unitsOcclusionCheckBox);
-            this.videoTabPage.Controls.Add(this.unitsOcclusionLabel);
-            this.videoTabPage.Controls.Add(this.persistentBodiesComboBox);
-            this.videoTabPage.Controls.Add(this.persistentBodiesLabel);
-            this.videoTabPage.Controls.Add(this.terrainDetailComboBox);
-            this.videoTabPage.Controls.Add(this.terrainDetailLabel);
-            this.videoTabPage.Controls.Add(this.modelDetailComboBox);
-            this.videoTabPage.Controls.Add(this.modelDetailLabel);
-            this.videoTabPage.Controls.Add(this.textureDetailComboBox);
-            this.videoTabPage.Controls.Add(this.textureDetailLabel);
-            this.videoTabPage.Controls.Add(this.rendererComboBox);
-            this.videoTabPage.Controls.Add(this.rendererLabel);
-            this.videoTabPage.Controls.Add(this.colorDepthComboBox);
-            this.videoTabPage.Controls.Add(this.colorDepthLabel);
-            this.videoTabPage.Controls.Add(this.activeVideocardComboBox);
-            this.videoTabPage.Controls.Add(this.activeVideocardLabel);
-            this.videoTabPage.Controls.Add(this.antialiasingCheckBox);
-            this.videoTabPage.Controls.Add(this.antialiasingLabel);
-            this.videoTabPage.Controls.Add(this.refreshRateComboBox);
-            this.videoTabPage.Controls.Add(this.refreshRateLabel);
-            this.videoTabPage.Controls.Add(this.windowedCheckBox);
-            this.videoTabPage.Controls.Add(this.windowedLabel);
-            this.videoTabPage.Controls.Add(this.vSyncCheckBox);
-            this.videoTabPage.Controls.Add(this.vSyncLabel);
-            this.videoTabPage.Controls.Add(this.gammaTrackBar);
-            this.videoTabPage.Controls.Add(this.gammaLabel);
-            this.videoTabPage.Controls.Add(this.screenResolutionComboBox);
-            this.videoTabPage.Controls.Add(this.screenResolutionLabel);
             this.videoTabPage.Location = new System.Drawing.Point(4, 22);
             this.videoTabPage.Name = "videoTabPage";
             this.videoTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.videoTabPage.Size = new System.Drawing.Size(521, 550);
+            this.videoTabPage.Size = new System.Drawing.Size(513, 550);
             this.videoTabPage.TabIndex = 0;
             this.videoTabPage.Text = "Video";
             // 
-            // ultraGraphicsButton
+            // splitContainer1
             // 
-            this.ultraGraphicsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ultraGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.ultraGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ultraGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.ultraGraphicsButton.Location = new System.Drawing.Point(397, 486);
-            this.ultraGraphicsButton.Name = "ultraGraphicsButton";
-            this.ultraGraphicsButton.Size = new System.Drawing.Size(94, 38);
-            this.ultraGraphicsButton.TabIndex = 48;
-            this.ultraGraphicsButton.Text = "ULTRA";
-            this.ultraGraphicsButton.UseVisualStyleBackColor = false;
-            this.ultraGraphicsButton.Click += new System.EventHandler(this.UltraGraphicsButton_Click);
-            // 
-            // highGraphicsButton
-            // 
-            this.highGraphicsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.highGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.highGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.highGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.highGraphicsButton.Location = new System.Drawing.Point(276, 486);
-            this.highGraphicsButton.Name = "highGraphicsButton";
-            this.highGraphicsButton.Size = new System.Drawing.Size(94, 38);
-            this.highGraphicsButton.TabIndex = 47;
-            this.highGraphicsButton.Text = "HIGH";
-            this.highGraphicsButton.UseVisualStyleBackColor = false;
-            this.highGraphicsButton.Click += new System.EventHandler(this.HighGraphicsButton_Click);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
             // 
-            // mediumGraphicsButton
+            // splitContainer1.Panel1
             // 
-            this.mediumGraphicsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.mediumGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.mediumGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mediumGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.mediumGraphicsButton.Location = new System.Drawing.Point(154, 486);
-            this.mediumGraphicsButton.Name = "mediumGraphicsButton";
-            this.mediumGraphicsButton.Size = new System.Drawing.Size(94, 38);
-            this.mediumGraphicsButton.TabIndex = 46;
-            this.mediumGraphicsButton.Text = "MEDIUM";
-            this.mediumGraphicsButton.UseVisualStyleBackColor = false;
-            this.mediumGraphicsButton.Click += new System.EventHandler(this.MediumGraphicsButton_Click);
+            this.splitContainer1.Panel1.Controls.Add(this.activeVideocardComboBox);
+            this.splitContainer1.Panel1.Controls.Add(this.screenResolutionLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.screenResolutionComboBox);
+            this.splitContainer1.Panel1.Controls.Add(this.gammaLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.gammaTrackBar);
+            this.splitContainer1.Panel1.Controls.Add(this.vSyncLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.vSyncCheckBox);
+            this.splitContainer1.Panel1.Controls.Add(this.windowedLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.windowedCheckBox);
+            this.splitContainer1.Panel1.Controls.Add(this.refreshRateLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.refreshRateComboBox);
+            this.splitContainer1.Panel1.Controls.Add(this.antialiasingLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.antialiasingCheckBox);
+            this.splitContainer1.Panel1.Controls.Add(this.activeVideocardLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.colorDepthLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.colorDepthComboBox);
+            this.splitContainer1.Panel1.Controls.Add(this.rendererLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.rendererComboBox);
+            this.splitContainer1.Panel1.Controls.Add(this.textureDetailLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.textureDetailComboBox);
+            this.splitContainer1.Panel1.Controls.Add(this.modelDetailLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.modelDetailComboBox);
+            this.splitContainer1.Panel1.Controls.Add(this.terrainDetailLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.terrainDetailComboBox);
+            this.splitContainer1.Panel1MinSize = 255;
             // 
-            // lowGraphicsButton
+            // splitContainer1.Panel2
             // 
-            this.lowGraphicsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lowGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.lowGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lowGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.lowGraphicsButton.Location = new System.Drawing.Point(32, 486);
-            this.lowGraphicsButton.Name = "lowGraphicsButton";
-            this.lowGraphicsButton.Size = new System.Drawing.Size(94, 38);
-            this.lowGraphicsButton.TabIndex = 6;
-            this.lowGraphicsButton.Text = "LOW";
-            this.lowGraphicsButton.UseVisualStyleBackColor = false;
-            this.lowGraphicsButton.Click += new System.EventHandler(this.LowGraphicsButton_Click);
-            // 
-            // cyanLabel
-            // 
-            this.cyanLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cyanLabel.AutoSize = true;
-            this.cyanLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.cyanLabel.Location = new System.Drawing.Point(340, 535);
-            this.cyanLabel.Name = "cyanLabel";
-            this.cyanLabel.Size = new System.Drawing.Size(183, 13);
-            this.cyanLabel.TabIndex = 45;
-            this.cyanLabel.Text = "* All cyan settings are hidden in game";
-            // 
-            // dynamicLightsComboBox
-            // 
-            this.dynamicLightsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dynamicLightsComboBox.FormattingEnabled = true;
-            this.dynamicLightsComboBox.Items.AddRange(new object[] {
-            "None",
-            "Low",
-            "Medium",
-            "High"});
-            this.dynamicLightsComboBox.Location = new System.Drawing.Point(363, 245);
-            this.dynamicLightsComboBox.Name = "dynamicLightsComboBox";
-            this.dynamicLightsComboBox.Size = new System.Drawing.Size(121, 21);
-            this.dynamicLightsComboBox.TabIndex = 42;
-            // 
-            // dynamicLightLabel
-            // 
-            this.dynamicLightLabel.AutoSize = true;
-            this.dynamicLightLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.dynamicLightLabel.Location = new System.Drawing.Point(263, 249);
-            this.dynamicLightLabel.Name = "dynamicLightLabel";
-            this.dynamicLightLabel.Size = new System.Drawing.Size(77, 13);
-            this.dynamicLightLabel.TabIndex = 41;
-            this.dynamicLightLabel.Text = "Dynamic Light:";
-            // 
-            // effectsDetailComboBox
-            // 
-            this.effectsDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.effectsDetailComboBox.FormattingEnabled = true;
-            this.effectsDetailComboBox.Items.AddRange(new object[] {
-            "Low",
-            "Medium",
-            "High"});
-            this.effectsDetailComboBox.Location = new System.Drawing.Point(363, 131);
-            this.effectsDetailComboBox.Name = "effectsDetailComboBox";
-            this.effectsDetailComboBox.Size = new System.Drawing.Size(121, 21);
-            this.effectsDetailComboBox.TabIndex = 40;
-            // 
-            // effectsDetailLabel
-            // 
-            this.effectsDetailLabel.AutoSize = true;
-            this.effectsDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.effectsDetailLabel.Location = new System.Drawing.Point(263, 133);
-            this.effectsDetailLabel.Name = "effectsDetailLabel";
-            this.effectsDetailLabel.Size = new System.Drawing.Size(70, 13);
-            this.effectsDetailLabel.TabIndex = 39;
-            this.effectsDetailLabel.Text = "Effects Detail";
-            // 
-            // worldEventsComboBox
-            // 
-            this.worldEventsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.worldEventsComboBox.FormattingEnabled = true;
-            this.worldEventsComboBox.Items.AddRange(new object[] {
-            "Low",
-            "Medium",
-            "High"});
-            this.worldEventsComboBox.Location = new System.Drawing.Point(363, 93);
-            this.worldEventsComboBox.Name = "worldEventsComboBox";
-            this.worldEventsComboBox.Size = new System.Drawing.Size(121, 21);
-            this.worldEventsComboBox.TabIndex = 38;
-            // 
-            // worldEventsLabel
-            // 
-            this.worldEventsLabel.AutoSize = true;
-            this.worldEventsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.worldEventsLabel.Location = new System.Drawing.Point(263, 95);
-            this.worldEventsLabel.Name = "worldEventsLabel";
-            this.worldEventsLabel.Size = new System.Drawing.Size(74, 13);
-            this.worldEventsLabel.TabIndex = 37;
-            this.worldEventsLabel.Text = "World Events:";
-            // 
-            // shadowsDetailComboBox
-            // 
-            this.shadowsDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.shadowsDetailComboBox.FormattingEnabled = true;
-            this.shadowsDetailComboBox.Items.AddRange(new object[] {
-            "None",
-            "Low (Blob)",
-            "Medium (Blob + Map)",
-            "High (Blob + Map + Volume)"});
-            this.shadowsDetailComboBox.Location = new System.Drawing.Point(363, 55);
-            this.shadowsDetailComboBox.Name = "shadowsDetailComboBox";
-            this.shadowsDetailComboBox.Size = new System.Drawing.Size(121, 21);
-            this.shadowsDetailComboBox.TabIndex = 36;
-            // 
-            // shadowsLabel
-            // 
-            this.shadowsLabel.AutoSize = true;
-            this.shadowsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.shadowsLabel.Location = new System.Drawing.Point(263, 58);
-            this.shadowsLabel.Name = "shadowsLabel";
-            this.shadowsLabel.Size = new System.Drawing.Size(84, 13);
-            this.shadowsLabel.TabIndex = 35;
-            this.shadowsLabel.Text = "Shadows Detail:";
-            // 
-            // full3DCameraCheckBox
-            // 
-            this.full3DCameraCheckBox.AutoSize = true;
-            this.full3DCameraCheckBox.Location = new System.Drawing.Point(363, 285);
-            this.full3DCameraCheckBox.Name = "full3DCameraCheckBox";
-            this.full3DCameraCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.full3DCameraCheckBox.TabIndex = 34;
-            this.full3DCameraCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // full3DCameraLabel
-            // 
-            this.full3DCameraLabel.AutoSize = true;
-            this.full3DCameraLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.full3DCameraLabel.Location = new System.Drawing.Point(265, 285);
-            this.full3DCameraLabel.Name = "full3DCameraLabel";
-            this.full3DCameraLabel.Size = new System.Drawing.Size(82, 13);
-            this.full3DCameraLabel.TabIndex = 33;
-            this.full3DCameraLabel.Text = "Full 3D Camera:";
-            // 
-            // persistentScarringComboBox
-            // 
-            this.persistentScarringComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.persistentScarringComboBox.FormattingEnabled = true;
-            this.persistentScarringComboBox.Items.AddRange(new object[] {
-            "Low",
-            "Medium",
-            "High"});
-            this.persistentScarringComboBox.Location = new System.Drawing.Point(363, 207);
-            this.persistentScarringComboBox.Name = "persistentScarringComboBox";
-            this.persistentScarringComboBox.Size = new System.Drawing.Size(121, 21);
-            this.persistentScarringComboBox.TabIndex = 32;
-            // 
-            // persistentScarringLabel
-            // 
-            this.persistentScarringLabel.AutoSize = true;
-            this.persistentScarringLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.persistentScarringLabel.Location = new System.Drawing.Point(263, 210);
-            this.persistentScarringLabel.Name = "persistentScarringLabel";
-            this.persistentScarringLabel.Size = new System.Drawing.Size(98, 13);
-            this.persistentScarringLabel.TabIndex = 31;
-            this.persistentScarringLabel.Text = "Persistent Scarring:";
-            // 
-            // betterTeamcoloredTexturexCheckBox
-            // 
-            this.betterTeamcoloredTexturexCheckBox.AutoSize = true;
-            this.betterTeamcoloredTexturexCheckBox.Location = new System.Drawing.Point(427, 20);
-            this.betterTeamcoloredTexturexCheckBox.Name = "betterTeamcoloredTexturexCheckBox";
-            this.betterTeamcoloredTexturexCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.betterTeamcoloredTexturexCheckBox.TabIndex = 30;
-            this.betterTeamcoloredTexturexCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // betterTeamcoloredTexturesLabel
-            // 
-            this.betterTeamcoloredTexturesLabel.AutoSize = true;
-            this.betterTeamcoloredTexturesLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.betterTeamcoloredTexturesLabel.Location = new System.Drawing.Point(263, 20);
-            this.betterTeamcoloredTexturesLabel.Name = "betterTeamcoloredTexturesLabel";
-            this.betterTeamcoloredTexturesLabel.Size = new System.Drawing.Size(147, 13);
-            this.betterTeamcoloredTexturesLabel.TabIndex = 29;
-            this.betterTeamcoloredTexturesLabel.Text = "Better Teamcolored Textures:";
-            // 
-            // unitsOcclusionCheckBox
-            // 
-            this.unitsOcclusionCheckBox.AutoSize = true;
-            this.unitsOcclusionCheckBox.Location = new System.Drawing.Point(363, 320);
-            this.unitsOcclusionCheckBox.Name = "unitsOcclusionCheckBox";
-            this.unitsOcclusionCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.unitsOcclusionCheckBox.TabIndex = 28;
-            this.unitsOcclusionCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // unitsOcclusionLabel
-            // 
-            this.unitsOcclusionLabel.AutoSize = true;
-            this.unitsOcclusionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.unitsOcclusionLabel.Location = new System.Drawing.Point(265, 320);
-            this.unitsOcclusionLabel.Name = "unitsOcclusionLabel";
-            this.unitsOcclusionLabel.Size = new System.Drawing.Size(84, 13);
-            this.unitsOcclusionLabel.TabIndex = 27;
-            this.unitsOcclusionLabel.Text = "Units Occlusion:";
-            // 
-            // persistentBodiesComboBox
-            // 
-            this.persistentBodiesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.persistentBodiesComboBox.FormattingEnabled = true;
-            this.persistentBodiesComboBox.Items.AddRange(new object[] {
-            "None",
-            "Low",
-            "Medium",
-            "High"});
-            this.persistentBodiesComboBox.Location = new System.Drawing.Point(363, 169);
-            this.persistentBodiesComboBox.Name = "persistentBodiesComboBox";
-            this.persistentBodiesComboBox.Size = new System.Drawing.Size(121, 21);
-            this.persistentBodiesComboBox.TabIndex = 26;
-            // 
-            // persistentBodiesLabel
-            // 
-            this.persistentBodiesLabel.AutoSize = true;
-            this.persistentBodiesLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.persistentBodiesLabel.Location = new System.Drawing.Point(263, 172);
-            this.persistentBodiesLabel.Name = "persistentBodiesLabel";
-            this.persistentBodiesLabel.Size = new System.Drawing.Size(91, 13);
-            this.persistentBodiesLabel.TabIndex = 25;
-            this.persistentBodiesLabel.Text = "Persistent Bodies:";
-            // 
-            // terrainDetailComboBox
-            // 
-            this.terrainDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.terrainDetailComboBox.FormattingEnabled = true;
-            this.terrainDetailComboBox.Items.AddRange(new object[] {
-            "Low",
-            "Medium",
-            "High"});
-            this.terrainDetailComboBox.Location = new System.Drawing.Point(113, 433);
-            this.terrainDetailComboBox.Name = "terrainDetailComboBox";
-            this.terrainDetailComboBox.Size = new System.Drawing.Size(121, 21);
-            this.terrainDetailComboBox.TabIndex = 24;
-            // 
-            // terrainDetailLabel
-            // 
-            this.terrainDetailLabel.AutoSize = true;
-            this.terrainDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.terrainDetailLabel.Location = new System.Drawing.Point(9, 437);
-            this.terrainDetailLabel.Name = "terrainDetailLabel";
-            this.terrainDetailLabel.Size = new System.Drawing.Size(73, 13);
-            this.terrainDetailLabel.TabIndex = 23;
-            this.terrainDetailLabel.Text = "Terrain Detail:";
-            // 
-            // modelDetailComboBox
-            // 
-            this.modelDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.modelDetailComboBox.FormattingEnabled = true;
-            this.modelDetailComboBox.Items.AddRange(new object[] {
-            "Low",
-            "Medium",
-            "High"});
-            this.modelDetailComboBox.Location = new System.Drawing.Point(113, 393);
-            this.modelDetailComboBox.Name = "modelDetailComboBox";
-            this.modelDetailComboBox.Size = new System.Drawing.Size(121, 21);
-            this.modelDetailComboBox.TabIndex = 22;
-            // 
-            // modelDetailLabel
-            // 
-            this.modelDetailLabel.AutoSize = true;
-            this.modelDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.modelDetailLabel.Location = new System.Drawing.Point(10, 397);
-            this.modelDetailLabel.Name = "modelDetailLabel";
-            this.modelDetailLabel.Size = new System.Drawing.Size(69, 13);
-            this.modelDetailLabel.TabIndex = 21;
-            this.modelDetailLabel.Text = "Model Detail:";
-            // 
-            // textureDetailComboBox
-            // 
-            this.textureDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.textureDetailComboBox.FormattingEnabled = true;
-            this.textureDetailComboBox.Items.AddRange(new object[] {
-            "Low",
-            "Medium",
-            "High"});
-            this.textureDetailComboBox.Location = new System.Drawing.Point(113, 354);
-            this.textureDetailComboBox.Name = "textureDetailComboBox";
-            this.textureDetailComboBox.Size = new System.Drawing.Size(121, 21);
-            this.textureDetailComboBox.TabIndex = 20;
-            // 
-            // textureDetailLabel
-            // 
-            this.textureDetailLabel.AutoSize = true;
-            this.textureDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.textureDetailLabel.Location = new System.Drawing.Point(10, 358);
-            this.textureDetailLabel.Name = "textureDetailLabel";
-            this.textureDetailLabel.Size = new System.Drawing.Size(76, 13);
-            this.textureDetailLabel.TabIndex = 19;
-            this.textureDetailLabel.Text = "Texture Detail:";
-            // 
-            // rendererComboBox
-            // 
-            this.rendererComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.rendererComboBox.FormattingEnabled = true;
-            this.rendererComboBox.Items.AddRange(new object[] {
-            "Dx9 : Hardware TnL"});
-            this.rendererComboBox.Location = new System.Drawing.Point(113, 55);
-            this.rendererComboBox.Name = "rendererComboBox";
-            this.rendererComboBox.Size = new System.Drawing.Size(121, 21);
-            this.rendererComboBox.TabIndex = 18;
-            // 
-            // rendererLabel
-            // 
-            this.rendererLabel.AutoSize = true;
-            this.rendererLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.rendererLabel.Location = new System.Drawing.Point(10, 58);
-            this.rendererLabel.Name = "rendererLabel";
-            this.rendererLabel.Size = new System.Drawing.Size(54, 13);
-            this.rendererLabel.TabIndex = 17;
-            this.rendererLabel.Text = "Renderer:";
-            // 
-            // colorDepthComboBox
-            // 
-            this.colorDepthComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.colorDepthComboBox.FormattingEnabled = true;
-            this.colorDepthComboBox.Items.AddRange(new object[] {
-            "16 bit",
-            "24 bit (HighColor - experimental)",
-            "32 bit (TrueColor)"});
-            this.colorDepthComboBox.Location = new System.Drawing.Point(113, 169);
-            this.colorDepthComboBox.Name = "colorDepthComboBox";
-            this.colorDepthComboBox.Size = new System.Drawing.Size(121, 21);
-            this.colorDepthComboBox.TabIndex = 16;
-            // 
-            // colorDepthLabel
-            // 
-            this.colorDepthLabel.AutoSize = true;
-            this.colorDepthLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.colorDepthLabel.Location = new System.Drawing.Point(10, 172);
-            this.colorDepthLabel.Name = "colorDepthLabel";
-            this.colorDepthLabel.Size = new System.Drawing.Size(66, 13);
-            this.colorDepthLabel.TabIndex = 15;
-            this.colorDepthLabel.Text = "Color Depth:";
+            this.splitContainer1.Panel2.Controls.Add(this.betterTeamcoloredTexturesLabel);
+            this.splitContainer1.Panel2.Controls.Add(this.persistentBodiesLabel);
+            this.splitContainer1.Panel2.Controls.Add(this.persistentBodiesComboBox);
+            this.splitContainer1.Panel2.Controls.Add(this.unitsOcclusionLabel);
+            this.splitContainer1.Panel2.Controls.Add(this.unitsOcclusionCheckBox);
+            this.splitContainer1.Panel2.Controls.Add(this.betterTeamcoloredTexturexCheckBox);
+            this.splitContainer1.Panel2.Controls.Add(this.dynamicLightsComboBox);
+            this.splitContainer1.Panel2.Controls.Add(this.persistentScarringLabel);
+            this.splitContainer1.Panel2.Controls.Add(this.dynamicLightLabel);
+            this.splitContainer1.Panel2.Controls.Add(this.persistentScarringComboBox);
+            this.splitContainer1.Panel2.Controls.Add(this.effectsDetailComboBox);
+            this.splitContainer1.Panel2.Controls.Add(this.full3DCameraLabel);
+            this.splitContainer1.Panel2.Controls.Add(this.effectsDetailLabel);
+            this.splitContainer1.Panel2.Controls.Add(this.full3DCameraCheckBox);
+            this.splitContainer1.Panel2.Controls.Add(this.worldEventsComboBox);
+            this.splitContainer1.Panel2.Controls.Add(this.shadowsLabel);
+            this.splitContainer1.Panel2.Controls.Add(this.worldEventsLabel);
+            this.splitContainer1.Panel2.Controls.Add(this.shadowsDetailComboBox);
+            this.splitContainer1.Panel2MinSize = 255;
+            this.splitContainer1.Size = new System.Drawing.Size(517, 460);
+            this.splitContainer1.SplitterDistance = 255;
+            this.splitContainer1.TabIndex = 49;
             // 
             // activeVideocardComboBox
             // 
+            this.activeVideocardComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.activeVideocardComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.activeVideocardComboBox.FormattingEnabled = true;
-            this.activeVideocardComboBox.Location = new System.Drawing.Point(113, 18);
+            this.activeVideocardComboBox.Location = new System.Drawing.Point(117, 16);
             this.activeVideocardComboBox.Name = "activeVideocardComboBox";
-            this.activeVideocardComboBox.Size = new System.Drawing.Size(121, 21);
+            this.activeVideocardComboBox.Size = new System.Drawing.Size(114, 21);
             this.activeVideocardComboBox.TabIndex = 14;
             // 
-            // activeVideocardLabel
+            // screenResolutionLabel
             // 
-            this.activeVideocardLabel.AutoSize = true;
-            this.activeVideocardLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.activeVideocardLabel.Location = new System.Drawing.Point(10, 20);
-            this.activeVideocardLabel.Name = "activeVideocardLabel";
-            this.activeVideocardLabel.Size = new System.Drawing.Size(91, 13);
-            this.activeVideocardLabel.TabIndex = 13;
-            this.activeVideocardLabel.Text = "Active Videocard:";
-            // 
-            // antialiasingCheckBox
-            // 
-            this.antialiasingCheckBox.AutoSize = true;
-            this.antialiasingCheckBox.Location = new System.Drawing.Point(113, 320);
-            this.antialiasingCheckBox.Name = "antialiasingCheckBox";
-            this.antialiasingCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.antialiasingCheckBox.TabIndex = 12;
-            this.antialiasingCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // antialiasingLabel
-            // 
-            this.antialiasingLabel.AutoSize = true;
-            this.antialiasingLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.antialiasingLabel.Location = new System.Drawing.Point(10, 320);
-            this.antialiasingLabel.Name = "antialiasingLabel";
-            this.antialiasingLabel.Size = new System.Drawing.Size(66, 13);
-            this.antialiasingLabel.TabIndex = 11;
-            this.antialiasingLabel.Text = "Anti-aliasing:";
-            // 
-            // refreshRateComboBox
-            // 
-            this.refreshRateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.refreshRateComboBox.FormattingEnabled = true;
-            this.refreshRateComboBox.Items.AddRange(new object[] {
-            "Auto",
-            "144 Hz",
-            "120 Hz",
-            "90 Hz",
-            "85 Hz",
-            "75 Hz",
-            "60 Hz",
-            "59 Hz"});
-            this.refreshRateComboBox.Location = new System.Drawing.Point(113, 131);
-            this.refreshRateComboBox.Name = "refreshRateComboBox";
-            this.refreshRateComboBox.Size = new System.Drawing.Size(121, 21);
-            this.refreshRateComboBox.TabIndex = 10;
-            // 
-            // refreshRateLabel
-            // 
-            this.refreshRateLabel.AutoSize = true;
-            this.refreshRateLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.refreshRateLabel.Location = new System.Drawing.Point(10, 133);
-            this.refreshRateLabel.Name = "refreshRateLabel";
-            this.refreshRateLabel.Size = new System.Drawing.Size(73, 13);
-            this.refreshRateLabel.TabIndex = 9;
-            this.refreshRateLabel.Text = "Refresh Rate:";
-            // 
-            // windowedCheckBox
-            // 
-            this.windowedCheckBox.AutoSize = true;
-            this.windowedCheckBox.Location = new System.Drawing.Point(113, 285);
-            this.windowedCheckBox.Name = "windowedCheckBox";
-            this.windowedCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.windowedCheckBox.TabIndex = 8;
-            this.windowedCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // windowedLabel
-            // 
-            this.windowedLabel.AutoSize = true;
-            this.windowedLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.windowedLabel.Location = new System.Drawing.Point(10, 285);
-            this.windowedLabel.Name = "windowedLabel";
-            this.windowedLabel.Size = new System.Drawing.Size(61, 13);
-            this.windowedLabel.TabIndex = 7;
-            this.windowedLabel.Text = "Windowed:";
-            // 
-            // vSyncCheckBox
-            // 
-            this.vSyncCheckBox.AutoSize = true;
-            this.vSyncCheckBox.Location = new System.Drawing.Point(113, 248);
-            this.vSyncCheckBox.Name = "vSyncCheckBox";
-            this.vSyncCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.vSyncCheckBox.TabIndex = 6;
-            this.vSyncCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // vSyncLabel
-            // 
-            this.vSyncLabel.AutoSize = true;
-            this.vSyncLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.vSyncLabel.Location = new System.Drawing.Point(10, 249);
-            this.vSyncLabel.Name = "vSyncLabel";
-            this.vSyncLabel.Size = new System.Drawing.Size(44, 13);
-            this.vSyncLabel.TabIndex = 5;
-            this.vSyncLabel.Text = "V-Sync:";
-            // 
-            // gammaTrackBar
-            // 
-            this.gammaTrackBar.LargeChange = 1;
-            this.gammaTrackBar.Location = new System.Drawing.Point(113, 208);
-            this.gammaTrackBar.Maximum = 15;
-            this.gammaTrackBar.Minimum = 5;
-            this.gammaTrackBar.Name = "gammaTrackBar";
-            this.gammaTrackBar.Size = new System.Drawing.Size(121, 45);
-            this.gammaTrackBar.TabIndex = 4;
-            this.gammaTrackBar.Value = 10;
-            // 
-            // gammaLabel
-            // 
-            this.gammaLabel.AutoSize = true;
-            this.gammaLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.gammaLabel.Location = new System.Drawing.Point(10, 210);
-            this.gammaLabel.Name = "gammaLabel";
-            this.gammaLabel.Size = new System.Drawing.Size(46, 13);
-            this.gammaLabel.TabIndex = 2;
-            this.gammaLabel.Text = "Gamma:";
+            this.screenResolutionLabel.AutoSize = true;
+            this.screenResolutionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.screenResolutionLabel.Location = new System.Drawing.Point(13, 93);
+            this.screenResolutionLabel.Name = "screenResolutionLabel";
+            this.screenResolutionLabel.Size = new System.Drawing.Size(97, 13);
+            this.screenResolutionLabel.TabIndex = 0;
+            this.screenResolutionLabel.Text = "Screen Resolution:";
             // 
             // screenResolutionComboBox
             // 
+            this.screenResolutionComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.screenResolutionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.screenResolutionComboBox.FormattingEnabled = true;
             this.screenResolutionComboBox.Items.AddRange(new object[] {
@@ -1031,20 +577,530 @@
             "1152×864",
             "1024×768",
             "800×600"});
-            this.screenResolutionComboBox.Location = new System.Drawing.Point(113, 93);
+            this.screenResolutionComboBox.Location = new System.Drawing.Point(117, 91);
             this.screenResolutionComboBox.Name = "screenResolutionComboBox";
-            this.screenResolutionComboBox.Size = new System.Drawing.Size(121, 21);
+            this.screenResolutionComboBox.Size = new System.Drawing.Size(114, 21);
             this.screenResolutionComboBox.TabIndex = 1;
             // 
-            // screenResolutionLabel
+            // gammaLabel
             // 
-            this.screenResolutionLabel.AutoSize = true;
-            this.screenResolutionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.screenResolutionLabel.Location = new System.Drawing.Point(9, 95);
-            this.screenResolutionLabel.Name = "screenResolutionLabel";
-            this.screenResolutionLabel.Size = new System.Drawing.Size(97, 13);
-            this.screenResolutionLabel.TabIndex = 0;
-            this.screenResolutionLabel.Text = "Screen Resolution:";
+            this.gammaLabel.AutoSize = true;
+            this.gammaLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.gammaLabel.Location = new System.Drawing.Point(14, 208);
+            this.gammaLabel.Name = "gammaLabel";
+            this.gammaLabel.Size = new System.Drawing.Size(46, 13);
+            this.gammaLabel.TabIndex = 2;
+            this.gammaLabel.Text = "Gamma:";
+            // 
+            // gammaTrackBar
+            // 
+            this.gammaTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gammaTrackBar.LargeChange = 1;
+            this.gammaTrackBar.Location = new System.Drawing.Point(117, 206);
+            this.gammaTrackBar.Maximum = 15;
+            this.gammaTrackBar.Minimum = 5;
+            this.gammaTrackBar.Name = "gammaTrackBar";
+            this.gammaTrackBar.Size = new System.Drawing.Size(114, 45);
+            this.gammaTrackBar.TabIndex = 4;
+            this.gammaTrackBar.Value = 10;
+            // 
+            // vSyncLabel
+            // 
+            this.vSyncLabel.AutoSize = true;
+            this.vSyncLabel.ForeColor = System.Drawing.Color.Cyan;
+            this.vSyncLabel.Location = new System.Drawing.Point(14, 247);
+            this.vSyncLabel.Name = "vSyncLabel";
+            this.vSyncLabel.Size = new System.Drawing.Size(44, 13);
+            this.vSyncLabel.TabIndex = 5;
+            this.vSyncLabel.Text = "V-Sync:";
+            // 
+            // vSyncCheckBox
+            // 
+            this.vSyncCheckBox.AutoSize = true;
+            this.vSyncCheckBox.Location = new System.Drawing.Point(117, 246);
+            this.vSyncCheckBox.Name = "vSyncCheckBox";
+            this.vSyncCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.vSyncCheckBox.TabIndex = 6;
+            this.vSyncCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // windowedLabel
+            // 
+            this.windowedLabel.AutoSize = true;
+            this.windowedLabel.ForeColor = System.Drawing.Color.Cyan;
+            this.windowedLabel.Location = new System.Drawing.Point(14, 283);
+            this.windowedLabel.Name = "windowedLabel";
+            this.windowedLabel.Size = new System.Drawing.Size(61, 13);
+            this.windowedLabel.TabIndex = 7;
+            this.windowedLabel.Text = "Windowed:";
+            // 
+            // windowedCheckBox
+            // 
+            this.windowedCheckBox.AutoSize = true;
+            this.windowedCheckBox.Location = new System.Drawing.Point(117, 283);
+            this.windowedCheckBox.Name = "windowedCheckBox";
+            this.windowedCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.windowedCheckBox.TabIndex = 8;
+            this.windowedCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // refreshRateLabel
+            // 
+            this.refreshRateLabel.AutoSize = true;
+            this.refreshRateLabel.ForeColor = System.Drawing.Color.Cyan;
+            this.refreshRateLabel.Location = new System.Drawing.Point(14, 131);
+            this.refreshRateLabel.Name = "refreshRateLabel";
+            this.refreshRateLabel.Size = new System.Drawing.Size(73, 13);
+            this.refreshRateLabel.TabIndex = 9;
+            this.refreshRateLabel.Text = "Refresh Rate:";
+            // 
+            // refreshRateComboBox
+            // 
+            this.refreshRateComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.refreshRateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.refreshRateComboBox.FormattingEnabled = true;
+            this.refreshRateComboBox.Items.AddRange(new object[] {
+            "Auto",
+            "144 Hz",
+            "120 Hz",
+            "90 Hz",
+            "85 Hz",
+            "75 Hz",
+            "60 Hz",
+            "59 Hz"});
+            this.refreshRateComboBox.Location = new System.Drawing.Point(117, 129);
+            this.refreshRateComboBox.Name = "refreshRateComboBox";
+            this.refreshRateComboBox.Size = new System.Drawing.Size(114, 21);
+            this.refreshRateComboBox.TabIndex = 10;
+            // 
+            // antialiasingLabel
+            // 
+            this.antialiasingLabel.AutoSize = true;
+            this.antialiasingLabel.ForeColor = System.Drawing.Color.Cyan;
+            this.antialiasingLabel.Location = new System.Drawing.Point(14, 318);
+            this.antialiasingLabel.Name = "antialiasingLabel";
+            this.antialiasingLabel.Size = new System.Drawing.Size(66, 13);
+            this.antialiasingLabel.TabIndex = 11;
+            this.antialiasingLabel.Text = "Anti-aliasing:";
+            // 
+            // antialiasingCheckBox
+            // 
+            this.antialiasingCheckBox.AutoSize = true;
+            this.antialiasingCheckBox.Location = new System.Drawing.Point(117, 318);
+            this.antialiasingCheckBox.Name = "antialiasingCheckBox";
+            this.antialiasingCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.antialiasingCheckBox.TabIndex = 12;
+            this.antialiasingCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // activeVideocardLabel
+            // 
+            this.activeVideocardLabel.AutoSize = true;
+            this.activeVideocardLabel.ForeColor = System.Drawing.Color.Cyan;
+            this.activeVideocardLabel.Location = new System.Drawing.Point(14, 18);
+            this.activeVideocardLabel.Name = "activeVideocardLabel";
+            this.activeVideocardLabel.Size = new System.Drawing.Size(91, 13);
+            this.activeVideocardLabel.TabIndex = 13;
+            this.activeVideocardLabel.Text = "Active Videocard:";
+            // 
+            // colorDepthLabel
+            // 
+            this.colorDepthLabel.AutoSize = true;
+            this.colorDepthLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.colorDepthLabel.Location = new System.Drawing.Point(14, 170);
+            this.colorDepthLabel.Name = "colorDepthLabel";
+            this.colorDepthLabel.Size = new System.Drawing.Size(66, 13);
+            this.colorDepthLabel.TabIndex = 15;
+            this.colorDepthLabel.Text = "Color Depth:";
+            // 
+            // colorDepthComboBox
+            // 
+            this.colorDepthComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.colorDepthComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.colorDepthComboBox.FormattingEnabled = true;
+            this.colorDepthComboBox.Items.AddRange(new object[] {
+            "16 bit",
+            "24 bit (HighColor - experimental)",
+            "32 bit (TrueColor)"});
+            this.colorDepthComboBox.Location = new System.Drawing.Point(117, 167);
+            this.colorDepthComboBox.Name = "colorDepthComboBox";
+            this.colorDepthComboBox.Size = new System.Drawing.Size(114, 21);
+            this.colorDepthComboBox.TabIndex = 16;
+            // 
+            // rendererLabel
+            // 
+            this.rendererLabel.AutoSize = true;
+            this.rendererLabel.ForeColor = System.Drawing.Color.Cyan;
+            this.rendererLabel.Location = new System.Drawing.Point(14, 56);
+            this.rendererLabel.Name = "rendererLabel";
+            this.rendererLabel.Size = new System.Drawing.Size(54, 13);
+            this.rendererLabel.TabIndex = 17;
+            this.rendererLabel.Text = "Renderer:";
+            // 
+            // rendererComboBox
+            // 
+            this.rendererComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rendererComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rendererComboBox.FormattingEnabled = true;
+            this.rendererComboBox.Items.AddRange(new object[] {
+            "Dx9 : Hardware TnL"});
+            this.rendererComboBox.Location = new System.Drawing.Point(117, 53);
+            this.rendererComboBox.Name = "rendererComboBox";
+            this.rendererComboBox.Size = new System.Drawing.Size(114, 21);
+            this.rendererComboBox.TabIndex = 18;
+            // 
+            // textureDetailLabel
+            // 
+            this.textureDetailLabel.AutoSize = true;
+            this.textureDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textureDetailLabel.Location = new System.Drawing.Point(14, 356);
+            this.textureDetailLabel.Name = "textureDetailLabel";
+            this.textureDetailLabel.Size = new System.Drawing.Size(76, 13);
+            this.textureDetailLabel.TabIndex = 19;
+            this.textureDetailLabel.Text = "Texture Detail:";
+            // 
+            // textureDetailComboBox
+            // 
+            this.textureDetailComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textureDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.textureDetailComboBox.FormattingEnabled = true;
+            this.textureDetailComboBox.Items.AddRange(new object[] {
+            "Low",
+            "Medium",
+            "High"});
+            this.textureDetailComboBox.Location = new System.Drawing.Point(117, 352);
+            this.textureDetailComboBox.Name = "textureDetailComboBox";
+            this.textureDetailComboBox.Size = new System.Drawing.Size(114, 21);
+            this.textureDetailComboBox.TabIndex = 20;
+            // 
+            // modelDetailLabel
+            // 
+            this.modelDetailLabel.AutoSize = true;
+            this.modelDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.modelDetailLabel.Location = new System.Drawing.Point(14, 395);
+            this.modelDetailLabel.Name = "modelDetailLabel";
+            this.modelDetailLabel.Size = new System.Drawing.Size(69, 13);
+            this.modelDetailLabel.TabIndex = 21;
+            this.modelDetailLabel.Text = "Model Detail:";
+            // 
+            // modelDetailComboBox
+            // 
+            this.modelDetailComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.modelDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.modelDetailComboBox.FormattingEnabled = true;
+            this.modelDetailComboBox.Items.AddRange(new object[] {
+            "Low",
+            "Medium",
+            "High"});
+            this.modelDetailComboBox.Location = new System.Drawing.Point(117, 391);
+            this.modelDetailComboBox.Name = "modelDetailComboBox";
+            this.modelDetailComboBox.Size = new System.Drawing.Size(114, 21);
+            this.modelDetailComboBox.TabIndex = 22;
+            // 
+            // terrainDetailLabel
+            // 
+            this.terrainDetailLabel.AutoSize = true;
+            this.terrainDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.terrainDetailLabel.Location = new System.Drawing.Point(13, 435);
+            this.terrainDetailLabel.Name = "terrainDetailLabel";
+            this.terrainDetailLabel.Size = new System.Drawing.Size(73, 13);
+            this.terrainDetailLabel.TabIndex = 23;
+            this.terrainDetailLabel.Text = "Terrain Detail:";
+            // 
+            // terrainDetailComboBox
+            // 
+            this.terrainDetailComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.terrainDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.terrainDetailComboBox.FormattingEnabled = true;
+            this.terrainDetailComboBox.Items.AddRange(new object[] {
+            "Low",
+            "Medium",
+            "High"});
+            this.terrainDetailComboBox.Location = new System.Drawing.Point(117, 431);
+            this.terrainDetailComboBox.Name = "terrainDetailComboBox";
+            this.terrainDetailComboBox.Size = new System.Drawing.Size(114, 21);
+            this.terrainDetailComboBox.TabIndex = 24;
+            // 
+            // betterTeamcoloredTexturesLabel
+            // 
+            this.betterTeamcoloredTexturesLabel.AutoSize = true;
+            this.betterTeamcoloredTexturesLabel.ForeColor = System.Drawing.Color.Cyan;
+            this.betterTeamcoloredTexturesLabel.Location = new System.Drawing.Point(15, 18);
+            this.betterTeamcoloredTexturesLabel.Name = "betterTeamcoloredTexturesLabel";
+            this.betterTeamcoloredTexturesLabel.Size = new System.Drawing.Size(147, 13);
+            this.betterTeamcoloredTexturesLabel.TabIndex = 29;
+            this.betterTeamcoloredTexturesLabel.Text = "Better Teamcolored Textures:";
+            // 
+            // persistentBodiesLabel
+            // 
+            this.persistentBodiesLabel.AutoSize = true;
+            this.persistentBodiesLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.persistentBodiesLabel.Location = new System.Drawing.Point(15, 170);
+            this.persistentBodiesLabel.Name = "persistentBodiesLabel";
+            this.persistentBodiesLabel.Size = new System.Drawing.Size(91, 13);
+            this.persistentBodiesLabel.TabIndex = 25;
+            this.persistentBodiesLabel.Text = "Persistent Bodies:";
+            // 
+            // persistentBodiesComboBox
+            // 
+            this.persistentBodiesComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.persistentBodiesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.persistentBodiesComboBox.FormattingEnabled = true;
+            this.persistentBodiesComboBox.Items.AddRange(new object[] {
+            "None",
+            "Low",
+            "Medium",
+            "High"});
+            this.persistentBodiesComboBox.Location = new System.Drawing.Point(115, 167);
+            this.persistentBodiesComboBox.Name = "persistentBodiesComboBox";
+            this.persistentBodiesComboBox.Size = new System.Drawing.Size(105, 21);
+            this.persistentBodiesComboBox.TabIndex = 26;
+            // 
+            // unitsOcclusionLabel
+            // 
+            this.unitsOcclusionLabel.AutoSize = true;
+            this.unitsOcclusionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.unitsOcclusionLabel.Location = new System.Drawing.Point(17, 318);
+            this.unitsOcclusionLabel.Name = "unitsOcclusionLabel";
+            this.unitsOcclusionLabel.Size = new System.Drawing.Size(84, 13);
+            this.unitsOcclusionLabel.TabIndex = 27;
+            this.unitsOcclusionLabel.Text = "Units Occlusion:";
+            // 
+            // unitsOcclusionCheckBox
+            // 
+            this.unitsOcclusionCheckBox.AutoSize = true;
+            this.unitsOcclusionCheckBox.Location = new System.Drawing.Point(115, 318);
+            this.unitsOcclusionCheckBox.Name = "unitsOcclusionCheckBox";
+            this.unitsOcclusionCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.unitsOcclusionCheckBox.TabIndex = 28;
+            this.unitsOcclusionCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // betterTeamcoloredTexturexCheckBox
+            // 
+            this.betterTeamcoloredTexturexCheckBox.AutoSize = true;
+            this.betterTeamcoloredTexturexCheckBox.Location = new System.Drawing.Point(179, 18);
+            this.betterTeamcoloredTexturexCheckBox.Name = "betterTeamcoloredTexturexCheckBox";
+            this.betterTeamcoloredTexturexCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.betterTeamcoloredTexturexCheckBox.TabIndex = 30;
+            this.betterTeamcoloredTexturexCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // dynamicLightsComboBox
+            // 
+            this.dynamicLightsComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dynamicLightsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dynamicLightsComboBox.FormattingEnabled = true;
+            this.dynamicLightsComboBox.Items.AddRange(new object[] {
+            "None",
+            "Low",
+            "Medium",
+            "High"});
+            this.dynamicLightsComboBox.Location = new System.Drawing.Point(115, 243);
+            this.dynamicLightsComboBox.Name = "dynamicLightsComboBox";
+            this.dynamicLightsComboBox.Size = new System.Drawing.Size(105, 21);
+            this.dynamicLightsComboBox.TabIndex = 42;
+            // 
+            // persistentScarringLabel
+            // 
+            this.persistentScarringLabel.AutoSize = true;
+            this.persistentScarringLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.persistentScarringLabel.Location = new System.Drawing.Point(15, 208);
+            this.persistentScarringLabel.Name = "persistentScarringLabel";
+            this.persistentScarringLabel.Size = new System.Drawing.Size(98, 13);
+            this.persistentScarringLabel.TabIndex = 31;
+            this.persistentScarringLabel.Text = "Persistent Scarring:";
+            // 
+            // dynamicLightLabel
+            // 
+            this.dynamicLightLabel.AutoSize = true;
+            this.dynamicLightLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.dynamicLightLabel.Location = new System.Drawing.Point(15, 247);
+            this.dynamicLightLabel.Name = "dynamicLightLabel";
+            this.dynamicLightLabel.Size = new System.Drawing.Size(77, 13);
+            this.dynamicLightLabel.TabIndex = 41;
+            this.dynamicLightLabel.Text = "Dynamic Light:";
+            // 
+            // persistentScarringComboBox
+            // 
+            this.persistentScarringComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.persistentScarringComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.persistentScarringComboBox.FormattingEnabled = true;
+            this.persistentScarringComboBox.Items.AddRange(new object[] {
+            "Low",
+            "Medium",
+            "High"});
+            this.persistentScarringComboBox.Location = new System.Drawing.Point(115, 205);
+            this.persistentScarringComboBox.Name = "persistentScarringComboBox";
+            this.persistentScarringComboBox.Size = new System.Drawing.Size(105, 21);
+            this.persistentScarringComboBox.TabIndex = 32;
+            // 
+            // effectsDetailComboBox
+            // 
+            this.effectsDetailComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.effectsDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.effectsDetailComboBox.FormattingEnabled = true;
+            this.effectsDetailComboBox.Items.AddRange(new object[] {
+            "Low",
+            "Medium",
+            "High"});
+            this.effectsDetailComboBox.Location = new System.Drawing.Point(115, 129);
+            this.effectsDetailComboBox.Name = "effectsDetailComboBox";
+            this.effectsDetailComboBox.Size = new System.Drawing.Size(105, 21);
+            this.effectsDetailComboBox.TabIndex = 40;
+            // 
+            // full3DCameraLabel
+            // 
+            this.full3DCameraLabel.AutoSize = true;
+            this.full3DCameraLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.full3DCameraLabel.Location = new System.Drawing.Point(17, 283);
+            this.full3DCameraLabel.Name = "full3DCameraLabel";
+            this.full3DCameraLabel.Size = new System.Drawing.Size(82, 13);
+            this.full3DCameraLabel.TabIndex = 33;
+            this.full3DCameraLabel.Text = "Full 3D Camera:";
+            // 
+            // effectsDetailLabel
+            // 
+            this.effectsDetailLabel.AutoSize = true;
+            this.effectsDetailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.effectsDetailLabel.Location = new System.Drawing.Point(15, 131);
+            this.effectsDetailLabel.Name = "effectsDetailLabel";
+            this.effectsDetailLabel.Size = new System.Drawing.Size(70, 13);
+            this.effectsDetailLabel.TabIndex = 39;
+            this.effectsDetailLabel.Text = "Effects Detail";
+            // 
+            // full3DCameraCheckBox
+            // 
+            this.full3DCameraCheckBox.AutoSize = true;
+            this.full3DCameraCheckBox.Location = new System.Drawing.Point(115, 283);
+            this.full3DCameraCheckBox.Name = "full3DCameraCheckBox";
+            this.full3DCameraCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.full3DCameraCheckBox.TabIndex = 34;
+            this.full3DCameraCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // worldEventsComboBox
+            // 
+            this.worldEventsComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.worldEventsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.worldEventsComboBox.FormattingEnabled = true;
+            this.worldEventsComboBox.Items.AddRange(new object[] {
+            "Low",
+            "Medium",
+            "High"});
+            this.worldEventsComboBox.Location = new System.Drawing.Point(115, 91);
+            this.worldEventsComboBox.Name = "worldEventsComboBox";
+            this.worldEventsComboBox.Size = new System.Drawing.Size(105, 21);
+            this.worldEventsComboBox.TabIndex = 38;
+            // 
+            // shadowsLabel
+            // 
+            this.shadowsLabel.AutoSize = true;
+            this.shadowsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.shadowsLabel.Location = new System.Drawing.Point(15, 56);
+            this.shadowsLabel.Name = "shadowsLabel";
+            this.shadowsLabel.Size = new System.Drawing.Size(84, 13);
+            this.shadowsLabel.TabIndex = 35;
+            this.shadowsLabel.Text = "Shadows Detail:";
+            // 
+            // worldEventsLabel
+            // 
+            this.worldEventsLabel.AutoSize = true;
+            this.worldEventsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.worldEventsLabel.Location = new System.Drawing.Point(15, 93);
+            this.worldEventsLabel.Name = "worldEventsLabel";
+            this.worldEventsLabel.Size = new System.Drawing.Size(74, 13);
+            this.worldEventsLabel.TabIndex = 37;
+            this.worldEventsLabel.Text = "World Events:";
+            // 
+            // shadowsDetailComboBox
+            // 
+            this.shadowsDetailComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.shadowsDetailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.shadowsDetailComboBox.FormattingEnabled = true;
+            this.shadowsDetailComboBox.Items.AddRange(new object[] {
+            "None",
+            "Low (Blob)",
+            "Medium (Blob + Map)",
+            "High (Blob + Map + Volume)"});
+            this.shadowsDetailComboBox.Location = new System.Drawing.Point(115, 53);
+            this.shadowsDetailComboBox.Name = "shadowsDetailComboBox";
+            this.shadowsDetailComboBox.Size = new System.Drawing.Size(105, 21);
+            this.shadowsDetailComboBox.TabIndex = 36;
+            // 
+            // ultraGraphicsButton
+            // 
+            this.ultraGraphicsButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.ultraGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.ultraGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ultraGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.ultraGraphicsButton.Location = new System.Drawing.Point(393, 486);
+            this.ultraGraphicsButton.Name = "ultraGraphicsButton";
+            this.ultraGraphicsButton.Size = new System.Drawing.Size(94, 38);
+            this.ultraGraphicsButton.TabIndex = 48;
+            this.ultraGraphicsButton.Text = "ULTRA";
+            this.ultraGraphicsButton.UseVisualStyleBackColor = false;
+            this.ultraGraphicsButton.Click += new System.EventHandler(this.UltraGraphicsButton_Click);
+            // 
+            // highGraphicsButton
+            // 
+            this.highGraphicsButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.highGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.highGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.highGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.highGraphicsButton.Location = new System.Drawing.Point(272, 486);
+            this.highGraphicsButton.Name = "highGraphicsButton";
+            this.highGraphicsButton.Size = new System.Drawing.Size(94, 38);
+            this.highGraphicsButton.TabIndex = 47;
+            this.highGraphicsButton.Text = "HIGH";
+            this.highGraphicsButton.UseVisualStyleBackColor = false;
+            this.highGraphicsButton.Click += new System.EventHandler(this.HighGraphicsButton_Click);
+            // 
+            // mediumGraphicsButton
+            // 
+            this.mediumGraphicsButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.mediumGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.mediumGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mediumGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.mediumGraphicsButton.Location = new System.Drawing.Point(150, 486);
+            this.mediumGraphicsButton.Name = "mediumGraphicsButton";
+            this.mediumGraphicsButton.Size = new System.Drawing.Size(94, 38);
+            this.mediumGraphicsButton.TabIndex = 46;
+            this.mediumGraphicsButton.Text = "MEDIUM";
+            this.mediumGraphicsButton.UseVisualStyleBackColor = false;
+            this.mediumGraphicsButton.Click += new System.EventHandler(this.MediumGraphicsButton_Click);
+            // 
+            // lowGraphicsButton
+            // 
+            this.lowGraphicsButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lowGraphicsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.lowGraphicsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lowGraphicsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.lowGraphicsButton.Location = new System.Drawing.Point(28, 486);
+            this.lowGraphicsButton.Name = "lowGraphicsButton";
+            this.lowGraphicsButton.Size = new System.Drawing.Size(94, 38);
+            this.lowGraphicsButton.TabIndex = 6;
+            this.lowGraphicsButton.Text = "LOW";
+            this.lowGraphicsButton.UseVisualStyleBackColor = false;
+            this.lowGraphicsButton.Click += new System.EventHandler(this.LowGraphicsButton_Click);
+            // 
+            // cyanLabel
+            // 
+            this.cyanLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cyanLabel.AutoSize = true;
+            this.cyanLabel.ForeColor = System.Drawing.Color.Cyan;
+            this.cyanLabel.Location = new System.Drawing.Point(332, 535);
+            this.cyanLabel.Name = "cyanLabel";
+            this.cyanLabel.Size = new System.Drawing.Size(183, 13);
+            this.cyanLabel.TabIndex = 45;
+            this.cyanLabel.Text = "* All cyan settings are hidden in game";
             // 
             // audioTabPage
             // 
@@ -1072,18 +1128,17 @@
             this.audioTabPage.Location = new System.Drawing.Point(4, 22);
             this.audioTabPage.Name = "audioTabPage";
             this.audioTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.audioTabPage.Size = new System.Drawing.Size(521, 550);
+            this.audioTabPage.Size = new System.Drawing.Size(513, 550);
             this.audioTabPage.TabIndex = 1;
             this.audioTabPage.Text = "Audio";
             // 
             // highAudioButton
             // 
-            this.highAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.highAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.highAudioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.highAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.highAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.highAudioButton.Location = new System.Drawing.Point(374, 485);
+            this.highAudioButton.Location = new System.Drawing.Point(366, 485);
             this.highAudioButton.Name = "highAudioButton";
             this.highAudioButton.Size = new System.Drawing.Size(94, 38);
             this.highAudioButton.TabIndex = 54;
@@ -1093,12 +1148,11 @@
             // 
             // mediumAudioButton
             // 
-            this.mediumAudioButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mediumAudioButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.mediumAudioButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.mediumAudioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mediumAudioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.mediumAudioButton.Location = new System.Drawing.Point(214, 485);
+            this.mediumAudioButton.Location = new System.Drawing.Point(210, 485);
             this.mediumAudioButton.Name = "mediumAudioButton";
             this.mediumAudioButton.Size = new System.Drawing.Size(94, 38);
             this.mediumAudioButton.TabIndex = 53;
@@ -1125,7 +1179,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Cyan;
-            this.label1.Location = new System.Drawing.Point(340, 535);
+            this.label1.Location = new System.Drawing.Point(332, 535);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(183, 13);
             this.label1.TabIndex = 51;
@@ -1152,11 +1206,13 @@
             // 
             // musicVolumeTrackBar
             // 
+            this.musicVolumeTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.musicVolumeTrackBar.LargeChange = 10;
             this.musicVolumeTrackBar.Location = new System.Drawing.Point(114, 294);
             this.musicVolumeTrackBar.Maximum = 100;
             this.musicVolumeTrackBar.Name = "musicVolumeTrackBar";
-            this.musicVolumeTrackBar.Size = new System.Drawing.Size(121, 45);
+            this.musicVolumeTrackBar.Size = new System.Drawing.Size(113, 45);
             this.musicVolumeTrackBar.SmallChange = 5;
             this.musicVolumeTrackBar.TabIndex = 48;
             this.musicVolumeTrackBar.Value = 50;
@@ -1173,11 +1229,13 @@
             // 
             // voiceVolumeTrackBar
             // 
+            this.voiceVolumeTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.voiceVolumeTrackBar.LargeChange = 10;
             this.voiceVolumeTrackBar.Location = new System.Drawing.Point(114, 252);
             this.voiceVolumeTrackBar.Maximum = 100;
             this.voiceVolumeTrackBar.Name = "voiceVolumeTrackBar";
-            this.voiceVolumeTrackBar.Size = new System.Drawing.Size(121, 45);
+            this.voiceVolumeTrackBar.Size = new System.Drawing.Size(113, 45);
             this.voiceVolumeTrackBar.SmallChange = 5;
             this.voiceVolumeTrackBar.TabIndex = 46;
             this.voiceVolumeTrackBar.Value = 50;
@@ -1194,11 +1252,13 @@
             // 
             // effectsVolumeTrackBar
             // 
+            this.effectsVolumeTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.effectsVolumeTrackBar.LargeChange = 10;
             this.effectsVolumeTrackBar.Location = new System.Drawing.Point(114, 208);
             this.effectsVolumeTrackBar.Maximum = 100;
             this.effectsVolumeTrackBar.Name = "effectsVolumeTrackBar";
-            this.effectsVolumeTrackBar.Size = new System.Drawing.Size(121, 45);
+            this.effectsVolumeTrackBar.Size = new System.Drawing.Size(113, 45);
             this.effectsVolumeTrackBar.SmallChange = 5;
             this.effectsVolumeTrackBar.TabIndex = 44;
             this.effectsVolumeTrackBar.Value = 50;
@@ -1215,11 +1275,13 @@
             // 
             // ambientVolumeTrackBar
             // 
+            this.ambientVolumeTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ambientVolumeTrackBar.LargeChange = 10;
             this.ambientVolumeTrackBar.Location = new System.Drawing.Point(114, 165);
             this.ambientVolumeTrackBar.Maximum = 100;
             this.ambientVolumeTrackBar.Name = "ambientVolumeTrackBar";
-            this.ambientVolumeTrackBar.Size = new System.Drawing.Size(121, 45);
+            this.ambientVolumeTrackBar.Size = new System.Drawing.Size(113, 45);
             this.ambientVolumeTrackBar.SmallChange = 5;
             this.ambientVolumeTrackBar.TabIndex = 42;
             this.ambientVolumeTrackBar.Value = 50;
@@ -1236,6 +1298,8 @@
             // 
             // soundChannelsComboBox
             // 
+            this.soundChannelsComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.soundChannelsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.soundChannelsComboBox.FormattingEnabled = true;
             this.soundChannelsComboBox.Items.AddRange(new object[] {
@@ -1244,7 +1308,7 @@
             "High (64)"});
             this.soundChannelsComboBox.Location = new System.Drawing.Point(114, 125);
             this.soundChannelsComboBox.Name = "soundChannelsComboBox";
-            this.soundChannelsComboBox.Size = new System.Drawing.Size(121, 21);
+            this.soundChannelsComboBox.Size = new System.Drawing.Size(113, 21);
             this.soundChannelsComboBox.TabIndex = 40;
             // 
             // soundChannelsLabel
@@ -1259,6 +1323,8 @@
             // 
             // soundQualityComboBox
             // 
+            this.soundQualityComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.soundQualityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.soundQualityComboBox.FormattingEnabled = true;
             this.soundQualityComboBox.Items.AddRange(new object[] {
@@ -1267,7 +1333,7 @@
             "High"});
             this.soundQualityComboBox.Location = new System.Drawing.Point(114, 86);
             this.soundQualityComboBox.Name = "soundQualityComboBox";
-            this.soundQualityComboBox.Size = new System.Drawing.Size(121, 21);
+            this.soundQualityComboBox.Size = new System.Drawing.Size(113, 21);
             this.soundQualityComboBox.TabIndex = 38;
             // 
             // soundQualityLabel
@@ -1304,15 +1370,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.ClientSize = new System.Drawing.Size(572, 671);
+            this.ClientSize = new System.Drawing.Size(564, 672);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.defaultsButton);
             this.Controls.Add(this.settingsLabel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(572, 450);
+            this.MinimumSize = new System.Drawing.Size(580, 711);
             this.Name = "SettingsManagerForm";
             this.Text = "Settings Manager";
             this.tabControl1.ResumeLayout(false);
@@ -1321,6 +1385,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.scrollRateTrackBar)).EndInit();
             this.videoTabPage.ResumeLayout(false);
             this.videoTabPage.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gammaTrackBar)).EndInit();
             this.audioTabPage.ResumeLayout(false);
             this.audioTabPage.PerformLayout();
@@ -1429,5 +1499,6 @@
         private System.Windows.Forms.TextBox newPlayerTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button renameProfileButton;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }
