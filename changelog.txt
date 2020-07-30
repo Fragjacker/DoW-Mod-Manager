@@ -4,6 +4,7 @@
 ## Version 2.0.5:
 
 - Two CheckBoxes are changed to RadioButtons (in AboutForm). It's more convenient that way.
+- Fixed a bug where shortcut would be created without "Working Directory" parameter
 
 ## Version 2.0.4:
 
