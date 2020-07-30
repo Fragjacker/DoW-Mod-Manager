@@ -504,7 +504,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method reatcs to changes in searchTextBox.Text
+        /// This method reacts to changes in searchTextBox.Text
         /// </summary>
         private void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -546,7 +546,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method reatcs to changes in searchTextBox.Focused
+        /// This method reacts to changes in searchTextBox.Focused
         /// </summary>
         private void SearchTextBox_Enter(object sender, EventArgs e)
         {
@@ -558,7 +558,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method reatcs to changes in searchTextBox.Focused
+        /// This method reacts to changes in searchTextBox.Focused
         /// </summary>
         private void SearchTextBox_Leave(object sender, EventArgs e)
         {
