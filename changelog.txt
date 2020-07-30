@@ -1,7 +1,7 @@
 # Changelog
 (All changes in 1.53 - 2.1.0 were made by IgorTheLight, excluding patch 1.6.1, 2.0.3 and 2.0.5)
 
-## Version 2.1.0:
+## Version 2.1.0 (Work in progress):
 
 - Added a new mod to download for Dark Crusade - Cinematic Battles (Version 1.5)
 - Ultimate Apocalypse mod was updated from 1.88.731 to 1.88.742 (with a new Titan!, bugfixes and balance changes!)
