@@ -125,6 +125,8 @@
 - ModDownloaderForm could be resized and maximized now
 - SettingsManagerForm could be resized and maximized now
 - Modlist for ModDownloaderForm is stored in external file now and could be modified by user!
+- Modlist for ModDownloaderForm can be updated from GitHub automatically!
+- Old version of DoW Mod Manager could be automatically deleted while autoupdating even if it was renamed by the user
 - Updated .NET Framework from 4.7.2 to 4.8 (the last version)
 - Changelog now has only information about the last version with a link to a full changelog on GitHub
 - Added ability to enable Singlethreaded JIT compilation - a default setting for .NET Framework applications

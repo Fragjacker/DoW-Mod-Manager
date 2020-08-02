@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Security.Permissions;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -29,7 +29,7 @@ namespace DoW_Mod_Manager
             }
         }
 
-        private const string MODLIST_FILE = "DoW Mod Manager Download Mods.list";
+        public const string MODLIST_FILE = "DoW Mod Manager Download Mods.list";
         private const string SEARCH_TEXT = "Search...";
         private readonly List<Mod> modlist;
 
@@ -52,7 +52,7 @@ namespace DoW_Mod_Manager
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             // Add mods to the modlist based on what version of Dawn of War was detected
-            // DO NOT extract thi as a method - it will be x2 times slower! Even with "AggressiveInlining"
+            // DO NOT extract this as a method - it will be x2 times slower! Even with "AggressiveInlining"
             modlist = new List<Mod>();
 
             if (modManager.CurrentGameEXE == ModManagerForm.GameExecutable.SOULSTORM)
@@ -115,19 +115,21 @@ namespace DoW_Mod_Manager
         /// This method reds mods from a modlist file
         /// </summary>
         /// <param name="parameter"></param>
-        // We need this PermissionSet because we are using FilesystemWatcher
-        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ReadModsFromFile(string parameter)
         {
             if (File.Exists(MODLIST_FILE))
             {
+                DownloadHelper.CheckForNewModlist(silently: true);
+                
                 using (StreamReader file = new StreamReader(MODLIST_FILE))
                 {
                     string line;
 
                     while ((line = file.ReadLine()) != null)
                     {
-                        if (line.Contains(parameter))
+                        if (line.StartsWith(parameter))
                         {
                             // Skipping an empty line
                             file.ReadLine();
@@ -151,7 +153,6 @@ namespace DoW_Mod_Manager
                                         modProperties[i] = "";      // There is no line to read - we have to add something to a Mod instance!
                                 }
 
-                                //ThemedMessageBox.Show(modProperties[0] + "\n" + modProperties[1] + "\n" + modProperties[2] + "\n" + modProperties[3] + "\n" + modProperties[4]);
                                 modlist.Add(new Mod(modProperties[0], modProperties[1], modProperties[2], modProperties[3], modProperties[4]));
 
                                 // Skipping an empty line
@@ -166,7 +167,7 @@ namespace DoW_Mod_Manager
             }
             else
             {
-                // File not exist! Maybe download it from the Internet (wink-wink)
+                DownloadHelper.DownloadModlist();
             }
         }
 
