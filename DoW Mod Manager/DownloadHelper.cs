@@ -87,7 +87,7 @@ namespace DoW_Mod_Manager
             // Checking version mentioned in "version" file on GitHub
             latestStringVersion = DownloadString(MODLIST_VERSION_TEXT_URL);
 
-            int latestVersion;
+            int latestModlistVersion;
             bool showMessageBox;
             string message;
             string title;
@@ -104,7 +104,7 @@ namespace DoW_Mod_Manager
 
             try
             {
-                latestVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
+                latestModlistVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
             }
             catch (Exception ex)
             {
@@ -115,7 +115,30 @@ namespace DoW_Mod_Manager
                 goto SHOW_MESSAGEBOX;
             }
 
-            if (currentVersion < latestVersion)
+            // Check for version string in Modlist file
+            int modlistVersion = 0;
+            using (StreamReader file = new StreamReader(currentDir + "\\" + ModDownloaderForm.MODLIST_FILE))
+            {
+                string line;
+
+                if ((line = file.ReadLine()) != null)
+                {
+                    try
+                    {
+                        modlistVersion = Convert.ToInt32(line.Replace(".", ""));
+                    }
+                    catch (Exception ex)
+                    {
+                        showMessageBox = true;
+                        message = $"There is something wrong with version number in {ModDownloaderForm.MODLIST_FILE}\n" + ex.Message;
+                        title = "Warning!";
+                        result = DialogResult.Abort;
+                        goto SHOW_MESSAGEBOX;
+                    }
+                }
+            }
+
+            if (modlistVersion < latestModlistVersion)
             {
                 return ThemedDialogueBox.Show($"The new Modlist v{latestStringVersion} is available. Do you wish to update now?", "New update available", exeORmods: "mods");
             }
@@ -216,7 +239,7 @@ namespace DoW_Mod_Manager
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void CleanupAndStartApp()
         {
-            string oldExecutablePath = currentDir + AppDomain.CurrentDomain.FriendlyName;
+            string oldExecutablePath = currentDir + "\\" + AppDomain.CurrentDomain.FriendlyName;
             string newExecutablePath = currentDir + $"\\DoW Mod Manager v{latestStringVersion}.exe";
             
             // Start new downloaded exectuable
