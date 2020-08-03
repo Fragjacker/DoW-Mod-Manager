@@ -225,9 +225,11 @@ namespace DoW_Mod_Manager
 
         private static void Completed(object sender, AsyncCompletedEventArgs e)
         {
-            ThemedMessageBox.Show("Download completed!\nApplication will restart to take effect", "Good news!");
             if (closeAndDelete)
+            {
+                ThemedMessageBox.Show("Download completed!\nApplication will restart to take effect", "Good news!");
                 CleanupAndStartApp();
+            }
         }
 
         /// <summary>

@@ -120,54 +120,79 @@ namespace DoW_Mod_Manager
         private void ReadModsFromFile(string parameter)
         {
             if (File.Exists(MODLIST_FILE))
-            {
                 DownloadHelper.CheckForNewModlist(silently: true);
-                
-                using (StreamReader file = new StreamReader(MODLIST_FILE))
+            else
+                DownloadHelper.DownloadModlist();
+
+            // Wait 2 seconds for Modlist to download
+            int counter = 0;
+            while (!IsFileReady(MODLIST_FILE) && counter < 200)
+            {
+                Thread.Sleep(10);
+                counter++;
+            }
+
+            using (StreamReader file = new StreamReader(MODLIST_FILE))
+            {
+                string line;
+
+                while ((line = file.ReadLine()) != null)
                 {
-                    string line;
-
-                    while ((line = file.ReadLine()) != null)
+                    if (line.StartsWith(parameter))
                     {
-                        if (line.StartsWith(parameter))
+                        // Skipping an empty line
+                        file.ReadLine();
+
+                        // Read lines untill we will found mods for the different version
+                        while (!(Convert.ToChar(file.Peek()) == '['))
                         {
-                            // Skipping an empty line
-                            file.ReadLine();
+                            // Reading 5 lines and creating a Mod instance
+                            string[] modProperties = new string[5];
 
-                            // Read lines untill we will found mods for the different version
-                            while (!(Convert.ToChar(file.Peek()) == '['))
+                            for (int i = 0; i < 5; i++)
                             {
-                                // Reading 5 lines and creating a Mod instance
-                                string[] modProperties = new string[5];
-
-                                for (int i = 0; i < 5; i++)
+                                if ((line = file.ReadLine()) != null)
                                 {
-                                    if ((line = file.ReadLine()) != null)
-                                    {
-                                        if (line.StartsWith("-"))
-                                            line = "";
+                                    if (line.StartsWith("-"))
+                                        line = "";
 
-                                        modProperties[i] = line;
-                                    }
-                                    else
-                                        modProperties[i] = "";      // There is no line to read - we have to add something to a Mod instance!
+                                    modProperties[i] = line;
                                 }
-
-                                modlist.Add(new Mod(modProperties[0], modProperties[1], modProperties[2], modProperties[3], modProperties[4]));
-
-                                // Skipping an empty line
-                                file.ReadLine();
+                                else
+                                    modProperties[i] = "";      // There is no line to read - we have to add something to a Mod instance!
                             }
 
-                            // We found all mods for current DoW version
-                            break;
+                            modlist.Add(new Mod(modProperties[0], modProperties[1], modProperties[2], modProperties[3], modProperties[4]));
+
+                            // Skipping an empty line
+                            file.ReadLine();
                         }
+
+                        // We found all mods for current DoW version
+                        break;
                     }
                 }
             }
-            else
+        }
+
+        /// <summary>
+        /// This method reds mods from a modlist file
+        /// </summary>
+        /// <param name="filename"></param>
+        private static bool IsFileReady(string filename)
+        {
+            // If the file can be opened for exclusive access it means that the file
+            // is no longer locked by another process.
+            try
             {
-                DownloadHelper.DownloadModlist();
+                using (FileStream fs = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    return fs.Length > 0;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 

@@ -23,6 +23,8 @@ namespace DoW_Mod_Manager
                 DownloadHelper.DownloadUpdate();
             else if (exeORmods == "mods")
                 DownloadHelper.DownloadModlist();
+
+            Close();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -36,7 +38,7 @@ namespace DoW_Mod_Manager
     /// </summary>
     public static class ThemedDialogueBox
     {
-        public static DialogResult Show(string message, string title, string exeORmods)
+        public static DialogResult Show(string message, string title = " ", string exeORmods = "exe")
         {
             // "using" construct ensures the resources are freed when form is closed
             using (DialogueForm form = new DialogueForm(message, title, exeORmods))

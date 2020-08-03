@@ -19,11 +19,11 @@ namespace DoW_Mod_Manager
     }
 
     /// <summary>
-    /// A custom MessageBox helper.
+    /// Your custom message box helper.
     /// </summary>
     public static class ThemedMessageBox
     {
-        public static void Show(string message, string title = "")
+        public static void Show(string message, string title = " ")
         {
             // "using" construct ensures the resources are freed when form is closed
             using (MessageForm form = new MessageForm(message, title))

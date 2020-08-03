@@ -122,6 +122,7 @@
 
 - Added a new mod to download for Dark Crusade - Cinematic Battles (Version 1.5)
 - Ultimate Apocalypse mod was updated from 1.88.731 to 1.88.742 (with a new Titan!, bugfixes and balance changes!)
+- Added a few popular 16:10 resolutions
 - ModDownloaderForm could be resized and maximized now
 - SettingsManagerForm could be resized and maximized now
 - Modlist for ModDownloaderForm is stored in external file now and could be modified by user!
@@ -132,6 +133,8 @@
 - Added ability to enable Singlethreaded JIT compilation - a default setting for .NET Framework applications
 - Added a few new Actions and streamlined the code
 - Deleted author and version number in ModMergerForm (with a permission from FragJacker)
+- Increased SettingsManager Form size a little bit for better readability
+- All dialogBoxes will have titlebars (even if title is empty)
 
 Full changelog: 
 https://raw.githubusercontent.com/IgorTheLight/DoW-Mod-Manager/master/changelog.txt</value>

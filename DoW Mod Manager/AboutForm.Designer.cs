@@ -77,7 +77,7 @@
             this.OKButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OKButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.OKButton.Location = new System.Drawing.Point(164, 221);
+            this.OKButton.Location = new System.Drawing.Point(178, 234);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(106, 38);
             this.OKButton.TabIndex = 2;
@@ -110,7 +110,7 @@
             this.homePageButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.homePageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.homePageButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.homePageButton.Location = new System.Drawing.Point(26, 221);
+            this.homePageButton.Location = new System.Drawing.Point(26, 234);
             this.homePageButton.Name = "homePageButton";
             this.homePageButton.Size = new System.Drawing.Size(106, 38);
             this.homePageButton.TabIndex = 5;
@@ -124,7 +124,7 @@
             this.updateButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.updateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.updateButton.Location = new System.Drawing.Point(303, 221);
+            this.updateButton.Location = new System.Drawing.Point(331, 234);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(106, 38);
             this.updateButton.TabIndex = 6;
@@ -243,7 +243,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(414, 193);
+            this.tabControl1.Size = new System.Drawing.Size(442, 206);
             this.tabControl1.TabIndex = 17;
             // 
             // aboutTabPage
@@ -258,7 +258,7 @@
             this.aboutTabPage.Location = new System.Drawing.Point(4, 22);
             this.aboutTabPage.Name = "aboutTabPage";
             this.aboutTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.aboutTabPage.Size = new System.Drawing.Size(406, 167);
+            this.aboutTabPage.Size = new System.Drawing.Size(434, 180);
             this.aboutTabPage.TabIndex = 0;
             this.aboutTabPage.Text = "About";
             // 
@@ -266,7 +266,7 @@
             // 
             this.singlethreadedJITCompilationRadioButton.AutoSize = true;
             this.singlethreadedJITCompilationRadioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.singlethreadedJITCompilationRadioButton.Location = new System.Drawing.Point(183, 91);
+            this.singlethreadedJITCompilationRadioButton.Location = new System.Drawing.Point(210, 91);
             this.singlethreadedJITCompilationRadioButton.Name = "singlethreadedJITCompilationRadioButton";
             this.singlethreadedJITCompilationRadioButton.Size = new System.Drawing.Size(211, 17);
             this.singlethreadedJITCompilationRadioButton.TabIndex = 15;
@@ -277,7 +277,7 @@
             // 
             this.multithreadedJITCompilationRadioButton.AutoSize = true;
             this.multithreadedJITCompilationRadioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.multithreadedJITCompilationRadioButton.Location = new System.Drawing.Point(183, 114);
+            this.multithreadedJITCompilationRadioButton.Location = new System.Drawing.Point(210, 114);
             this.multithreadedJITCompilationRadioButton.Name = "multithreadedJITCompilationRadioButton";
             this.multithreadedJITCompilationRadioButton.Size = new System.Drawing.Size(198, 17);
             this.multithreadedJITCompilationRadioButton.TabIndex = 14;
@@ -289,7 +289,7 @@
             this.AOTCompilationRadioButton.AutoSize = true;
             this.AOTCompilationRadioButton.Checked = true;
             this.AOTCompilationRadioButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.AOTCompilationRadioButton.Location = new System.Drawing.Point(183, 137);
+            this.AOTCompilationRadioButton.Location = new System.Drawing.Point(210, 137);
             this.AOTCompilationRadioButton.Name = "AOTCompilationRadioButton";
             this.AOTCompilationRadioButton.Size = new System.Drawing.Size(143, 17);
             this.AOTCompilationRadioButton.TabIndex = 14;
@@ -327,7 +327,7 @@
             this.authorsTabPage.Location = new System.Drawing.Point(4, 22);
             this.authorsTabPage.Name = "authorsTabPage";
             this.authorsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.authorsTabPage.Size = new System.Drawing.Size(406, 167);
+            this.authorsTabPage.Size = new System.Drawing.Size(434, 180);
             this.authorsTabPage.TabIndex = 1;
             this.authorsTabPage.Text = "Authors";
             // 
@@ -342,7 +342,7 @@
             this.specialThanksTabPage.Controls.Add(this.specialThanks2LinkLabel);
             this.specialThanksTabPage.Location = new System.Drawing.Point(4, 22);
             this.specialThanksTabPage.Name = "specialThanksTabPage";
-            this.specialThanksTabPage.Size = new System.Drawing.Size(406, 167);
+            this.specialThanksTabPage.Size = new System.Drawing.Size(434, 180);
             this.specialThanksTabPage.TabIndex = 2;
             this.specialThanksTabPage.Text = "Special Thanks";
             // 
@@ -352,7 +352,7 @@
             this.changelogTabPage.Controls.Add(this.changelogTextBox);
             this.changelogTabPage.Location = new System.Drawing.Point(4, 22);
             this.changelogTabPage.Name = "changelogTabPage";
-            this.changelogTabPage.Size = new System.Drawing.Size(406, 167);
+            this.changelogTabPage.Size = new System.Drawing.Size(434, 180);
             this.changelogTabPage.TabIndex = 3;
             this.changelogTabPage.Text = "Changelog";
             // 
@@ -369,7 +369,7 @@
             this.changelogTextBox.Name = "changelogTextBox";
             this.changelogTextBox.ReadOnly = true;
             this.changelogTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.changelogTextBox.Size = new System.Drawing.Size(393, 160);
+            this.changelogTextBox.Size = new System.Drawing.Size(421, 173);
             this.changelogTextBox.TabIndex = 1;
             this.changelogTextBox.Text = resources.GetString("changelogTextBox.Text");
             // 
@@ -379,7 +379,7 @@
             this.licenseTabPage.Controls.Add(this.licenceTextBox);
             this.licenseTabPage.Location = new System.Drawing.Point(4, 22);
             this.licenseTabPage.Name = "licenseTabPage";
-            this.licenseTabPage.Size = new System.Drawing.Size(406, 167);
+            this.licenseTabPage.Size = new System.Drawing.Size(434, 180);
             this.licenseTabPage.TabIndex = 4;
             this.licenseTabPage.Text = "License";
             // 
@@ -396,7 +396,7 @@
             this.licenceTextBox.Name = "licenceTextBox";
             this.licenceTextBox.ReadOnly = true;
             this.licenceTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.licenceTextBox.Size = new System.Drawing.Size(393, 160);
+            this.licenceTextBox.Size = new System.Drawing.Size(421, 173);
             this.licenceTextBox.TabIndex = 0;
             this.licenceTextBox.Text = resources.GetString("licenceTextBox.Text");
             // 
@@ -411,7 +411,7 @@
             this.technologyUsedTabPage.Controls.Add(this.programmingLanguageAnswerLabel);
             this.technologyUsedTabPage.Location = new System.Drawing.Point(4, 22);
             this.technologyUsedTabPage.Name = "technologyUsedTabPage";
-            this.technologyUsedTabPage.Size = new System.Drawing.Size(406, 167);
+            this.technologyUsedTabPage.Size = new System.Drawing.Size(434, 180);
             this.technologyUsedTabPage.TabIndex = 5;
             this.technologyUsedTabPage.Text = "Technology used";
             // 
@@ -462,7 +462,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.ClientSize = new System.Drawing.Size(438, 271);
+            this.ClientSize = new System.Drawing.Size(466, 284);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.homePageButton);
