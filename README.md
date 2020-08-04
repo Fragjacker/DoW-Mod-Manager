@@ -1,12 +1,12 @@
 ![mod_manager_v205](https://user-images.githubusercontent.com/19975052/88805282-3bbdd500-d1af-11ea-98ec-189e01044c5c.png)
 
-# DoW Mod Manager v2.0.5
+# DoW Mod Manager v2.1.0
 
 This application allows for an easy launch of mods and management of large collections of mods for Warhammer 40K Dawn of War series.
 
 ## INSTALLATION:
 
-- In order to install the Mod Manager drop the "DoW Mod Manager v2.0.5.exe" into your primary game directory which is either:
+- In order to install the Mod Manager drop the "DoW Mod Manager v2.1.0.exe" into your primary game directory which is either:
 
   - "..\Dawn of War - Soulstorm\"
   or

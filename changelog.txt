@@ -1,14 +1,14 @@
 # Changelog
 (All changes in 1.53 - 2.1.0 were made by IgorTheLight, excluding patch 1.6.1, 2.0.3 and 2.0.5)
 
-## Version 2.1.0 (Work in progress):
+## Version 2.1.0:
 
 - Added a new mod to download for Dark Crusade - Cinematic Battles (Version 1.5)
 - Ultimate Apocalypse mod was updated from 1.88.731 to 1.88.742 (with a new Titan!, bugfixes and balance changes!)
 - Added a few popular 16:10 resolutions
 - ModDownloaderForm could be resized and maximized now
 - SettingsManagerForm could be resized and maximized now
-- Modlist for ModDownloaderForm is stored in external file now and could be modified by user!
+- Modlist for ModDownloaderForm is stored in an external file now and could be modified by the user!
 - Modlist for ModDownloaderForm can be updated from GitHub automatically!
 - Old version of DoW Mod Manager could be automatically deleted while autoupdating even if it was renamed by the user
 - Updated .NET Framework from 4.7.2 to 4.8 (the last version)
@@ -17,7 +17,7 @@
 - Added a few new Actions and streamlined the code
 - Deleted author and version number in ModMergerForm (with a permission from FragJacker)
 - Increased SettingsManager Form size a little bit for better readability
-- All dialogBoxes will have titlebars (even if title is empty)
+- All dialogBoxes will have title bars (even if title is empty)
 
 ## Version 2.0.5:
 
