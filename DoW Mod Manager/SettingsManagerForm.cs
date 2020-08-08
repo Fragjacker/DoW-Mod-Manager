@@ -321,7 +321,7 @@ namespace DoW_Mod_Manager
                                         settings[SCREEN_GAMMA] = value;
                                     break;
                                 case SCREEN_HEIGHT:
-                                    if (value == "600" || value == "664" || value == "720" || value == "768" || value == "800" || value == "960" || value == "1024" || value == "1050" || value == "1080" || value == "1440" || value == "2160")
+                                    if (value == "600" || value == "664" || value == "720" || value == "768" || value == "800" || value == "900" || value == "960" || value == "1024" || value == "1050" || value == "1080" || value == "1200" || value == "1440" || value == "1600" || value == "2160" || value == "2400")
                                         settings[SCREEN_HEIGHT] = value;
                                     break;
                                 case SCREEN_NO_VSYNC:
@@ -333,7 +333,7 @@ namespace DoW_Mod_Manager
                                         settings[SCREEN_REFRESH] = value;
                                     break;
                                 case SCREEN_WIDTH:
-                                    if (value == "800" || value == "1024" || value == "1152" || value == "1176" || value == "1280" || value == "1366" || value == "1400" || value == "1440" || value == "1600" || value == "1680" || value == "1920" || value == "2560" || value == "4096")
+                                    if (value == "800" || value == "1024" || value == "1152" || value == "1176" || value == "1280" || value == "1366" || value == "1400" || value == "1440" || value == "1600" || value == "1680" || value == "1920" || value == "2560" || value == "3840" || value == "4096")
                                         settings[SCREEN_WIDTH] = value;
                                     break;
                                 case SCREEN_WINDOWED:

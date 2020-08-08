@@ -30,7 +30,7 @@ namespace DoW_Mod_Manager
         private const string WARNINGS_LOG = "warnings.log";
         
         // This is a State Machine which determmens what action must be performed
-        public enum Action { None, DeleteJITProfile, CreateNativeImage, DeleteNativeImage }
+        public enum Action { None, CreateNativeImage, CreateNativeImageAndDeleteJITProfile, DeleteJITProfile, DeleteNativeImage, DeleteJITProfileAndNativeImage }
         
         public const string ACTION_STATE = "ActionState";
         private const string CHOICE_INDEX = "ChoiceIndex";
@@ -83,28 +83,7 @@ namespace DoW_Mod_Manager
         {
             ReadSettingsFromDoWModManagerINI();
 
-            if (settings[AOT_COMPILATION] == 1)
-            {
-                if (settings[ACTION_STATE] == (int)Action.CreateNativeImage)
-                {
-                    // To enable AOT compilation we have to register DoW Mod Manager for NativeImage generation using ngen.exe
-                    string ModManagerName = AppDomain.CurrentDomain.FriendlyName;
-
-                    Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\Microsoft.NET\Framework\v4.0.30319\ngen.exe", $"install \"{ModManagerName}\"");
-                }
-                else
-                {
-                    // We will just do nothing but still will block Multothreaded JIT compilation
-                }
-            }
-            else if (settings[AOT_COMPILATION] == 0 && settings[ACTION_STATE] == (int)Action.DeleteNativeImage)
-            {
-                // To disable AOT compilation we have to unregister DoW Mod Manager for NativeImage generation using ngen.exe
-                string ModManagerName = AppDomain.CurrentDomain.FriendlyName;
-
-                Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\Microsoft.NET\Framework\v4.0.30319\ngen.exe", $"uninstall \"{ModManagerName}\"");
-            }
-            else if (settings[MULTITHREADED_JIT] == 1)
+            if (settings[MULTITHREADED_JIT] == 1)
             {
                 // Enable Multithreaded JIT compilation. It's not a smart idea to use it with AOT compilation
                 // So: Singethreaded JIT compilation < Multithreaded JIT compilation < AOT compilation < Native code (we don't have this option)
@@ -113,13 +92,29 @@ namespace DoW_Mod_Manager
                 // Enables Multicore JIT with the specified profile
                 ProfileOptimization.StartProfile(JIT_PROFILE_FILE_NAME);
             }
-            else if (settings[MULTITHREADED_JIT] == 0 && settings[ACTION_STATE] == (int)Action.DeleteJITProfile)
+
+            switch (settings[ACTION_STATE])
             {
-                string JITProfilePath = CurrentDir + "\\" + JIT_PROFILE_FILE_NAME;
-                
-                if (File.Exists(JITProfilePath))
-                    File.Delete(JITProfilePath);
+                case (int)Action.CreateNativeImage:
+                    CreateNativeImage();
+                    break;
+                case (int)Action.CreateNativeImageAndDeleteJITProfile:
+                    CreateNativeImage();
+                    DeleteJITProfile();
+                    break;
+                case (int)Action.DeleteJITProfile:
+                    if (settings[MULTITHREADED_JIT] == 0)
+                        DeleteJITProfile();
+                    break;
+                case (int)Action.DeleteNativeImage:
+                    DeleteNativeImage();
+                    break;
+                case (int)Action.DeleteJITProfileAndNativeImage:
+                    DeleteJITProfile();
+                    DeleteNativeImage();
+                    break;
             }
+
             settings[ACTION_STATE] = (int)Action.None;
 
             InitializeComponent();
@@ -170,12 +165,36 @@ namespace DoW_Mod_Manager
                 {
                     // Once all is done check for updates.
                     DialogResult result = DownloadHelper.CheckForUpdates(silently: true);
-                    
+
                     if (result == DialogResult.OK && settings[AOT_COMPILATION] == 1)
                         settings[ACTION_STATE] = (int)Action.CreateNativeImage;
                 }
                 ).Start();
             }
+        }
+
+        private static void CreateNativeImage()
+        {
+            // To enable AOT compilation we have to register DoW Mod Manager for NativeImage generation using ngen.exe
+            string ModManagerName = AppDomain.CurrentDomain.FriendlyName;
+
+            Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\Microsoft.NET\Framework\v4.0.30319\ngen.exe", $"install \"{ModManagerName}\"");
+        }
+
+        private static void DeleteNativeImage()
+        {
+            // To disable AOT compilation we have to unregister DoW Mod Manager for NativeImage generation using ngen.exe
+            string ModManagerName = AppDomain.CurrentDomain.FriendlyName;
+
+            Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\Microsoft.NET\Framework\v4.0.30319\ngen.exe", $"uninstall \"{ModManagerName}\"");
+        }
+
+        private void DeleteJITProfile()
+        {
+            string JITProfilePath = CurrentDir + "\\" + JIT_PROFILE_FILE_NAME;
+
+            if (File.Exists(JITProfilePath))
+                File.Delete(JITProfilePath);
         }
 
         /// <summary>

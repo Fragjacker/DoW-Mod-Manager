@@ -44,7 +44,6 @@
             this.buttonActivate = new System.Windows.Forms.Button();
             this.buttonDeactivate = new System.Windows.Forms.Button();
             this.loadedModBox = new System.Windows.Forms.ComboBox();
-            this.authorLabel = new System.Windows.Forms.Label();
             this.ActivationButtonTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.DeactivationButtonTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.AddModTooltip = new System.Windows.Forms.ToolTip(this.components);
@@ -261,17 +260,6 @@
             this.loadedModBox.TabIndex = 8;
             this.loadedModBox.SelectedIndexChanged += new System.EventHandler(this.LoadedModBox_SelectedIndexChanged);
             // 
-            // authorLabel
-            // 
-            this.authorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.authorLabel.AutoSize = true;
-            this.authorLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.authorLabel.Location = new System.Drawing.Point(16, 567);
-            this.authorLabel.Name = "authorLabel";
-            this.authorLabel.Size = new System.Drawing.Size(111, 13);
-            this.authorLabel.TabIndex = 9;
-            this.authorLabel.Text = "Written by FragJacker";
-            // 
             // splitContainer1
             // 
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -307,14 +295,13 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(489, 583);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.authorLabel);
             this.Controls.Add(this.loadedModBox);
             this.Controls.Add(this.buttonSaveFile);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labell);
             this.MinimumSize = new System.Drawing.Size(505, 622);
             this.Name = "ModMergerForm";
-            this.Text = "Mod Merger v1.3.0";
+            this.Text = "Mod Merger";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -341,7 +328,6 @@
         private System.Windows.Forms.Button buttonActivate;
         private System.Windows.Forms.Button buttonDeactivate;
         private System.Windows.Forms.ComboBox loadedModBox;
-        private System.Windows.Forms.Label authorLabel;
         private System.Windows.Forms.ToolTip ActivationButtonTooltip;
         private System.Windows.Forms.ToolTip DeactivationButtonTooltip;
         private System.Windows.Forms.ToolTip AddModTooltip;

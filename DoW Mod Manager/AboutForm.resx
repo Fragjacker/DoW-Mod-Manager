@@ -118,86 +118,26 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="changelogTextBox.Text" xml:space="preserve">
-    <value>## Version 2.0.5:
+    <value>## Version 2.1.0:
 
-- Two CheckBoxes are changed to RadioButtons (in AboutForm). It's more convenient that way.
-- Fixed a bug where shortcut would be created without "Working Directory" parameter
+- Added a new mod to download for Dark Crusade - Cinematic Battles (Version 1.5)
+- Ultimate Apocalypse mod was updated from 1.88.731 to 1.88.742 (with a new Titan!, bugfixes and balance changes!)
+- Added a few popular 16:10 resolutions
+- ModDownloaderForm could be resized and maximized now
+- SettingsManagerForm could be resized and maximized now
+- Modlist for ModDownloaderForm is stored in external file now and could be modified by user!
+- Modlist for ModDownloaderForm can be updated from GitHub automatically!
+- Old version of DoW Mod Manager could be automatically deleted while autoupdating even if it was renamed by the user
+- Updated .NET Framework from 4.7.2 to 4.8 (the last version)
+- Changelog now has only information about the last version with a link to a full changelog on GitHub
+- Added ability to enable Singlethreaded JIT compilation - a default setting for .NET Framework applications
+- Added a few new Actions and streamlined the code
+- Deleted author and version number in ModMergerForm (with a permission from FragJacker)
+- Increased SettingsManager Form size a little bit for better readability
+- All dialogBoxes will have titlebars (even if title is empty)
 
-## Version 2.0.4:
-
-- Optimization: added ability to use AOT compiler - the fastest way to execute .NET application! 557 ms and 9788 Kb of RAM (default singlethreaded JIT compilation) vs 432 ms and 9876 Kb of RAM (Multithreaded JIT compilation) vs 363 ms and 6316 Kb of RAM (AOT compilation)
-- Added ability to disable Multithreaded JIT compilation in DoW Mod Manager.ini and in AboutForm
-- Added ability to disable autoupdates in DoW Mod Manager.ini and in AboutForm
-- "Active Videocard" option in SettingsManagerForm now shows user's videocard name instead of a number
-- Deleted all unused code and added descriptions to all methods in ModDownloaderForm
-- Added descriptions to all methods in SettingsManagerForm
-- Optimization: all checkboxes and trackbars are not triggered when initialized (in SettingsManagerForm) - it's x1.2 times faster! 42.7 ms vs 51.1 ms
-- Optimization: changed string to StringBuilder() in SaveButton_Click() method  (in SettingsManagerForm) - it's x1.125 faster! 4.0 ms vs 4.5 ms
-- Optimization: changed string to StringBuilder() in ModManagerForm_Closing() method  (in ModManagerForm) - it's x1.09 faster! 4.3 ms vs 4.7 ms
-- OPTIMIZATIONS string constant was renamed to DOW_OPTIMIZATIONS for less confusion
-- If AOT compilation is enabled - application will be re-optimized after an update!
-- Added an new method for getting a setting from settings Dictionary in ModManagerForm
-
-## Version 2.0.3:
-
-- Added a query on startup to ask the user to update the application if a new version is available.
-- Added code to create a new shortcut of the updated DoW Mod Manager version on the desktop after the application update has succeeded.
-- Added the feature that the old DoW Mod Manager version will be deleted after the update has finished.
-- Refactored code for easier access internally.
-- Optimization: changed modlist.Add() in ModDownloaderForm to a proper List initialization - it's x1.04 times faster. Yay? 2.7 ms vs 2.8 ms. At least it looks cleaner now.
-
-## Version 2.0.2:
-
-- If there is a missing mod - it will be selected so user could easily find it
-- All code has been refactored (where needed)
-- Optimization: refactored GetLoadedMods() method in ModMergerForm - it's x1.15 times faster! 0.86 ms vs 0.99 ms
-- Optimization: JIT compiler uses Profiler so it could use multiple threads now - ModManagerForm starts x1.27 times faster! 434 ms instead of 550 ms (It has to improve calculation speed in all parts of application!)
-- After downloading a new version, old version of DoW Mod Manager will be deleted and a new shortcut will be created on the user's Desktop (thanks, FragJacker!)
-- In ModMergerForm Mod.State is an enum now instead of a string. That may increase some operations and reduce memory usage
-- There is no more storing an unnecessary reference to a new Form when it's been created
-- Added annotations for all methods in ModManagerForm
-- Small optimizations here and there
-
-## Version 2.0.1:
-
-- Fixed a crash where user tries to click on an empty space in RequiredMods when it has only one item
-- Fixed a crash where user didn't have any Profiles and tries to click on "SETTINGS" button
-- Fixed a crash where user would try to save an empty Profile
-- Fixed an crash where user would try to save a new Profile but there is no "Profiles" folder in DoW directory
-- Application.Exit() was changed to a more correct way of terminating a program (thanks, FragJacker!)
-- A few small tweaks
-
-## Version 2.0.0:
-
-- Added a new form - System Performance Manager. This tool is able to change system-wise settings for better performance
-- Added a new form - About (authors + homepage + updates + changelog + license). Yes - DoW Mod Manager could update to a newer version just with ONE click of a mouse!
-- Added a new form - Message - now all error messages will have the same theme as all main forms (and it's helper class - ThemedMessageBox)
-- Replaced all error messages from MessageBox to ThemedMessageBox
-- Added ability to search for mods in Mod Downloader (to achieve this result, the whole ModDownloaderForm was rewritten).
-- Added ability to find a missing mod
-- Added ability to create, rename and delete Player Profiles (in Settings Manager)
-- Added ability to change and save "Invert Declination", "Invert Pan" and "Scroll Rate" in Settings Manager
-- Now all profiles are shown as PLayer names instead of numbers ("YourName" instead of "Profile1")
-- Added version descriptions to all mods in Mod Downloader
-- Added version detection for mods in Mod Manager
-- Added ability to show Critical errors from warnings.log
-- Added a new mod to download - Imperial Fists (Version 3.0)
-- Added a new mod to download - Dawn Of Skirmish AI Mod (Version 3.20)
-- Updated CornCobMan's Fun Mod for Soulstorm (from 1.87 to 1.88.4)
-- Updated Veteran Mod for Dark Crusade with additional file links that are required
-- Fixed a bug where ScrollRate and Gamma could be saved incorrectly
-- Changed "goto" statement in ModManagerForm (in Thread handling) to more modern "while" loop
-- Aggressive inlining were requested for all methods with only one call (performance impact will be tested in future but most likely it will be positive)
-- All Soulstorm mods in modlist (ModDownloaderForm) have a new attribute now - "ModuleFileName".
-- Renamed all non-lowercase image resources (such as Checkmark.png and Checkmark_disabled.png)'
-- Renamed "DoW Mod Manager Resources" to just "Resources"
-- Resized all image resources to 50 px hight. Resource folder is now 56 Kb instead of 268 Kb (21% of original size). It even looks better now (less artifacts when it's stretched).
-- Because of resource optimizations DoW Mod Manager executable is 643 Kb instead of 1085 Kb (59% of original size)
-- Changed a few colors - application theme is more consistent now
-- "cancelButton" was renamed to "closeButton"
-- Added IgorTheLight to the authors (thanks, FragJacker!)
-- Added annotations for all methods in ModManagerForm
-- Small code tweaks and optimizations here and there</value>
+Full changelog: 
+https://raw.githubusercontent.com/IgorTheLight/DoW-Mod-Manager/master/changelog.txt</value>
   </data>
   <data name="licenceTextBox.Text" xml:space="preserve">
     <value>MIT License

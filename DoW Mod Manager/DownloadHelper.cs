@@ -12,81 +12,171 @@ namespace DoW_Mod_Manager
 {
     static class DownloadHelper
     {
-        private const string VERSION_TEXT_URL = "https://raw.githubusercontent.com/Fragjacker/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
-        private static readonly string executableURL = "https://github.com/Fragjacker/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
+        private const string EXE_VERSION_TEXT_URL = "https://raw.githubusercontent.com/Fragjacker/DoW-Mod-Manager/master/DoW%20Mod%20Manager/LatestStable/version";
+        private const string EXECUTABLE_URL = "https://github.com/Fragjacker/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/LatestStable/DoW%20Mod%20Manager.exe";
 
-        private static string executablePath = Directory.GetCurrentDirectory();
-        private static string oldexecutablePath = "";
+        private const string MODLIST_VERSION_TEXT_URL = "https://raw.githubusercontent.com/IgorTheLight/DoW-Mod-Manager/master/DoW%20Mod%20Manager/ModList/version";
+        private const string MODLIST_URL = "https://github.com/IgorTheLight/DoW-Mod-Manager/raw/master/DoW%20Mod%20Manager/ModList/DoW%20Mod%20Manager%20Download%20Mods.list";
+
+        private static readonly string currentDir = Directory.GetCurrentDirectory();
         private static string latestStringVersion = "";
         private static readonly string currentStringVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString().Remove(5);
         private static readonly int currentVersion = Convert.ToInt32(currentStringVersion.Replace(".", ""));
 
+        private static bool closeAndDelete;
+
         public static DialogResult CheckForUpdates(bool silently)
         {
             // Checking version mentioned in "version" file on GitHub
-            latestStringVersion = DownloadString(VERSION_TEXT_URL);
+            latestStringVersion = DownloadString(EXE_VERSION_TEXT_URL);
 
             int latestVersion;
+            bool showMessageBox;
+            string message;
+            string title;
+            DialogResult result;
 
-            // TODO: It would be a good idea to further differentiate between "true" and "false" branches
-            if (silently)
+            if (latestStringVersion.Length == 0)
             {
-                if (latestStringVersion.Length == 0)
-                    return DialogResult.Abort;
+                showMessageBox = true;
+                message = "There is no data in \"version\" file on GitHub!";
+                title = "Warning!";
+                result = DialogResult.Abort;
+                goto SHOW_MESSAGEBOX;
+            }
 
-                try
-                {
-                    latestVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
-                }
-                catch (Exception)
-                {
-                    return DialogResult.Abort;
-                }
+            try
+            {
+                latestVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
+            }
+            catch (Exception ex)
+            {
+                showMessageBox = true;
+                message = "There is something wrong with version number in \"version\" file on GitHub!\n" + ex.Message;
+                title = "Warning!";
+                result = DialogResult.Abort;
+                goto SHOW_MESSAGEBOX;
+            }
 
-                if (currentVersion < latestVersion)
-                    return ThemedDialogueBox.Show($"The new DoW Mod Manager v{latestStringVersion} is available. Do you wish to update now?", "New update available");
+            if (currentVersion < latestVersion)
+            {
+                return ThemedDialogueBox.Show($"The new DoW Mod Manager v{latestStringVersion} is available. Do you wish to update now?", "New update available", exeORmods: "exe");
             }
             else
             {
-                if (latestStringVersion.Length == 0)
-                {
-                    ThemedMessageBox.Show("There is no data in \"version\" file on GitHub!", "Warning!");
-                    return DialogResult.Abort;
-                }
+                showMessageBox = true;
+                message = "You have the latest version!";
+                title = "Good news!";
+                result = DialogResult.Cancel;
+            }
 
-                try
-                {
-                    latestVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
-                }
-                catch (Exception ex)
-                {
-                    ThemedMessageBox.Show("There is something wrong with version number in \"version\" file on GitHub!\n" + ex.Message, "Warning!");
-                    return DialogResult.Abort;
-                }
+            SHOW_MESSAGEBOX:
 
-                if (currentVersion < latestVersion)
+            if (!silently)
+            {
+                if (showMessageBox)
+                    ThemedMessageBox.Show(message, title);
+            }
+
+            return result;
+        }
+
+        // TODO: It looks very similar to CheckForUpdates()
+        public static DialogResult CheckForNewModlist(bool silently)
+        {
+            // Checking version mentioned in "version" file on GitHub
+            latestStringVersion = DownloadString(MODLIST_VERSION_TEXT_URL);
+
+            int latestModlistVersion;
+            bool showMessageBox;
+            string message;
+            string title;
+            DialogResult result;
+
+            if (latestStringVersion.Length == 0)
+            {
+                showMessageBox = true;
+                message = "There is no data in \"version\" file on GitHub!";
+                title = "Warning!";
+                result = DialogResult.Abort;
+                goto SHOW_MESSAGEBOX;
+            }
+
+            try
+            {
+                latestModlistVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
+            }
+            catch (Exception ex)
+            {
+                showMessageBox = true;
+                message = "There is something wrong with version number in \"version\" file on GitHub!\n" + ex.Message;
+                title = "Warning!";
+                result = DialogResult.Abort;
+                goto SHOW_MESSAGEBOX;
+            }
+
+            // Check for version string in Modlist file
+            int modlistVersion = 0;
+            using (StreamReader file = new StreamReader(currentDir + "\\" + ModDownloaderForm.MODLIST_FILE))
+            {
+                string line;
+
+                if ((line = file.ReadLine()) != null)
                 {
-                    DownloadUpdate();
-                    return DialogResult.OK;
-                }
-                else
-                {
-                    ThemedMessageBox.Show("You have the latest version!", "Good news!");
-                    return DialogResult.Cancel;
+                    try
+                    {
+                        modlistVersion = Convert.ToInt32(line.Replace(".", ""));
+                    }
+                    catch (Exception ex)
+                    {
+                        showMessageBox = true;
+                        message = $"There is something wrong with version number in {ModDownloaderForm.MODLIST_FILE}\n" + ex.Message;
+                        title = "Warning!";
+                        result = DialogResult.Abort;
+                        goto SHOW_MESSAGEBOX;
+                    }
                 }
             }
-            return DialogResult.Abort;
+
+            if (modlistVersion < latestModlistVersion)
+            {
+                return ThemedDialogueBox.Show($"The new Modlist v{latestStringVersion} is available. Do you wish to update now?", "New update available", exeORmods: "mods");
+            }
+            else
+            {
+                showMessageBox = true;
+                message = "You have the latest version!";
+                title = "Good news!";
+                result = DialogResult.Cancel;
+            }
+
+        SHOW_MESSAGEBOX:
+
+            if (!silently)
+            {
+                if (showMessageBox)
+                    ThemedMessageBox.Show(message, title);
+            }
+
+            return result;
         }
 
         // Request the inlining of this method
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void DownloadUpdate()
         {
-            oldexecutablePath = executablePath + $"\\DoW Mod Manager v{currentStringVersion}.exe";
-            executablePath += $"\\DoW Mod Manager v{latestStringVersion}.exe";
-            DownloadFile(executableURL, executablePath);
+            DownloadFile(EXECUTABLE_URL, currentDir + $"\\DoW Mod Manager v{latestStringVersion}.exe", closeAndDeleteApplication: true);
         }
 
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void DownloadModlist()
+        {
+            DownloadFile(MODLIST_URL, currentDir + $"\\{ModDownloaderForm.MODLIST_FILE}", closeAndDeleteApplication: false);
+        }
+
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static string DownloadString(string address)
         {
             string str = "";
@@ -96,9 +186,6 @@ namespace DoW_Mod_Manager
                 try
                 {
                     str = webClient.DownloadString(address);
-
-                    // Async method is harder to handle
-                    //webClient.DownloadStringAsync(new Uri(address), str);
                 }
                 catch (Exception ex)
                 {
@@ -108,7 +195,9 @@ namespace DoW_Mod_Manager
             return str;
         }
 
-        private static void DownloadFile(string address, string downloadPath)
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void DownloadFile(string address, string downloadPath, bool closeAndDeleteApplication)
         {
             // WebClient is more high level than HttpClient
             using (WebClient webClient = new WebClient())
@@ -120,6 +209,7 @@ namespace DoW_Mod_Manager
                 try
                 {
                     webClient.DownloadFileAsync(new Uri(address), downloadPath);
+                    closeAndDelete = closeAndDeleteApplication;
                 }
                 catch (Exception ex)
                 {
@@ -130,13 +220,16 @@ namespace DoW_Mod_Manager
 
         //private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         //{
-        //    ThemedMessageBox.Show(e.ProgressPercentage + " %");
+        //    ThemedMessageBox.Show(e.ProgressPercentage + "%");
         //}
 
         private static void Completed(object sender, AsyncCompletedEventArgs e)
         {
-            ThemedMessageBox.Show("Download completed!\nApplication will restart to take effect", "Good news!");
-            CleanupAndStartApp();
+            if (closeAndDelete)
+            {
+                ThemedMessageBox.Show("Download completed!\nApplication will restart to take effect", "Good news!");
+                CleanupAndStartApp();
+            }
         }
 
         /// <summary>
@@ -144,13 +237,18 @@ namespace DoW_Mod_Manager
         /// and creates a new shortcut on the desktop for it.
         /// Delete code was taken from https://www.codeproject.com/articles/31454/how-to-make-your-application-delete-itself-immedia.
         /// </summary>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void CleanupAndStartApp()
         {
+            string oldExecutablePath = currentDir + "\\" + AppDomain.CurrentDomain.FriendlyName;
+            string newExecutablePath = currentDir + $"\\DoW Mod Manager v{latestStringVersion}.exe";
+            
             // Start new downloaded exectuable
-            Process.Start(executablePath);
+            Process.Start(newExecutablePath);
             // Delete the old executable after 3 seconds have passed using cmd!
-            Process.Start("cmd.exe", "/C choice /C Y /N /D Y /T 1 & Del \"" + oldexecutablePath + "\"");
-            CreateShortcut($"DoW Mod Manager v{latestStringVersion}");
+            Process.Start("cmd.exe", "/C choice /C Y /N /D Y /T 1 & Del \"" + oldExecutablePath + "\"");
+            CreateShortcut($"DoW Mod Manager v{latestStringVersion}", newExecutablePath);
             Program.TerminateApp();
         }
 
@@ -158,15 +256,17 @@ namespace DoW_Mod_Manager
         /// This method creates a new shortcut of a newly created Mod Manager file!
         /// </summary>
         /// <param name="shortcutName"></param>
-        private static void CreateShortcut(string shortcutName)
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void CreateShortcut(string shortcutName, string targetPath)
         {
             string shortcutLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), shortcutName + ".lnk");
             WshShell shell = new WshShell();
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
 
             shortcut.Description = $"The latest DoW Mod Manager v{latestStringVersion}";
-            shortcut.TargetPath = executablePath;
-            shortcut.WorkingDirectory = Directory.GetCurrentDirectory();
+            shortcut.TargetPath = targetPath;
+            shortcut.WorkingDirectory = currentDir;
             shortcut.Save();
         }
     }
