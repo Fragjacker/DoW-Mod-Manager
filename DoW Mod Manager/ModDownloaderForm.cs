@@ -275,15 +275,17 @@ namespace DoW_Mod_Manager
 
                     findByModuleName = false;
                 }
-
-                for (int i = 0; i < modlist.Count; i++)
+                else
                 {
-                    string modLowerCase = modlist[i].ModName.ToLower();
-                    string searchLowerCase = searchTextBox.Text.ToLower();
-
-                    if (modLowerCase.Contains(searchLowerCase))
+                    for (int i = 0; i < modlist.Count; i++)
                     {
-                        modListBox.Items.Add(modlist[i].ModName);
+                        string modLowerCase = modlist[i].ModName.ToLower();
+                        string searchLowerCase = searchTextBox.Text.ToLower();
+
+                        if (modLowerCase.Contains(searchLowerCase))
+                        {
+                            modListBox.Items.Add(modlist[i].ModName);
+                        }
                     }
                 }
             }
