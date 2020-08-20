@@ -125,7 +125,7 @@ namespace DoW_Mod_Manager
             // Use the same icon as executable
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            ReselectSavedMod();
+            //ReselectSavedMod();
 
             // Initialize checkboxes with settings
             devCheckBox.Checked = settings[DEV] == 1;

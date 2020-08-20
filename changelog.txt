@@ -1,6 +1,10 @@
 # Changelog
 (All changes in 1.53 - 2.1.0 were made by IgorTheLight, excluding patch 1.6.1, 2.0.3 and 2.0.5)
 
+## Version 2.1.1:
+
+- Fixed a small bug that may lead to showing one mod twice when searching for a missing mod
+
 ## Version 2.1.0:
 
 - Added a new mod to download for Dark Crusade - Cinematic Battles (Version 1.5)

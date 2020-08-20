@@ -118,7 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="changelogTextBox.Text" xml:space="preserve">
-    <value>## Version 2.1.0:
+    <value>## Version 2.1.1:
+
+- Fixed a small bug that may lead to showing one mod twice when searching for a missing mod
+
+## Version 2.1.0:
 
 - Added a new mod to download for Dark Crusade - Cinematic Battles (Version 1.5)
 - Ultimate Apocalypse mod was updated from 1.88.731 to 1.88.742 (with a new Titan!, bugfixes and balance changes!)
