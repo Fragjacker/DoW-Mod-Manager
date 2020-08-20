@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace DoW_Mod_Manager
@@ -150,7 +151,7 @@ namespace DoW_Mod_Manager
                 result = DialogResult.Cancel;
             }
 
-        SHOW_MESSAGEBOX:
+            SHOW_MESSAGEBOX:
 
             if (!silently)
             {
@@ -199,23 +200,28 @@ namespace DoW_Mod_Manager
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void DownloadFile(string address, string downloadPath, bool closeAndDeleteApplication)
         {
-            // WebClient is more high level than HttpClient
-            using (WebClient webClient = new WebClient())
+            // Start a new thread for the download part only.
+            new Thread(() =>
             {
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                //webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
-                webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+                // WebClient is more high level than HttpClient
+                using (WebClient webClient = new WebClient())
+                {
+                    ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                    //webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
+                    webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
 
-                try
-                {
-                    webClient.DownloadFileAsync(new Uri(address), downloadPath);
-                    closeAndDelete = closeAndDeleteApplication;
+                    try
+                    {
+                        webClient.DownloadFileAsync(new Uri(address), downloadPath);
+                        while (webClient.IsBusy) { Application.DoEvents(); }
+                        closeAndDelete = closeAndDeleteApplication;
+                    }
+                    catch (Exception ex)
+                    {
+                        ThemedMessageBox.Show(ex.Message, "Download Error:");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    ThemedMessageBox.Show(ex.Message, "Download Error:");
-                }
-            }
+            }).Start();
         }
 
         //private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -243,7 +249,7 @@ namespace DoW_Mod_Manager
         {
             string oldExecutablePath = currentDir + "\\" + AppDomain.CurrentDomain.FriendlyName;
             string newExecutablePath = currentDir + $"\\DoW Mod Manager v{latestStringVersion}.exe";
-            
+
             // Start new downloaded exectuable
             Process.Start(newExecutablePath);
             // Delete the old executable after 3 seconds have passed using cmd!
