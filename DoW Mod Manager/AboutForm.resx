@@ -118,7 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="changelogTextBox.Text" xml:space="preserve">
-    <value>## Version 2.1.1:
+    <value>## Version 2.1.2:
+
+- Fixed a bug where Mod Manager would not update itself properly
+
+## Version 2.1.1:
 
 - Fixed a small bug that may lead to showing one mod twice when searching for a missing mod
 

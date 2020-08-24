@@ -1,5 +1,9 @@
 # Changelog
-(All changes in 1.53 - 2.1.0 were made by IgorTheLight, excluding patch 1.6.1, 2.0.3 and 2.0.5)
+(All changes in 1.53 - 2.1.2 were made by IgorTheLight, excluding patch 1.6.1, 2.0.3, 2.0.5 and 2.1.2)
+
+## Version 2.1.2:
+
+- Fixed a bug where Mod Manager would not update itself properly
 
 ## Version 2.1.1:
 
