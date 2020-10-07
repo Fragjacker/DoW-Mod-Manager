@@ -470,7 +470,7 @@ namespace DoW_Mod_Manager
                         break;
                 }
 
-                modString += "RequiredMod." + (i + 1) + " = " + modlist[i].Name;
+                modString = "RequiredMod." + (i + 1) + " = " + modlist[i].Name;
                 listOfMods.Add(modString);
             }
 
