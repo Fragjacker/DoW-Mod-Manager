@@ -10,6 +10,7 @@ using System.Threading;
 using System.Runtime.CompilerServices;
 using System.Runtime;
 using System.Text;
+using SSNoFog;
 
 namespace DoW_Mod_Manager
 {
@@ -37,6 +38,7 @@ namespace DoW_Mod_Manager
         public const string DEV = "Dev";
         public const string NO_MOVIES = "NoMovies";
         public const string FORCE_HIGH_POLY = "ForceHighPoly";
+        public const string NO_FOG = "Remove_Map_Fog";
         public const string DOW_OPTIMIZATIONS = "DowOptimizations";
         public const string AUTOUPDATE = "Autoupdate";
         public const string MULTITHREADED_JIT = "MultithreadedJIT";
@@ -68,6 +70,7 @@ namespace DoW_Mod_Manager
             [DEV] = 0,
             [NO_MOVIES] = 1,
             [FORCE_HIGH_POLY] = 0,
+            [NO_FOG] = 0,
             [DOW_OPTIMIZATIONS] = 0,
             [AUTOUPDATE] = 1,
             [MULTITHREADED_JIT] = 0,
@@ -132,6 +135,7 @@ namespace DoW_Mod_Manager
             nomoviesCheckBox.Checked = settings[NO_MOVIES] == 1;
             highpolyCheckBox.Checked = settings[FORCE_HIGH_POLY] == 1;
             optimizationsCheckBox.Checked = settings[DOW_OPTIMIZATIONS] == 1;
+            no_fog_checkbox.Checked = settings[NO_FOG] == 1;
 
             CurrentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
@@ -252,6 +256,7 @@ namespace DoW_Mod_Manager
                                 case AUTOUPDATE:
                                 case MULTITHREADED_JIT:
                                 case AOT_COMPILATION:
+                                case NO_FOG:
                                     if (value == 0 || value == 1)
                                         settings[setting] = value;
                                     else
@@ -541,7 +546,8 @@ namespace DoW_Mod_Manager
             sb.Append($"{DOW_OPTIMIZATIONS}={settings[DOW_OPTIMIZATIONS]}\n");
             sb.Append($"{AUTOUPDATE}={settings[AUTOUPDATE]}\n");
             sb.Append($"{MULTITHREADED_JIT}={settings[MULTITHREADED_JIT]}\n");
-            sb.Append($"{AOT_COMPILATION}={settings[AOT_COMPILATION]}");
+            sb.Append($"{AOT_COMPILATION}={settings[AOT_COMPILATION]}\n");
+            sb.Append($"{NO_FOG}={settings[NO_FOG]}");
 
             File.WriteAllText(CONFIG_FILE_NAME, sb.ToString());
 
@@ -784,6 +790,7 @@ namespace DoW_Mod_Manager
 
             dowProcessName = proc.ProcessName;
 
+            // Create new thread to change the process CPU affinity after the game has started.
             if (settings[DOW_OPTIMIZATIONS] == 1)
             {
                 // Threads could work even if application would be closed
@@ -806,6 +813,32 @@ namespace DoW_Mod_Manager
                         catch (Exception)
                         {
                             triesCount++;
+                        }
+                    }
+                }
+                ).Start();
+            }
+            // Create a new thread for the fog removal which manipulates the process memory after the game has started.
+            if (settings[NO_FOG] == 1)
+            {
+                new Thread(() =>
+                {
+                    int timeOutCounter = 0;
+                    string procName = dowProcessName;
+
+                    // We will try 30 times and then Thread will be terminated regardless
+                    while (timeOutCounter < 30)
+                    {
+                        Thread.Sleep(1000);
+                        try
+                        {
+                            Process[] dow = Process.GetProcessesByName(procName);
+                            FogRemover.DisableFog(dow[0]);
+                            break;                                              // We've done what we intended to do
+                        }
+                        catch (Exception)
+                        {
+                            timeOutCounter++;
                         }
                     }
                 }
@@ -869,6 +902,19 @@ namespace DoW_Mod_Manager
                 settings[DOW_OPTIMIZATIONS] = 1;
             else
                 settings[DOW_OPTIMIZATIONS] = 0;
+        }
+
+        /// <summary>
+        /// This checkbox removes the long distance fog in from the game, without having to remove it manually from each map.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void no_fog_checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (no_fog_checkbox.Checked)
+                settings[NO_FOG] = 1;
+            else
+                settings[NO_FOG] = 0;
         }
 
         /// <summary>
