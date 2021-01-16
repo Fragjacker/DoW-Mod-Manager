@@ -52,6 +52,7 @@
             this.aboutLabel = new System.Windows.Forms.Label();
             this.authorsTabPage = new System.Windows.Forms.TabPage();
             this.specialThanksTabPage = new System.Windows.Forms.TabPage();
+            this.special_thanks_new = new System.Windows.Forms.Label();
             this.changelogTabPage = new System.Windows.Forms.TabPage();
             this.changelogTextBox = new System.Windows.Forms.TextBox();
             this.licenseTabPage = new System.Windows.Forms.TabPage();
@@ -61,7 +62,6 @@
             this.GUILibraryAnswerLabel = new System.Windows.Forms.Label();
             this.frameworkLabel = new System.Windows.Forms.Label();
             this.frameworkAnswerLabel = new System.Windows.Forms.Label();
-            this.special_thanks_new = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.aboutTabPage.SuspendLayout();
@@ -348,6 +348,15 @@
             this.specialThanksTabPage.TabIndex = 2;
             this.specialThanksTabPage.Text = "Special Thanks";
             // 
+            // special_thanks_new
+            // 
+            this.special_thanks_new.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.special_thanks_new.Location = new System.Drawing.Point(19, 9);
+            this.special_thanks_new.Name = "special_thanks_new";
+            this.special_thanks_new.Size = new System.Drawing.Size(288, 16);
+            this.special_thanks_new.TabIndex = 17;
+            this.special_thanks_new.Text = "New and SpeedRay - For their map fog disabler code.";
+            // 
             // changelogTabPage
             // 
             this.changelogTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
@@ -458,15 +467,6 @@
             this.frameworkAnswerLabel.Size = new System.Drawing.Size(99, 13);
             this.frameworkAnswerLabel.TabIndex = 16;
             this.frameworkAnswerLabel.Text = ".NET Framwork 4.8";
-            // 
-            // special_thanks_new
-            // 
-            this.special_thanks_new.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.special_thanks_new.Location = new System.Drawing.Point(19, 9);
-            this.special_thanks_new.Name = "special_thanks_new";
-            this.special_thanks_new.Size = new System.Drawing.Size(288, 16);
-            this.special_thanks_new.TabIndex = 17;
-            this.special_thanks_new.Text = "New and SpeedRay - For their map fog disabler code.";
             // 
             // AboutForm
             // 

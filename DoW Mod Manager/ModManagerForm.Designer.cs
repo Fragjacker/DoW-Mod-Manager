@@ -55,7 +55,7 @@ namespace DoW_Mod_Manager
             this.AboutkLabel = new System.Windows.Forms.LinkLabel();
             this.fixMissingModButton = new System.Windows.Forms.Button();
             this.checkForErrorsButton = new System.Windows.Forms.Button();
-            this.no_fog_checkbox = new System.Windows.Forms.CheckBox();
+            this.no_fogCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -402,17 +402,16 @@ namespace DoW_Mod_Manager
             this.checkForErrorsButton.UseVisualStyleBackColor = false;
             this.checkForErrorsButton.Click += new System.EventHandler(this.CheckForErrorsButton_Click);
             // 
-            // no_fog_checkbox
+            // no_fogCheckbox
             // 
-            this.no_fog_checkbox.AutoSize = true;
-            this.no_fog_checkbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.no_fog_checkbox.Location = new System.Drawing.Point(18, 125);
-            this.no_fog_checkbox.Name = "no_fog_checkbox";
-            this.no_fog_checkbox.Size = new System.Drawing.Size(235, 17);
-            this.no_fog_checkbox.TabIndex = 27;
-            this.no_fog_checkbox.Text = "Disable Fog: Removes the map ambient fog.";
-            this.no_fog_checkbox.UseVisualStyleBackColor = true;
-            this.no_fog_checkbox.CheckedChanged += new System.EventHandler(this.no_fog_checkbox_CheckedChanged);
+            this.no_fogCheckbox.AutoSize = true;
+            this.no_fogCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.no_fogCheckbox.Location = new System.Drawing.Point(18, 125);
+            this.no_fogCheckbox.Name = "no_fogCheckbox";
+            this.no_fogCheckbox.Size = new System.Drawing.Size(235, 17);
+            this.no_fogCheckbox.TabIndex = 27;
+            this.no_fogCheckbox.Text = "Disable Fog: Removes the map ambient fog.";
+            this.no_fogCheckbox.UseVisualStyleBackColor = true;
             // 
             // ModManagerForm
             // 
@@ -420,7 +419,7 @@ namespace DoW_Mod_Manager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(925, 564);
-            this.Controls.Add(this.no_fog_checkbox);
+            this.Controls.Add(this.no_fogCheckbox);
             this.Controls.Add(this.checkForErrorsButton);
             this.Controls.Add(this.fixMissingModButton);
             this.Controls.Add(this.AboutkLabel);
@@ -446,6 +445,7 @@ namespace DoW_Mod_Manager
             this.Name = "ModManagerForm";
             this.Text = "DoW Mod Manager";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModManagerForm_Closing);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ModManagerForm_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -489,6 +489,6 @@ namespace DoW_Mod_Manager
         private System.Windows.Forms.LinkLabel AboutkLabel;
         private System.Windows.Forms.Button fixMissingModButton;
         private System.Windows.Forms.Button checkForErrorsButton;
-        private System.Windows.Forms.CheckBox no_fog_checkbox;
+        private System.Windows.Forms.CheckBox no_fogCheckbox;
     }
 }

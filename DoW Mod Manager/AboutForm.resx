@@ -118,7 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="changelogTextBox.Text" xml:space="preserve">
-    <value>## Version 2.1.4
+    <value>## Version 2.1.5
+
+- Added a safeguard to disable the ''Disable Fog'' checkbox when using the DoW Mod Manager not in Dawn of War: Soulstorm. Disable Fog only works properly in Dawn of War: Soulstorm.
+
+## Version 2.1.4
 
 - Added a new checkbox which allows to remove the long distance brownish ambient fog from any map pre game start. The fog obstructed the view especially with camera options that allow to zoom out really far.
 
