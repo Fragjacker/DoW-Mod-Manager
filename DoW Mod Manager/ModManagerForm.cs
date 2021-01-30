@@ -29,7 +29,7 @@ namespace DoW_Mod_Manager
         private const string JIT_PROFILE_FILE_NAME = "DoW Mod Manager.JITProfile";
         private const string WARNINGS_LOG = "warnings.log";
 
-        // This is a State Machine which determmens what action must be performed
+        // This is a State Machine which determines what action must be performed
         public enum Action { None, CreateNativeImage, CreateNativeImageAndDeleteJITProfile, DeleteJITProfile, DeleteNativeImage, DeleteJITProfileAndNativeImage }
 
         public const string ACTION_STATE = "ActionState";
