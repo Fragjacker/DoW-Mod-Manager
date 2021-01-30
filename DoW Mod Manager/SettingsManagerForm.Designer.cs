@@ -123,6 +123,7 @@
             this.soundQualityLabel = new System.Windows.Forms.Label();
             this.randomizedSoundsCheckBox = new System.Windows.Forms.CheckBox();
             this.randomizedSoundsLabel = new System.Windows.Forms.Label();
+            this.hd_tex_warning_label = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.generalTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scrollRateTrackBar)).BeginInit();
@@ -507,6 +508,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.hd_tex_warning_label);
             this.splitContainer1.Panel2.Controls.Add(this.betterTeamcoloredTexturesLabel);
             this.splitContainer1.Panel2.Controls.Add(this.persistentBodiesLabel);
             this.splitContainer1.Panel2.Controls.Add(this.persistentBodiesComboBox);
@@ -600,7 +602,7 @@
             this.gammaTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gammaTrackBar.LargeChange = 1;
-            this.gammaTrackBar.Location = new System.Drawing.Point(117, 208);
+            this.gammaTrackBar.Location = new System.Drawing.Point(117, 199);
             this.gammaTrackBar.Maximum = 15;
             this.gammaTrackBar.Minimum = 5;
             this.gammaTrackBar.Name = "gammaTrackBar";
@@ -834,9 +836,9 @@
             this.betterTeamcoloredTexturesLabel.ForeColor = System.Drawing.Color.Cyan;
             this.betterTeamcoloredTexturesLabel.Location = new System.Drawing.Point(15, 20);
             this.betterTeamcoloredTexturesLabel.Name = "betterTeamcoloredTexturesLabel";
-            this.betterTeamcoloredTexturesLabel.Size = new System.Drawing.Size(147, 13);
+            this.betterTeamcoloredTexturesLabel.Size = new System.Drawing.Size(98, 13);
             this.betterTeamcoloredTexturesLabel.TabIndex = 29;
-            this.betterTeamcoloredTexturesLabel.Text = "Better Teamcolored Textures:";
+            this.betterTeamcoloredTexturesLabel.Text = "High Res Textures:";
             // 
             // persistentBodiesLabel
             // 
@@ -886,7 +888,7 @@
             // betterTeamcoloredTexturexCheckBox
             // 
             this.betterTeamcoloredTexturexCheckBox.AutoSize = true;
-            this.betterTeamcoloredTexturexCheckBox.Location = new System.Drawing.Point(179, 21);
+            this.betterTeamcoloredTexturexCheckBox.Location = new System.Drawing.Point(115, 21);
             this.betterTeamcoloredTexturexCheckBox.Name = "betterTeamcoloredTexturexCheckBox";
             this.betterTeamcoloredTexturexCheckBox.Size = new System.Drawing.Size(15, 14);
             this.betterTeamcoloredTexturexCheckBox.TabIndex = 30;
@@ -1368,6 +1370,16 @@
             this.randomizedSoundsLabel.TabIndex = 35;
             this.randomizedSoundsLabel.Text = "Randomizes Sounds:";
             // 
+            // hd_tex_warning_label
+            // 
+            this.hd_tex_warning_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.hd_tex_warning_label.ForeColor = System.Drawing.Color.Red;
+            this.hd_tex_warning_label.Location = new System.Drawing.Point(130, 3);
+            this.hd_tex_warning_label.Name = "hd_tex_warning_label";
+            this.hd_tex_warning_label.Size = new System.Drawing.Size(151, 49);
+            this.hd_tex_warning_label.TabIndex = 43;
+            this.hd_tex_warning_label.Text = "High res can cause CTD when playing with many AI or multiplayer.";
+            // 
             // SettingsManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1503,5 +1515,6 @@
         private System.Windows.Forms.Label newPlayerNameLabel;
         private System.Windows.Forms.Button renameProfileButton;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Label hd_tex_warning_label;
     }
 }

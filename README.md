@@ -1,12 +1,12 @@
-![mod_manager_v205](https://user-images.githubusercontent.com/19975052/88805282-3bbdd500-d1af-11ea-98ec-189e01044c5c.png)
+![image](https://user-images.githubusercontent.com/19975052/104813620-96ed8d80-580a-11eb-9ff5-66694c5b0c28.png)
 
-# DoW Mod Manager v2.1.3
+# DoW Mod Manager v2.1.5
 
 This application allows for an easy launch of mods and management of large collections of mods for Warhammer 40K Dawn of War series.
 
 ## INSTALLATION:
 
-- In order to install the Mod Manager drop the "DoW Mod Manager v2.1.3.exe" into your primary game directory which is either:
+- In order to install the Mod Manager drop the "DoW Mod Manager v2.1.5.exe" into your primary game directory which is either:
 
   - "..\Dawn of War - Soulstorm\"
   or
@@ -20,7 +20,7 @@ This application allows for an easy launch of mods and management of large colle
 
 ## MOD MANAGER USAGE:
 
-1. Once everything is in place launch the "DoW Mod Manager v2.1.3.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop for convenience and faster access)
+1. Once everything is in place launch the "DoW Mod Manager v2.1.5.exe" by double-clicking on it (You may want to create a shortcut of the Mod Manager on your Desktop for convenience and faster access)
 
 2. Select a Mod from the left listing and it'll show if all necessary dependency Mods are installed and if that is given, lets you directly launch the desired Mod
 
@@ -61,6 +61,8 @@ matches anyways you'd do yourself a favor applying the LAA patch on said Executa
   - **-forcehighpoly** : This option forces the game to display the higher resolution LOD of a Model at any given distance. (Hint : This may have a negative impact on your performance, use with caution.)
 
   - **/high /affinity 6** : This option sets your Daw of War game executable priority to "High" and set it's affinity (CPU thread usage) to utilize only threads 2 and 3. In theory it could help to improve performance. It WILL NOT work if you have less than 3 CPU cores!
+
+  - **Disable Fog** : This option removes the brownish ambient fog from any map. This fog is particularly visible when zooming out really far or move the camera in a horizontal position, obstructing long distance view.
 
 ## MOD MERGER: (WARNING: This is an experimental feature that requires some user responsibility - use with caution.)
 

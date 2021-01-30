@@ -52,6 +52,7 @@
             this.aboutLabel = new System.Windows.Forms.Label();
             this.authorsTabPage = new System.Windows.Forms.TabPage();
             this.specialThanksTabPage = new System.Windows.Forms.TabPage();
+            this.special_thanks_new = new System.Windows.Forms.Label();
             this.changelogTabPage = new System.Windows.Forms.TabPage();
             this.changelogTextBox = new System.Windows.Forms.TextBox();
             this.licenseTabPage = new System.Windows.Forms.TabPage();
@@ -146,7 +147,7 @@
             // 
             this.specialThanks2Label.AutoSize = true;
             this.specialThanks2Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.specialThanks2Label.Location = new System.Drawing.Point(22, 40);
+            this.specialThanks2Label.Location = new System.Drawing.Point(19, 55);
             this.specialThanks2Label.Name = "specialThanks2Label";
             this.specialThanks2Label.Size = new System.Drawing.Size(185, 13);
             this.specialThanks2Label.TabIndex = 10;
@@ -156,7 +157,7 @@
             // 
             this.specialThanks1Label.AutoSize = true;
             this.specialThanks1Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.specialThanks1Label.Location = new System.Drawing.Point(21, 17);
+            this.specialThanks1Label.Location = new System.Drawing.Point(18, 32);
             this.specialThanks1Label.Name = "specialThanks1Label";
             this.specialThanks1Label.Size = new System.Drawing.Size(226, 13);
             this.specialThanks1Label.TabIndex = 9;
@@ -166,7 +167,7 @@
             // 
             this.specialThanks1LinkLabel.AutoSize = true;
             this.specialThanks1LinkLabel.LinkColor = System.Drawing.Color.DodgerBlue;
-            this.specialThanks1LinkLabel.Location = new System.Drawing.Point(250, 17);
+            this.specialThanks1LinkLabel.Location = new System.Drawing.Point(247, 32);
             this.specialThanks1LinkLabel.Name = "specialThanks1LinkLabel";
             this.specialThanks1LinkLabel.Size = new System.Drawing.Size(60, 13);
             this.specialThanks1LinkLabel.TabIndex = 11;
@@ -178,7 +179,7 @@
             // 
             this.specialThanks2LinkLabel.AutoSize = true;
             this.specialThanks2LinkLabel.LinkColor = System.Drawing.Color.DodgerBlue;
-            this.specialThanks2LinkLabel.Location = new System.Drawing.Point(250, 40);
+            this.specialThanks2LinkLabel.Location = new System.Drawing.Point(247, 55);
             this.specialThanks2LinkLabel.Name = "specialThanks2LinkLabel";
             this.specialThanks2LinkLabel.Size = new System.Drawing.Size(60, 13);
             this.specialThanks2LinkLabel.TabIndex = 12;
@@ -211,7 +212,7 @@
             // 
             this.specialThanks3LinkLabel.AutoSize = true;
             this.specialThanks3LinkLabel.LinkColor = System.Drawing.Color.DodgerBlue;
-            this.specialThanks3LinkLabel.Location = new System.Drawing.Point(251, 62);
+            this.specialThanks3LinkLabel.Location = new System.Drawing.Point(248, 77);
             this.specialThanks3LinkLabel.Name = "specialThanks3LinkLabel";
             this.specialThanks3LinkLabel.Size = new System.Drawing.Size(60, 13);
             this.specialThanks3LinkLabel.TabIndex = 16;
@@ -223,7 +224,7 @@
             // 
             this.specialThanks3Label.AutoSize = true;
             this.specialThanks3Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.specialThanks3Label.Location = new System.Drawing.Point(22, 62);
+            this.specialThanks3Label.Location = new System.Drawing.Point(19, 77);
             this.specialThanks3Label.Name = "specialThanks3Label";
             this.specialThanks3Label.Size = new System.Drawing.Size(214, 13);
             this.specialThanks3Label.TabIndex = 15;
@@ -334,6 +335,7 @@
             // specialThanksTabPage
             // 
             this.specialThanksTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.specialThanksTabPage.Controls.Add(this.special_thanks_new);
             this.specialThanksTabPage.Controls.Add(this.specialThanks1Label);
             this.specialThanksTabPage.Controls.Add(this.specialThanks3LinkLabel);
             this.specialThanksTabPage.Controls.Add(this.specialThanks2Label);
@@ -345,6 +347,15 @@
             this.specialThanksTabPage.Size = new System.Drawing.Size(434, 180);
             this.specialThanksTabPage.TabIndex = 2;
             this.specialThanksTabPage.Text = "Special Thanks";
+            // 
+            // special_thanks_new
+            // 
+            this.special_thanks_new.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.special_thanks_new.Location = new System.Drawing.Point(19, 9);
+            this.special_thanks_new.Name = "special_thanks_new";
+            this.special_thanks_new.Size = new System.Drawing.Size(288, 16);
+            this.special_thanks_new.TabIndex = 17;
+            this.special_thanks_new.Text = "New and SpeedRay - For their map fog disabler code.";
             // 
             // changelogTabPage
             // 
@@ -525,5 +536,6 @@
         private System.Windows.Forms.RadioButton AOTCompilationRadioButton;
         private System.Windows.Forms.RadioButton multithreadedJITCompilationRadioButton;
         private System.Windows.Forms.RadioButton singlethreadedJITCompilationRadioButton;
+        private System.Windows.Forms.Label special_thanks_new;
     }
 }
