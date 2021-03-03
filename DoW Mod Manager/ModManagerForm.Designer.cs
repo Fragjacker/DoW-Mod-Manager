@@ -56,6 +56,9 @@ namespace DoW_Mod_Manager
             this.fixMissingModButton = new System.Windows.Forms.Button();
             this.checkForErrorsButton = new System.Windows.Forms.Button();
             this.no_fogCheckbox = new System.Windows.Forms.CheckBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -63,6 +66,9 @@ namespace DoW_Mod_Manager
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // currentDirTextBox
@@ -91,7 +97,7 @@ namespace DoW_Mod_Manager
             // 
             this.installedModsLabel.AutoSize = true;
             this.installedModsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.installedModsLabel.Location = new System.Drawing.Point(3, 0);
+            this.installedModsLabel.Location = new System.Drawing.Point(4, 2);
             this.installedModsLabel.Name = "installedModsLabel";
             this.installedModsLabel.Size = new System.Drawing.Size(119, 13);
             this.installedModsLabel.TabIndex = 2;
@@ -101,7 +107,8 @@ namespace DoW_Mod_Manager
             // 
             this.requiredModsLabel.AutoSize = true;
             this.requiredModsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.requiredModsLabel.Location = new System.Drawing.Point(7, 0);
+            this.requiredModsLabel.Location = new System.Drawing.Point(5, 2);
+            this.requiredModsLabel.Margin = new System.Windows.Forms.Padding(10);
             this.requiredModsLabel.Name = "requiredModsLabel";
             this.requiredModsLabel.Size = new System.Drawing.Size(79, 13);
             this.requiredModsLabel.TabIndex = 3;
@@ -116,10 +123,10 @@ namespace DoW_Mod_Manager
             this.installedModsListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.installedModsListBox.FormattingEnabled = true;
             this.installedModsListBox.Location = new System.Drawing.Point(6, 23);
-            this.installedModsListBox.Margin = new System.Windows.Forms.Padding(10);
+            this.installedModsListBox.Margin = new System.Windows.Forms.Padding(0);
             this.installedModsListBox.Name = "installedModsListBox";
             this.installedModsListBox.ScrollAlwaysVisible = true;
-            this.installedModsListBox.Size = new System.Drawing.Size(459, 368);
+            this.installedModsListBox.Size = new System.Drawing.Size(447, 368);
             this.installedModsListBox.TabIndex = 4;
             this.installedModsListBox.SelectedIndexChanged += new System.EventHandler(this.InstalledModsList_SelectedIndexChanged);
             // 
@@ -132,10 +139,10 @@ namespace DoW_Mod_Manager
             this.requiredModsList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.requiredModsList.FormattingEnabled = true;
             this.requiredModsList.Location = new System.Drawing.Point(8, 23);
-            this.requiredModsList.Margin = new System.Windows.Forms.Padding(10);
+            this.requiredModsList.Margin = new System.Windows.Forms.Padding(0);
             this.requiredModsList.Name = "requiredModsList";
             this.requiredModsList.ScrollAlwaysVisible = true;
-            this.requiredModsList.Size = new System.Drawing.Size(444, 368);
+            this.requiredModsList.Size = new System.Drawing.Size(427, 368);
             this.requiredModsList.TabIndex = 5;
             this.requiredModsList.SelectedIndexChanged += new System.EventHandler(this.RequiredModsList_SelectedIndexChanged);
             // 
@@ -146,7 +153,7 @@ namespace DoW_Mod_Manager
             this.startModButton.Enabled = false;
             this.startModButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startModButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.startModButton.Location = new System.Drawing.Point(729, 32);
+            this.startModButton.Location = new System.Drawing.Point(130, 3);
             this.startModButton.Name = "startModButton";
             this.startModButton.Size = new System.Drawing.Size(121, 48);
             this.startModButton.TabIndex = 6;
@@ -159,7 +166,7 @@ namespace DoW_Mod_Manager
             this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox.ErrorImage = null;
             this.pictureBox.InitialImage = null;
-            this.pictureBox.Location = new System.Drawing.Point(856, 32);
+            this.pictureBox.Location = new System.Drawing.Point(257, 3);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(50, 50);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -181,7 +188,8 @@ namespace DoW_Mod_Manager
             // 
             this.advancedStartOptionsLabel.AutoSize = true;
             this.advancedStartOptionsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.advancedStartOptionsLabel.Location = new System.Drawing.Point(18, 48);
+            this.advancedStartOptionsLabel.Location = new System.Drawing.Point(0, 0);
+            this.advancedStartOptionsLabel.Margin = new System.Windows.Forms.Padding(0);
             this.advancedStartOptionsLabel.Name = "advancedStartOptionsLabel";
             this.advancedStartOptionsLabel.Size = new System.Drawing.Size(123, 13);
             this.advancedStartOptionsLabel.TabIndex = 9;
@@ -191,7 +199,8 @@ namespace DoW_Mod_Manager
             // 
             this.devCheckBox.AutoSize = true;
             this.devCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.devCheckBox.Location = new System.Drawing.Point(18, 69);
+            this.devCheckBox.Location = new System.Drawing.Point(5, 18);
+            this.devCheckBox.Margin = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.devCheckBox.Name = "devCheckBox";
             this.devCheckBox.Size = new System.Drawing.Size(137, 17);
             this.devCheckBox.TabIndex = 10;
@@ -204,7 +213,8 @@ namespace DoW_Mod_Manager
             this.nomoviesCheckBox.Checked = true;
             this.nomoviesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.nomoviesCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.nomoviesCheckBox.Location = new System.Drawing.Point(18, 83);
+            this.nomoviesCheckBox.Location = new System.Drawing.Point(5, 35);
+            this.nomoviesCheckBox.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.nomoviesCheckBox.Name = "nomoviesCheckBox";
             this.nomoviesCheckBox.Size = new System.Drawing.Size(155, 17);
             this.nomoviesCheckBox.TabIndex = 11;
@@ -215,7 +225,8 @@ namespace DoW_Mod_Manager
             // 
             this.highpolyCheckBox.AutoSize = true;
             this.highpolyCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.highpolyCheckBox.Location = new System.Drawing.Point(18, 97);
+            this.highpolyCheckBox.Location = new System.Drawing.Point(5, 52);
+            this.highpolyCheckBox.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.highpolyCheckBox.Name = "highpolyCheckBox";
             this.highpolyCheckBox.Size = new System.Drawing.Size(256, 17);
             this.highpolyCheckBox.TabIndex = 12;
@@ -226,7 +237,8 @@ namespace DoW_Mod_Manager
             // 
             this.optimizationsCheckBox.AutoSize = true;
             this.optimizationsCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.optimizationsCheckBox.Location = new System.Drawing.Point(18, 111);
+            this.optimizationsCheckBox.Location = new System.Drawing.Point(5, 69);
+            this.optimizationsCheckBox.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.optimizationsCheckBox.Name = "optimizationsCheckBox";
             this.optimizationsCheckBox.Size = new System.Drawing.Size(314, 17);
             this.optimizationsCheckBox.TabIndex = 13;
@@ -240,7 +252,7 @@ namespace DoW_Mod_Manager
             this.mergeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mergeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.mergeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.mergeButton.Location = new System.Drawing.Point(729, 83);
+            this.mergeButton.Location = new System.Drawing.Point(130, 59);
             this.mergeButton.Name = "mergeButton";
             this.mergeButton.Size = new System.Drawing.Size(121, 43);
             this.mergeButton.TabIndex = 14;
@@ -254,7 +266,7 @@ namespace DoW_Mod_Manager
             this.startVanillaButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.startVanillaButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startVanillaButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.startVanillaButton.Location = new System.Drawing.Point(602, 32);
+            this.startVanillaButton.Location = new System.Drawing.Point(3, 3);
             this.startVanillaButton.Name = "startVanillaButton";
             this.startVanillaButton.Size = new System.Drawing.Size(121, 48);
             this.startVanillaButton.TabIndex = 15;
@@ -264,8 +276,9 @@ namespace DoW_Mod_Manager
             // 
             // gameLAAStatusLabel
             // 
+            this.gameLAAStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.gameLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gameLAAStatusLabel.Location = new System.Drawing.Point(345, 81);
+            this.gameLAAStatusLabel.Location = new System.Drawing.Point(8, 73);
             this.gameLAAStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.gameLAAStatusLabel.Name = "gameLAAStatusLabel";
             this.gameLAAStatusLabel.Size = new System.Drawing.Size(210, 15);
@@ -274,8 +287,9 @@ namespace DoW_Mod_Manager
             // 
             // graphicsConfigLAAStatusLabel
             // 
+            this.graphicsConfigLAAStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.graphicsConfigLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.graphicsConfigLAAStatusLabel.Location = new System.Drawing.Point(345, 95);
+            this.graphicsConfigLAAStatusLabel.Location = new System.Drawing.Point(8, 89);
             this.graphicsConfigLAAStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.graphicsConfigLAAStatusLabel.Name = "graphicsConfigLAAStatusLabel";
             this.graphicsConfigLAAStatusLabel.Size = new System.Drawing.Size(210, 15);
@@ -316,10 +330,11 @@ namespace DoW_Mod_Manager
             // 
             // toggleLAAButton
             // 
+            this.toggleLAAButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.toggleLAAButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.toggleLAAButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.toggleLAAButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.toggleLAAButton.Location = new System.Drawing.Point(348, 41);
+            this.toggleLAAButton.Location = new System.Drawing.Point(11, 40);
             this.toggleLAAButton.Name = "toggleLAAButton";
             this.toggleLAAButton.Size = new System.Drawing.Size(104, 31);
             this.toggleLAAButton.TabIndex = 20;
@@ -339,7 +354,7 @@ namespace DoW_Mod_Manager
             this.downloadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.downloadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.downloadButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.downloadButton.Location = new System.Drawing.Point(602, 83);
+            this.downloadButton.Location = new System.Drawing.Point(3, 59);
             this.downloadButton.Name = "downloadButton";
             this.downloadButton.Size = new System.Drawing.Size(121, 43);
             this.downloadButton.TabIndex = 21;
@@ -349,10 +364,11 @@ namespace DoW_Mod_Manager
             // 
             // settingsButton
             // 
+            this.settingsButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.settingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.settingsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.settingsButton.Location = new System.Drawing.Point(229, 41);
+            this.settingsButton.Location = new System.Drawing.Point(11, 3);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(104, 31);
             this.settingsButton.TabIndex = 22;
@@ -381,7 +397,7 @@ namespace DoW_Mod_Manager
             this.fixMissingModButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fixMissingModButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.fixMissingModButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.fixMissingModButton.Location = new System.Drawing.Point(857, 83);
+            this.fixMissingModButton.Location = new System.Drawing.Point(257, 59);
             this.fixMissingModButton.Name = "fixMissingModButton";
             this.fixMissingModButton.Size = new System.Drawing.Size(59, 43);
             this.fixMissingModButton.TabIndex = 24;
@@ -391,10 +407,11 @@ namespace DoW_Mod_Manager
             // 
             // checkForErrorsButton
             // 
+            this.checkForErrorsButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.checkForErrorsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.checkForErrorsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkForErrorsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.checkForErrorsButton.Location = new System.Drawing.Point(467, 41);
+            this.checkForErrorsButton.Location = new System.Drawing.Point(121, 3);
             this.checkForErrorsButton.Name = "checkForErrorsButton";
             this.checkForErrorsButton.Size = new System.Drawing.Size(104, 31);
             this.checkForErrorsButton.TabIndex = 25;
@@ -406,12 +423,59 @@ namespace DoW_Mod_Manager
             // 
             this.no_fogCheckbox.AutoSize = true;
             this.no_fogCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.no_fogCheckbox.Location = new System.Drawing.Point(18, 125);
+            this.no_fogCheckbox.Location = new System.Drawing.Point(5, 86);
+            this.no_fogCheckbox.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.no_fogCheckbox.Name = "no_fogCheckbox";
             this.no_fogCheckbox.Size = new System.Drawing.Size(235, 17);
             this.no_fogCheckbox.TabIndex = 27;
             this.no_fogCheckbox.Text = "Disable Fog: Removes the map ambient fog.";
             this.no_fogCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.Controls.Add(this.advancedStartOptionsLabel);
+            this.flowLayoutPanel1.Controls.Add(this.devCheckBox);
+            this.flowLayoutPanel1.Controls.Add(this.nomoviesCheckBox);
+            this.flowLayoutPanel1.Controls.Add(this.highpolyCheckBox);
+            this.flowLayoutPanel1.Controls.Add(this.optimizationsCheckBox);
+            this.flowLayoutPanel1.Controls.Add(this.no_fogCheckbox);
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(19, 32);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(321, 110);
+            this.flowLayoutPanel1.TabIndex = 28;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.AutoSize = true;
+            this.panel2.Controls.Add(this.toggleLAAButton);
+            this.panel2.Controls.Add(this.checkForErrorsButton);
+            this.panel2.Controls.Add(this.gameLAAStatusLabel);
+            this.panel2.Controls.Add(this.graphicsConfigLAAStatusLabel);
+            this.panel2.Controls.Add(this.settingsButton);
+            this.panel2.Location = new System.Drawing.Point(341, 32);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(245, 110);
+            this.panel2.TabIndex = 29;
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel2.Controls.Add(this.startVanillaButton);
+            this.flowLayoutPanel2.Controls.Add(this.startModButton);
+            this.flowLayoutPanel2.Controls.Add(this.pictureBox);
+            this.flowLayoutPanel2.Controls.Add(this.downloadButton);
+            this.flowLayoutPanel2.Controls.Add(this.mergeButton);
+            this.flowLayoutPanel2.Controls.Add(this.fixMissingModButton);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(592, 32);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(331, 110);
+            this.flowLayoutPanel2.TabIndex = 30;
             // 
             // ModManagerForm
             // 
@@ -419,29 +483,15 @@ namespace DoW_Mod_Manager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(925, 564);
-            this.Controls.Add(this.no_fogCheckbox);
-            this.Controls.Add(this.checkForErrorsButton);
-            this.Controls.Add(this.fixMissingModButton);
+            this.Controls.Add(this.flowLayoutPanel2);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.AboutkLabel);
-            this.Controls.Add(this.settingsButton);
-            this.Controls.Add(this.downloadButton);
-            this.Controls.Add(this.optimizationsCheckBox);
-            this.Controls.Add(this.toggleLAAButton);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.gameLAAStatusLabel);
-            this.Controls.Add(this.graphicsConfigLAAStatusLabel);
-            this.Controls.Add(this.startVanillaButton);
-            this.Controls.Add(this.mergeButton);
-            this.Controls.Add(this.highpolyCheckBox);
-            this.Controls.Add(this.nomoviesCheckBox);
-            this.Controls.Add(this.devCheckBox);
-            this.Controls.Add(this.advancedStartOptionsLabel);
             this.Controls.Add(this.authorLabel);
-            this.Controls.Add(this.pictureBox);
-            this.Controls.Add(this.startModButton);
             this.Controls.Add(this.currentDirectoryLabel);
             this.Controls.Add(this.currentDirTextBox);
-            this.MinimumSize = new System.Drawing.Size(900, 600);
+            this.MinimumSize = new System.Drawing.Size(941, 603);
             this.Name = "ModManagerForm";
             this.Text = "DoW Mod Manager";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModManagerForm_Closing);
@@ -455,6 +505,10 @@ namespace DoW_Mod_Manager
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -490,5 +544,8 @@ namespace DoW_Mod_Manager
         private System.Windows.Forms.Button fixMissingModButton;
         private System.Windows.Forms.Button checkForErrorsButton;
         private System.Windows.Forms.CheckBox no_fogCheckbox;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.Panel panel2;
     }
 }

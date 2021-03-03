@@ -24,11 +24,15 @@ namespace DoW_Mod_Manager
                 PlayerName = playerName;
             }
         }
-        
+
         private const string CANCEL_LABEL = "CANCEL";
         private const string CLOSE_LABEL = "CLOSE";
 
         private const string SETTINGS_FILE = "Local.ini";
+        private string DRIVER_SETTINGS_FILE = Path.Combine(Directory.GetCurrentDirectory(), "Drivers", "spdx9_config.txt");
+
+        // Here is the allohwcursor setting from the driver file
+        private const string ALLOWHWCURSOR = "allowhwcursor";
 
         // Here are all settings from Local.ini in correct order
         private const string CAMERA_DETAIL = "cameradetail";
@@ -126,7 +130,7 @@ namespace DoW_Mod_Manager
             inversePanCheckBox.CheckedChanged += new EventHandler(InversePanCheckBox_CheckedChanged);
             parentalControlCheckBox.CheckedChanged += new EventHandler(ParentalControlCheckBox_CheckedChanged);
             currentPlayerComboBox.SelectedIndexChanged += new EventHandler(CurrentPlayerComboBox_SelectedIndexChanged);
-            
+
             dynamicLightsComboBox.SelectedIndexChanged += new EventHandler(DynamicLightsComboBox_SelectedIndexChanged);
             effectsDetailComboBox.SelectedIndexChanged += new EventHandler(EffectsDetailComboBox_SelectedIndexChanged);
             worldEventsComboBox.SelectedIndexChanged += new EventHandler(WorldEventsComboBox_SelectedIndexChanged);
@@ -148,7 +152,7 @@ namespace DoW_Mod_Manager
             vSyncCheckBox.CheckedChanged += new EventHandler(VSyncCheckBox_CheckedChanged);
             gammaTrackBar.Scroll += new EventHandler(GammaTrackBar_Scroll);
             screenResolutionComboBox.SelectedIndexChanged += new EventHandler(ScreenResolutionComboBox_SelectedIndexChanged);
-            
+
             soundEnabledCheckBox.CheckedChanged += new EventHandler(SoundEnabledCheckBox_CheckedChanged);
             musicVolumeTrackBar.Scroll += new EventHandler(MusicVolumeTrackBar_Scroll);
             voiceVolumeTrackBar.Scroll += new EventHandler(VoiceVolumeTrackBar_Scroll);
@@ -160,6 +164,21 @@ namespace DoW_Mod_Manager
 
             closeButton.Text = CLOSE_LABEL;
             saveButton.Enabled = false;
+
+            // Create the ToolTip and associate with the Form container.
+            ToolTip toolTip1 = new ToolTip();
+
+            // Set up the delays for the ToolTip.
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 100;
+            toolTip1.ReshowDelay = 500;
+            // Force the ToolTip text to be displayed whether or not the form is active.
+            toolTip1.ShowAlways = true;
+
+            // Set up the ToolTip text for the allowhwcursor checkbox.
+            const string hwcursorTooltip = "This option toggles the usage of the DirectX 8 cursor (allowhwcursor).\nDisable this if you experience cursor flicker and immense FPS drops.";
+            toolTip1.SetToolTip(this.hw_cursor_checkbox, hwcursorTooltip);
+            toolTip1.SetToolTip(this.allowhdcursor_label, hwcursorTooltip);
         }
 
         /// <summary>
@@ -171,6 +190,8 @@ namespace DoW_Mod_Manager
         {
             settings = new Dictionary<string, string>
             {
+                // For spdx9_config
+                [ALLOWHWCURSOR] = "1",
                 // For Local.ini
                 [CAMERA_DETAIL] = "1",
                 [CURRENT_MOD] = "W40k",
@@ -228,6 +249,12 @@ namespace DoW_Mod_Manager
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ReadSettingsFromLocalINI()
         {
+            if (File.Exists(DRIVER_SETTINGS_FILE))
+            {
+                string[] dlines = File.ReadAllLines(DRIVER_SETTINGS_FILE);
+                string[] splitresult = dlines[14].Split(' ');
+                settings[ALLOWHWCURSOR] = splitresult[1];
+            }
             if (File.Exists(SETTINGS_FILE))
             {
                 string[] lines = File.ReadAllLines(SETTINGS_FILE);
@@ -485,7 +512,7 @@ namespace DoW_Mod_Manager
                                 else if (line.Contains(SOUND_VOLUME_VOICE))
                                 {
                                     settings[SOUND_VOLUME_VOICE] = stringValue;
-                                    
+
                                     // We found all the setting we need
                                     break;
                                 }
@@ -508,6 +535,7 @@ namespace DoW_Mod_Manager
                 // Now we could set all ComboBoxes (METALLBAWHKSESS!!!) and CheckBoxes in our Form
                 // Fun fact: Convert.ToBoolean("true") works but Convert.ToBoolean("1") fails. Only Convert.ToBoolean(1) is a good alternative
                 full3DCameraCheckBox.Checked = settings[CAMERA_DETAIL] == "1";
+                hw_cursor_checkbox.Checked = settings[ALLOWHWCURSOR] == "1";
                 // Skipp CurrtentMod setting
                 dynamicLightsComboBox.SelectedIndex = Convert.ToInt32(settings[DYNAMIC_LIGHTS]);
                 worldEventsComboBox.SelectedIndex = Convert.ToInt32(settings[EVENT_DETAIL_LEVEL]);
@@ -640,7 +668,7 @@ namespace DoW_Mod_Manager
             {
                 PropertyData currentBitsPerPixel = mo.Properties["CurrentBitsPerPixel"];
                 PropertyData description = mo.Properties["Description"];
-                
+
                 if (currentBitsPerPixel != null && description != null)
                 {
                     if (currentBitsPerPixel.Value != null)
@@ -719,6 +747,11 @@ namespace DoW_Mod_Manager
                 sb.Append($"{UNIT_OCCLUSION}={settings[UNIT_OCCLUSION]}");
 
                 File.WriteAllText(SETTINGS_FILE, sb.ToString());
+
+                //Write the driversettings to file now.
+                string[] wDD = File.ReadAllLines(DRIVER_SETTINGS_FILE);
+                wDD[14] = ALLOWHWCURSOR + " " + settings[ALLOWHWCURSOR];
+                File.WriteAllLines(DRIVER_SETTINGS_FILE, wDD);
             }
 
             if (playercgfLUA)
@@ -1242,6 +1275,22 @@ namespace DoW_Mod_Manager
                 settings[SOUND_LIMIT_SAMPLES] = "0";
             else
                 settings[SOUND_LIMIT_SAMPLES] = "1";
+
+            closeButton.Text = CANCEL_LABEL;
+            saveButton.Enabled = true;
+            defaultsButton.Enabled = true;
+        }
+        /// <summary>
+        /// This method reactos to changes in the hw_cursor_checkbox.Checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void hw_cursor_checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (hw_cursor_checkbox.Checked)
+                settings[ALLOWHWCURSOR] = "1";
+            else
+                settings[ALLOWHWCURSOR] = "0";
 
             closeButton.Text = CANCEL_LABEL;
             saveButton.Enabled = true;
