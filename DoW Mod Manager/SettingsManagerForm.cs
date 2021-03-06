@@ -171,14 +171,15 @@ namespace DoW_Mod_Manager
                 AutoPopDelay = 5000,
                 InitialDelay = 100,
                 ReshowDelay = 500,
+
                 // Force the ToolTip text to be displayed whether or not the form is active.
                 ShowAlways = true
             };
 
             // Set up the ToolTip text for the allowhwcursor checkbox.
             const string hwcursorTooltip = "This option toggles the usage of the DirectX 8 cursor (allowhwcursor).\nDisable this if you experience cursor flicker and immense FPS drops.";
-            toolTip1.SetToolTip(hw_cursor_checkbox, hwcursorTooltip);
-            toolTip1.SetToolTip(allowhdcursor_label, hwcursorTooltip);
+            toolTip1.SetToolTip(hwCursorCheckBox, hwcursorTooltip);
+            toolTip1.SetToolTip(allowHDCursorLabel, hwcursorTooltip);
         }
 
         /// <summary>
@@ -537,7 +538,7 @@ namespace DoW_Mod_Manager
                 // Now we could set all ComboBoxes (METALLBAWHKSESS!!!) and CheckBoxes in our Form
                 // Fun fact: Convert.ToBoolean("true") works but Convert.ToBoolean("1") fails. Only Convert.ToBoolean(1) is a good alternative
                 full3DCameraCheckBox.Checked = settings[CAMERA_DETAIL] == "1";
-                hw_cursor_checkbox.Checked = settings[ALLOWHWCURSOR] == "1";
+                hwCursorCheckBox.Checked = settings[ALLOWHWCURSOR] == "1";
                 // Skipp CurrentMod setting
                 dynamicLightsComboBox.SelectedIndex = Convert.ToInt32(settings[DYNAMIC_LIGHTS]);
                 worldEventsComboBox.SelectedIndex = Convert.ToInt32(settings[EVENT_DETAIL_LEVEL]);
@@ -1289,7 +1290,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void hw_cursor_checkbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (hw_cursor_checkbox.Checked)
+            if (hwCursorCheckBox.Checked)
                 settings[ALLOWHWCURSOR] = "1";
             else
                 settings[ALLOWHWCURSOR] = "0";
