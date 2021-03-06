@@ -1,0 +1,20 @@
+font = 
+{
+	type 		= "FreeType2";
+	name 		= "Engravers Old English";
+	file		= "ENGO.ttf";
+
+	sizeDefault 	= 50;
+	size640		= 16;	
+	size800		= 22;	
+	size1024	= 30;	
+	size1280 	= 32;
+	size1366 	= 36;
+	size1600 	= 44;
+	size1920 	= 50;
+	size2560 	= 64;
+	size4096 	= 100;
+
+	spaceChar	= " ";
+	missingChar	= "?";
+}

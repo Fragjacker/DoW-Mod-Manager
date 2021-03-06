@@ -1,0 +1,20 @@
+font = 
+{
+	type 		= "FreeType2";
+	name 		= "Andale Sans Bold";
+	file		= "ANSNB___.TTF";
+
+	sizeDefault 	= 32;
+	size640		= 11;	
+	size800		= 14;	
+	size1024	= 21;	
+	size1280 	= 23;
+	size1366 	= 25;
+	size1600 	= 28;
+	size1920 	= 32;
+	size2560 	= 42;
+	size4096 	= 64;
+
+	spaceChar	= " ";
+	missingChar	= "?";
+}

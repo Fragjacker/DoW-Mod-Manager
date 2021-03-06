@@ -166,7 +166,7 @@ namespace DoW_Mod_Manager
             optimizationsCheckBox.CheckedChanged += new EventHandler(OptimizationsCheckBox_CheckedChanged);
             no_fogCheckbox.CheckedChanged += new EventHandler(no_fog_checkbox_CheckedChanged);
 
-            // Disable no Fog checkbox if not is Soulstorm because it only works on Soulstorm at all.
+            // Disable no Fog checkbox if it's not Soulstorm because it only works on Soulstorm at all.
             if (CurrentGameEXE != GameExecutable.SOULSTORM)
             {
                 no_fogCheckbox.Enabled = false;
