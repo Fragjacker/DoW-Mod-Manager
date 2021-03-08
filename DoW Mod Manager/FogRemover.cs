@@ -21,10 +21,6 @@ namespace SSNoFog
         private static readonly byte[] codeF512          = new byte[4] {   0,   0, 192,  66 };
         private static readonly byte[] jmpFog            = new byte[6] { 217, 129,  96,  12,   0,   0 };
         private static readonly byte[] jmpMapSkyDistance = new byte[6] { 217, 155, 112,  12,   0,   0 };
-        
-        private const int PROCESS_VM_OPERATION   = 0x0008;
-        private const int PROCESS_WM_READ        = 0x0010;
-        private const int PROCESS_WM_WRITE       = 0x0020;
 
         private const int PAGE_EXECUTE_READWRITE = 0x40;
 
