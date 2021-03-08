@@ -176,7 +176,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method reds mods from a modlist file
+        /// This method reads mods from a modlist file
         /// </summary>
         /// <param name="filename"></param>
         private static bool IsFileReady(string filename)

@@ -79,7 +79,7 @@
             this.modelDetailComboBox = new System.Windows.Forms.ComboBox();
             this.terrainDetailLabel = new System.Windows.Forms.Label();
             this.terrainDetailComboBox = new System.Windows.Forms.ComboBox();
-            this.hd_tex_warning_label = new System.Windows.Forms.Label();
+            this.hdTexWarningLabel = new System.Windows.Forms.Label();
             this.betterTeamcoloredTexturesLabel = new System.Windows.Forms.Label();
             this.persistentBodiesLabel = new System.Windows.Forms.Label();
             this.persistentBodiesComboBox = new System.Windows.Forms.ComboBox();
@@ -124,8 +124,8 @@
             this.soundQualityLabel = new System.Windows.Forms.Label();
             this.randomizedSoundsCheckBox = new System.Windows.Forms.CheckBox();
             this.randomizedSoundsLabel = new System.Windows.Forms.Label();
-            this.hw_cursor_checkbox = new System.Windows.Forms.CheckBox();
-            this.allowhdcursor_label = new System.Windows.Forms.Label();
+            this.hwCursorCheckBox = new System.Windows.Forms.CheckBox();
+            this.allowHDCursorLabel = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.generalTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scrollRateTrackBar)).BeginInit();
@@ -510,9 +510,9 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.allowhdcursor_label);
-            this.splitContainer1.Panel2.Controls.Add(this.hw_cursor_checkbox);
-            this.splitContainer1.Panel2.Controls.Add(this.hd_tex_warning_label);
+            this.splitContainer1.Panel2.Controls.Add(this.allowHDCursorLabel);
+            this.splitContainer1.Panel2.Controls.Add(this.hwCursorCheckBox);
+            this.splitContainer1.Panel2.Controls.Add(this.hdTexWarningLabel);
             this.splitContainer1.Panel2.Controls.Add(this.betterTeamcoloredTexturesLabel);
             this.splitContainer1.Panel2.Controls.Add(this.persistentBodiesLabel);
             this.splitContainer1.Panel2.Controls.Add(this.persistentBodiesComboBox);
@@ -836,13 +836,13 @@
             // 
             // hd_tex_warning_label
             // 
-            this.hd_tex_warning_label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hd_tex_warning_label.ForeColor = System.Drawing.Color.Red;
-            this.hd_tex_warning_label.Location = new System.Drawing.Point(130, 3);
-            this.hd_tex_warning_label.Name = "hd_tex_warning_label";
-            this.hd_tex_warning_label.Size = new System.Drawing.Size(151, 49);
-            this.hd_tex_warning_label.TabIndex = 43;
-            this.hd_tex_warning_label.Text = "High res can cause CTD when playing with many AI or multiplayer.";
+            this.hdTexWarningLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.hdTexWarningLabel.ForeColor = System.Drawing.Color.Red;
+            this.hdTexWarningLabel.Location = new System.Drawing.Point(130, 3);
+            this.hdTexWarningLabel.Name = "hd_tex_warning_label";
+            this.hdTexWarningLabel.Size = new System.Drawing.Size(151, 49);
+            this.hdTexWarningLabel.TabIndex = 43;
+            this.hdTexWarningLabel.Text = "High res can cause CTD when playing with many AI or multiplayer.";
             // 
             // betterTeamcoloredTexturesLabel
             // 
@@ -1384,25 +1384,25 @@
             this.randomizedSoundsLabel.TabIndex = 35;
             this.randomizedSoundsLabel.Text = "Randomizes Sounds:";
             // 
-            // hw_cursor_checkbox
+            // hwCursorCheckBox
             // 
-            this.hw_cursor_checkbox.AutoSize = true;
-            this.hw_cursor_checkbox.Location = new System.Drawing.Point(115, 354);
-            this.hw_cursor_checkbox.Name = "hw_cursor_checkbox";
-            this.hw_cursor_checkbox.Size = new System.Drawing.Size(15, 14);
-            this.hw_cursor_checkbox.TabIndex = 44;
-            this.hw_cursor_checkbox.UseVisualStyleBackColor = true;
-            this.hw_cursor_checkbox.CheckedChanged += new System.EventHandler(this.hw_cursor_checkbox_CheckedChanged);
+            this.hwCursorCheckBox.AutoSize = true;
+            this.hwCursorCheckBox.Location = new System.Drawing.Point(115, 354);
+            this.hwCursorCheckBox.Name = "hwCursorCheckBox";
+            this.hwCursorCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.hwCursorCheckBox.TabIndex = 44;
+            this.hwCursorCheckBox.UseVisualStyleBackColor = true;
+            this.hwCursorCheckBox.CheckedChanged += new System.EventHandler(this.hw_cursor_checkbox_CheckedChanged);
             // 
-            // allowhdcursor_label
+            // allowHDCursorLabel
             // 
-            this.allowhdcursor_label.AutoSize = true;
-            this.allowhdcursor_label.ForeColor = System.Drawing.Color.Cyan;
-            this.allowhdcursor_label.Location = new System.Drawing.Point(17, 354);
-            this.allowhdcursor_label.Name = "allowhdcursor_label";
-            this.allowhdcursor_label.Size = new System.Drawing.Size(87, 13);
-            this.allowhdcursor_label.TabIndex = 45;
-            this.allowhdcursor_label.Text = "DirectX 8 Cursor:";
+            this.allowHDCursorLabel.AutoSize = true;
+            this.allowHDCursorLabel.ForeColor = System.Drawing.Color.Cyan;
+            this.allowHDCursorLabel.Location = new System.Drawing.Point(17, 354);
+            this.allowHDCursorLabel.Name = "allowHDCursorLabel";
+            this.allowHDCursorLabel.Size = new System.Drawing.Size(87, 13);
+            this.allowHDCursorLabel.TabIndex = 45;
+            this.allowHDCursorLabel.Text = "DirectX 8 Cursor:";
             // 
             // SettingsManagerForm
             // 
@@ -1539,8 +1539,8 @@
         private System.Windows.Forms.Label newPlayerNameLabel;
         private System.Windows.Forms.Button renameProfileButton;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Label hd_tex_warning_label;
-        private System.Windows.Forms.Label allowhdcursor_label;
-        private System.Windows.Forms.CheckBox hw_cursor_checkbox;
+        private System.Windows.Forms.Label hdTexWarningLabel;
+        private System.Windows.Forms.Label allowHDCursorLabel;
+        private System.Windows.Forms.CheckBox hwCursorCheckBox;
     }
 }

@@ -1,0 +1,20 @@
+font = 
+{
+	type 		= "FreeType2";
+	name 		= "Gill Sans";
+	file		= "gil_____.ttf";
+
+	sizeDefault 	= 38;
+	size640		= 13;	
+	size800		= 17;	
+	size1024	= 24;	
+	size1280 	= 27;
+	size1366 	= 29;
+	size1600 	= 33;
+	size1920 	= 38;
+	size2560 	= 48;
+	size4096 	= 72;
+	
+	spaceChar	= " ";
+	missingChar	= "?";
+}
