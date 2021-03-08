@@ -3,9 +3,11 @@
 
 ## Version 2.1.6
 
-- Added a new checkbox in the settings-&gt;video tab to allow the user to easily set the usage of the DirectX 8 cursor (aka. allowhwcursor). Setting this to zero can help with flickering cursor issues.
+- Fixed a problem with a secure TLS/SSL connection on Windows 7 when checking for an update or downloading ModList (thanks, IgorTheLight)
+- Added a new checkbox in the Settings->Video tab to allow the user to easily set the usage of the DirectX 8 cursor (aka. -allowhwcursor). Setting this to zero can help with flickering cursor issues.
 - Added a new tooltip to explain what this option does.
 - Rearranged several UI elements in the main Mod Manager form into panels to allow for better scaling of the buttons etc.
+- Refactored code a little bit so it's more human-friendly (by IgorTheLight)
 
 ## Version 2.1.5
 

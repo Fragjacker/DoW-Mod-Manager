@@ -28,6 +28,10 @@ namespace DoW_Mod_Manager
 
         public static DialogResult CheckForUpdates(bool silently)
         {
+            // That fixes problem in Windows 7
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             // Checking version mentioned in "version" file on GitHub
             latestStringVersion = DownloadString(EXE_VERSION_TEXT_URL);
 
@@ -85,6 +89,10 @@ namespace DoW_Mod_Manager
         // TODO: It looks very similar to CheckForUpdates()
         public static DialogResult CheckForNewModlist(bool silently)
         {
+            // That fixes problem in Windows 7
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             // Checking version mentioned in "version" file on GitHub
             latestStringVersion = DownloadString(MODLIST_VERSION_TEXT_URL);
 
