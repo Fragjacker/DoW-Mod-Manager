@@ -38,7 +38,7 @@ namespace DoW_Mod_Manager
         public const string DEV = "Dev";
         public const string NO_MOVIES = "NoMovies";
         public const string FORCE_HIGH_POLY = "ForceHighPoly";
-        public const string NO_FOG = "Remove_Map_Fog";
+        public const string NO_FOG = "RemoveMapFog";
         public const string DOW_OPTIMIZATIONS = "DowOptimizations";
         public const string AUTOUPDATE = "Autoupdate";
         public const string MULTITHREADED_JIT = "MultithreadedJIT";
@@ -130,14 +130,12 @@ namespace DoW_Mod_Manager
             // Use the same icon as executable
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            //ReselectSavedMod();
-
             // Initialize checkboxes with settings
             devCheckBox.Checked = settings[DEV] == 1;
             nomoviesCheckBox.Checked = settings[NO_MOVIES] == 1;
             highpolyCheckBox.Checked = settings[FORCE_HIGH_POLY] == 1;
             optimizationsCheckBox.Checked = settings[DOW_OPTIMIZATIONS] == 1;
-            no_fogCheckbox.Checked = settings[NO_FOG] == 1;
+            noFogCheckbox.Checked = settings[NO_FOG] == 1;
 
             CurrentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
@@ -164,14 +162,14 @@ namespace DoW_Mod_Manager
             nomoviesCheckBox.CheckedChanged += new EventHandler(NomoviesCheckBox_CheckedChanged);
             highpolyCheckBox.CheckedChanged += new EventHandler(HighpolyCheckBox_CheckedChanged);
             optimizationsCheckBox.CheckedChanged += new EventHandler(OptimizationsCheckBox_CheckedChanged);
-            no_fogCheckbox.CheckedChanged += new EventHandler(no_fog_checkbox_CheckedChanged);
+            noFogCheckbox.CheckedChanged += new EventHandler(no_fog_checkbox_CheckedChanged);
 
-            // Disable no Fog checkbox if not is Soulstorm because it only works on Soulstorm at all.
+            // Disable no Fog checkbox if it's not Soulstorm because it only works on Soulstorm at all.
             if (CurrentGameEXE != GameExecutable.SOULSTORM)
             {
-                no_fogCheckbox.Enabled = false;
-                no_fogCheckbox.Checked = false;
-                _disabledNoFogTooltip.SetToolTip(no_fogCheckbox, "Disable Fog only works in Dawn of War: Soulstorm");
+                noFogCheckbox.Enabled = false;
+                noFogCheckbox.Checked = false;
+                _disabledNoFogTooltip.SetToolTip(noFogCheckbox, "Disable Fog only works in Dawn of War: Soulstorm");
             }
 
             // Perform Autoupdate
@@ -831,6 +829,7 @@ namespace DoW_Mod_Manager
                 }
                 ).Start();
             }
+
             // Create a new thread for the fog removal which manipulates the process memory after the game has started.
             if (settings[NO_FOG] == 1)
             {
@@ -924,7 +923,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void no_fog_checkbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (no_fogCheckbox.Checked)
+            if (noFogCheckbox.Checked)
                 settings[NO_FOG] = 1;
             else
                 settings[NO_FOG] = 0;
@@ -1243,7 +1242,7 @@ namespace DoW_Mod_Manager
             Control control = GetChildAtPoint(e.Location);
             if (control != null)
             {
-                if (!control.Enabled && control == no_fogCheckbox)
+                if (!control.Enabled && control == noFogCheckbox)
                 {
                     string toolTipString = _disabledNoFogTooltip.GetToolTip(control);
                     _disabledNoFogTooltip.Show(toolTipString, control, control.Width / 2, control.Height / 2);
