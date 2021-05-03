@@ -222,7 +222,7 @@ namespace DoW_Mod_Manager
         {
             Guid powerPlanGUID = new Guid(GUID_BALANCED);
 
-            switch (powerPlanComboBox.SelectedItem)
+            switch (powerPlanComboBox.SelectedItem.ToString())
             {
                 case NAME_ULTIMATE_PERFORMANCE:
                     if (ultimatePerformanceGUIDIndex == 2)
