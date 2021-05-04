@@ -58,6 +58,8 @@ namespace DoW_Mod_Manager
             this.noFogCheckbox = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.gameUNIEXStatusLabel = new System.Windows.Forms.Label();
+            this.toggleUNIEXButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
@@ -277,7 +279,7 @@ namespace DoW_Mod_Manager
             // gameLAAStatusLabel
             // 
             this.gameLAAStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.gameLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gameLAAStatusLabel.Location = new System.Drawing.Point(8, 73);
             this.gameLAAStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.gameLAAStatusLabel.Name = "gameLAAStatusLabel";
@@ -288,8 +290,8 @@ namespace DoW_Mod_Manager
             // graphicsConfigLAAStatusLabel
             // 
             this.graphicsConfigLAAStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.graphicsConfigLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.graphicsConfigLAAStatusLabel.Location = new System.Drawing.Point(8, 89);
+            this.graphicsConfigLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.graphicsConfigLAAStatusLabel.Location = new System.Drawing.Point(8, 87);
             this.graphicsConfigLAAStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.graphicsConfigLAAStatusLabel.Name = "graphicsConfigLAAStatusLabel";
             this.graphicsConfigLAAStatusLabel.Size = new System.Drawing.Size(210, 15);
@@ -413,7 +415,7 @@ namespace DoW_Mod_Manager
             this.checkForErrorsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.checkForErrorsButton.Location = new System.Drawing.Point(121, 3);
             this.checkForErrorsButton.Name = "checkForErrorsButton";
-            this.checkForErrorsButton.Size = new System.Drawing.Size(104, 31);
+            this.checkForErrorsButton.Size = new System.Drawing.Size(104, 21);
             this.checkForErrorsButton.TabIndex = 25;
             this.checkForErrorsButton.Text = "Check for errors";
             this.checkForErrorsButton.UseVisualStyleBackColor = false;
@@ -453,6 +455,8 @@ namespace DoW_Mod_Manager
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.AutoSize = true;
+            this.panel2.Controls.Add(this.gameUNIEXStatusLabel);
+            this.panel2.Controls.Add(this.toggleUNIEXButton);
             this.panel2.Controls.Add(this.toggleLAAButton);
             this.panel2.Controls.Add(this.checkForErrorsButton);
             this.panel2.Controls.Add(this.gameLAAStatusLabel);
@@ -460,8 +464,33 @@ namespace DoW_Mod_Manager
             this.panel2.Controls.Add(this.settingsButton);
             this.panel2.Location = new System.Drawing.Point(341, 32);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(245, 110);
+            this.panel2.Size = new System.Drawing.Size(245, 118);
             this.panel2.TabIndex = 29;
+            // 
+            // gameUNIEXStatusLabel
+            // 
+            this.gameUNIEXStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gameUNIEXStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameUNIEXStatusLabel.Location = new System.Drawing.Point(8, 100);
+            this.gameUNIEXStatusLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.gameUNIEXStatusLabel.Name = "gameUNIEXStatusLabel";
+            this.gameUNIEXStatusLabel.Size = new System.Drawing.Size(210, 15);
+            this.gameUNIEXStatusLabel.TabIndex = 27;
+            this.gameUNIEXStatusLabel.Text = "Game: UNIEX.dll Active";
+            // 
+            // toggleUNIEXButton
+            // 
+            this.toggleUNIEXButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.toggleUNIEXButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.toggleUNIEXButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.toggleUNIEXButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.toggleUNIEXButton.Location = new System.Drawing.Point(121, 30);
+            this.toggleUNIEXButton.Name = "toggleUNIEXButton";
+            this.toggleUNIEXButton.Size = new System.Drawing.Size(104, 43);
+            this.toggleUNIEXButton.TabIndex = 26;
+            this.toggleUNIEXButton.Text = "experimental campaign support";
+            this.toggleUNIEXButton.UseVisualStyleBackColor = false;
+            this.toggleUNIEXButton.Click += new System.EventHandler(this.toggleUNIEXButton_Click);
             // 
             // flowLayoutPanel2
             // 
@@ -547,5 +576,7 @@ namespace DoW_Mod_Manager
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button toggleUNIEXButton;
+        private System.Windows.Forms.Label gameUNIEXStatusLabel;
     }
 }

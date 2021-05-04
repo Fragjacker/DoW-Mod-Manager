@@ -48,11 +48,14 @@ namespace DoW_Mod_Manager
         private bool[] _isInstalled;
         private bool _isGameEXELAAPatched = false;
         private bool _isGraphicsConfigLAAPatched = false;
+        private bool _isGameEXEUNIEXPatched = false;
         private bool _isMessageBoxOnScreen = false;
         private bool _isOldGame;
         private string _dowProcessName = "";
         private ToolTip _disabledNoFogTooltip = new ToolTip();
         private Control _currentToolTipControl = null;
+
+        public static int _maxDefeatedRaces = 0x0A;
 
         public readonly string CurrentDir = Directory.GetCurrentDirectory();
         public readonly string CurrentGameEXE = "";
@@ -147,6 +150,8 @@ namespace DoW_Mod_Manager
             SetGameLAALabelText();
             _isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(CurrentDir, GraphicsConfigEXE)[0]);
             SetGraphicsConfigLAALabelText();
+            _isGameEXEUNIEXPatched = IsUNIEXActive(Directory.GetFiles(CurrentDir, CurrentGameEXE)[0]);
+            SetGameUNIEXLabelText();
 
             // Watch for any changes in game directory
             AddFileSystemWatcher();
@@ -405,6 +410,35 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
+        /// This method instigates the test if a given EXE is LAA patched or not.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>bool</returns>
+        static bool IsUNIEXActive(string file)
+        {
+            using (FileStream fs = File.OpenRead(file))
+            {
+                using (BinaryReader br = new BinaryReader(fs))
+                {
+                    if (br.ReadInt16() != 0x5A4D)       // No MZ Header
+                        return false;
+
+                    br.BaseStream.Position = 0x3C;
+                    int peloc = br.ReadInt32();         // Get the PE header location.
+
+                    br.BaseStream.Position = peloc;
+                    if (br.ReadInt32() != 0x4550)       // No PE header
+                        return false;
+
+                    br.BaseStream.Position += 0x12;     // LAA flag position
+                    short LAAFlag = br.ReadInt16();
+
+                    return (LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE;
+                }
+            }
+        }
+
+        /// <summary>
         /// This method draws the LAA text for the game label depending on whether the flag is true (Green) or false (Red).
         /// </summary>
         private void SetGameLAALabelText()
@@ -418,6 +452,23 @@ namespace DoW_Mod_Manager
             {
                 gameLAAStatusLabel.Text = CurrentGameEXE + ": LAA Inactive";
                 gameLAAStatusLabel.ForeColor = Color.Red;
+            }
+        }
+
+        /// <summary>
+        /// This method draws the LAA text for the game label depending on whether the flag is true (Green) or false (Red).
+        /// </summary>
+        private void SetGameUNIEXLabelText()
+        {
+            if (_isGameEXEUNIEXPatched)
+            {
+                gameUNIEXStatusLabel.Text = CurrentGameEXE + ": UNIEX.dll Active";
+                gameUNIEXStatusLabel.ForeColor = Color.Green;
+            }
+            else
+            {
+                gameUNIEXStatusLabel.Text = CurrentGameEXE + ": UNIEX.dll Inactive";
+                gameUNIEXStatusLabel.ForeColor = Color.Red;
             }
         }
 
@@ -1104,6 +1155,46 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
+        /// This method performs the necessary data operations in order to toggle the UNIEX.dll for a given EXE file back and forth.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>bool</returns>
+        static bool ToggleUNIEX(string file)
+        {
+            bool result = false;
+
+            using (FileStream fs = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            {
+                BinaryReader br = new BinaryReader(fs);
+
+                // Increased number of possible defeated races in campaign
+
+                br.BaseStream.Position = 0x81F350;
+                long nFilePos = (int)br.BaseStream.Position;
+                int numRaces = br.ReadInt32();
+                BinaryWriter bw = new BinaryWriter(fs);
+                if (numRaces != _maxDefeatedRaces)
+                {
+                    bw.Seek((int)nFilePos, SeekOrigin.Begin);
+                    bw.Write(_maxDefeatedRaces);
+                    bw.Flush();
+                    result = true;
+                }
+                else if (numRaces == _maxDefeatedRaces)
+                {
+                    bw.Seek((int)nFilePos, SeekOrigin.Begin);
+                    bw.Write(0x08);
+                    bw.Flush();
+                    result = false;
+
+                }
+                bw.Close();
+                br.Close();
+            }
+            return result;
+        }
+
+        /// <summary>
         /// This method checks if a file is yet still opened and thus blocked.
         /// It prevents crashes when attempting to write to files not yet closed.
         /// </summary>
@@ -1255,5 +1346,25 @@ namespace DoW_Mod_Manager
                 _currentToolTipControl = null;
             }
         }
+
+        private void toggleUNIEXButton_Click(object sender, EventArgs e)
+        {
+            // Check if the Game is Patched to use UNIEX.dll and fill in the Label properly
+            string currentGamePath = CurrentDir + "\\" + CurrentGameEXE;
+
+            if (IsFileNotLocked(currentGamePath))
+            {
+                if ((_isGameEXEUNIEXPatched) || (!_isGameEXEUNIEXPatched))
+                {
+                    _isGameEXEUNIEXPatched = ToggleUNIEX(currentGamePath);
+                }
+                else if (!_isGameEXEUNIEXPatched)
+                    _isGameEXEUNIEXPatched = ToggleUNIEX(currentGamePath);
+ 
+            }
+            SetGameUNIEXLabelText();
+        }
+
+
     }
 }
