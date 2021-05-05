@@ -1,80 +1,269 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: SSNoFog.FogRemover
-// Assembly: SSNoFog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: ABA6371C-50C2-412D-8152-53D605E42626
-// Assembly location: D:\THQ\Dawn of War - Soulstorm\SSNoFog.exe
-// This was decompiled from the "SSNoFog.exe" made by the russian DoW modding community.
-// And later this file was changed by IgorTheLight to be more human-friendly
+﻿// DLL injection function available https://github.com/ihack4falafel/DLL-Injection
+// Made by ihack4falafel
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.ConstrainedExecution;
+using System.Security;
+using System.Text;
 
 namespace SSUNIEXDLL
 {
     public static class UNIEXDLLLoader
     {
-        private static readonly byte[] checkVal          = new byte[4] {   8,   0,   0,   0 };
-        private static readonly byte[] setVal            = new byte[4] {  10,   0,   0,   0 };
+        private static readonly byte[] checkVal = new byte[4] { 8, 0, 0, 0 };
+        private static readonly byte[] setVal = new byte[4] { 10, 0, 0, 0 };
 
         private const int PAGE_EXECUTE_READWRITE = 0x40;
 
         private const int numberOfRacesAddressSteam = 0xC1F350;
- 
-        [DllImport("kernel32.dll")]
-        private static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
 
-        [DllImport("kernel32.dll")]
-        private static extern bool ReadProcessMemory(IntPtr hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, out int lpNumberOfBytesRead);
+        [Flags]
+        public enum ProcessAccessFlags : uint
+        {
+            All = 0x001F0FFF,
+            Terminate = 0x00000001,
+            CreateThread = 0x00000002,
+            VirtualMemoryOperation = 0x00000008,
+            VirtualMemoryRead = 0x00000010,
+            VirtualMemoryWrite = 0x00000020,
+            DuplicateHandle = 0x00000040,
+            CreateProcess = 0x000000080,
+            SetQuota = 0x00000100,
+            SetInformation = 0x00000200,
+            QueryInformation = 0x00000400,
+            QueryLimitedInformation = 0x00001000,
+            Synchronize = 0x00100000
+        }
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool WriteProcessMemory(IntPtr hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, out int lpNumberOfBytesWritten);
-
-        [DllImport("kernel32.dll")]
-        public static extern bool CloseHandle(IntPtr handle);
-
-        [DllImport("kernel32.dll")]
-        private static extern bool VirtualProtectEx(IntPtr hProcess, int lpAddress, int dwSize, int flNewProtect, out int lpflOldProtect);
-
-        public static void IncreaseDefeatedRaceCount(Process process)
+        public static extern IntPtr OpenProcess(
+        ProcessAccessFlags processAccess,
+        bool bInheritHandle,
+        int processId);
+        public static IntPtr OpenProcess(Process proc, ProcessAccessFlags flags)
         {
-            //ActuallyDisableFog(process, fogAddress12, float512Address12, mapSkyDistanceAddress12);
-            ActuallyDisableFog(process, numberOfRacesAddressSteam);
+            return OpenProcess(flags, false, proc.Id);
         }
 
-        private static void ActuallyDisableFog(Process process, int defeatedRacesAddress)
+        // VirtualAllocEx signture https://www.pinvoke.net/default.aspx/kernel32.virtualallocex
+        [Flags]
+        public enum AllocationType
         {
-            IntPtr pHandle = OpenProcess(56, false, process.Id);
-            try
-            {
-                CheckToggleMemory(defeatedRacesAddress, pHandle);
-                //CheckToggleMemory(float512Address, codeF512, float512, pHandle);
-                //CheckToggleMemory(mapSkyDistanceAddress, jmpMapSkyDistance, nope6, pHandle);
-            }
-            finally
-            {
-                CloseHandle(pHandle);
-            }
+            Commit = 0x1000,
+            Reserve = 0x2000,
+            Decommit = 0x4000,
+            Release = 0x8000,
+            Reset = 0x80000,
+            Physical = 0x400000,
+            TopDown = 0x100000,
+            WriteWatch = 0x200000,
+            LargePages = 0x20000000
         }
 
-        private static bool CheckToggleMemory(int addr, IntPtr pHandle)
+        // VirtualFreeEx signture  https://www.pinvoke.net/default.aspx/kernel32.virtualfreeex
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress,
+        int dwSize, AllocationType dwFreeType);
+
+        [Flags]
+        public enum MemoryProtection
         {
-            byte[] lpBuffer = new byte[checkVal.Length];
+            Execute = 0x10,
+            ExecuteRead = 0x20,
+            ExecuteReadWrite = 0x40,
+            ExecuteWriteCopy = 0x80,
+            NoAccess = 0x01,
+            ReadOnly = 0x02,
+            ReadWrite = 0x04,
+            WriteCopy = 0x08,
+            GuardModifierflag = 0x100,
+            NoCacheModifierflag = 0x200,
+            WriteCombineModifierflag = 0x400
+        }
 
-            int lpNumberOfBytesRead, lpflOldProtect, _;
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        static extern IntPtr VirtualAllocEx(
+            IntPtr hProcess,
+            IntPtr lpAddress,
+            IntPtr dwSize,
+            AllocationType flAllocationType,
+            MemoryProtection flProtect);
 
-            if (!ReadProcessMemory(pHandle, addr, lpBuffer, lpBuffer.Length, out lpNumberOfBytesRead)
-                || lpNumberOfBytesRead != lpBuffer.Length
-                || !((IEnumerable<byte>)lpBuffer).SequenceEqual(checkVal))
-                return false;
+        // WriteProcessMemory signture https://www.pinvoke.net/default.aspx/kernel32/WriteProcessMemory.html
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool WriteProcessMemory(
+        IntPtr hProcess,
+        IntPtr lpBaseAddress,
+        [MarshalAs(UnmanagedType.AsAny)] object lpBuffer,
+        int dwSize,
+        out IntPtr lpNumberOfBytesWritten);
 
-            VirtualProtectEx(pHandle, addr, setVal.Length, PAGE_EXECUTE_READWRITE, out lpflOldProtect);
-            int returnCode = WriteProcessMemory(pHandle, addr, setVal, setVal.Length, out _) ? 1 : 0;
-            
-            VirtualProtectEx(pHandle, addr, setVal.Length, lpflOldProtect, out _);
-            return returnCode != 0;
+        // GetProcAddress signture https://www.pinvoke.net/default.aspx/kernel32.getprocaddress
+        [DllImport("kernel32", CharSet = CharSet.Ansi, ExactSpelling = true, SetLastError = true)]
+        static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+
+        // GetModuleHandle signture http://pinvoke.net/default.aspx/kernel32.GetModuleHandle
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr GetModuleHandle(string lpModuleName);
+
+        // CreateRemoteThread signture https://www.pinvoke.net/default.aspx/kernel32.createremotethread
+        [DllImport("kernel32.dll")]
+        static extern IntPtr CreateRemoteThread(
+        IntPtr hProcess,
+        IntPtr lpThreadAttributes,
+        uint dwStackSize,
+        IntPtr lpStartAddress,
+        IntPtr lpParameter,
+        uint dwCreationFlags,
+        IntPtr lpThreadId);
+
+        // CloseHandle signture https://www.pinvoke.net/default.aspx/kernel32.closehandle
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+        [SuppressUnmanagedCodeSecurity]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool CloseHandle(IntPtr hObject);
+
+        public static void UNIEXdllInjector(Process process, string DllPath)
+        {
+            IntPtr Size = (IntPtr)DllPath.Length;
+
+            // Open handle to the target process
+            IntPtr ProcHandle = OpenProcess(
+                ProcessAccessFlags.All,
+                false,
+                process.Id);
+            if (ProcHandle == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[!] Handle to target process could not be obtained!");
+                Console.ForegroundColor = ConsoleColor.White;
+                System.Environment.Exit(1);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("[+] Handle (0x" + ProcHandle + ") to target process has been be obtained.");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            // Allocate DLL space
+            IntPtr DllSpace = VirtualAllocEx(
+                ProcHandle,
+                IntPtr.Zero,
+                Size,
+                AllocationType.Reserve | AllocationType.Commit,
+                MemoryProtection.ExecuteReadWrite);
+
+            if (DllSpace == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[!] DLL space allocation failed.");
+                Console.ForegroundColor = ConsoleColor.White;
+                System.Environment.Exit(1);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("[+] DLL space (0x" + DllSpace + ") allocation is successful.");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            // Write DLL content to VAS of target process
+            IntPtr bytesread;
+            byte[] bytes = Encoding.ASCII.GetBytes(DllPath);
+            bool DllWrite = WriteProcessMemory(
+                ProcHandle,
+                DllSpace,
+                bytes,
+                (int)bytes.Length,
+                out bytesread
+                );
+
+            if (DllWrite == false)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[!] Writing DLL content to target process failed.");
+                Console.ForegroundColor = ConsoleColor.White;
+                System.Environment.Exit(1);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("[+] Writing DLL content to target process is successful.");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            // Get handle to Kernel32.dll and get address for LoadLibraryA
+            IntPtr Kernel32Handle = GetModuleHandle("Kernel32.dll");
+            IntPtr LoadLibraryAAddress = GetProcAddress(Kernel32Handle, "LoadLibraryA");
+
+            if (LoadLibraryAAddress == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[!] Obtaining an addess to LoadLibraryA function has failed.");
+                Console.ForegroundColor = ConsoleColor.White;
+                System.Environment.Exit(1);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("[+] LoadLibraryA function address (0x" + LoadLibraryAAddress + ") has been obtained.");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            // Create remote thread in the target process
+            IntPtr RemoteThreadHandle = CreateRemoteThread(
+                ProcHandle,
+                IntPtr.Zero,
+                0,
+                LoadLibraryAAddress,
+                DllSpace,
+                0,
+                IntPtr.Zero
+                );
+
+            if (RemoteThreadHandle == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[!] Obtaining a handle to remote thread in target process failed.");
+                Console.ForegroundColor = ConsoleColor.White;
+                System.Environment.Exit(1);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("[+] Obtaining a handle to remote thread (0x" + RemoteThreadHandle + ") in target process is successful.");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            // Deallocate memory assigned to DLL
+            bool FreeDllSpace = VirtualFreeEx(
+                ProcHandle,
+                DllSpace,
+                0,
+                AllocationType.Release);
+            if (FreeDllSpace == false)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[!] Failed to release DLL memory in target process.");
+                Console.ForegroundColor = ConsoleColor.White;
+                System.Environment.Exit(1);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("[+] Successfully released DLL memory in target process.");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            // Close remote thread handle
+            CloseHandle(RemoteThreadHandle);
+
+            // Close target process handle
+            CloseHandle(ProcHandle);
         }
     }
 }
