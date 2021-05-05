@@ -57,6 +57,7 @@ namespace DoW_Mod_Manager
             this.checkForErrorsButton = new System.Windows.Forms.Button();
             this.noFogCheckbox = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.loadUNIEXDLLCheckBox = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.gameUNIEXStatusLabel = new System.Windows.Forms.Label();
             this.toggleUNIEXButton = new System.Windows.Forms.Button();
@@ -443,12 +444,25 @@ namespace DoW_Mod_Manager
             this.flowLayoutPanel1.Controls.Add(this.highpolyCheckBox);
             this.flowLayoutPanel1.Controls.Add(this.optimizationsCheckBox);
             this.flowLayoutPanel1.Controls.Add(this.noFogCheckbox);
+            this.flowLayoutPanel1.Controls.Add(this.loadUNIEXDLLCheckBox);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(19, 32);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 32);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(321, 110);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(330, 123);
             this.flowLayoutPanel1.TabIndex = 28;
+            // 
+            // loadUNIEXDLLCheckBox
+            // 
+            this.loadUNIEXDLLCheckBox.AutoSize = true;
+            this.loadUNIEXDLLCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.loadUNIEXDLLCheckBox.Location = new System.Drawing.Point(5, 103);
+            this.loadUNIEXDLLCheckBox.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.loadUNIEXDLLCheckBox.Name = "loadUNIEXDLLCheckBox";
+            this.loadUNIEXDLLCheckBox.Size = new System.Drawing.Size(319, 17);
+            this.loadUNIEXDLLCheckBox.TabIndex = 28;
+            this.loadUNIEXDLLCheckBox.Text = "Load UNIEX.DLL: Load experimental UNIEX.DLL into memory";
+            this.loadUNIEXDLLCheckBox.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -578,5 +592,6 @@ namespace DoW_Mod_Manager
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button toggleUNIEXButton;
         private System.Windows.Forms.Label gameUNIEXStatusLabel;
+        private System.Windows.Forms.CheckBox loadUNIEXDLLCheckBox;
     }
 }
