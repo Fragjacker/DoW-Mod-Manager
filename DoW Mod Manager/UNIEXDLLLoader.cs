@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.ConstrainedExecution;
 using System.Security;
 using System.Text;
+using DoW_Mod_Manager;
 
 namespace SSUNIEXDLL
 {
@@ -129,6 +130,7 @@ namespace SSUNIEXDLL
         public static void UNIEXdllInjector(Process process, string DllPath)
         {
             IntPtr Size = (IntPtr)DllPath.Length;
+            string message = "";
 
             // Open handle to the target process
             IntPtr ProcHandle = OpenProcess(
@@ -137,16 +139,18 @@ namespace SSUNIEXDLL
                 process.Id);
             if (ProcHandle == null)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("[!] Handle to target process could not be obtained!");
-                Console.ForegroundColor = ConsoleColor.White;
+                 ThemedMessageBox.Show("[!] Handle to target process could not be obtained!", "UNIEX.DLL messages");
+                //Console.ForegroundColor = ConsoleColor.Red;
+                //Console.WriteLine("[!] Handle to target process could not be obtained!");
+                //Console.ForegroundColor = ConsoleColor.White;
                 System.Environment.Exit(1);
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("[+] Handle (0x" + ProcHandle + ") to target process has been be obtained.");
-                Console.ForegroundColor = ConsoleColor.White;
+                message += "[+] Handle (0x" + ProcHandle + ") to target process has been obtained.\n";
+                //Console.ForegroundColor = ConsoleColor.Green;
+                //Console.WriteLine("[+] Handle (0x" + ProcHandle + ") to target process has been be obtained.");
+                //Console.ForegroundColor = ConsoleColor.White;
             }
 
             // Allocate DLL space
@@ -159,16 +163,18 @@ namespace SSUNIEXDLL
 
             if (DllSpace == null)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("[!] DLL space allocation failed.");
-                Console.ForegroundColor = ConsoleColor.White;
+                ThemedMessageBox.Show(message+"[!] DLL space allocation failed.", "UNIEX.DLL messages");
+                //Console.ForegroundColor = ConsoleColor.Red;
+                //Console.WriteLine("");
+                //Console.ForegroundColor = ConsoleColor.White;
                 System.Environment.Exit(1);
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("[+] DLL space (0x" + DllSpace + ") allocation is successful.");
-                Console.ForegroundColor = ConsoleColor.White;
+                message += "[+] DLL space (0x" + DllSpace + ") allocation is successful.\n";
+                //Console.ForegroundColor = ConsoleColor.Green;
+                //Console.WriteLine("[+] DLL space (0x" + DllSpace + ") allocation is successful.");
+                //Console.ForegroundColor = ConsoleColor.White;
             }
 
             // Write DLL content to VAS of target process
@@ -184,16 +190,18 @@ namespace SSUNIEXDLL
 
             if (DllWrite == false)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("[!] Writing DLL content to target process failed.");
-                Console.ForegroundColor = ConsoleColor.White;
+                ThemedMessageBox.Show(message + "[!] Writing DLL content to target process failed.", "UNIEX.DLL messages");
+                //Console.ForegroundColor = ConsoleColor.Red;
+                //Console.WriteLine("[!] Writing DLL content to target process failed.");
+                //Console.ForegroundColor = ConsoleColor.White;
                 System.Environment.Exit(1);
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("[+] Writing DLL content to target process is successful.");
-                Console.ForegroundColor = ConsoleColor.White;
+                message += "[+] Writing DLL content to target process is successful.\n";
+                //Console.ForegroundColor = ConsoleColor.Green;
+                //Console.WriteLine("[+] Writing DLL content to target process is successful.");
+                //Console.ForegroundColor = ConsoleColor.White;
             }
 
             // Get handle to Kernel32.dll and get address for LoadLibraryA
@@ -202,16 +210,18 @@ namespace SSUNIEXDLL
 
             if (LoadLibraryAAddress == null)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("[!] Obtaining an addess to LoadLibraryA function has failed.");
-                Console.ForegroundColor = ConsoleColor.White;
+                ThemedMessageBox.Show(message + "[!] Obtaining an addess to LoadLibraryA function has failed.", "UNIEX.DLL messages");
+                //Console.ForegroundColor = ConsoleColor.Red;
+                //Console.WriteLine("[!] Obtaining an addess to LoadLibraryA function has failed.");
+                //Console.ForegroundColor = ConsoleColor.White;
                 System.Environment.Exit(1);
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("[+] LoadLibraryA function address (0x" + LoadLibraryAAddress + ") has been obtained.");
-                Console.ForegroundColor = ConsoleColor.White;
+                message += "[+] LoadLibraryA function address (0x" + LoadLibraryAAddress + ") has been obtained.\n";
+                //Console.ForegroundColor = ConsoleColor.Green;
+                //Console.WriteLine("[+] LoadLibraryA function address (0x" + LoadLibraryAAddress + ") has been obtained.");
+                //Console.ForegroundColor = ConsoleColor.White;
             }
 
             // Create remote thread in the target process
@@ -227,16 +237,19 @@ namespace SSUNIEXDLL
 
             if (RemoteThreadHandle == null)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("[!] Obtaining a handle to remote thread in target process failed.");
-                Console.ForegroundColor = ConsoleColor.White;
+                ThemedMessageBox.Show(message + "[!] Obtaining a handle to remote thread in target process failed.", "UNIEX.DLL messages");
+                //Console.ForegroundColor = ConsoleColor.Red;
+                //Console.WriteLine("[!] Obtaining a handle to remote thread in target process failed.");
+                //Console.ForegroundColor = ConsoleColor.White;
                 System.Environment.Exit(1);
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("[+] Obtaining a handle to remote thread (0x" + RemoteThreadHandle + ") in target process is successful.");
-                Console.ForegroundColor = ConsoleColor.White;
+                ThemedMessageBox.Show(message + "[+] Obtaining a handle to remote thread (0x" + RemoteThreadHandle + ") in target process is successful.", "UNIEX.DLL messages");
+                //message += "[+] Obtaining a handle to remote thread (0x" + RemoteThreadHandle + ") in target process is successful.\n";
+                //Console.ForegroundColor = ConsoleColor.Green;
+                //Console.WriteLine("[+] Obtaining a handle to remote thread (0x" + RemoteThreadHandle + ") in target process is successful.");
+                //Console.ForegroundColor = ConsoleColor.White;
             }
 
             // Deallocate memory assigned to DLL
@@ -247,16 +260,18 @@ namespace SSUNIEXDLL
                 AllocationType.Release);
             if (FreeDllSpace == false)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("[!] Failed to release DLL memory in target process.");
-                Console.ForegroundColor = ConsoleColor.White;
+                ThemedMessageBox.Show(message + "[!] Failed to release DLL memory in target process.", "UNIEX.DLL messages");
+                //Console.ForegroundColor = ConsoleColor.Red;
+                //Console.WriteLine("[!] Failed to release DLL memory in target process.");
+                //Console.ForegroundColor = ConsoleColor.White;
                 System.Environment.Exit(1);
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("[+] Successfully released DLL memory in target process.");
-                Console.ForegroundColor = ConsoleColor.White;
+                ThemedMessageBox.Show(message + "[+] Successfully released DLL memory in target process.", "UNIEX.DLL messages");
+                //Console.ForegroundColor = ConsoleColor.Green;
+                //Console.WriteLine("[+] Successfully released DLL memory in target process.");
+                //Console.ForegroundColor = ConsoleColor.White;
             }
 
             // Close remote thread handle
@@ -264,6 +279,7 @@ namespace SSUNIEXDLL
 
             // Close target process handle
             CloseHandle(ProcHandle);
+            
         }
     }
 }

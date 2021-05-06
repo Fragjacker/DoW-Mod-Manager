@@ -420,7 +420,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method instigates the test if a given EXE is LAA patched or not.
+        /// This method instigates the test if a given EXE has applied patches for campaign or not.
         /// </summary>
         /// <param name="file"></param>
         /// <returns>bool</returns>
@@ -434,7 +434,7 @@ namespace DoW_Mod_Manager
                         return false;
 
                     br.BaseStream.Position = 0x81F350;
-                    if (br.ReadInt32() == 0x08)       // No PE header
+                    if (br.ReadInt32() == 0x08)       // No defeated races change
                         return false;
                     else 
                         return true;
@@ -913,7 +913,7 @@ namespace DoW_Mod_Manager
                 ).Start();
             }
 
-            // Create a new thread for UNEXDLL which manipulates the process memory after the game has started.
+            // Create a new thread for UNIEXDLL which manipulates the process memory after the game has started.
             if (settings[UNIEXDLL] == 1)
             {
                 new Thread(() =>
@@ -1019,7 +1019,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void loadUNIEXDLLCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (noFogCheckbox.Checked)
+            if (loadUNIEXDLLCheckBox.Checked)
                 settings[UNIEXDLL] = 1;
             else
                 settings[UNIEXDLL] = 0;
