@@ -466,12 +466,12 @@ namespace DoW_Mod_Manager
         {
             if (_isGameEXEUNIEXPatched)
             {
-                gameUNIEXStatusLabel.Text = CurrentGameEXE + ": UNIEX.dll Active";
+                gameUNIEXStatusLabel.Text = CurrentGameEXE + ": Code for campaign Active";
                 gameUNIEXStatusLabel.ForeColor = Color.Green;
             }
             else
             {
-                gameUNIEXStatusLabel.Text = CurrentGameEXE + ": UNIEX.dll Inactive";
+                gameUNIEXStatusLabel.Text = CurrentGameEXE + ": Code for campaign Inactive";
                 gameUNIEXStatusLabel.ForeColor = Color.Red;
             }
         }

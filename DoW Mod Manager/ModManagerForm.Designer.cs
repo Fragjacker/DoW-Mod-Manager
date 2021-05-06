@@ -488,9 +488,9 @@ namespace DoW_Mod_Manager
             this.gameUNIEXStatusLabel.Location = new System.Drawing.Point(8, 100);
             this.gameUNIEXStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.gameUNIEXStatusLabel.Name = "gameUNIEXStatusLabel";
-            this.gameUNIEXStatusLabel.Size = new System.Drawing.Size(210, 15);
+            this.gameUNIEXStatusLabel.Size = new System.Drawing.Size(237, 15);
             this.gameUNIEXStatusLabel.TabIndex = 27;
-            this.gameUNIEXStatusLabel.Text = "Game: UNIEX.dll Active";
+            this.gameUNIEXStatusLabel.Text = "Game: Code for campaign Active";
             // 
             // toggleUNIEXButton
             // 
