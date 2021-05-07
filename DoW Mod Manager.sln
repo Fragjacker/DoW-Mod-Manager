@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoW Mod Manager", "DoW Mod Manager\DoW Mod Manager.csproj", "{071DFF9E-1A7F-4F94-A1CE-4B5CB931D8EE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UNIEX", "UNIEX\UNIEX.vcxproj", "{0E9E4B9B-8FF7-4651-98C9-943295DA3BBA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UNI_EXT", "UNI_EXT\UNI_EXT.vcxproj", "{67138EE0-0823-4524-9453-4E9892296669}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,16 +29,16 @@ Global
 		{071DFF9E-1A7F-4F94-A1CE-4B5CB931D8EE}.Release|x64.Build.0 = Release|Any CPU
 		{071DFF9E-1A7F-4F94-A1CE-4B5CB931D8EE}.Release|x86.ActiveCfg = Release|Any CPU
 		{071DFF9E-1A7F-4F94-A1CE-4B5CB931D8EE}.Release|x86.Build.0 = Release|Any CPU
-		{0E9E4B9B-8FF7-4651-98C9-943295DA3BBA}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{0E9E4B9B-8FF7-4651-98C9-943295DA3BBA}.Debug|x64.ActiveCfg = Debug|x64
-		{0E9E4B9B-8FF7-4651-98C9-943295DA3BBA}.Debug|x64.Build.0 = Debug|x64
-		{0E9E4B9B-8FF7-4651-98C9-943295DA3BBA}.Debug|x86.ActiveCfg = Debug|Win32
-		{0E9E4B9B-8FF7-4651-98C9-943295DA3BBA}.Debug|x86.Build.0 = Debug|Win32
-		{0E9E4B9B-8FF7-4651-98C9-943295DA3BBA}.Release|Any CPU.ActiveCfg = Release|Win32
-		{0E9E4B9B-8FF7-4651-98C9-943295DA3BBA}.Release|x64.ActiveCfg = Release|x64
-		{0E9E4B9B-8FF7-4651-98C9-943295DA3BBA}.Release|x64.Build.0 = Release|x64
-		{0E9E4B9B-8FF7-4651-98C9-943295DA3BBA}.Release|x86.ActiveCfg = Release|Win32
-		{0E9E4B9B-8FF7-4651-98C9-943295DA3BBA}.Release|x86.Build.0 = Release|Win32
+		{67138EE0-0823-4524-9453-4E9892296669}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{67138EE0-0823-4524-9453-4E9892296669}.Debug|x64.ActiveCfg = Debug|x64
+		{67138EE0-0823-4524-9453-4E9892296669}.Debug|x64.Build.0 = Debug|x64
+		{67138EE0-0823-4524-9453-4E9892296669}.Debug|x86.ActiveCfg = Debug|Win32
+		{67138EE0-0823-4524-9453-4E9892296669}.Debug|x86.Build.0 = Debug|Win32
+		{67138EE0-0823-4524-9453-4E9892296669}.Release|Any CPU.ActiveCfg = Release|Win32
+		{67138EE0-0823-4524-9453-4E9892296669}.Release|x64.ActiveCfg = Release|x64
+		{67138EE0-0823-4524-9453-4E9892296669}.Release|x64.Build.0 = Release|x64
+		{67138EE0-0823-4524-9453-4E9892296669}.Release|x86.ActiveCfg = Release|Win32
+		{67138EE0-0823-4524-9453-4E9892296669}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

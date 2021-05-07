@@ -928,7 +928,7 @@ namespace DoW_Mod_Manager
                         try
                         {
                             Process[] dow = Process.GetProcessesByName(procName);
-                            UNIEXDLLLoader.UNIEXdllInjector(dow[0], CurrentDir + "\\UNIEX.DLL");
+                            UNIEXDLLLoader.UNIEXdllInjector(dow[0], CurrentDir + "\\UNI_EXT.DLL");
                             break;                                              // We've done what we intended to do
                         }
                         catch (Exception)
