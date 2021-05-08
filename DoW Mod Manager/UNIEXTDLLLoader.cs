@@ -9,9 +9,9 @@ using System.Security;
 using System.Text;
 using DoW_Mod_Manager;
 
-namespace SSUNIEXDLL
+namespace SSUNI_EXTTDLL
 {
-    public static class UNIEXDLLLoader
+    public static class UNI_EXTDLLLoader
     {
         private static readonly byte[] checkVal = new byte[4] { 8, 0, 0, 0 };
         private static readonly byte[] setVal = new byte[4] { 10, 0, 0, 0 };
@@ -127,7 +127,7 @@ namespace SSUNIEXDLL
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool CloseHandle(IntPtr hObject);
 
-        public static void UNIEXdllInjector(Process process, string DllPath)
+        public static void UNI_EXTdllInjector(Process process, string DllPath)
         {
             IntPtr Size = (IntPtr)DllPath.Length;
             string message = "";
@@ -139,7 +139,7 @@ namespace SSUNIEXDLL
                 process.Id);
             if (ProcHandle == null)
             {
-                ThemedMessageBox.Show("[!] Handle to target process could not be obtained!", "UNIEX.DLL messages");
+                ThemedMessageBox.Show("[!] Handle to target process could not be obtained!", "UNI_EXT.DLL messages");
                 
                 System.Environment.Exit(1);
             }
@@ -158,7 +158,7 @@ namespace SSUNIEXDLL
 
             if (DllSpace == null)
             {
-                ThemedMessageBox.Show(message+"[!] DLL space allocation failed.", "UNIEX.DLL messages");
+                ThemedMessageBox.Show(message+"[!] DLL space allocation failed.", "UNI_EXT.DLL messages");
                 System.Environment.Exit(1);
             }
             else
@@ -179,7 +179,7 @@ namespace SSUNIEXDLL
 
             if (DllWrite == false)
             {
-                ThemedMessageBox.Show(message + "[!] Writing DLL content to target process failed.", "UNIEX.DLL messages");
+                ThemedMessageBox.Show(message + "[!] Writing DLL content to target process failed.", "UNI_EXT.DLL messages");
                 System.Environment.Exit(1);
             }
             else
@@ -193,7 +193,7 @@ namespace SSUNIEXDLL
 
             if (LoadLibraryAAddress == null)
             {
-                ThemedMessageBox.Show(message + "[!] Obtaining an addess to LoadLibraryA function has failed.", "UNIEX.DLL messages");
+                ThemedMessageBox.Show(message + "[!] Obtaining an addess to LoadLibraryA function has failed.", "UNI_EXT.DLL messages");
                 System.Environment.Exit(1);
             }
             else
@@ -214,13 +214,13 @@ namespace SSUNIEXDLL
 
             if (RemoteThreadHandle == null)
             {
-                ThemedMessageBox.Show(message + "[!] Obtaining a handle to remote thread in target process failed.", "UNIEX.DLL messages");
+                ThemedMessageBox.Show(message + "[!] Obtaining a handle to remote thread in target process failed.", "UNI_EXT.DLL messages");
                 System.Environment.Exit(1);
             }
             else
             {
                 //message += "[+] Obtaining a handle to remote thread (0x" + RemoteThreadHandle + ") in target process is successful.\n";
-                ThemedMessageBox.Show(message + "[+] Obtaining a handle to remote thread (0x" + RemoteThreadHandle + ") in target process is successful.", "UNIEX.DLL messages");
+                ThemedMessageBox.Show(message + "[+] Obtaining a handle to remote thread (0x" + RemoteThreadHandle + ") in target process is successful.", "UNI_EXT.DLL messages");
             }
 
             // Deallocate memory assigned to DLL
@@ -231,13 +231,13 @@ namespace SSUNIEXDLL
                 AllocationType.Release);
             if (FreeDllSpace == false)
             {
-                ThemedMessageBox.Show(message + "[!] Failed to release DLL memory in target process.", "UNIEX.DLL messages");
+                ThemedMessageBox.Show(message + "[!] Failed to release DLL memory in target process.", "UNI_EXT.DLL messages");
                 System.Environment.Exit(1);
             }
             else
             {
                 message += "[+] Successfully released DLL memory in target process.\n";
-                //ThemedMessageBox.Show(message + "[+] Successfully released DLL memory in target process.", "UNIEX.DLL messages");
+                //ThemedMessageBox.Show(message + "[+] Successfully released DLL memory in target process.", "UNI_EXT.DLL messages");
             }
 
             // Close remote thread handle

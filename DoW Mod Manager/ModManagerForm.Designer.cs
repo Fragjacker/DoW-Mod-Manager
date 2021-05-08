@@ -57,10 +57,8 @@ namespace DoW_Mod_Manager
             this.checkForErrorsButton = new System.Windows.Forms.Button();
             this.noFogCheckbox = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.loadUNIEXDLLCheckBox = new System.Windows.Forms.CheckBox();
+            this.loadUNI_EXTDLLCheckBox = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.gameUNIEXStatusLabel = new System.Windows.Forms.Label();
-            this.toggleUNIEXButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
@@ -281,7 +279,7 @@ namespace DoW_Mod_Manager
             // 
             this.gameLAAStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.gameLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gameLAAStatusLabel.Location = new System.Drawing.Point(8, 73);
+            this.gameLAAStatusLabel.Location = new System.Drawing.Point(8, 77);
             this.gameLAAStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.gameLAAStatusLabel.Name = "gameLAAStatusLabel";
             this.gameLAAStatusLabel.Size = new System.Drawing.Size(210, 15);
@@ -292,7 +290,7 @@ namespace DoW_Mod_Manager
             // 
             this.graphicsConfigLAAStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.graphicsConfigLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.graphicsConfigLAAStatusLabel.Location = new System.Drawing.Point(8, 87);
+            this.graphicsConfigLAAStatusLabel.Location = new System.Drawing.Point(8, 91);
             this.graphicsConfigLAAStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.graphicsConfigLAAStatusLabel.Name = "graphicsConfigLAAStatusLabel";
             this.graphicsConfigLAAStatusLabel.Size = new System.Drawing.Size(210, 15);
@@ -416,7 +414,7 @@ namespace DoW_Mod_Manager
             this.checkForErrorsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.checkForErrorsButton.Location = new System.Drawing.Point(121, 3);
             this.checkForErrorsButton.Name = "checkForErrorsButton";
-            this.checkForErrorsButton.Size = new System.Drawing.Size(104, 21);
+            this.checkForErrorsButton.Size = new System.Drawing.Size(104, 31);
             this.checkForErrorsButton.TabIndex = 25;
             this.checkForErrorsButton.Text = "Check for errors";
             this.checkForErrorsButton.UseVisualStyleBackColor = false;
@@ -444,7 +442,7 @@ namespace DoW_Mod_Manager
             this.flowLayoutPanel1.Controls.Add(this.highpolyCheckBox);
             this.flowLayoutPanel1.Controls.Add(this.optimizationsCheckBox);
             this.flowLayoutPanel1.Controls.Add(this.noFogCheckbox);
-            this.flowLayoutPanel1.Controls.Add(this.loadUNIEXDLLCheckBox);
+            this.flowLayoutPanel1.Controls.Add(this.loadUNI_EXTDLLCheckBox);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 32);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -452,25 +450,23 @@ namespace DoW_Mod_Manager
             this.flowLayoutPanel1.Size = new System.Drawing.Size(330, 123);
             this.flowLayoutPanel1.TabIndex = 28;
             // 
-            // loadUNIEXDLLCheckBox
+            // loadUNI_EXTDLLCheckBox
             // 
-            this.loadUNIEXDLLCheckBox.AutoSize = true;
-            this.loadUNIEXDLLCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.loadUNIEXDLLCheckBox.Location = new System.Drawing.Point(5, 103);
-            this.loadUNIEXDLLCheckBox.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.loadUNIEXDLLCheckBox.Name = "loadUNIEXDLLCheckBox";
-            this.loadUNIEXDLLCheckBox.Size = new System.Drawing.Size(319, 17);
-            this.loadUNIEXDLLCheckBox.TabIndex = 28;
-            this.loadUNIEXDLLCheckBox.Text = "Load UNIEX.DLL: Load experimental UNIEX.DLL into memory";
-            this.loadUNIEXDLLCheckBox.UseVisualStyleBackColor = true;
+            this.loadUNI_EXTDLLCheckBox.AutoSize = true;
+            this.loadUNI_EXTDLLCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.loadUNI_EXTDLLCheckBox.Location = new System.Drawing.Point(5, 103);
+            this.loadUNI_EXTDLLCheckBox.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.loadUNI_EXTDLLCheckBox.Name = "loadUNI_EXTDLLCheckBox";
+            this.loadUNI_EXTDLLCheckBox.Size = new System.Drawing.Size(318, 17);
+            this.loadUNI_EXTDLLCheckBox.TabIndex = 28;
+            this.loadUNI_EXTDLLCheckBox.Text = "UNI_EXT.DLL: Load experimental UNI_EXT.DLL into memory";
+            this.loadUNI_EXTDLLCheckBox.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.AutoSize = true;
-            this.panel2.Controls.Add(this.gameUNIEXStatusLabel);
-            this.panel2.Controls.Add(this.toggleUNIEXButton);
             this.panel2.Controls.Add(this.toggleLAAButton);
             this.panel2.Controls.Add(this.checkForErrorsButton);
             this.panel2.Controls.Add(this.gameLAAStatusLabel);
@@ -480,31 +476,6 @@ namespace DoW_Mod_Manager
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(245, 118);
             this.panel2.TabIndex = 29;
-            // 
-            // gameUNIEXStatusLabel
-            // 
-            this.gameUNIEXStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.gameUNIEXStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gameUNIEXStatusLabel.Location = new System.Drawing.Point(8, 100);
-            this.gameUNIEXStatusLabel.Margin = new System.Windows.Forms.Padding(3);
-            this.gameUNIEXStatusLabel.Name = "gameUNIEXStatusLabel";
-            this.gameUNIEXStatusLabel.Size = new System.Drawing.Size(237, 15);
-            this.gameUNIEXStatusLabel.TabIndex = 27;
-            this.gameUNIEXStatusLabel.Text = "Game: Code for campaign Active";
-            // 
-            // toggleUNIEXButton
-            // 
-            this.toggleUNIEXButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.toggleUNIEXButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.toggleUNIEXButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.toggleUNIEXButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.toggleUNIEXButton.Location = new System.Drawing.Point(121, 30);
-            this.toggleUNIEXButton.Name = "toggleUNIEXButton";
-            this.toggleUNIEXButton.Size = new System.Drawing.Size(104, 43);
-            this.toggleUNIEXButton.TabIndex = 26;
-            this.toggleUNIEXButton.Text = "experimental campaign support";
-            this.toggleUNIEXButton.UseVisualStyleBackColor = false;
-            this.toggleUNIEXButton.Click += new System.EventHandler(this.toggleUNIEXButton_Click);
             // 
             // flowLayoutPanel2
             // 
@@ -590,8 +561,6 @@ namespace DoW_Mod_Manager
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button toggleUNIEXButton;
-        private System.Windows.Forms.Label gameUNIEXStatusLabel;
-        private System.Windows.Forms.CheckBox loadUNIEXDLLCheckBox;
+        private System.Windows.Forms.CheckBox loadUNI_EXTDLLCheckBox;
     }
 }

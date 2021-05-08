@@ -104,7 +104,7 @@
     <Compile Include="SystemPerformanceManagerForm.Designer.cs">
       <DependentUpon>SystemPerformanceManagerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UNIEXDLLLoader.cs" />
+    <Compile Include="UNIEXTDLLLoader.cs" />
     <Compile Include="WinApiCalls.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>

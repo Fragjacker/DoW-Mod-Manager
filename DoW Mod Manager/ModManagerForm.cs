@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime;
 using System.Text;
 using SSNoFog;
-using SSUNIEXDLL;
+using SSUNI_EXTTDLL;
 
 namespace DoW_Mod_Manager
 {
@@ -40,7 +40,7 @@ namespace DoW_Mod_Manager
         public const string NO_MOVIES = "NoMovies";
         public const string FORCE_HIGH_POLY = "ForceHighPoly";
         public const string NO_FOG = "RemoveMapFog";
-        public const string UNIEXDLL = "LoadUNIEXDLL";
+        public const string UNI_EXTDLL = "LoadUNI_EXTDLL";
         public const string DOW_OPTIMIZATIONS = "DowOptimizations";
         public const string AUTOUPDATE = "Autoupdate";
         public const string MULTITHREADED_JIT = "MultithreadedJIT";
@@ -50,12 +50,12 @@ namespace DoW_Mod_Manager
         private bool[] _isInstalled;
         private bool _isGameEXELAAPatched = false;
         private bool _isGraphicsConfigLAAPatched = false;
-        private bool _isGameEXEUNIEXPatched = false;
+        private bool _isGameEXEUNI_EXTPatched = false;
         private bool _isMessageBoxOnScreen = false;
         private bool _isOldGame;
         private string _dowProcessName = "";
         private ToolTip _disabledNoFogTooltip = new ToolTip();
-        private ToolTip _disabledLoadUNIEXDLLCheckBoxTooltip = new ToolTip();
+        private ToolTip _disabledLoadUNI_EXTDLLCheckBoxTooltip = new ToolTip();
         private Control _currentToolTipControl = null;
 
         public static int _maxDefeatedRaces = 0x0A;
@@ -79,7 +79,7 @@ namespace DoW_Mod_Manager
             [NO_MOVIES] = 1,
             [FORCE_HIGH_POLY] = 0,
             [NO_FOG] = 0,
-            [UNIEXDLL] = 0,
+            [UNI_EXTDLL] = 0,
             [DOW_OPTIMIZATIONS] = 0,
             [AUTOUPDATE] = 1,
             [MULTITHREADED_JIT] = 0,
@@ -143,7 +143,7 @@ namespace DoW_Mod_Manager
             highpolyCheckBox.Checked = settings[FORCE_HIGH_POLY] == 1;
             optimizationsCheckBox.Checked = settings[DOW_OPTIMIZATIONS] == 1;
             noFogCheckbox.Checked = settings[NO_FOG] == 1;
-            loadUNIEXDLLCheckBox.Checked = settings[UNIEXDLL] == 1;
+            loadUNI_EXTDLLCheckBox.Checked = settings[UNI_EXTDLL] == 1;
 
             CurrentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
@@ -155,8 +155,7 @@ namespace DoW_Mod_Manager
             SetGameLAALabelText();
             _isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(CurrentDir, GraphicsConfigEXE)[0]);
             SetGraphicsConfigLAALabelText();
-            _isGameEXEUNIEXPatched = IsUNIEXActive(Directory.GetFiles(CurrentDir, CurrentGameEXE)[0]);
-            SetGameUNIEXLabelText();
+            _isGameEXEUNI_EXTPatched = IsUNI_EXTActive(Directory.GetFiles(CurrentDir, CurrentGameEXE)[0]);
 
             // Watch for any changes in game directory
             AddFileSystemWatcher();
@@ -173,17 +172,17 @@ namespace DoW_Mod_Manager
             highpolyCheckBox.CheckedChanged += new EventHandler(HighpolyCheckBox_CheckedChanged);
             optimizationsCheckBox.CheckedChanged += new EventHandler(OptimizationsCheckBox_CheckedChanged);
             noFogCheckbox.CheckedChanged += new EventHandler(no_fog_checkbox_CheckedChanged);
-            loadUNIEXDLLCheckBox.CheckedChanged += new EventHandler(loadUNIEXDLLCheckBox_CheckedChanged);
+            loadUNI_EXTDLLCheckBox.CheckedChanged += new EventHandler(loadUNI_EXTDLLCheckBox_CheckedChanged);
 
-            // Disable no Fog checkbox and UNIEXDLL checkbox if it's not Soulstorm because it only works on Soulstorm at all.
+            // Disable no Fog checkbox and UNI_EXTDLL checkbox if it's not Soulstorm because it only works on Soulstorm at all.
             if (CurrentGameEXE != GameExecutable.SOULSTORM)
             {
                 noFogCheckbox.Enabled = false;
                 noFogCheckbox.Checked = false;
                 _disabledNoFogTooltip.SetToolTip(noFogCheckbox, "Disable Fog only works in Dawn of War: Soulstorm");
-                loadUNIEXDLLCheckBox.Enabled = false;
-                loadUNIEXDLLCheckBox.Checked = false;
-                _disabledLoadUNIEXDLLCheckBoxTooltip.SetToolTip(loadUNIEXDLLCheckBox, "Load UNIEX.DLL only works in Dawn of War: Soulstorm");
+                loadUNI_EXTDLLCheckBox.Enabled = false;
+                loadUNI_EXTDLLCheckBox.Checked = false;
+                _disabledLoadUNI_EXTDLLCheckBoxTooltip.SetToolTip(loadUNI_EXTDLLCheckBox, "Load UNI_EXT.DLL only works in Dawn of War: Soulstorm");
             }
 
             // Perform Autoupdate
@@ -282,7 +281,7 @@ namespace DoW_Mod_Manager
                                 case MULTITHREADED_JIT:
                                 case AOT_COMPILATION:
                                 case NO_FOG:
-                                case UNIEXDLL:
+                                case UNI_EXTDLL:
                                     if (value == 0 || value == 1)
                                         settings[setting] = value;
                                     else
@@ -424,7 +423,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="file"></param>
         /// <returns>bool</returns>
-        static bool IsUNIEXActive(string file)
+        static bool IsUNI_EXTActive(string file)
         {
             using (FileStream fs = File.OpenRead(file))
             {
@@ -456,23 +455,6 @@ namespace DoW_Mod_Manager
             {
                 gameLAAStatusLabel.Text = CurrentGameEXE + ": LAA Inactive";
                 gameLAAStatusLabel.ForeColor = Color.Red;
-            }
-        }
-
-        /// <summary>
-        /// This method draws the LAA text for the game label depending on whether the flag is true (Green) or false (Red).
-        /// </summary>
-        private void SetGameUNIEXLabelText()
-        {
-            if (_isGameEXEUNIEXPatched)
-            {
-                gameUNIEXStatusLabel.Text = CurrentGameEXE + ": Code for campaign Active";
-                gameUNIEXStatusLabel.ForeColor = Color.Green;
-            }
-            else
-            {
-                gameUNIEXStatusLabel.Text = CurrentGameEXE + ": Code for campaign Inactive";
-                gameUNIEXStatusLabel.ForeColor = Color.Red;
             }
         }
 
@@ -614,7 +596,7 @@ namespace DoW_Mod_Manager
             sb.Append($"{MULTITHREADED_JIT}={settings[MULTITHREADED_JIT]}\n");
             sb.Append($"{AOT_COMPILATION}={settings[AOT_COMPILATION]}\n");
             sb.Append($"{NO_FOG}={settings[NO_FOG]}");
-            sb.Append($"{UNIEXDLL}={settings[UNIEXDLL]}");
+            sb.Append($"{UNI_EXTDLL}={settings[UNI_EXTDLL]}");
 
             File.WriteAllText(CONFIG_FILE_NAME, sb.ToString());
 
@@ -913,8 +895,8 @@ namespace DoW_Mod_Manager
                 ).Start();
             }
 
-            // Create a new thread for UNIEXDLL which manipulates the process memory after the game has started.
-            if (settings[UNIEXDLL] == 1)
+            // Create a new thread for UNI_EXTDLL which manipulates the process memory after the game has started.
+            if (settings[UNI_EXTDLL] == 1)
             {
                 new Thread(() =>
                 {
@@ -928,7 +910,7 @@ namespace DoW_Mod_Manager
                         try
                         {
                             Process[] dow = Process.GetProcessesByName(procName);
-                            UNIEXDLLLoader.UNIEXdllInjector(dow[0], CurrentDir + "\\UNI_EXT.DLL");
+                            UNI_EXTDLLLoader.UNI_EXTdllInjector(dow[0], CurrentDir + "\\UNI_EXT.DLL");
                             break;                                              // We've done what we intended to do
                         }
                         catch (Exception)
@@ -1013,16 +995,16 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This checkbox loads UNIEX.DLL to program memory.
+        /// This checkbox loads UNI_EXT.DLL to program memory.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void loadUNIEXDLLCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void loadUNI_EXTDLLCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (loadUNIEXDLLCheckBox.Checked)
-                settings[UNIEXDLL] = 1;
+            if (loadUNI_EXTDLLCheckBox.Checked)
+                settings[UNI_EXTDLL] = 1;
             else
-                settings[UNIEXDLL] = 0;
+                settings[UNI_EXTDLL] = 0;
         }
 
         /// <summary>
@@ -1200,11 +1182,11 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method performs the necessary data operations in order to toggle the UNIEX.dll for a given EXE file back and forth.
+        /// This method performs the necessary data operations in order to toggle the UNI_EXT.dll for a given EXE file back and forth.
         /// </summary>
         /// <param name="file"></param>
         /// <returns>bool</returns>
-        static bool ToggleUNIEX(string file)
+        static bool ToggleUNI_EXT(string file)
         {
             bool result = false;
 
@@ -1369,7 +1351,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This event handles the case when the no fog checkbox is disabled, to show a tooltip why it is disabled.
+        /// This event handles the case when the no fog checkbox and UNI_EXT.dll is disabled, to show a tooltip why it is disabled.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1384,37 +1366,19 @@ namespace DoW_Mod_Manager
                     _disabledNoFogTooltip.Show(toolTipString, control, control.Width / 2, control.Height / 2);
                     _currentToolTipControl = control;
                 }
-                if (!control.Enabled && control == loadUNIEXDLLCheckBox)
+                if (!control.Enabled && control == loadUNI_EXTDLLCheckBox)
                 {
-                    string toolTipString = _disabledLoadUNIEXDLLCheckBoxTooltip.GetToolTip(control);
-                    _disabledLoadUNIEXDLLCheckBoxTooltip.Show(toolTipString, control, control.Width / 2, control.Height / 2);
+                    string toolTipString = _disabledLoadUNI_EXTDLLCheckBoxTooltip.GetToolTip(control);
+                    _disabledLoadUNI_EXTDLLCheckBoxTooltip.Show(toolTipString, control, control.Width / 2, control.Height / 2);
                     _currentToolTipControl = control;
                 }
             }
             else
             {
                 if (_currentToolTipControl != null) _disabledNoFogTooltip.Hide(_currentToolTipControl);
-                if (_currentToolTipControl != null) _disabledLoadUNIEXDLLCheckBoxTooltip.Hide(_currentToolTipControl);
+                if (_currentToolTipControl != null) _disabledLoadUNI_EXTDLLCheckBoxTooltip.Hide(_currentToolTipControl);
                 _currentToolTipControl = null;
             }
-        }
-
-        private void toggleUNIEXButton_Click(object sender, EventArgs e)
-        {
-            // Check if the Game is Patched to use UNIEX.dll and fill in the Label properly
-            string currentGamePath = CurrentDir + "\\" + CurrentGameEXE;
-
-            if (IsFileNotLocked(currentGamePath))
-            {
-                if ((_isGameEXEUNIEXPatched) || (!_isGameEXEUNIEXPatched))
-                {
-                    _isGameEXEUNIEXPatched = ToggleUNIEX(currentGamePath);
-                }
-                else if (!_isGameEXEUNIEXPatched)
-                    _isGameEXEUNIEXPatched = ToggleUNIEX(currentGamePath);
- 
-            }
-            SetGameUNIEXLabelText();
         }
 
     }
