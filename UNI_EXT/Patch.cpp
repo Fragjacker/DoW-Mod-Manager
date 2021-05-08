@@ -12,6 +12,13 @@ Patch::Patch(PatchType type, Dll dll, Offsets offsets, int function, int length)
 	Patches.push_back(this);
 }
 
+Patch::Patch(PatchType type, Dll dll, Offsets offsets, Substitutions substitutions, int length)
+	: type(type), dll(dll), offsets(offsets), substitutions(substitutions), length(length) {
+	oldCode = new BYTE[length];
+	injected = false;
+	Patches.push_back(this);
+}
+
 int Patch::GetDllOffset(Dll dll, int offset) {
 	const wchar_t* szDlls[] = { L"SOULSTORM.exe" };
 	//Attempt to get the module of the given DLL
@@ -54,7 +61,7 @@ bool Patch::Install() {
 	BYTE* code = new BYTE[length];
 	DWORD protect;
 
-	// Select an offset based on D2 version
+	// Select an offset based on Soulstorm version
 	int offset = *(&offsets._steam);
 
 	//Get the proper address that we are patching
@@ -66,7 +73,13 @@ bool Patch::Install() {
 	//Set the code with all NOPs by default
 	memset(code, 0x90, length);
 
-	if (type != NOP) {
+	if (type == Overwrite) {
+		for (int i = 0; i < length; i++)
+		{
+			code[i] = substitutions._steam[i];
+		}
+	}
+	else if (type != NOP) {
 		//Set the opcode
 		code[0] = type;
 
@@ -83,8 +96,19 @@ bool Patch::Install() {
 	VirtualProtect((VOID*)address, length, PAGE_EXECUTE_READWRITE, &protect);
 	memcpy_s((VOID*)address, length, code, length);
 	VirtualProtect((VOID*)address, length, protect, &protect);
+/*
+	DWORD old;
+	DWORD base = (DWORD)GetModuleHandle(NULL);
+	DWORD offset = 0x81F350;
 
+	char* ptr = reinterpret_cast<char*>(base + offset);
+	const size_t length = 4;
+	char buffer[length] = { 0x0A, 0x00, 0x00, 0x00 };
 
+	VirtualProtect(ptr, length, PAGE_EXECUTE_READWRITE, &old);
+	memcpy(ptr, buffer, length);
+	VirtualProtect(ptr, length, old, nullptr);
+	*/
 	//Set that we successfully patched
 	injected = true;
 

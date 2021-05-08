@@ -9,10 +9,14 @@
 class Patch;
 
 enum Dll { SOULSTORM = 0 };
-enum PatchType { Jump = 0xE9, Call = 0xE8, NOP = 0x90, Push = 0x6A };
+enum PatchType { Jump = 0xE9, Call = 0xE8, NOP = 0x90, Push = 0x6A, Overwrite };
 
 struct Offsets {
 	int _steam;
+};
+
+struct Substitutions {
+	int _steam[10];
 };
 
 class Patch {
@@ -21,11 +25,13 @@ private:
 	Dll dll;
 	PatchType type;
 	Offsets offsets;
+	Substitutions substitutions;
 	int length, function;
 	BYTE* oldCode;
 	bool injected;
 public:
 	Patch(PatchType type, Dll dll, Offsets offsets, int function, int length);
+	Patch(PatchType type, Dll dll, Offsets offsets, Substitutions substitutions, int length);
 
 	bool Install();
 	bool Remove();
