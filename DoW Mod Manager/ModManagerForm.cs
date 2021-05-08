@@ -155,7 +155,6 @@ namespace DoW_Mod_Manager
             SetGameLAALabelText();
             _isGraphicsConfigLAAPatched = IsLargeAware(Directory.GetFiles(CurrentDir, GraphicsConfigEXE)[0]);
             SetGraphicsConfigLAALabelText();
-            _isGameEXEUNI_EXTPatched = IsUNI_EXTActive(Directory.GetFiles(CurrentDir, CurrentGameEXE)[0]);
 
             // Watch for any changes in game directory
             AddFileSystemWatcher();
@@ -414,29 +413,6 @@ namespace DoW_Mod_Manager
                     short LAAFlag = br.ReadInt16();
 
                     return (LAAFlag & IMAGE_FILE_LARGE_ADDRESS_AWARE) == IMAGE_FILE_LARGE_ADDRESS_AWARE;
-                }
-            }
-        }
-
-        /// <summary>
-        /// This method instigates the test if a given EXE has applied patches for campaign or not.
-        /// </summary>
-        /// <param name="file"></param>
-        /// <returns>bool</returns>
-        static bool IsUNI_EXTActive(string file)
-        {
-            using (FileStream fs = File.OpenRead(file))
-            {
-                using (BinaryReader br = new BinaryReader(fs))
-                {
-                    if (br.ReadInt16() != 0x5A4D)       // No MZ Header
-                        return false;
-
-                    br.BaseStream.Position = 0x81F350;
-                    if (br.ReadInt32() == 0x08)       // No defeated races change
-                        return false;
-                    else 
-                        return true;
                 }
             }
         }

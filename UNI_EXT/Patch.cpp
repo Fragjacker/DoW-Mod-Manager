@@ -2,6 +2,7 @@
 // https://github.com/planqi/slashdiablo-maphack
 
 #include "Patch.h"
+#include "SoulstormVersion.h"
 
 std::vector<Patch*> Patch::Patches;
 
@@ -62,7 +63,7 @@ bool Patch::Install() {
 	DWORD protect;
 
 	// Select an offset based on Soulstorm version
-	int offset = *(&offsets._steam);
+	int offset = *(&offsets._steam + SoulstormVersion::GetGameVersionID());
 
 	//Get the proper address that we are patching
 	int address = GetDllOffset(dll, offset);

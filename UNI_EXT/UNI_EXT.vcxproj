@@ -149,6 +149,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SoulstormVersion.h" />
     <ClInclude Include="Patch.h" />
     <ClInclude Include="SoulstormHandlers.h" />
     <ClInclude Include="SoulstormIntercepts.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="SoulstormHandlers.cpp" />
     <ClCompile Include="Patch.cpp" />
     <ClCompile Include="SoulstormIntercepts.cpp" />
+    <ClCompile Include="SoulstormVersion.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="UNI_EXT.cpp" />
   </ItemGroup>
