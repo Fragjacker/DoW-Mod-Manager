@@ -19,7 +19,6 @@ struct Offsets {
 // substitutions have a limit of characters
 struct Substitutions {
 	int _steam[100];
-	int _cdversion[100];
 };
 
 class Patch {
