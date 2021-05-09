@@ -1158,46 +1158,6 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method performs the necessary data operations in order to toggle the UNI_EXT.dll for a given EXE file back and forth.
-        /// </summary>
-        /// <param name="file"></param>
-        /// <returns>bool</returns>
-        static bool ToggleUNI_EXT(string file)
-        {
-            bool result = false;
-
-            using (FileStream fs = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-            {
-                BinaryReader br = new BinaryReader(fs);
-
-                // Increased number of possible defeated races in campaign
-
-                br.BaseStream.Position = 0x81F350;
-                long nFilePos = (int)br.BaseStream.Position;
-                int numRaces = br.ReadInt32();
-                BinaryWriter bw = new BinaryWriter(fs);
-                if (numRaces != _maxDefeatedRaces)
-                {
-                    bw.Seek((int)nFilePos, SeekOrigin.Begin);
-                    bw.Write(_maxDefeatedRaces);
-                    bw.Flush();
-                    result = true;
-                }
-                else if (numRaces == _maxDefeatedRaces)
-                {
-                    bw.Seek((int)nFilePos, SeekOrigin.Begin);
-                    bw.Write(0x08);
-                    bw.Flush();
-                    result = false;
-
-                }
-                bw.Close();
-                br.Close();
-            }
-            return result;
-        }
-
-        /// <summary>
         /// This method checks if a file is yet still opened and thus blocked.
         /// It prevents crashes when attempting to write to files not yet closed.
         /// </summary>

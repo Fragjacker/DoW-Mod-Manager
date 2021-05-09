@@ -13,13 +13,6 @@ namespace SSUNI_EXTTDLL
 {
     public static class UNI_EXTDLLLoader
     {
-        private static readonly byte[] checkVal = new byte[4] { 8, 0, 0, 0 };
-        private static readonly byte[] setVal = new byte[4] { 10, 0, 0, 0 };
-
-        private const int PAGE_EXECUTE_READWRITE = 0x40;
-
-        private const int numberOfRacesAddressSteam = 0xC1F350;
-
         [Flags]
         public enum ProcessAccessFlags : uint
         {
