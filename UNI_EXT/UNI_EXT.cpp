@@ -12,7 +12,14 @@ string UNI_EXT::path;
 HINSTANCE UNI_EXT::instance;
 
 Patch* patches[] = {
-	new Patch(Overwrite, SOULSTORM, { 0x81F350 }, { {0x0A, 0x00, 0x00, 0x00} }, 4),
+	// increase maximum number of defeated races in campaign commander screen
+	new Patch(Overwrite, SOULSTORM, { 0x81F350, 0x6BDD24 }, { {0x0A, 0x00, 0x00, 0x00},{ 0x0A, 0x00, 0x00, 0x00 } }, 4),
+
+	// increase maximum number of honor guard units in campaign metamap screen
+	new Patch(Overwrite, SOULSTORM,{ 0x81F454, 0x6BDE28 },{ { 0x12, 0x00, 0x00, 0x00 },{ 0x12, 0x00, 0x00, 0x00 } }, 4),
+
+	// increase maximum number of honor guard units in campaign commander screen
+	//new Patch(Overwrite, SOULSTORM,{ 0x81F350, 0x6BDD24 },{ { 0x0A, 0x00, 0x00, 0x00 },{ 0x0A, 0x00, 0x00, 0x00 } }, 4),
 };
 
 

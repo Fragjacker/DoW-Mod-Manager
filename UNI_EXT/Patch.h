@@ -13,10 +13,13 @@ enum PatchType { Jump = 0xE9, Call = 0xE8, NOP = 0x90, Push = 0x6A, Overwrite };
 
 struct Offsets {
 	int _steam;
+	int _cdversion;
 };
 
+// substitutions have a limit of characters
 struct Substitutions {
-	int _steam[10];
+	int _steam[100];
+	int _cdversion[100];
 };
 
 class Patch {

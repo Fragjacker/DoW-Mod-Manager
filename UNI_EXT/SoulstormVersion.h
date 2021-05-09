@@ -10,7 +10,8 @@
 
 enum VersionID {
 	INVALID = -1,
-	VERSION_STEAM = 0
+	VERSION_STEAM = 0,
+	VERSION_CD
 };
 
 namespace SoulstormVersion {

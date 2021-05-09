@@ -14,9 +14,9 @@ void SoulstormVersion::Init() {
 	if (version == "1.3.310.7442") {
 		versionID = VERSION_STEAM;
 	}
-//	else if (version == "1.0.13.64") {
-//		versionID = VERSION_113d;
-//	}
+	else if (version == "1.4.0.0") {
+		versionID = VERSION_CD;
+	}
 	else {
 		versionID = INVALID;
 		MessageBox(NULL, L"Game version not detected or is unsupported!", L"Failed to Detect Game Version", MB_OK);
@@ -38,7 +38,6 @@ std::string SoulstormVersion::GetGameVersionString() {
 	UINT   size = 0;
 	LPBYTE lpBuffer = NULL;
 	DWORD  verSize = GetFileVersionInfoSize(szVersionFile, &verHandle);
-	std::string message = verSize + "\n";
 
 	std::string returnValue;
 
@@ -67,8 +66,8 @@ std::string SoulstormVersion::GetGameVersionString() {
 							);
 
 						returnValue = std::string(szBuffer);
-						message += returnValue + "\n";
-						MessageBoxA(NULL, message.c_str(), "DLL Injected", MB_OK);
+						//std::string message = returnValue + "\n";
+						//MessageBoxA(NULL, message.c_str(), "DLL Injected", MB_OK);
 					}
 				}
 			}
