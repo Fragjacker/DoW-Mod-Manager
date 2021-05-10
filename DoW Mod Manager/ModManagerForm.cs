@@ -571,7 +571,7 @@ namespace DoW_Mod_Manager
             sb.Append($"{AUTOUPDATE}={settings[AUTOUPDATE]}\n");
             sb.Append($"{MULTITHREADED_JIT}={settings[MULTITHREADED_JIT]}\n");
             sb.Append($"{AOT_COMPILATION}={settings[AOT_COMPILATION]}\n");
-            sb.Append($"{NO_FOG}={settings[NO_FOG]}");
+            sb.Append($"{NO_FOG}={settings[NO_FOG]}\n");
             sb.Append($"{UNI_EXTDLL}={settings[UNI_EXTDLL]}");
 
             File.WriteAllText(CONFIG_FILE_NAME, sb.ToString());
