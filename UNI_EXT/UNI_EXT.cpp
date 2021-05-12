@@ -2,7 +2,9 @@
 // Based on slashdiablo-maphack implementation
 // https://github.com/planqi/slashdiablo-maphack
 
+#define _DEFINE_PTRS
 #include "stdafx.h"
+#include "SoulstormPointers.h"
 #include "UNI_EXT.h"
 #include "SoulstormHandlers.h"
 #include "Patch.h"
@@ -20,6 +22,19 @@ Patch* patches[] = {
 
 	// increase maximum number of honor guard units in campaign commander screen
 	new Patch(Overwrite, SOULSTORM,{ 0x81F348, 0x6BDD1C },{ 0x12, 0x00, 0x00, 0x00 }, 4),
+
+	// modify SWFwidget bind from 'ToggleArmy' to 'deep_strike'
+	//new Patch(Overwrite, SOULSTORM,{ 0x391C4E, -1 },{ 0x20 }, 1),
+	// insert new FSCommand
+	new Patch(Call, SOULSTORM,{ 0x391C39, -1 }, (int)New_FSCommand_Function, 5),
+
+	// create new strings in code
+	//new Patch(Overwrite, SOULSTORM,{ 0x6D2447, -1 },{ 0x00, 't','h','r','o','w','n' }, 7),
+	// modify runZoomAnimation? function to use new string
+	//new Patch(Overwrite, SOULSTORM,{ 0x378108, -1 },{ 0x48, 0x24 }, 2),
+
+	//new Patch(Overwrite, SOULSTORM,{ 0x39C590, -1 }, (int)Metamap_Action_Selector_Function, 2),
+	//new Patch(Call, SOULSTORM,{ 0x378104, -1 }, (int)Animation_Selector_Function, 5),
 };
 
 

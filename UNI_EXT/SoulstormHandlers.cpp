@@ -1,4 +1,4 @@
-#include "SoulstormPointers.h"
+//#include "SoulstormPointers.h"
 #include "stdafx.h"
 
 DWORD WINAPI MainThread(LPVOID param)
