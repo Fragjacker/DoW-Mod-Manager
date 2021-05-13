@@ -26,7 +26,7 @@ int __declspec(naked) Metamap_Action_Selector_Function()
 }
 */
 
-int __declspec(naked) New_FSCommand_Function()
+int __declspec(naked) new_BindButtonClickedEntry_Function()
 {
 	// save address to return in the future
 	// save stack

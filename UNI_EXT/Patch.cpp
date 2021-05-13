@@ -7,14 +7,14 @@
 std::vector<Patch*> Patch::Patches;
 
 Patch::Patch(PatchType type, Dll dll, Offsets offsets, int function, int length)
-	: type(type), dll(dll), offsets(offsets), function(function), length(length) {
+	: type(type), dll(dll), offsets(offsets), substitutions({ 0 }), function(function), length(length) {
 	oldCode = new BYTE[length];
 	injected = false;
 	Patches.push_back(this);
 }
 
 Patch::Patch(PatchType type, Dll dll, Offsets offsets, Substitutions substitutions, int length)
-	: type(type), dll(dll), offsets(offsets), substitutions(substitutions), length(length) {
+	: type(type), dll(dll), offsets(offsets), substitutions(substitutions), function(NULL), length(length) {
 	oldCode = new BYTE[length];
 	injected = false;
 	Patches.push_back(this);
