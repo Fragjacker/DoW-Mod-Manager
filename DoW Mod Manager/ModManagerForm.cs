@@ -927,7 +927,7 @@ namespace DoW_Mod_Manager
            ref SECURITY_ATTRIBUTES lpProcessAttributes,
            ref SECURITY_ATTRIBUTES lpThreadAttributes,
            bool bInheritHandles,
-           uint dwCreationFlags,
+           ProcessCreationFlags dwCreationFlags,
            IntPtr lpEnvironment,
            string lpCurrentDirectory,
            ref STARTUPINFO lpStartupInfo,
@@ -949,13 +949,47 @@ namespace DoW_Mod_Manager
             public PROCESS_INFORMATION lpProcessInformation;
         }
 
-        [DllImport("..\\UNI_EXT\\release\\UNI_EXT.dll", CharSet = CharSet.Auto)]
+        public enum ProcessCreationFlags : uint
+        {
+            DEBUG_PROCESS = 0x00000001,
+            DEBUG_ONLY_THIS_PROCESS = 0x00000002,
+            CREATE_SUSPENDED = 0x00000004,
+            DETACHED_PROCESS = 0x00000008,
+            CREATE_NEW_CONSOLE = 0x00000010,
+            NORMAL_PRIORITY_CLASS = 0x00000020,
+            IDLE_PRIORITY_CLASS = 0x00000040,
+            HIGH_PRIORITY_CLASS = 0x00000080,
+            REALTIME_PRIORITY_CLASS = 0x00000100,
+            CREATE_NEW_PROCESS_GROUP = 0x00000200,
+            CREATE_UNICODE_ENVIRONMENT = 0x00000400,
+            CREATE_SEPARATE_WOW_VDM = 0x00000800,
+            CREATE_SHARED_WOW_VDM = 0x00001000,
+            CREATE_FORCEDOS = 0x00002000,
+            BELOW_NORMAL_PRIORITY_CLASS = 0x00004000,
+            ABOVE_NORMAL_PRIORITY_CLASS = 0x00008000,
+            INHERIT_PARENT_AFFINITY = 0x00010000,
+            INHERIT_CALLER_PRIORITY = 0x00020000,
+            CREATE_PROTECTED_PROCESS = 0x00040000,
+            EXTENDED_STARTUPINFO_PRESENT = 0x00080000,
+            PROCESS_MODE_BACKGROUND_BEGIN = 0x00100000,
+            PROCESS_MODE_BACKGROUND_END = 0x00200000,
+            CREATE_BREAKAWAY_FROM_JOB = 0x01000000,
+            CREATE_PRESERVE_CODE_AUTHZ_LEVEL = 0x02000000,
+            CREATE_DEFAULT_ERROR_MODE = 0x04000000,
+            CREATE_NO_WINDOW = 0x08000000,
+            PROFILE_USER = 0x10000000,
+            PROFILE_KERNEL = 0x20000000,
+            PROFILE_SERVER = 0x40000000,
+            CREATE_IGNORE_SYSTEM_DEFAULT = 0x80000000,
+        }
+
+        [DllImport("UNI_EXT.dll", CharSet = CharSet.Auto)]
         public static extern void DetourCreateProcessWithDllEx(string lpApplicationName,
                                           string lpCommandLine,
                                           ref SECURITY_ATTRIBUTES lpProcessAttributes,
                                           ref SECURITY_ATTRIBUTES lpThreadAttributes,
                                           bool bInheritHandles,
-                                          uint dwCreationFlags,
+                                          ProcessCreationFlags dwCreationFlags,
                                           IntPtr lpEnvironment,
                                           string lpCurrentDirectory,
                                           [In] ref STARTUPINFO lpStartupInfo,
@@ -983,22 +1017,23 @@ namespace DoW_Mod_Manager
             proc.StartInfo.FileName = CurrentGameEXE;
             proc.StartInfo.Arguments = arguments;
             proc.Start();
+           
+            STARTUPINFO si = new STARTUPINFO();
+            PROCESS_INFORMATION pi = new PROCESS_INFORMATION();
+            SECURITY_ATTRIBUTES pa = new SECURITY_ATTRIBUTES();
+            SECURITY_ATTRIBUTES ta = new SECURITY_ATTRIBUTES();
+            PDETOUR_CREATE_PROCESS_ROUTINEA cp = new PDETOUR_CREATE_PROCESS_ROUTINEA();
+
+            si.cb = Marshal.SizeOf(si);
+            si.dwFlags = StartFlags.STARTF_USESHOWWINDOW;
+            si.wShowWindow = WindowShowStyle.Show; 
+
+            DetourCreateProcessWithDllEx(CurrentGameEXE, arguments, ref pa, ref ta, true,
+                   ProcessCreationFlags.CREATE_DEFAULT_ERROR_MODE | ProcessCreationFlags.CREATE_SUSPENDED,
+                   IntPtr.Zero, null, ref si, out pi,
+                   "UNI_EXT.dll", out cp);
+        
             /*
-            STARTUPINFO si;
-            PROCESS_INFORMATION pi;
-
-            ZeroMemory(&si, sizeof(si));
-            ZeroMemory(&pi, sizeof(pi));
-            si.cb = sizeof(si);
-            si.dwFlags = STARTF_USESHOWWINDOW;
-            si.wShowWindow = SW_SHOW;
-
-            DetourCreateProcessWithDllEx(CurrentGameEXE, arguments, null, null, true,
-        CREATE_DEFAULT_ERROR_MODE,// | CREATE_SUSPENDED,
-        null, null, &si, &pi,
-        "UNI_EXT.dll", null);
-        */
-
             _dowProcessName = proc.ProcessName;
 
             // Create new thread to change the process CPU affinity after the game has started.
@@ -1083,6 +1118,7 @@ namespace DoW_Mod_Manager
                 }
                 ).Start();
             }
+            */
         }
 
         /// <summary>
