@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Security.Permissions;
 using System.Reflection;
 using System.Threading;
+using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using System.Runtime;
 using System.Text;
@@ -792,6 +793,176 @@ namespace DoW_Mod_Manager
             StartGameWithOptions(installedModsListBox.SelectedItem.ToString());
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SECURITY_ATTRIBUTES
+        {
+            public int nLength;
+            public IntPtr lpSecurityDescriptor;
+            public bool bInheritHandle;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct PROCESS_INFORMATION
+        {
+            public IntPtr hProcess;
+            public IntPtr hThread;
+            public int dwProcessId;
+            public int dwThreadId;
+        }
+
+        [Flags]
+        public enum StartFlags : int
+        {
+            STARTF_USESHOWWINDOW = 0x00000001,
+            STARTF_USESIZE = 0x00000002,
+            STARTF_USEPOSITION = 0x00000004,
+            STARTF_USECOUNTCHARS = 0x00000008,
+            STARTF_USEFILLATTRIBUTE = 0x00000010,
+            STARTF_RUNFULLSCREEN = 0x00000020, // ignored by non-x86 platforms
+            STARTF_FORCEONFEEDBACK = 0x00000040,
+            STARTF_FORCEOFFFEEDBACK = 0x00000080,
+            STARTF_USESTDHANDLES = 0x00000100,
+        }
+
+        public enum WindowShowStyle : uint
+        {
+            /// <summary>Hides the window and activates another window.</summary>
+            /// <remarks>See SW_HIDE</remarks>
+            Hide = 0,
+            /// <summary>Activates and displays a window. If the window is minimized
+            /// or maximized, the system restores it to its original size and
+            /// position. An application should specify this flag when displaying
+            /// the window for the first time.</summary>
+            /// <remarks>See SW_SHOWNORMAL</remarks>
+            ShowNormal = 1,
+            /// <summary>Activates the window and displays it as a minimized window.</summary>
+            /// <remarks>See SW_SHOWMINIMIZED</remarks>
+            ShowMinimized = 2,
+            /// <summary>Activates the window and displays it as a maximized window.</summary>
+            /// <remarks>See SW_SHOWMAXIMIZED</remarks>
+            ShowMaximized = 3,
+            /// <summary>Maximizes the specified window.</summary>
+            /// <remarks>See SW_MAXIMIZE</remarks>
+            Maximize = 3,
+            /// <summary>Displays a window in its most recent size and position.
+            /// This value is similar to "ShowNormal", except the window is not
+            /// actived.</summary>
+            /// <remarks>See SW_SHOWNOACTIVATE</remarks>
+            ShowNormalNoActivate = 4,
+            /// <summary>Activates the window and displays it in its current size
+            /// and position.</summary>
+            /// <remarks>See SW_SHOW</remarks>
+            Show = 5,
+            /// <summary>Minimizes the specified window and activates the next
+            /// top-level window in the Z order.</summary>
+            /// <remarks>See SW_MINIMIZE</remarks>
+            Minimize = 6,
+            /// <summary>Displays the window as a minimized window. This value is
+            /// similar to "ShowMinimized", except the window is not activated.</summary>
+            /// <remarks>See SW_SHOWMINNOACTIVE</remarks>
+            ShowMinNoActivate = 7,
+            /// <summary>Displays the window in its current size and position. This
+            /// value is similar to "Show", except the window is not activated.</summary>
+            /// <remarks>See SW_SHOWNA</remarks>
+            ShowNoActivate = 8,
+            /// <summary>Activates and displays the window. If the window is
+            /// minimized or maximized, the system restores it to its original size
+            /// and position. An application should specify this flag when restoring
+            /// a minimized window.</summary>
+            /// <remarks>See SW_RESTORE</remarks>
+            Restore = 9,
+            /// <summary>Sets the show state based on the SW_ value specified in the
+            /// STARTUPINFO structure passed to the CreateProcess function by the
+            /// program that started the application.</summary>
+            /// <remarks>See SW_SHOWDEFAULT</remarks>
+            ShowDefault = 10,
+            /// <summary>Windows 2000/XP: Minimizes a window, even if the thread
+            /// that owns the window is hung. This flag should only be used when
+            /// minimizing windows from a different thread.</summary>
+            /// <remarks>See SW_FORCEMINIMIZE</remarks>
+            ForceMinimized = 11
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct STARTUPINFO
+        {
+            public int cb;
+            public string lpReserved;
+            public string lpDesktop;
+            public string lpTitle;
+            public int dwX;
+            public int dwY;
+            public int dwXSize;
+            public int dwYSize;
+            public int dwXCountChars;
+            public int dwYCountChars;
+            public int dwFillAttribute;
+            public StartFlags dwFlags;
+            public WindowShowStyle wShowWindow;
+            public short cbReserved2;
+            public IntPtr lpReserved2;
+            public IntPtr hStdInput;
+            public IntPtr hStdOutput;
+            public IntPtr hStdError;
+        }
+
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        static extern bool CreateProcess(
+           string lpApplicationName,
+           string lpCommandLine,
+           ref SECURITY_ATTRIBUTES lpProcessAttributes,
+           ref SECURITY_ATTRIBUTES lpThreadAttributes,
+           bool bInheritHandles,
+           uint dwCreationFlags,
+           IntPtr lpEnvironment,
+           string lpCurrentDirectory,
+           [In] ref STARTUPINFO lpStartupInfo,
+           out PROCESS_INFORMATION lpProcessInformation);
+
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        static extern bool CreateProcessAsUserA(
+           IntPtr hToken,
+           string lpApplicationName,
+           string lpCommandLine,
+           ref SECURITY_ATTRIBUTES lpProcessAttributes,
+           ref SECURITY_ATTRIBUTES lpThreadAttributes,
+           bool bInheritHandles,
+           uint dwCreationFlags,
+           IntPtr lpEnvironment,
+           string lpCurrentDirectory,
+           ref STARTUPINFO lpStartupInfo,
+           out PROCESS_INFORMATION lpProcessInformation
+         );
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct PDETOUR_CREATE_PROCESS_ROUTINEA
+        {
+            public string lpApplicationName;
+            public string lpCommandLine;
+            public SECURITY_ATTRIBUTES lpProcessAttributes;
+            public SECURITY_ATTRIBUTES lpThreadAttributes;
+            public bool bInheritHandles;
+            public uint dwCreationFlags;
+            public IntPtr lpEnvironment;
+            public string lpCurrentDirectory;
+            public STARTUPINFO lpStartupInfo;
+            public PROCESS_INFORMATION lpProcessInformation;
+        }
+
+        [DllImport("..\\UNI_EXT\\release\\UNI_EXT.dll", CharSet = CharSet.Auto)]
+        public static extern void DetourCreateProcessWithDllEx(string lpApplicationName,
+                                          string lpCommandLine,
+                                          ref SECURITY_ATTRIBUTES lpProcessAttributes,
+                                          ref SECURITY_ATTRIBUTES lpThreadAttributes,
+                                          bool bInheritHandles,
+                                          uint dwCreationFlags,
+                                          IntPtr lpEnvironment,
+                                          string lpCurrentDirectory,
+                                          [In] ref STARTUPINFO lpStartupInfo,
+                                          out PROCESS_INFORMATION lpProcessInformation,
+                                          string lpDllName,
+                                          out PDETOUR_CREATE_PROCESS_ROUTINEA pfCreateProcessA);
+
         /// <summary>
         /// This method handles starting an instance of CurrentGameEXE with arguments
         /// </summary>
@@ -807,11 +978,26 @@ namespace DoW_Mod_Manager
                 arguments += " -nomovies";
             if (settings[FORCE_HIGH_POLY] == 1)
                 arguments += " -forcehighpoly";
-
+            
             Process proc = new Process();
             proc.StartInfo.FileName = CurrentGameEXE;
             proc.StartInfo.Arguments = arguments;
             proc.Start();
+            /*
+            STARTUPINFO si;
+            PROCESS_INFORMATION pi;
+
+            ZeroMemory(&si, sizeof(si));
+            ZeroMemory(&pi, sizeof(pi));
+            si.cb = sizeof(si);
+            si.dwFlags = STARTF_USESHOWWINDOW;
+            si.wShowWindow = SW_SHOW;
+
+            DetourCreateProcessWithDllEx(CurrentGameEXE, arguments, null, null, true,
+        CREATE_DEFAULT_ERROR_MODE,// | CREATE_SUSPENDED,
+        null, null, &si, &pi,
+        "UNI_EXT.dll", null);
+        */
 
             _dowProcessName = proc.ProcessName;
 
