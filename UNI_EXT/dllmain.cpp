@@ -21,6 +21,3 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 	}
 	return TRUE;
 }
-
-BOOL APIENTRY DetourCreateProcessWithDllEx();
-

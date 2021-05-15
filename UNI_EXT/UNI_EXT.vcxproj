@@ -94,6 +94,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>/WHOLEARCHIVE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -127,6 +128,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>lib.X86/detours.lib;lib.X86/syelog.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>UNI_EXT.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -184,6 +186,9 @@
     <ClCompile Include="SoulstormVersion.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="UNI_EXT.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UNI_EXT.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

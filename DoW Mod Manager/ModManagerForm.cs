@@ -1012,12 +1012,12 @@ namespace DoW_Mod_Manager
                 arguments += " -nomovies";
             if (settings[FORCE_HIGH_POLY] == 1)
                 arguments += " -forcehighpoly";
-            
+            /*
             Process proc = new Process();
             proc.StartInfo.FileName = CurrentGameEXE;
             proc.StartInfo.Arguments = arguments;
             proc.Start();
-           
+           */
             STARTUPINFO si = new STARTUPINFO();
             PROCESS_INFORMATION pi = new PROCESS_INFORMATION();
             SECURITY_ATTRIBUTES pa = new SECURITY_ATTRIBUTES();
