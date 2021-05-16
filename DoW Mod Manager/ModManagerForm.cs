@@ -1012,12 +1012,12 @@ namespace DoW_Mod_Manager
                 arguments += " -nomovies";
             if (settings[FORCE_HIGH_POLY] == 1)
                 arguments += " -forcehighpoly";
-            /*
+            
             Process proc = new Process();
             proc.StartInfo.FileName = CurrentGameEXE;
             proc.StartInfo.Arguments = arguments;
             proc.Start();
-           */
+           /*
             STARTUPINFO si = new STARTUPINFO();
             PROCESS_INFORMATION pi = new PROCESS_INFORMATION();
             SECURITY_ATTRIBUTES pa = new SECURITY_ATTRIBUTES();
@@ -1032,8 +1032,8 @@ namespace DoW_Mod_Manager
                    ProcessCreationFlags.CREATE_DEFAULT_ERROR_MODE | ProcessCreationFlags.CREATE_SUSPENDED,
                    IntPtr.Zero, null, ref si, out pi,
                    "UNI_EXT.dll", out cp);
-        
-            /*
+            */
+            
             _dowProcessName = proc.ProcessName;
 
             // Create new thread to change the process CPU affinity after the game has started.
@@ -1118,7 +1118,7 @@ namespace DoW_Mod_Manager
                 }
                 ).Start();
             }
-            */
+            
         }
 
         /// <summary>

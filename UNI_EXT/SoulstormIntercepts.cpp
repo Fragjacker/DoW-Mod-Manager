@@ -40,12 +40,12 @@ int __declspec(naked) new_BindButtonClickedEntry_Function()
 	{
 		push    esi
 		lea     edx, [esp + 0x24 - 0x10]
-		push    offset SOULSTORM_buttonToggleArmyClicked_I
+		push    SOULSTORM_buttonToggleArmyClicked_I
 		push    edx
 		call    SOULSTORM_sub_78F520
 		add     esp, 0x0C
 		push    eax
-		push    offset SOULSTORM_aDeepStrike_I
+		push    SOULSTORM_aDeepStrike_I
 		mov     ecx, edi
 		call    ebx
 	}

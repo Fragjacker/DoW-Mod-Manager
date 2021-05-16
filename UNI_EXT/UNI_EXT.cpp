@@ -23,11 +23,11 @@ Patch* patches[] = {
 	// increase maximum number of honor guard units in campaign commander screen
 	new Patch(Overwrite, SOULSTORM,{ 0x81F348, 0x6BDD1C },{ 0x12, 0x00, 0x00, 0x00 }, 4),
 
-	// modify SWFwidget bind from 'ToggleArmy' back to 'ToggleArmy' ('deep_strike' will be next iteration)
-	new Patch(Overwrite, SOULSTORM,{ 0x391C4E, -1 },{ 0x58 }, 1),
+	// modify SWFwidget bind from 'ToggleArmy' to 'deep_strike'
+	//new Patch(Overwrite, SOULSTORM,{ 0x391C4E, -1 },{ 0x20, 0x40, 0xAD, 0x00 }, 4),
 
 	// insert new FSCommand
-	//new Patch(Call, SOULSTORM,{ 0x391C39, -1 }, (int)new_BindButtonClickedEntry_Function, 5),
+	new Patch(Call, SOULSTORM,{ 0x391C39, -1 }, (int)new_BindButtonClickedEntry_Function, 5),
 
 	// create new strings in code
 	//new Patch(Overwrite, SOULSTORM,{ 0x6D2447, -1 },{ 0x00, 't','h','r','o','w','n' }, 7),
