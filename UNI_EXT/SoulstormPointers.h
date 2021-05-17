@@ -53,11 +53,19 @@
 #endif
 
 //offsets are in format _steam, _cd
+
+//for function new_BindButtonClickedEntry_Function
 FUNCPTR(SOULSTORM, sub_78F520, int* __stdcall, (int, int, int), 0x38F520, -1)
 
 ASMPTR(SOULSTORM, buttonToggleArmyClicked_I, 0x38DB80, -1)
 ASMPTR(SOULSTORM, aToggleArmy_I, 0x6D4058, -1)
 ASMPTR(SOULSTORM, aDeepStrike_I, 0x6D4020, -1)
+
+//for function definitionButtonToggleArmyClicked
+FUNCPTR(USERINTERFACE, Invoke_SwfWidget_UI__QAAPBDPBD0ZZ, char const* __cdecl, (char const*, char const*, ...), 0x4CEB0, -1)
+
+ASMPTR(SOULSTORM, aD_I, 0x7455BC, -1)
+ASMPTR(SOULSTORM, a_root_showst_0_I, 0x6D3AA4, -1)
 //VARPTR(SOULSTORM, buttonToggleArmyClicked, DWORD, 0x78DB80, -1)
 
 #undef FUNCPTR

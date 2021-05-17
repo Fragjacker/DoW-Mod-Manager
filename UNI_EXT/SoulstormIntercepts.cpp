@@ -26,6 +26,22 @@ int __declspec(naked) Metamap_Action_Selector_Function()
 }
 */
 
+
+int __stdcall definitionButtonToggleArmyClicked(int)
+{
+	__asm
+	{
+		push    1
+		push    SOULSTORM_aD_I //"%d"
+		add     ecx, 0x50 //'P'
+		push    SOULSTORM_a_root_showst_0_I //"_root.ShowStatsArmy"
+		push    ecx
+		call    USERINTERFACE_Invoke_SwfWidget_UI__QAAPBDPBD0ZZ
+		add     esp, 0x10
+		retn    4
+	}
+}
+
 int __declspec(naked) new_BindButtonClickedEntry_Function()
 {
 	// save address to return in the future
@@ -40,7 +56,7 @@ int __declspec(naked) new_BindButtonClickedEntry_Function()
 	{
 		push    esi
 		lea     edx, [esp + 0x24 - 0x10]
-		push    SOULSTORM_buttonToggleArmyClicked_I
+		push    definitionButtonToggleArmyClicked
 		push    edx
 		call    SOULSTORM_sub_78F520
 		add     esp, 0x0C
@@ -57,7 +73,8 @@ int __declspec(naked) new_BindButtonClickedEntry_Function()
 		//popad
 		push    esi
 		lea     edx, [esp + 0x24 - 0x10]
-		push return_address
+		push	return_address
 		ret
 	}
 }
+
