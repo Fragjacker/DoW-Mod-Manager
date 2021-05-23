@@ -66,7 +66,18 @@ FUNCPTR(USERINTERFACE, Invoke_SwfWidget_UI__QAAPBDPBD0ZZ, char const* __cdecl, (
 
 ASMPTR(SOULSTORM, aD_I, 0x7455BC, -1)
 ASMPTR(SOULSTORM, a_root_showst_0_I, 0x6D3AA4, -1)
-//VARPTR(SOULSTORM, buttonToggleArmyClicked, DWORD, 0x78DB80, -1)
+
+//for function runAction
+FUNCPTR(SOULSTORM, sub_66DE90, int __stdcall, (int, int), 0x26DE90, -1)
+FUNCPTR(SOULSTORM, runAnimationOnMetaMapMenuModel, int __stdcall, (int, int, int), 0x377BD0, -1)
+FUNCPTR(SOULSTORM, sub_78F540, int __stdcall, (int, int, int), 0x38F540, -1)
+FUNCPTR(SOULSTORM, sub_787020, int __stdcall, (int, int, int), 0x387020, -1)
+FUNCPTR(SOULSTORM, sub_75EC70, int __stdcall, (int, int, int), 0x35EC70, -1)
+
+ASMPTR(SOULSTORM, dieActionString_I, 0x6D3A84, -1)
+ASMPTR(SOULSTORM, flt_C1F44C_I, 0x81F44C, -1)
+ASMPTR(SOULSTORM, sub_78EC00, 0x38EC00, -1)
+ASMPTR(SOULSTORM, off_C1F448_I, 0x81F448, -1)
 
 #undef FUNCPTR
 #undef ASMPTR

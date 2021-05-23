@@ -29,6 +29,9 @@ Patch* patches[] = {
 	// insert new FSCommand
 	new Patch(Call, SOULSTORM,{ 0x391C39, -1 }, (int)new_BindButtonClickedEntry_Function, 5),
 
+	// modify campaign model starting action from 'die' to 'idle'
+	//new Patch(Overwrite, SOULSTORM,{ 0x3913D7, -1 },{ 0x74, 0xBD, 0xB3, 0x00 }, 4),
+
 	// create new strings in code
 	//new Patch(Overwrite, SOULSTORM,{ 0x6D2447, -1 },{ 0x00, 't','h','r','o','w','n' }, 7),
 	// modify runZoomAnimation? function to use new string
