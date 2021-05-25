@@ -43,12 +43,20 @@ int __stdcall runAction(int)
 		*/
 	//	SOULSTORM_runAnimationOnMetaMapMenuModel(SOULSTORM_dieActionString_I, SOULSTORM_dieActionString_I, 0);
 //	return 0;
-	
+
+	__asm
+	{
+		mov     ecx, [esi + 0x178]
+		call    SOULSTORM_sub_776140
+		mov     ecx, esi
+		call    SOULSTORM_setOverlayEnabledFunction
+	}
+	/*
 	__asm
 	{
 		push	esi
 		mov     ecx, esp
-		//add     esp, 0x0C
+		sub     esp, 0x0C
 		mov		[esi + 0x7C], esp
 		lea     edx, [esi + 0x7C]
 		push    edx
@@ -57,10 +65,17 @@ int __stdcall runAction(int)
         mov     ecx, [esi + 0x178]
         call    SOULSTORM_runAnimationOnMetaMapMenuModel
 		//fld     SOULSTORM_flt_C1F44C_I
-		add     esp, 0x0C
+		sub     esp, 0x0C
+		//mov     eax, esp
+		//fstp    dword ptr[esp + 8]
+		//mov[esp + 0x7C], esp
+		//push    esi
+		mov     ecx, esi
+		call    SOULSTORM_sub_78EC00
 		pop		esi
 		ret		4
 	}
+	*/
 	/*
 	__asm
 	{
@@ -96,6 +111,40 @@ int __stdcall runAction(int)
 		ret		4
 	}
 	*/
+}
+
+// copy of function from definitionButtonInspectClicked button
+int __stdcall definitionButtonInspectClicked(int)
+{
+	__asm
+	{
+
+		push    esi
+		mov     esi, ecx
+		push    SOULSTORM_String
+		lea     eax, [esi + 0x50]
+		push    SOULSTORM_a_root_sidebarh
+		push    eax
+		call    USERINTERFACE_Invoke_SwfWidget_UI__QAAPBDPBD0ZZ
+		add     esp, 0x10
+		/*
+		add     esp, 4
+		mov     ecx, esp
+		push    esi
+		push    SOULSTORM_loc_78E070
+		push    ecx
+		call    SOULSTORM_setPointerToArgument2Function
+		add     esp, 0x0C
+		mov     ecx, esi
+		call    SOULSTORM_sub_787320
+		mov     edx, [esi + 0x38]
+		push    edx
+		mov     ecx, esi
+		call    SOULSTORM_openAnotherGFXFile
+		*/
+		pop     esi
+		retn    4
+	}
 }
 
 // copy of function from ToggleArmy button
@@ -146,9 +195,10 @@ int __declspec(naked) new_BindButtonClickedEntry_Function()
 	{
 		push    esi
 		lea     edx, [esp + 0x24 - 0x10]
-		push    runAction
+		push    definitionButtonInspectClicked
 		push    edx
 		call    SOULSTORM_sub_78F520
+		//call    SOULSTORM_sub_78F4C0
 		add     esp, 0x0C
 		push    eax
 		push    SOULSTORM_aDeepStrike_I

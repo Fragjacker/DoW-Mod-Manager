@@ -79,6 +79,23 @@ ASMPTR(SOULSTORM, flt_C1F44C_I, 0x81F44C, -1)
 ASMPTR(SOULSTORM, sub_78EC00, 0x38EC00, -1)
 ASMPTR(SOULSTORM, off_C1F448_I, 0x81F448, -1)
 
+// run standard metamap action 
+FUNCPTR(SOULSTORM, sub_776140, int __stdcall, (void), 0x376140, -1)
+FUNCPTR(SOULSTORM, setOverlayEnabledFunction, int __stdcall, (void), 0x38EC00, -1)
+
+// definition for definitionEnterMetamapScreenFunction?
+FUNCPTR(SOULSTORM, definitionEnterMetamapScreenFunction, int __stdcall, (int, int), 0x391990, -1)
+FUNCPTR(SOULSTORM, sub_78F4C0, int __stdcall, (int, int, int), 0x38F4C0, -1)
+
+// definition for definitionButtonEndTurnClicked function
+FUNCPTR(SOULSTORM, setPointerToArgument2Function, int __cdecl, (int, int, int), 0x38F540, -1)
+FUNCPTR(SOULSTORM, sub_787320, int __stdcall, (int, int), 0x387320, -1)
+FUNCPTR(SOULSTORM, openAnotherGFXFile, int __stdcall, (int), 0x38EC70, -1)
+
+ASMPTR(SOULSTORM, String, 0x70DB8B, -1)
+ASMPTR(SOULSTORM, a_root_sidebarh, 0x6D3174, -1)
+ASMPTR(SOULSTORM, loc_78E070, 0x38E070, -1)
+
 #undef FUNCPTR
 #undef ASMPTR
 #undef VARPTR
