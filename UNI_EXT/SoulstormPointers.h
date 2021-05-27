@@ -91,10 +91,15 @@ FUNCPTR(SOULSTORM, sub_78F4C0, int __stdcall, (int, int, int), 0x38F4C0, -1)
 FUNCPTR(SOULSTORM, setPointerToArgument2Function, int __cdecl, (int, int, int), 0x38F540, -1)
 FUNCPTR(SOULSTORM, sub_787320, int __stdcall, (int, int), 0x387320, -1)
 FUNCPTR(SOULSTORM, openAnotherGFXFile, int __stdcall, (int), 0x38EC70, -1)
+FUNCPTR(SOULSTORM, runZoomAnimation, int __stdcall, (int, int), 0x378080, -1)
+FUNCPTR(SOULSTORM, sub_96EAA0, int, (void), 0x56EAA0, -1)
+FUNCPTR(SOULSTORM, sub_96F440, int, (void), 0x56F440, -1)
 
 ASMPTR(SOULSTORM, String, 0x70DB8B, -1)
 ASMPTR(SOULSTORM, a_root_sidebarh, 0x6D3174, -1)
 ASMPTR(SOULSTORM, loc_78E070, 0x38E070, -1)
+
+ASMPTR(SOULSTORM, a_root_sidebars, 0x6D3188, -1)
 
 #undef FUNCPTR
 #undef ASMPTR
