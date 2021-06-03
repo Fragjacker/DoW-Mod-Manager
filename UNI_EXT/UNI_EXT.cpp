@@ -29,6 +29,10 @@ Patch* patches[] = {
 	// insert new FSCommand
 	new Patch(Call, SOULSTORM,{ 0x391C39, -1 }, (int)new_BindButtonClickedEntry_Function, 5),
 
+	// enable action 'die' in 'metamap.gfx' every time it's loaded
+	//new Patch(Overwrite, SOULSTORM,{ 0x3913C6, -1 },{ 0x90, 0x90 }, 2),
+	//new Patch(Overwrite, SOULSTORM,{ 0x3919A0, -1 },{ 0x90, 0x90 }, 2),
+
 	// modify campaign model starting action from 'die' to 'idle'
 	//new Patch(Overwrite, SOULSTORM,{ 0x3913D7, -1 },{ 0x74, 0xBD, 0xB3, 0x00 }, 4),
 
