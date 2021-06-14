@@ -16,11 +16,12 @@ namespace SSNoFog
 {
     public static class FogRemover
     {
-        private static readonly byte[] nope6             = new byte[6] { 144, 144, 144, 144, 144, 144 };
+        private static readonly byte[] getZero           = new byte[6] { 217, 238,  15,  31,  64,   0 };
+        private static readonly byte[] setNothing        = new byte[6] { 221, 216,  15,  31,  64,   0 };
         private static readonly byte[] float512          = new byte[4] {   0,   0,   0,  68 };
-        private static readonly byte[] codeF512          = new byte[4] {   0,   0, 192,  66 };
-        private static readonly byte[] jmpFog            = new byte[6] { 217, 129,  96,  12,   0,   0 };
-        private static readonly byte[] jmpMapSkyDistance = new byte[6] { 217, 155, 112,  12,   0,   0 };
+        private static readonly byte[] float96           = new byte[4] {   0,   0, 192,  66 };
+        private static readonly byte[] getFog            = new byte[6] { 217, 129,  96,  12,   0,   0 };
+        private static readonly byte[] setMapSkyDistance = new byte[6] { 217, 155, 112,  12,   0,   0 };
 
         private const int PAGE_EXECUTE_READWRITE = 0x40;
 
@@ -58,9 +59,9 @@ namespace SSNoFog
             IntPtr pHandle = OpenProcess(56, false, process.Id);
             try
             {
-                CheckToggleMemory(fogAddress, jmpFog, nope6, pHandle);
-                CheckToggleMemory(float512Address, codeF512, float512, pHandle);
-                CheckToggleMemory(mapSkyDistanceAddress, jmpMapSkyDistance, nope6, pHandle);
+                CheckToggleMemory(fogAddress, getFog, getZero, pHandle);
+                CheckToggleMemory(float512Address, float96, float512, pHandle);
+                CheckToggleMemory(mapSkyDistanceAddress, setMapSkyDistance, setNothing, pHandle);
             }
             finally
             {
