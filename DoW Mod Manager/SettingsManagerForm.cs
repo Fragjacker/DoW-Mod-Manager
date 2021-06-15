@@ -482,9 +482,8 @@ namespace DoW_Mod_Manager
             string profileName = settings[PLAYER_PROFILE];
             int index = currentPlayerComboBox.SelectedIndex;
             if (index > -1)
-            {
                 profileName = PROFILE + (index + 1);
-            }
+
             string pathToPlayerConfig = PROFILES_PATH + "\\" + profileName + "\\" + PLAYERCONFIG;
 
             if (File.Exists(pathToPlayerConfig))

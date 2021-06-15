@@ -16,7 +16,7 @@ namespace DoW_Mod_Manager
 {
     public partial class ModManagerForm : Form
     {
-        public static class GameExecutable
+        public struct GameExecutable
         {
             public const string ORIGINAL = "W40k.exe";
             public const string WINTER_ASSAULT = "W40kWA.exe";
@@ -51,8 +51,8 @@ namespace DoW_Mod_Manager
         private bool _isMessageBoxOnScreen = false;
         private bool _isOldGame;
         private string _dowProcessName = "";
-        private ToolTip _disabledNoFogTooltip = new ToolTip();
-        private Control _currentToolTipControl = null;
+        private readonly ToolTip _disabledNoFogTooltip = new ToolTip();
+        private Control _currentToolTipControl;
 
         public readonly string CurrentDir = Directory.GetCurrentDirectory();
         public readonly string CurrentGameEXE = "";
