@@ -118,10 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="changelogTextBox.Text" xml:space="preserve">
-    <value>## Version 2.1.6
+    <value>## Version 2.1.7
+
+- Fixed randomize sounds option setting not being saved properly.
+- Fixed sound slider values not being restored properly when reopening the window.
+- Fixed possible stack corruption of the no-fog function and overall improvement of the code. (Thanks to user @BlueAmulet)
+
+## Version 2.1.6
 
 - Fixed a problem with a secure TLS/SSL connection on Windows 7 when checking for an update or downloading ModList (thanks, IgorTheLight)
-- Added a new checkbox in the Settings->Video tab to allow the user to easily set the usage of the DirectX 8 cursor (aka. -allowhwcursor). Setting this to zero can help with flickering cursor issues.
+- Added a new checkbox in the Settings-&gt;Video tab to allow the user to easily set the usage of the DirectX 8 cursor (aka. -allowhwcursor). Setting this to zero can help with flickering cursor issues.
 - Added a new tooltip to explain what this option does.
 - Rearranged several UI elements in the main Mod Manager form into panels to allow for better scaling of the buttons etc.
 - Refactored code a little bit so it's more human-friendly (by IgorTheLight)
