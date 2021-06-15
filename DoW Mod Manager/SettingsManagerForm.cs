@@ -479,7 +479,12 @@ namespace DoW_Mod_Manager
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ReadSettingsFromPlayercfgLUA()
         {
-            string profileName = PROFILE + (currentPlayerComboBox.SelectedIndex + 1);
+            string profileName = settings[PLAYER_PROFILE];
+            int index = currentPlayerComboBox.SelectedIndex;
+            if (index > -1)
+            {
+                profileName = PROFILE + (index + 1);
+            }
             string pathToPlayerConfig = PROFILES_PATH + "\\" + profileName + "\\" + PLAYERCONFIG;
 
             if (File.Exists(pathToPlayerConfig))
@@ -620,7 +625,7 @@ namespace DoW_Mod_Manager
                 if (settings[SOUND_LIMIT_SAMPLES] == "1")       // We have to invert it for covienience
                     randomizedSoundsCheckBox.Checked = false;
                 else
-                    randomizedSoundsCheckBox.Checked = false;
+                    randomizedSoundsCheckBox.Checked = true;
                 switch (settings[SOUND_NR_CHANNELS])
                 {
                     case "64":
