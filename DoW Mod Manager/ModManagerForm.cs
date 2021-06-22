@@ -51,7 +51,6 @@ namespace DoW_Mod_Manager
         private bool[] _isInstalled;
         private bool _isGameEXELAAPatched = false;
         private bool _isGraphicsConfigLAAPatched = false;
-        private bool _isGameEXEUNI_EXTPatched = false;
         private bool _isMessageBoxOnScreen = false;
         private bool _isOldGame;
         private string _dowProcessName = "";
