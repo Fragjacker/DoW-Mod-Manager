@@ -101,6 +101,7 @@ FUNCPTR(SOULSTORM, sub_7761C0, int __stdcall, (char, char), 0x3761C0, -1)
 ASMPTR(SOULSTORM, String, 0x70DB8B, -1)
 ASMPTR(SOULSTORM, a_root_sidebarh, 0x6D3174, -1)
 ASMPTR(SOULSTORM, loc_78E070, 0x38E070, -1)
+ASMPTR(SOULSTORM, FrameHandler3Jump, 0x668D1C, -1)
 
 ASMPTR(SOULSTORM, a_root_sidebars, 0x6D3188, -1)
 

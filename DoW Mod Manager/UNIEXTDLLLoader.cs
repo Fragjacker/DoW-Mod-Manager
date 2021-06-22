@@ -212,8 +212,9 @@ namespace SSUNI_EXTTDLL
             }
             else
             {
-                //message += "[+] Obtaining a handle to remote thread (0x" + RemoteThreadHandle + ") in target process is successful.\n";
-                ThemedMessageBox.Show(message + "[+] Obtaining a handle to remote thread (0x" + RemoteThreadHandle + ") in target process is successful.", "UNI_EXT.DLL messages");
+                message += "[+] Obtaining a handle to remote thread (0x" + RemoteThreadHandle + ") in target process is successful.\n";
+                System.Threading.Thread.Sleep(3000);
+                //ThemedMessageBox.Show(message + "[+] Obtaining a handle to remote thread (0x" + RemoteThreadHandle + ") in target process is successful.", "UNI_EXT.DLL messages");
             }
 
             // Deallocate memory assigned to DLL

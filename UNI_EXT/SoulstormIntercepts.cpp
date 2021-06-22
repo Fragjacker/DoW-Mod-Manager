@@ -50,15 +50,17 @@ int __stdcall runAction(int)
 	
 	__asm
 	{
-		push    ebp
+		//push    ebp
 		/*
-		push    0FFFFFFFFh
-		push    offset FrameHandler3Jump ? _1
-		mov     eax, large fs : 0
+		push    0x0FFFFFFFF
+		push    SOULSTORM_FrameHandler3Jump
+		mov     eax, fs : 0
 		push    eax
-		mov     large fs : 0, esp
+		mov     fs : 0, esp
 		sub     esp, 0x50
-		
+		*/
+
+		/*
 		push    ebx
 		push    ebp
 		push    esi
@@ -77,32 +79,48 @@ int __stdcall runAction(int)
 		mov     eax, [edi]
 		mov     edx, [eax + 0x280]
 		mov     ecx, edi
-		mov     byte ptr[esp - 0x44], bl
+		mov     byte ptr[esp - 0x8], bl
 		call    edx
-		mov     byte ptr[esp - 0x40], al
+		mov     byte ptr[esp - 0x4], al
 		
-		mov     eax, [esp - 0x40]
-		mov     edx, [esp - 0x44]
+		mov     eax, [esp - 0x4]
+		mov     edx, [esp - 0x8]
         mov     ecx, [esi + 0x178]
 	    push    eax
 	    push    edx
 		call    SOULSTORM_sub_7761C0
 		
-		//sub     esp, 0Ch
+		sub     esp, 0Ch
 		
 		mov     ecx, esp
-		mov		[esp - 0x48], esp
-		lea     edx, [esp - 0x48]
+		mov		[esp - 0xC], esp
+		lea     edx, [esp - 0xC]
 		push    edx
 		push    SOULSTORM_dieActionString_I
 		call    SOULSTORM_sub_66DE90
 		mov     ecx, [esi + 0x178]
 		call    SOULSTORM_runAnimationOnMetaMapMenuModel
-		add     esp, 0xC
-
-		pop    ebp
+		add     esp, 0x1C
+/*
+		fld     flt_C1F44C
+		sub     esp, 0x0C
+		mov     eax, esp
+		fstp    dword ptr[esp + 8]
+		mov		[esp + 0xC], esp
+		push    esi
+		push    offset setOverlayEnabledFunction ?
+		push    eax
+		call    setPointerToArgument2Function ?
+		add     esp, 0x0C
+		mov     ecx, esi
+		call    sub_787020
+			*/
+		//pop    ebp
 		//pop esi
 		//retn 4
+		/*
+		mov     fs : 0, ecx
+		add     esp, 0x5C
 		/*
 		pop     edi
 		pop     esi
@@ -300,6 +318,19 @@ int __stdcall definitionButtonToggleArmyClicked(int)
 	
 }
 
+int __stdcall prepareAction(int)
+{
+	__asm
+	{
+		//mov     eax, [esp + 0x0C]
+		//push    eax
+		mov     esi, ecx
+		mov     ecx, esi
+		call    runAction
+		//sub		esp, 0x4
+	}
+}
+
 int __declspec(naked) new_BindButtonClickedEntry_Function()
 {
 	// save address to return in the future
@@ -317,7 +348,8 @@ int __declspec(naked) new_BindButtonClickedEntry_Function()
 		//lea     edx, [esp + 0x24 - 0x10]
 		//push    definitionButtonInspectClicked
 		//push	SOULSTORM_definitionEnterMetamapScreenFunction
-		push    runAction
+		//push    runAction
+		push    prepareAction
 		//push    edx
 		push	ecx
 		call    SOULSTORM_sub_78F520
