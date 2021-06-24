@@ -574,7 +574,7 @@ namespace DoW_Mod_Manager
                 int currentScreenAdapter = Convert.ToInt32(settings[SCREEN_ADAPTER]);
 
                 activeVideocardComboBox.Items.AddRange(videocards.ToArray());
-                if (currentScreenAdapter <= videocards.Count)
+                if (currentScreenAdapter < videocards.Count)
                     activeVideocardComboBox.SelectedIndex = currentScreenAdapter;
                 else
                 {
