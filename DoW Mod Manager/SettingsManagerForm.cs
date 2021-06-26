@@ -482,9 +482,8 @@ namespace DoW_Mod_Manager
             string profileName = settings[PLAYER_PROFILE];
             int index = currentPlayerComboBox.SelectedIndex;
             if (index > -1)
-            {
                 profileName = PROFILE + (index + 1);
-            }
+
             string pathToPlayerConfig = PROFILES_PATH + "\\" + profileName + "\\" + PLAYERCONFIG;
 
             if (File.Exists(pathToPlayerConfig))
@@ -575,7 +574,7 @@ namespace DoW_Mod_Manager
                 int currentScreenAdapter = Convert.ToInt32(settings[SCREEN_ADAPTER]);
 
                 activeVideocardComboBox.Items.AddRange(videocards.ToArray());
-                if (currentScreenAdapter <= videocards.Count)
+                if (currentScreenAdapter < videocards.Count)
                     activeVideocardComboBox.SelectedIndex = currentScreenAdapter;
                 else
                 {
