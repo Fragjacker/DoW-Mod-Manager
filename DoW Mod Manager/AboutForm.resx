@@ -118,7 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="changelogTextBox.Text" xml:space="preserve">
-    <value>## Version 2.1.8
+    <value>## Version 2.1.9
+
+- Fixed Mod Merger busting some Mods when attempting to merge, such as Unification.
+- Fixed disabled Mods not to appear as missing mods in the required mods list, preventing the start of the game, eventhough they would be ignored by the game anyways.
+- Removed W40k and DXP2 base game modules from eligible mergeable/starteable mods, since they should never be messed with anyways.
+- Fixed the tooltip for the ''No Fog'' disable checkbox, that didn't appear when it was supposed to.
+- Added new warning label to the Mod Merger to warn users of potential causes of crashes when used inappropriately.
+- Added support for mods, that are not installed but declared as a deactivated mod in a .module file to be displayed and handled in the mod merger.
+- Using a slightly brighter green tone for green text passages.
+- Mod Merger inactive mods are now highlighted in an orange tone, missing mods are now shown in red.
+- Saving a merge now generates a new .module file, leaving the original file intact.
+- Added a new button to the Mod Merger to easily remove a merge from the system and revert to the original file.
+- Fixed a crash with the Mod Manager when deleting multiple .module files at once.
+- The Mod Merger now reacts to files being deleted/added manually from the system by the user.
+
+## Version 2.1.8
 
 - Fixed a rare bug where a wrong videocard was selected in Local.ini
 
