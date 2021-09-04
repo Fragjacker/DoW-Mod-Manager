@@ -90,7 +90,7 @@ int __stdcall runAction(int)
 	    push    edx
 		call    SOULSTORM_sub_7761C0
 		
-		sub     esp, 0Ch
+		sub     esp, 0x0C
 		
 		mov     ecx, esp
 		mov		[esp - 0xC], esp
@@ -100,21 +100,22 @@ int __stdcall runAction(int)
 		call    SOULSTORM_sub_66DE90
 		mov     ecx, [esi + 0x178]
 		call    SOULSTORM_runAnimationOnMetaMapMenuModel
-		add     esp, 0x1C
-/*
-		fld     flt_C1F44C
+		//add     esp, 0x1C
+
+		fld     SOULSTORM_flt_C1F44C
 		sub     esp, 0x0C
 		mov     eax, esp
-		fstp    dword ptr[esp + 8]
-		mov		[esp + 0xC], esp
+		fstp    dword ptr[esp + 4]
+		mov		[esp - 0xC], esp
 		push    esi
-		push    offset setOverlayEnabledFunction ?
+		push    SOULSTORM_setOverlayEnabledFunction
 		push    eax
-		call    setPointerToArgument2Function ?
+		call    SOULSTORM_setPointerToArgument2Function
 		add     esp, 0x0C
 		mov     ecx, esi
-		call    sub_787020
-			*/
+		call    SOULSTORM_sub_787020
+		add     esp, 0x0C
+
 		//pop    ebp
 		//pop esi
 		//retn 4
@@ -373,3 +374,43 @@ int __declspec(naked) new_BindButtonClickedEntry_Function()
 	}
 }
 
+
+// funciton that disables stuff in load game screen
+int __declspec(naked) test_function()
+{
+	// save address to return in the future
+	// save stack
+	__asm
+	{
+		pop return_address
+		//pushad
+	}
+
+	__asm
+	{
+		jmp     SOULSTORM_loc_6CC271
+
+		push	return_address
+		ret
+	}
+}
+
+// funciton that disables stuff in load game screen
+int __declspec(naked) test_function2()
+{
+	// save address to return in the future
+	// save stack
+	__asm
+	{
+		pop return_address
+		//pushad
+	}
+
+	__asm
+	{
+		jmp     SOULSTORM_loc_6CB20B
+
+		push	return_address
+			ret
+	}
+}

@@ -14,6 +14,9 @@ string UNI_EXT::path;
 HINSTANCE UNI_EXT::instance;
 
 Patch* patches[] = {
+
+//*** FINISHED PATCHES ***
+
 	// increase maximum number of defeated races in campaign commander screen
 	new Patch(Overwrite, SOULSTORM, { 0x81F350, 0x6BDD24 }, { 0x0A, 0x00, 0x00, 0x00 }, 4),
 
@@ -23,12 +26,26 @@ Patch* patches[] = {
 	// increase maximum number of honor guard units in campaign commander screen
 	new Patch(Overwrite, SOULSTORM,{ 0x81F348, 0x6BDD1C },{ 0x12, 0x00, 0x00, 0x00 }, 4),
 
+//*** END OF FINISHED PATCHES
+
 	// modify SWFwidget bind from 'ToggleArmy' to 'deep_strike'
-	//new Patch(Overwrite, SOULSTORM,{ 0x391C4E, -1 },{ 0x20, 0x40, 0xAD, 0x00 }, 4),
+	//new Patch(Overwrite, SOULSTORM,{ 0x391C4E, -1 },{ 0x20, 0x40, 0xAD, 0x00
 
 	// insert new FSCommand
 	new Patch(Call, SOULSTORM,{ 0x391C39, -1 }, (int)new_BindButtonClickedEntry_Function, 5),
 
+	// 
+	//new Patch(Overwrite, WXPMOD,{ 0x241E18, -1 },{ 0xC6, 0x45, 0xFC, 0x25 }, 4),
+	//new Patch(Overwrite, WXPMOD,{ 0x241C65, -1 },{ 0xC6, 0x45, 0xFC, 0x25 }, 4),
+	//new Patch(Overwrite, WXPMOD,{ 0x24137C, -1 },{ 0xC1, 0xE8, 0x25 }, 3),
+
+	// disable stuff in load game screen
+	//new Patch(Call, SOULSTORM,{ 0x2CC067, -1 }, (int)test_function, 5),
+
+	// disable stuff in critical location function
+	//new Patch(Call, SOULSTORM,{ 0x2CB1D2, -1 }, (int)test_function2, 5),
+
+	//new Patch(Overwrite, SOULSTORM,{ 0x241E18, -1 },{ 0x0F, 0x84, 0x74, 0x01, 0x00, 0x00 }, 6),
 	// enable action 'die' in 'metamap.gfx' every time it's loaded
 	//new Patch(Overwrite, SOULSTORM,{ 0x3913C6, -1 },{ 0x90, 0x90 }, 2),
 	//new Patch(Overwrite, SOULSTORM,{ 0x3919A0, -1 },{ 0x90, 0x90 }, 2),
