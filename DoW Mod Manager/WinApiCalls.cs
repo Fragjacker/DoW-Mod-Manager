@@ -46,15 +46,15 @@ namespace DoW_Mod_Manager
 
         public static TimerCaps QueryTimerResolution()
         {
-            var caps = new TimerCaps();
-            var result = NtQueryTimerResolution(out caps.PeriodMin, out caps.PeriodMax, out caps.PeriodCurrent);
+            TimerCaps caps = new TimerCaps();
+            var _ = NtQueryTimerResolution(out caps.PeriodMin, out caps.PeriodMax, out caps.PeriodCurrent);
             return caps;
         }
 
         public static ulong SetTimerResolution(uint timerResolutionIn100nsUnits, bool doSet = true)
         {
             uint currentRes = 0;
-            var result = NtSetTimerResolution(timerResolutionIn100nsUnits, doSet, ref currentRes);
+            var _ = NtSetTimerResolution(timerResolutionIn100nsUnits, doSet, ref currentRes);
             return currentRes;
         }
 

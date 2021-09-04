@@ -5,6 +5,7 @@
 // Assembly location: D:\THQ\Dawn of War - Soulstorm\SSNoFog.exe
 // This was decompiled from the "SSNoFog.exe" made by the russian DoW modding community.
 // And later this file was changed by IgorTheLight to be more human-friendly
+// And then it was further improved by BlueAmulet
 
 using System;
 using System.Collections.Generic;

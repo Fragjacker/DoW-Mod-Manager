@@ -255,7 +255,7 @@ namespace DoW_Mod_Manager
 
         private void PowerOptionsButton_Click(object sender, EventArgs e)
         {
-            var root = Environment.GetEnvironmentVariable("SystemRoot");
+            string root = Environment.GetEnvironmentVariable("SystemRoot");
             Process.Start(root + "\\system32\\control.exe", "/name Microsoft.PowerOptions");
         }
     }
