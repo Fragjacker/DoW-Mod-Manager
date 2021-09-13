@@ -60,12 +60,13 @@ int __stdcall runAction(int)
 		sub     esp, 0x50
 		*/
 
-		/*
+		
 		push    ebx
 		push    ebp
 		push    esi
 		push    edi
-		*/
+		
+		
 		mov     esi, ecx
 		call    SOULSTORM_sub_96EAA0
 		mov     ecx, eax
@@ -88,25 +89,27 @@ int __stdcall runAction(int)
         mov     ecx, [esi + 0x178]
 	    push    eax
 	    push    edx
-		call    SOULSTORM_sub_7761C0
+		call    SOULSTORM_toggleOverlayFunction
+
+		
 		
 		sub     esp, 0x0C
 		
 		mov     ecx, esp
-		mov		[esp - 0xC], esp
-		lea     edx, [esp - 0xC]
+		mov		[esp + 0x7C], esp
+		lea     edx, [esp + 0x7C]
 		push    edx
 		push    SOULSTORM_dieActionString_I
-		call    SOULSTORM_sub_66DE90
+		call    SOULSTORM_findMotionByGivenName
 		mov     ecx, [esi + 0x178]
-		call    SOULSTORM_runAnimationOnMetaMapMenuModel
+		call    SOULSTORM_runMotionOnMetaMapMenuModel
 		//add     esp, 0x1C
 
 		fld     SOULSTORM_flt_C1F44C
 		sub     esp, 0x0C
 		mov     eax, esp
-		fstp    dword ptr[esp + 4]
-		mov		[esp - 0xC], esp
+		fstp    dword ptr[esp + 0x4]
+		mov		[esp + 0x7C], esp
 		push    esi
 		push    SOULSTORM_setOverlayEnabledFunction
 		push    eax
@@ -114,7 +117,6 @@ int __stdcall runAction(int)
 		add     esp, 0x0C
 		mov     ecx, esi
 		call    SOULSTORM_sub_787020
-		add     esp, 0x0C
 
 		//pop    ebp
 		//pop esi
@@ -122,7 +124,7 @@ int __stdcall runAction(int)
 		/*
 		mov     fs : 0, ecx
 		add     esp, 0x5C
-		/*
+		*/
 		pop     edi
 		pop     esi
 		pop     ebp
@@ -130,7 +132,7 @@ int __stdcall runAction(int)
 		pop     ebx
 		//add     esp, 0x50
 		//retn    4
-		*/
+		
 
 	}
 	/*
@@ -165,27 +167,29 @@ int __stdcall runAction(int)
 	}
 	*/
 	/*
-	// runAnimationOnMetaMapMenuModel function
+	// runMotionOnMetaMapMenuModel function
 	__asm
 	{
-		sub     esp, 0x50
+		//sub     esp, 0x50
+		//sub     esp, 0x0C
 		push    esi
 		mov     esi, ecx
-		mov     ecx, esp
+		//mov     ecx, esp
 		//sub     esp, 0x0C
-		mov		[esp + 0x7C], esp
-		mov     edx, [esp + 0x7C]
+		//mov		[esp + 0x7C], esp
+		//lea     eax, [esp + 0x7C]
+		lea     edx, [esi + 0x50]
 		push    edx
 		//lea     eax, [esi + 0x40]
 		//push    eax
 		//mov     eax, [esp + 0x7C]
 		//push    eax
 		push    SOULSTORM_dieActionString_I
-        call    SOULSTORM_sub_66DE90
-       // mov     ecx, [esi + 0x178]
-        //call    SOULSTORM_runAnimationOnMetaMapMenuModel
-		//fld     SOULSTORM_flt_C1F44C_I
-		//sub     esp, 0x0C
+        call    SOULSTORM_findMotionByGivenName
+        mov     ecx, [esi + 0x178]
+        //call    SOULSTORM_runMotionOnMetaMapMenuModel
+		fld     SOULSTORM_flt_C1F44C_I
+		//add     esp, 0x0C
 		//mov     eax, esp
 		//fstp    dword ptr[esp + 8]
 		//mov[esp + 0x7C], esp
@@ -194,7 +198,7 @@ int __stdcall runAction(int)
 		//call    SOULSTORM_sub_78EC00
 		//add     esp, 0x4
 		pop		esi
-		retn	4
+		ret
 	}
 	
 	/*
@@ -338,7 +342,11 @@ int __declspec(naked) new_BindButtonClickedEntry_Function()
 	// save stack
 	__asm
 	{
-		pop return_address
+		pop		return_address
+		//push    SOULSTORM_aOnsidebarexite
+		//mov     ecx, edi
+		//call    ebx
+
 		//pushad
 	}
 
@@ -349,8 +357,8 @@ int __declspec(naked) new_BindButtonClickedEntry_Function()
 		//lea     edx, [esp + 0x24 - 0x10]
 		//push    definitionButtonInspectClicked
 		//push	SOULSTORM_definitionEnterMetamapScreenFunction
-		//push    runAction
-		push    prepareAction
+		push    runAction
+		//push    prepareAction
 		//push    edx
 		push	ecx
 		call    SOULSTORM_sub_78F520
@@ -360,15 +368,28 @@ int __declspec(naked) new_BindButtonClickedEntry_Function()
 		push    SOULSTORM_aDeepStrike_I
 		mov     ecx, edi
 		call    ebx
-	}
+	//}
 	
 	//restore stack
 	//restore overwritten code
 	__asm
-	{
+	//{
 		//popad
 		push    esi
 		lea     edx, [esp + 0x24 - 0x10]
+		// call	SOULSTORM_sub_96EAA0
+/*
+		push    esi
+		lea     edx, [esp + 0x24 - 0x8]
+	    push    SOULSTORM_loc_78DBD0
+		push    edx
+		call    SOULSTORM_sub_78F520
+		add     esp, 0x0C
+		push    eax
+		push    SOULSTORM_aOnsidebarexite
+		mov     ecx, edi
+		call    ebx
+*/
 		push	return_address
 		ret
 	}

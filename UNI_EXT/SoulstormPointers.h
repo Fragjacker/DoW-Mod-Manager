@@ -68,8 +68,8 @@ ASMPTR(SOULSTORM, aD_I, 0x7455BC, -1)
 ASMPTR(SOULSTORM, a_root_showst_0_I, 0x6D3AA4, -1)
 
 //for function runAction
-FUNCPTR(SOULSTORM, sub_66DE90, int __stdcall, (int, int), 0x26DE90, -1)
-FUNCPTR(SOULSTORM, runAnimationOnMetaMapMenuModel, int __stdcall, (int, int, int), 0x377BD0, -1)
+FUNCPTR(SOULSTORM, findMotionByGivenName, int __stdcall, (int, int), 0x26DE90, -1)
+FUNCPTR(SOULSTORM, runMotionOnMetaMapMenuModel, int __stdcall, (int, int, int), 0x377BD0, -1)
 FUNCPTR(SOULSTORM, sub_78F540, int __stdcall, (int, int, int), 0x38F540, -1)
 FUNCPTR(SOULSTORM, sub_787020, int __stdcall, (int, int, int), 0x387020, -1)
 FUNCPTR(SOULSTORM, sub_75EC70, int __stdcall, (int, int, int), 0x35EC70, -1)
@@ -96,7 +96,7 @@ FUNCPTR(SOULSTORM, sub_96EAA0, int, (void), 0x56EAA0, -1)
 FUNCPTR(SOULSTORM, sub_96F440, int, (void), 0x56F440, -1)
 FUNCPTR(SOULSTORM, NewCampaignGameStart, int __stdcall, (int), 0x3912E0, -1)
 FUNCPTR(SOULSTORM, sub_787340, int __stdcall, (int), 0x387340, -1)
-FUNCPTR(SOULSTORM, sub_7761C0, int __stdcall, (char, char), 0x3761C0, -1)
+FUNCPTR(SOULSTORM, toggleOverlayFunction, int __stdcall, (char, char), 0x3761C0, -1)
 
 ASMPTR(SOULSTORM, String, 0x70DB8B, -1)
 ASMPTR(SOULSTORM, a_root_sidebarh, 0x6D3174, -1)
@@ -108,6 +108,10 @@ ASMPTR(SOULSTORM, a_root_sidebars, 0x6D3188, -1)
 
 ASMPTR(SOULSTORM, loc_6CC271, 0x2CC271, -1)
 ASMPTR(SOULSTORM, loc_6CB20B, 0x2CB20B, -1)
+
+FUNCPTR(SOULSTORM, loc_78DBD0, int __stdcall, (int), 0x38DBD0, -1)
+
+ASMPTR(SOULSTORM, aOnsidebarexite, 0x6D33B4, -1)
 
 #undef FUNCPTR
 #undef ASMPTR

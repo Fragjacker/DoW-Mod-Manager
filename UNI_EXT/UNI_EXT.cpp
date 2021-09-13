@@ -37,7 +37,10 @@ Patch* patches[] = {
 	//new Patch(Overwrite, SOULSTORM,{ 0x391C4E, -1 },{ 0x20, 0x40, 0xAD, 0x00
 
 	// insert new FSCommand
+	//new Patch(Call, SOULSTORM,{ 0x391C79, -1 }, (int)new_BindButtonClickedEntry_Function, 29),
+	//new Patch(Call, SOULSTORM,{ 0x391C8D, -1 }, (int)new_BindButtonClickedEntry_Function, 5),
 	new Patch(Call, SOULSTORM,{ 0x391C39, -1 }, (int)new_BindButtonClickedEntry_Function, 5),
+	//new Patch(Call, SOULSTORM,{ 0x391C96, -1 }, (int)new_BindButtonClickedEntry_Function, 5),
 
 	// 
 	//new Patch(Overwrite, WXPMOD,{ 0x241E18, -1 },{ 0xC6, 0x45, 0xFC, 0x25 }, 4),
