@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Threading;
 using System.Runtime.CompilerServices;
 using System.Runtime;
-using System.Text;
+
 using SSNoFog;
 
 namespace DoW_Mod_Manager
@@ -548,19 +548,19 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append($"{ACTION_STATE}={settings[ACTION_STATE]}\n");
-            sb.Append($"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n");
-            sb.Append($"{DEV}={settings[DEV]}\n");
-            sb.Append($"{NO_MOVIES}={settings[NO_MOVIES]}\n");
-            sb.Append($"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n");
-            sb.Append($"{DOW_OPTIMIZATIONS}={settings[DOW_OPTIMIZATIONS]}\n");
-            sb.Append($"{AUTOUPDATE}={settings[AUTOUPDATE]}\n");
-            sb.Append($"{MULTITHREADED_JIT}={settings[MULTITHREADED_JIT]}\n");
-            sb.Append($"{AOT_COMPILATION}={settings[AOT_COMPILATION]}\n");
-            sb.Append($"{NO_FOG}={settings[NO_FOG]}");
-
-            File.WriteAllText(CONFIG_FILE_NAME, sb.ToString());
+            using (StreamWriter sw = File.CreateText(CONFIG_FILE_NAME))
+            {
+                sw.WriteLine($"{ACTION_STATE}={settings[ACTION_STATE]}");
+                sw.WriteLine($"{CHOICE_INDEX}={settings[CHOICE_INDEX]}");
+                sw.WriteLine($"{DEV}={settings[DEV]}");
+                sw.WriteLine($"{NO_MOVIES}={settings[NO_MOVIES]}");
+                sw.WriteLine($"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}");
+                sw.WriteLine($"{DOW_OPTIMIZATIONS}={settings[DOW_OPTIMIZATIONS]}");
+                sw.WriteLine($"{AUTOUPDATE}={settings[AUTOUPDATE]}");
+                sw.WriteLine($"{MULTITHREADED_JIT}={settings[MULTITHREADED_JIT]}");
+                sw.WriteLine($"{AOT_COMPILATION}={settings[AOT_COMPILATION]}");
+                sw.Write    ($"{NO_FOG}={settings[NO_FOG]}");
+            }
 
             // If Timer Resolution was lowered we have to keep DoW Mod Manager alive or Timer Resolution will be reset
             if (IsTimerResolutionLowered)
