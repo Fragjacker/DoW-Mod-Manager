@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Threading;
 using System.Runtime.CompilerServices;
 using System.Runtime;
-
+using System.Text;
 using SSNoFog;
 
 namespace DoW_Mod_Manager
@@ -50,9 +50,11 @@ namespace DoW_Mod_Manager
         private bool _isGraphicsConfigLAAPatched = false;
         private bool _isMessageBoxOnScreen = false;
         private bool _isOldGame;
+        private bool _IsNoFogTooltipShown = false;
         private string _dowProcessName = "";
         private readonly ToolTip _disabledNoFogTooltip = new ToolTip();
         private Control _currentToolTipControl;
+        private ModMergerForm modMerger = null;
 
         public readonly string CurrentDir = Directory.GetCurrentDirectory();
         public readonly string CurrentGameEXE = "";
@@ -169,7 +171,7 @@ namespace DoW_Mod_Manager
             {
                 noFogCheckbox.Enabled = false;
                 noFogCheckbox.Checked = false;
-                _disabledNoFogTooltip.SetToolTip(noFogCheckbox, "Disable Fog only works in Dawn of War: Soulstorm");
+                flowLayoutPanel1.MouseMove += new MouseEventHandler(noFogCheckbox_hover);
             }
 
             // Perform Autoupdate
@@ -185,6 +187,39 @@ namespace DoW_Mod_Manager
                         settings[ACTION_STATE] = (int)Action.CreateNativeImage;
                 }
                 ).Start();
+            }
+        }
+
+        /// <summary>
+        /// This function shows a tooltip, should the disable fog checkbox be disabled due to a wrong game version used.
+        /// It has to be done since using normal tooltips won't work on disabled controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void noFogCheckbox_hover(object sender, MouseEventArgs e)
+        {
+            var parent = sender as Control;
+            if (parent == null)
+            {
+                return;
+            }
+            var ctrl = parent.GetChildAtPoint(e.Location);
+            if (ctrl != null)
+            {
+                if (ctrl == noFogCheckbox && !_IsNoFogTooltipShown)
+                {
+                    _disabledNoFogTooltip.Show(
+                        "Disable Fog only works in Dawn of War: Soulstorm",
+                        noFogCheckbox,
+                        noFogCheckbox.Width / 2, 
+                        noFogCheckbox.Height / 2);
+                    _IsNoFogTooltipShown = true;
+                }
+            }
+            else
+            {
+                _disabledNoFogTooltip.Hide(noFogCheckbox);
+                _IsNoFogTooltipShown = false;
             }
         }
 
@@ -412,7 +447,7 @@ namespace DoW_Mod_Manager
             if (_isGameEXELAAPatched)
             {
                 gameLAAStatusLabel.Text = CurrentGameEXE + ": LAA Active";
-                gameLAAStatusLabel.ForeColor = Color.Green;
+                gameLAAStatusLabel.ForeColor = Color.LimeGreen;
             }
             else
             {
@@ -429,7 +464,7 @@ namespace DoW_Mod_Manager
             if (_isGraphicsConfigLAAPatched)
             {
                 graphicsConfigLAAStatusLabel.Text = GraphicsConfigEXE + ": LAA Active";
-                graphicsConfigLAAStatusLabel.ForeColor = Color.Green;
+                graphicsConfigLAAStatusLabel.ForeColor = Color.LimeGreen;
             }
             else
             {
@@ -483,8 +518,12 @@ namespace DoW_Mod_Manager
                     string filePath = ModuleFilePaths[i];
                     string fileName = Path.GetFileNameWithoutExtension(filePath);
 
-                    // There is no point of adding base module to the list
-                    if (filePath.Contains("W40k.module"))
+                    // Check if the file actually exists
+                    if (!File.Exists(filePath))
+                        continue;
+
+                    // There is no point of adding base modules to the list
+                    if (filePath.Contains("W40k.module") || filePath.Contains("DXP2.module"))
                         continue;
 
                     // Find the List of ALL found module files for the Mod Merger available Mods List
@@ -548,19 +587,19 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
-            using (StreamWriter sw = File.CreateText(CONFIG_FILE_NAME))
-            {
-                sw.WriteLine($"{ACTION_STATE}={settings[ACTION_STATE]}");
-                sw.WriteLine($"{CHOICE_INDEX}={settings[CHOICE_INDEX]}");
-                sw.WriteLine($"{DEV}={settings[DEV]}");
-                sw.WriteLine($"{NO_MOVIES}={settings[NO_MOVIES]}");
-                sw.WriteLine($"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}");
-                sw.WriteLine($"{DOW_OPTIMIZATIONS}={settings[DOW_OPTIMIZATIONS]}");
-                sw.WriteLine($"{AUTOUPDATE}={settings[AUTOUPDATE]}");
-                sw.WriteLine($"{MULTITHREADED_JIT}={settings[MULTITHREADED_JIT]}");
-                sw.WriteLine($"{AOT_COMPILATION}={settings[AOT_COMPILATION]}");
-                sw.Write    ($"{NO_FOG}={settings[NO_FOG]}");
-            }
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{ACTION_STATE}={settings[ACTION_STATE]}\n");
+            sb.Append($"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n");
+            sb.Append($"{DEV}={settings[DEV]}\n");
+            sb.Append($"{NO_MOVIES}={settings[NO_MOVIES]}\n");
+            sb.Append($"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n");
+            sb.Append($"{DOW_OPTIMIZATIONS}={settings[DOW_OPTIMIZATIONS]}\n");
+            sb.Append($"{AUTOUPDATE}={settings[AUTOUPDATE]}\n");
+            sb.Append($"{MULTITHREADED_JIT}={settings[MULTITHREADED_JIT]}\n");
+            sb.Append($"{AOT_COMPILATION}={settings[AOT_COMPILATION]}\n");
+            sb.Append($"{NO_FOG}={settings[NO_FOG]}");
+
+            File.WriteAllText(CONFIG_FILE_NAME, sb.ToString());
 
             // If Timer Resolution was lowered we have to keep DoW Mod Manager alive or Timer Resolution will be reset
             if (IsTimerResolutionLowered)
@@ -614,6 +653,8 @@ namespace DoW_Mod_Manager
         private void FileSystemWatcherOnChanged(object source, FileSystemEventArgs e)
         {
             SetUpAllNecessaryMods();
+            // Invoke Mod Merger refresh should it exist.
+            if(modMerger != null) modMerger.refreshAllModEntries();
         }
 
         /// <summary>
@@ -648,7 +689,7 @@ namespace DoW_Mod_Manager
                 while ((line = file.ReadLine()) != null)
                 {
                     // This line is commented
-                    if (line.StartsWith(";;"))
+                    if (line.StartsWith("//") || line.StartsWith(";;"))
                         continue;
 
                     if (line.Contains("RequiredMod"))
@@ -942,7 +983,7 @@ namespace DoW_Mod_Manager
             Brush myBrush;
 
             if (_isInstalled[e.Index])
-                myBrush = Brushes.Green;
+                myBrush = Brushes.LimeGreen;
             else
                 myBrush = Brushes.Red;
 
@@ -999,7 +1040,8 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void ModMergeButton_Click(object sender, EventArgs e)
         {
-            new ModMergerForm(this).Show();
+            modMerger = new ModMergerForm(this);
+            modMerger.Show();
         }
 
         /// <summary>
