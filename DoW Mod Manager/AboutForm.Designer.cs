@@ -52,7 +52,7 @@
             this.aboutLabel = new System.Windows.Forms.Label();
             this.authorsTabPage = new System.Windows.Forms.TabPage();
             this.specialThanksTabPage = new System.Windows.Forms.TabPage();
-            this.special_thanks_new = new System.Windows.Forms.Label();
+            this.specialThanks4Label = new System.Windows.Forms.Label();
             this.changelogTabPage = new System.Windows.Forms.TabPage();
             this.changelogTextBox = new System.Windows.Forms.TextBox();
             this.licenseTabPage = new System.Windows.Forms.TabPage();
@@ -143,16 +143,6 @@
             this.author2Label.TabIndex = 7;
             this.author2Label.Text = "IgorTheLight - new active contributor";
             // 
-            // specialThanks2Label
-            // 
-            this.specialThanks2Label.AutoSize = true;
-            this.specialThanks2Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.specialThanks2Label.Location = new System.Drawing.Point(19, 55);
-            this.specialThanks2Label.Name = "specialThanks2Label";
-            this.specialThanks2Label.Size = new System.Drawing.Size(185, 13);
-            this.specialThanks2Label.TabIndex = 10;
-            this.specialThanks2Label.Text = "tebjan - for part of the TimerTool code";
-            // 
             // specialThanks1Label
             // 
             this.specialThanks1Label.AutoSize = true;
@@ -174,6 +164,16 @@
             this.specialThanks1LinkLabel.TabStop = true;
             this.specialThanks1LinkLabel.Text = "home page";
             this.specialThanks1LinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SpecialThanks1LinkLabel_LinkClicked);
+            // 
+            // specialThanks2Label
+            // 
+            this.specialThanks2Label.AutoSize = true;
+            this.specialThanks2Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.specialThanks2Label.Location = new System.Drawing.Point(19, 55);
+            this.specialThanks2Label.Name = "specialThanks2Label";
+            this.specialThanks2Label.Size = new System.Drawing.Size(185, 13);
+            this.specialThanks2Label.TabIndex = 10;
+            this.specialThanks2Label.Text = "tebjan - for part of the TimerTool code";
             // 
             // specialThanks2LinkLabel
             // 
@@ -229,6 +229,15 @@
             this.specialThanks3Label.Size = new System.Drawing.Size(214, 13);
             this.specialThanks3Label.TabIndex = 15;
             this.specialThanks3Label.Text = "zayenCh - for part of the DownloadFile code";
+            // 
+            // specialThanks4Label
+            // 
+            this.specialThanks4Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.specialThanks4Label.Location = new System.Drawing.Point(19, 9);
+            this.specialThanks4Label.Name = "specialThanks4Label";
+            this.specialThanks4Label.Size = new System.Drawing.Size(288, 16);
+            this.specialThanks4Label.TabIndex = 17;
+            this.specialThanks4Label.Text = "New and SpeedRay - For their map fog disabler code.";
             // 
             // tabControl1
             // 
@@ -335,7 +344,7 @@
             // specialThanksTabPage
             // 
             this.specialThanksTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.specialThanksTabPage.Controls.Add(this.special_thanks_new);
+            this.specialThanksTabPage.Controls.Add(this.specialThanks4Label);
             this.specialThanksTabPage.Controls.Add(this.specialThanks1Label);
             this.specialThanksTabPage.Controls.Add(this.specialThanks3LinkLabel);
             this.specialThanksTabPage.Controls.Add(this.specialThanks2Label);
@@ -347,15 +356,6 @@
             this.specialThanksTabPage.Size = new System.Drawing.Size(434, 180);
             this.specialThanksTabPage.TabIndex = 2;
             this.specialThanksTabPage.Text = "Special Thanks";
-            // 
-            // special_thanks_new
-            // 
-            this.special_thanks_new.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.special_thanks_new.Location = new System.Drawing.Point(19, 9);
-            this.special_thanks_new.Name = "special_thanks_new";
-            this.special_thanks_new.Size = new System.Drawing.Size(288, 16);
-            this.special_thanks_new.TabIndex = 17;
-            this.special_thanks_new.Text = "New and SpeedRay - For their map fog disabler code.";
             // 
             // changelogTabPage
             // 
@@ -443,9 +443,9 @@
             this.GUILibraryAnswerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.GUILibraryAnswerLabel.Location = new System.Drawing.Point(169, 71);
             this.GUILibraryAnswerLabel.Name = "GUILibraryAnswerLabel";
-            this.GUILibraryAnswerLabel.Size = new System.Drawing.Size(54, 13);
+            this.GUILibraryAnswerLabel.Size = new System.Drawing.Size(82, 13);
             this.GUILibraryAnswerLabel.TabIndex = 18;
-            this.GUILibraryAnswerLabel.Text = "WinForms";
+            this.GUILibraryAnswerLabel.Text = "Windows Forms";
             // 
             // frameworkLabel
             // 
@@ -510,14 +510,15 @@
         private System.Windows.Forms.Button homePageButton;
         private System.Windows.Forms.Button updateButton;
         private System.Windows.Forms.Label author2Label;
-        private System.Windows.Forms.Label specialThanks2Label;
         private System.Windows.Forms.Label specialThanks1Label;
+        private System.Windows.Forms.Label specialThanks2Label;
+        private System.Windows.Forms.Label specialThanks3Label;
+        private System.Windows.Forms.Label specialThanks4Label;
         private System.Windows.Forms.LinkLabel specialThanks1LinkLabel;
         private System.Windows.Forms.LinkLabel specialThanks2LinkLabel;
         private System.Windows.Forms.Label programmingLanguageAnswerLabel;
         private System.Windows.Forms.Label programmingLanguageLabel;
         private System.Windows.Forms.LinkLabel specialThanks3LinkLabel;
-        private System.Windows.Forms.Label specialThanks3Label;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage aboutTabPage;
         private System.Windows.Forms.TabPage authorsTabPage;
@@ -536,6 +537,5 @@
         private System.Windows.Forms.RadioButton AOTCompilationRadioButton;
         private System.Windows.Forms.RadioButton multithreadedJITCompilationRadioButton;
         private System.Windows.Forms.RadioButton singlethreadedJITCompilationRadioButton;
-        private System.Windows.Forms.Label special_thanks_new;
     }
 }

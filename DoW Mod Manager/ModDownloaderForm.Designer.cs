@@ -28,13 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.searchTextBox = new System.Windows.Forms.TextBox();
             this.popularModsLabel = new System.Windows.Forms.Label();
             this.modListBox = new System.Windows.Forms.ListBox();
             this.openModDBButton = new System.Windows.Forms.Button();
             this.openModPageButton = new System.Windows.Forms.Button();
-            this.downloadModButton = new System.Windows.Forms.Button();
-            this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.downloadModDefaultButton = new System.Windows.Forms.Button();
+            this.downloadModIEButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.searchTextBox.ForeColor = System.Drawing.Color.Gray;
+            this.searchTextBox.Location = new System.Drawing.Point(16, 30);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(448, 20);
+            this.searchTextBox.TabIndex = 5;
+            this.searchTextBox.Text = "Search...";
+            this.searchTextBox.TextChanged += new System.EventHandler(this.SearchTextBox_TextChanged);
+            this.searchTextBox.Enter += new System.EventHandler(this.SearchTextBox_Enter);
+            this.searchTextBox.Leave += new System.EventHandler(this.SearchTextBox_Leave);
             // 
             // popularModsLabel
             // 
@@ -68,7 +84,7 @@
             this.openModDBButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.openModDBButton.Location = new System.Drawing.Point(484, 30);
             this.openModDBButton.Name = "openModDBButton";
-            this.openModDBButton.Size = new System.Drawing.Size(109, 38);
+            this.openModDBButton.Size = new System.Drawing.Size(117, 38);
             this.openModDBButton.TabIndex = 2;
             this.openModDBButton.Text = "Open ModDB.com";
             this.openModDBButton.UseVisualStyleBackColor = false;
@@ -82,51 +98,51 @@
             this.openModPageButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.openModPageButton.Location = new System.Drawing.Point(484, 74);
             this.openModPageButton.Name = "openModPageButton";
-            this.openModPageButton.Size = new System.Drawing.Size(109, 38);
+            this.openModPageButton.Size = new System.Drawing.Size(117, 38);
             this.openModPageButton.TabIndex = 4;
             this.openModPageButton.Text = "Open mod page";
             this.openModPageButton.UseVisualStyleBackColor = false;
             this.openModPageButton.Click += new System.EventHandler(this.OpenModPageButton_Click);
             // 
-            // downloadModButton
+            // downloadModDefaultButton
             // 
-            this.downloadModButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.downloadModButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.downloadModButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.downloadModButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.downloadModButton.Location = new System.Drawing.Point(484, 118);
-            this.downloadModButton.Name = "downloadModButton";
-            this.downloadModButton.Size = new System.Drawing.Size(109, 38);
-            this.downloadModButton.TabIndex = 3;
-            this.downloadModButton.Text = "Download mod";
-            this.downloadModButton.UseVisualStyleBackColor = false;
-            this.downloadModButton.Click += new System.EventHandler(this.DownloadModButton_Click);
+            this.downloadModDefaultButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.downloadModDefaultButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.downloadModDefaultButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.downloadModDefaultButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.downloadModDefaultButton.Location = new System.Drawing.Point(484, 162);
+            this.downloadModDefaultButton.Name = "downloadModDefaultButton";
+            this.downloadModDefaultButton.Size = new System.Drawing.Size(117, 38);
+            this.downloadModDefaultButton.TabIndex = 3;
+            this.downloadModDefaultButton.Text = "Download mod using default browser";
+            this.downloadModDefaultButton.UseVisualStyleBackColor = false;
+            this.downloadModDefaultButton.Click += new System.EventHandler(this.DownloadModDefaultButton_Click);
             // 
-            // searchTextBox
+            // downloadModIEButton
             // 
-            this.searchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.searchTextBox.ForeColor = System.Drawing.Color.Gray;
-            this.searchTextBox.Location = new System.Drawing.Point(16, 30);
-            this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(448, 20);
-            this.searchTextBox.TabIndex = 5;
-            this.searchTextBox.Text = "Search...";
-            this.searchTextBox.TextChanged += new System.EventHandler(this.SearchTextBox_TextChanged);
-            this.searchTextBox.Enter += new System.EventHandler(this.SearchTextBox_Enter);
-            this.searchTextBox.Leave += new System.EventHandler(this.SearchTextBox_Leave);
+            this.downloadModIEButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.downloadModIEButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.downloadModIEButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.downloadModIEButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.downloadModIEButton.Location = new System.Drawing.Point(484, 118);
+            this.downloadModIEButton.Name = "downloadModIEButton";
+            this.downloadModIEButton.Size = new System.Drawing.Size(117, 38);
+            this.downloadModIEButton.TabIndex = 6;
+            this.downloadModIEButton.Text = "Download mod using mini-browser";
+            this.downloadModIEButton.UseVisualStyleBackColor = false;
+            this.downloadModIEButton.Click += new System.EventHandler(this.downloadModIEButton_Click);
             // 
             // ModDownloaderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.ClientSize = new System.Drawing.Size(621, 490);
+            this.ClientSize = new System.Drawing.Size(634, 491);
+            this.Controls.Add(this.downloadModIEButton);
             this.Controls.Add(this.searchTextBox);
             this.Controls.Add(this.openModPageButton);
             this.Controls.Add(this.openModDBButton);
-            this.Controls.Add(this.downloadModButton);
+            this.Controls.Add(this.downloadModDefaultButton);
             this.Controls.Add(this.modListBox);
             this.Controls.Add(this.popularModsLabel);
             this.MinimumSize = new System.Drawing.Size(650, 530);
@@ -139,11 +155,12 @@
 
         #endregion
 
+        private System.Windows.Forms.TextBox searchTextBox;
         private System.Windows.Forms.Label popularModsLabel;
         private System.Windows.Forms.ListBox modListBox;
         private System.Windows.Forms.Button openModDBButton;
         private System.Windows.Forms.Button openModPageButton;
-        private System.Windows.Forms.Button downloadModButton;
-        private System.Windows.Forms.TextBox searchTextBox;
+        private System.Windows.Forms.Button downloadModIEButton;
+        private System.Windows.Forms.Button downloadModDefaultButton;
     }
 }

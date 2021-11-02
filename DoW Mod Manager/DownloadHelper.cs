@@ -21,8 +21,7 @@ namespace DoW_Mod_Manager
 
         private static readonly string currentDir = Directory.GetCurrentDirectory();
         private static string latestStringVersion = "";
-        private static readonly string currentStringVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString().Remove(5);
-        private static readonly int currentVersion = Convert.ToInt32(currentStringVersion.Replace(".", ""));
+        private static readonly Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
         private static bool closeAndDelete;
 
@@ -35,7 +34,7 @@ namespace DoW_Mod_Manager
             // Checking version mentioned in "version" file on GitHub
             latestStringVersion = DownloadString(EXE_VERSION_TEXT_URL);
 
-            int latestVersion;
+            Version latestVersion;
             bool showMessageBox;
             string message;
             string title;
@@ -52,7 +51,7 @@ namespace DoW_Mod_Manager
 
             try
             {
-                latestVersion = Convert.ToInt32(latestStringVersion.Replace(".", ""));
+                latestVersion = new Version(latestStringVersion);
             }
             catch (Exception ex)
             {

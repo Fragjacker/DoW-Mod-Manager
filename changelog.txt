@@ -1,5 +1,34 @@
-# Changelog
-(All changes in 1.53 - 2.1.8 were made by IgorTheLight, excluding patch 1.6.1, 2.0.3, 2.0.5, 2.1.2, 2.1.4, 2.1.5 and 2.1.7)
+# CHANGELOG
+
+Who did what:
+Fragjacker (Original author) - up to 1.5.2,  then 1.6.1,  2.0.3,  2.0.5,  2.1.2,  2.1.4,  2.1.5,  2 .1.7,  2.1.9
+IgorTheLight - 1.5.3 to 1.6,  1.7 to 2.0.3,  2.0.4,  2.1.0,  2.1.1,  2.1.3,  2.1.6,  2.1.8,  2.2.0
+BlueAmulet - 2.1.7
+
+## Version 2.2.0
+
+- Added ability to download mods using MiniBrowser - an Internet Explorer 11 engine wrapped in a WebBrowser object in .NET Framework
+- Fixes a bug where instead of a patch,  ModMownloaderForm would still download the mod itself
+- Fixed a bug where you click on a non-existent item in RequiredMods Mods when you have no mods installed
+- Version checking is more reliable now (version number could be > 9 now,  for example 2.1.10)
+- State Machine is simplified now: "ngen install" will be performed every start if "AOTCompilation" setting is selected (it's much more simpler and reliable that way)
+- ModManagerForm will write all Settings to a file more efficient when closing
+- Renamed a few variables
+
+## Version 2.1.9
+
+- Fixed Mod Merger busting some Mods when attempting to merge, such as Unification.
+- Fixed disabled Mods not to appear as missing mods in the required mods list, preventing the start of the game, eventhough they would be ignored by the game anyways.
+- Removed W40k and DXP2 base game modules from eligible mergeable/starteable mods, since they should never be messed with anyways.
+- Fixed the tooltip for the ''No Fog'' disable checkbox, that didn't appear when it was supposed to.
+- Added new warning label to the Mod Merger to warn users of potential causes of crashes when used inappropriately.
+- Added support for mods, that are not installed but declared as a deactivated mod in a .module file to be displayed and handled in the mod merger.
+- Using a slightly brighter green tone for green text passages.
+- Mod Merger inactive mods are now highlighted in an orange tone, missing mods are now shown in red.
+- Saving a merge now generates a new .module file, leaving the original file intact.
+- Added a new button to the Mod Merger to easily remove a merge from the system and revert to the original file.
+- Fixed a crash with the Mod Manager when deleting multiple .module files at once.
+- The Mod Merger now reacts to files being deleted/added manually from the system by the user.
 
 ## Version 2.1.8
 
