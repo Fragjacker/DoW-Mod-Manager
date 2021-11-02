@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace DoW_Mod_Manager
 {
@@ -10,6 +11,11 @@ namespace DoW_Mod_Manager
             InitializeComponent();
 
             webBrowser1.ScriptErrorsSuppressed = true;
+
+            // Use the same icon as executable
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
+            pictureBox.Image = Icon.ToBitmap();
 
             try
             {
