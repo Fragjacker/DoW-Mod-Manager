@@ -87,7 +87,7 @@ namespace DoW_Mod_Manager
                 };
 
                 openModPageButton.Enabled = false;
-                downloadModButton.Enabled = false;
+                downloadModDefaultButton.Enabled = false;
             }
 
             // If we want to search by the *.module file name - we don't have to populate modListBox.Items
@@ -225,9 +225,24 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method downloads selected mod
+        /// This method downloads selected mod using Internet Explorer's 11 engine
         /// </summary>
-        private void DownloadModButton_Click(object sender, EventArgs e)
+        private void downloadModIEButton_Click(object sender, EventArgs e)
+        {
+            DownloadMod(false);
+        }
+
+        /// <summary>
+        /// This method downloads selected mod using external browser
+        /// </summary>
+        private void DownloadModDefaultButton_Click(object sender, EventArgs e)
+        {
+            DownloadMod(true);
+        }
+
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void DownloadMod(bool isExternalBrowser)
         {
             if (modListBox.SelectedItem == null)
                 return;
@@ -245,12 +260,19 @@ namespace DoW_Mod_Manager
             }
 
             if (modAddress.Length > 0)
-                Process.Start(modAddress);
+                if (isExternalBrowser)
+                    Process.Start(modAddress);
+                else
+                    new MiniBrowser(modAddress).Show();
 
             if (patchAddress.Length > 0)
             {
                 Thread.Sleep(250);                                               // Some small delay before trying to download second file
-                Process.Start(modAddress);
+
+                if (isExternalBrowser)
+                    Process.Start(patchAddress);
+                else
+                    new MiniBrowser(patchAddress).Show();
             }
         }
 

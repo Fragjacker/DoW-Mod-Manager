@@ -23,13 +23,11 @@ namespace DoW_Mod_Manager
             // Get values from ModManagerForm
             autoupdateCheckBox.Checked = modManager.GetSetting(ModManagerForm.AUTOUPDATE) == 1;
             if (modManager.GetSetting(ModManagerForm.AOT_COMPILATION) == 1)
-            {
                 AOTCompilationRadioButton.Checked = true;
-            }
             else if (modManager.GetSetting(ModManagerForm.MULTITHREADED_JIT) == 1)
-            {
                 multithreadedJITCompilationRadioButton.Checked = true;
-            }
+            else
+                singlethreadedJITCompilationRadioButton.Checked = true;
 
             // We have to add those methods to the EventHandler here so we could avoid accidental firing of those methods after we would change the state of the CheckBox
             autoupdateCheckBox.CheckedChanged += new EventHandler(AutoupdateCheckBox_CheckedChanged);
