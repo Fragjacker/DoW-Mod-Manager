@@ -118,7 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="changelogTextBox.Text" xml:space="preserve">
-    <value>## Version 2.1.9
+    <value> ## Version 2.2.0
+
+- Added ability to download mods using MiniBrowser - an Internet Explorer 11 engine wrapped in a WebBrowser object in .NET Framework
+- Fixes a bug where instead of a patch,  ModMownloaderForm would still download the mod itself
+- Fixed a bug where you click on a non-existent item in RequiredMods Mods when you have no mods installed
+- Version checking is more reliable now (version number could be > 9 now,  for example 2.1.10)
+- State Machine is simplified now: "ngen install" will be performed every start if "AOTCompilation" setting is selected (it's much more simpler and reliable that way)
+- ModManagerForm will write all Settings to a file more efficient when closing
+- Renamed a few variables
+    
+## Version 2.1.9
 
 - Fixed Mod Merger busting some Mods when attempting to merge, such as Unification.
 - Fixed disabled Mods not to appear as missing mods in the required mods list, preventing the start of the game, eventhough they would be ignored by the game anyways.
@@ -197,6 +207,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</value>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</value>
   </data>
 </root>

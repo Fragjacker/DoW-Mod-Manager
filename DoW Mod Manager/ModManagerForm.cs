@@ -10,7 +10,6 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using System.Runtime;
-using System.Text;
 using SSNoFog;
 using SSUNI_EXTTDLL;
 
@@ -115,21 +114,23 @@ namespace DoW_Mod_Manager
                 case (int)Action.CreateNativeImageAndDeleteJITProfile:
                     CreateNativeImage();
                     DeleteJITProfile();
+                    settings[ACTION_STATE] = (int)Action.CreateNativeImage;
                     break;
                 case (int)Action.DeleteJITProfile:
                     if (settings[MULTITHREADED_JIT] == 0)
                         DeleteJITProfile();
+                    settings[ACTION_STATE] = (int)Action.None;
                     break;
                 case (int)Action.DeleteNativeImage:
                     DeleteNativeImage();
+                    settings[ACTION_STATE] = (int)Action.None;
                     break;
                 case (int)Action.DeleteJITProfileAndNativeImage:
                     DeleteJITProfile();
                     DeleteNativeImage();
+                    settings[ACTION_STATE] = (int)Action.None;
                     break;
             }
-
-            settings[ACTION_STATE] = (int)Action.None;
 
             InitializeComponent();
 
@@ -172,7 +173,7 @@ namespace DoW_Mod_Manager
             nomoviesCheckBox.CheckedChanged += new EventHandler(NomoviesCheckBox_CheckedChanged);
             highpolyCheckBox.CheckedChanged += new EventHandler(HighpolyCheckBox_CheckedChanged);
             optimizationsCheckBox.CheckedChanged += new EventHandler(OptimizationsCheckBox_CheckedChanged);
-            noFogCheckbox.CheckedChanged += new EventHandler(no_fog_checkbox_CheckedChanged);
+            noFogCheckbox.CheckedChanged += new EventHandler(NoFogCheckboxCheckedChanged);
             loadUNI_EXTDLLCheckBox.CheckedChanged += new EventHandler(loadUNI_EXTDLLCheckBox_CheckedChanged);
 
             // Disable no Fog checkbox and UNI_EXTDLL checkbox if it's not Soulstorm because it only works on Soulstorm at all.
@@ -211,12 +212,12 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void noFogCheckbox_hover(object sender, MouseEventArgs e)
         {
-            var parent = sender as Control;
+            Control parent = sender as Control;
+
             if (parent == null)
-            {
                 return;
-            }
-            var ctrl = parent.GetChildAtPoint(e.Location);
+
+            Control ctrl = parent.GetChildAtPoint(e.Location);
             if (ctrl != null)
             {
                 if (ctrl == loadUNI_EXTDLLCheckBox && !_IsNoFogTooltipShown)
@@ -269,22 +270,35 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This method creates Native Image using ngen tool
+        /// </summary>
         private static void CreateNativeImage()
         {
             // To enable AOT compilation we have to register DoW Mod Manager for NativeImage generation using ngen.exe
             string ModManagerName = AppDomain.CurrentDomain.FriendlyName;
 
-            Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\Microsoft.NET\Framework\v4.0.30319\ngen.exe", $"install \"{ModManagerName}\"");
+            Process.Start(Environment.GetFolderPath(
+                Environment.SpecialFolder.Windows) + @"\Microsoft.NET\Framework\v4.0.30319\ngen.exe",
+                $"install \"{ModManagerName}\"");
         }
 
+        /// <summary>
+        /// This method deletes Native Image using ngen tool
+        /// </summary>
         private static void DeleteNativeImage()
         {
             // To disable AOT compilation we have to unregister DoW Mod Manager for NativeImage generation using ngen.exe
             string ModManagerName = AppDomain.CurrentDomain.FriendlyName;
 
-            Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\Microsoft.NET\Framework\v4.0.30319\ngen.exe", $"uninstall \"{ModManagerName}\"");
+            Process.Start(Environment.GetFolderPath(
+                Environment.SpecialFolder.Windows) + @"\Microsoft.NET\Framework\v4.0.30319\ngen.exe",
+                $"uninstall \"{ModManagerName}\"");
         }
 
+        /// <summary>
+        /// This method deletes JIT profile cache file
+        /// </summary>
         private void DeleteJITProfile()
         {
             string JITProfilePath = CurrentDir + "\\" + JIT_PROFILE_FILE_NAME;
@@ -294,7 +308,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method Read DoW Mod Manager.ini file and load settings in memory
+        /// This method reads DoW Mod Manager.ini file and loads settings in memory
         /// </summary>
         // Request the inlining of this method
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -331,7 +345,7 @@ namespace DoW_Mod_Manager
                             switch (setting)
                             {
                                 case ACTION_STATE:
-                                    if (value <= 3)
+                                    if (value < 6)
                                         // if value <= 3 (we have only 3 states) - do the same as in CHOICE_INDEX case
                                         goto case CHOICE_INDEX;
                                     break;
@@ -634,20 +648,20 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void ModManagerForm_Closing(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append($"{ACTION_STATE}={settings[ACTION_STATE]}\n");
-            sb.Append($"{CHOICE_INDEX}={settings[CHOICE_INDEX]}\n");
-            sb.Append($"{DEV}={settings[DEV]}\n");
-            sb.Append($"{NO_MOVIES}={settings[NO_MOVIES]}\n");
-            sb.Append($"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}\n");
-            sb.Append($"{DOW_OPTIMIZATIONS}={settings[DOW_OPTIMIZATIONS]}\n");
-            sb.Append($"{AUTOUPDATE}={settings[AUTOUPDATE]}\n");
-            sb.Append($"{MULTITHREADED_JIT}={settings[MULTITHREADED_JIT]}\n");
-            sb.Append($"{AOT_COMPILATION}={settings[AOT_COMPILATION]}\n");
-            sb.Append($"{NO_FOG}={settings[NO_FOG]}\n");
-            sb.Append($"{UNI_EXTDLL}={settings[UNI_EXTDLL]}");
-
-            File.WriteAllText(CONFIG_FILE_NAME, sb.ToString());
+            using (StreamWriter sw = File.CreateText(CONFIG_FILE_NAME))
+            {
+                sw.WriteLine($"{ACTION_STATE}={settings[ACTION_STATE]}");
+                sw.WriteLine($"{CHOICE_INDEX}={settings[CHOICE_INDEX]}");
+                sw.WriteLine($"{DEV}={settings[DEV]}");
+                sw.WriteLine($"{NO_MOVIES}={settings[NO_MOVIES]}");
+                sw.WriteLine($"{FORCE_HIGH_POLY}={settings[FORCE_HIGH_POLY]}");
+                sw.WriteLine($"{DOW_OPTIMIZATIONS}={settings[DOW_OPTIMIZATIONS]}");
+                sw.WriteLine($"{AUTOUPDATE}={settings[AUTOUPDATE]}");
+                sw.WriteLine($"{MULTITHREADED_JIT}={settings[MULTITHREADED_JIT]}");
+                sw.WriteLine($"{AOT_COMPILATION}={settings[AOT_COMPILATION]}");
+                sw.WriteLine($"{NO_FOG}={settings[NO_FOG]}");
+				sw.WriteLine($"{UNI_EXTDLL}={settings[UNI_EXTDLL]}");
+            }
 
             // If Timer Resolution was lowered we have to keep DoW Mod Manager alive or Timer Resolution will be reset
             if (IsTimerResolutionLowered)
@@ -701,8 +715,10 @@ namespace DoW_Mod_Manager
         private void FileSystemWatcherOnChanged(object source, FileSystemEventArgs e)
         {
             SetUpAllNecessaryMods();
+
             // Invoke Mod Merger refresh should it exist.
-            if(modMerger != null) modMerger.refreshAllModEntries();
+            if(modMerger != null)
+                modMerger.refreshAllModEntries();
         }
 
         /// <summary>
@@ -834,6 +850,11 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void RequiredModsList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int index = requiredModsList.SelectedIndex;
+
+            if (index < 0 || index > requiredModsList.Items.Count)
+                return;
+
             try
             {
                 if (requiredModsList.SelectedItem.ToString().Contains("MISSING"))
@@ -1258,7 +1279,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void no_fog_checkbox_CheckedChanged(object sender, EventArgs e)
+        private void NoFogCheckboxCheckedChanged(object sender, EventArgs e)
         {
             if (noFogCheckbox.Checked)
                 settings[NO_FOG] = 1;
@@ -1286,6 +1307,10 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void RequiredModsList_DrawItem(object sender, DrawItemEventArgs e)
         {
+            // No need to draw anything if there are no required mods
+            if (requiredModsList.Items.Count == 0)
+                return;
+
             // Draw the background of the ListBox control for each item.
             e.DrawBackground();
 
