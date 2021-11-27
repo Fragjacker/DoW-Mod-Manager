@@ -118,10 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="changelogTextBox.Text" xml:space="preserve">
-    <value> ## Version 2.2.0
+    <value> ## Version 2.2.1
+
+- Fixed a crash when there is no line 15 in spdx9_config.txt file in Drivers folder (thanks,  SergeantDiggs)
+- WriteSettings() method in SettingManagerForm is more efficient now -allowhwcursor it uses StreamWriter instead of StringBuilder( + File.WriteAllLines())
+    
+## Version 2.2.0
 
 - Added ability to download mods using MiniBrowser - an Internet Explorer 11 engine wrapped in a WebBrowser object in .NET Framework
-- Fixes a bug where instead of a patch,  ModMownloaderForm would still download the mod itself
+- Fixed a bug where instead of a patch,  ModMownloaderForm would still download the mod itself
 - Fixed a bug where you click on a non-existent item in RequiredMods Mods when you have no mods installed
 - Version checking is more reliable now (version number could be > 9 now,  for example 2.1.10)
 - State Machine is simplified now: "ngen install" will be performed every start if "AOTCompilation" setting is selected (it's much more simpler and reliable that way)
