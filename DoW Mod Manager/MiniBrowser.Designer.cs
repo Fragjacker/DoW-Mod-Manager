@@ -30,7 +30,9 @@ namespace DoW_Mod_Manager
         private void InitializeComponent()
         {
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             // 
             // webBrowser1
             // 
@@ -55,12 +57,22 @@ namespace DoW_Mod_Manager
             this.Name = "MiniBrowser";
             this.Text = "MiniBrowser";
             this.ResumeLayout(false);
-
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.Location = new System.Drawing.Point(20, 16);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox.TabIndex = 3;
+            this.pictureBox.TabStop = false;
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
         }
 
         #endregion
 
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.PictureBox pictureBox;
     }
 }
 
