@@ -794,10 +794,10 @@ namespace DoW_Mod_Manager
                             File.WriteAllLines(DRIVER_SETTINGS_FILE, wDD);
                         }
                         else
-                            SearchForTHatString(ref wDD);
+                            SearchForThatString(ref wDD);
                     }
                     else
-                        SearchForTHatString(ref wDD);
+                        SearchForThatString(ref wDD);
                 }
                 else
                 {
@@ -883,7 +883,7 @@ namespace DoW_Mod_Manager
                 disableHighPoly = false;
             }
 
-            void SearchForTHatString(ref string[] strArray)
+            void SearchForThatString(ref string[] strArray)
             {
                 bool weFoundIt = false;
 
