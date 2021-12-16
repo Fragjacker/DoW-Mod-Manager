@@ -1649,6 +1649,14 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
+        /// This method starts the FontsManagerForm
+        /// </summary>
+        private void FontsManagerButton_Click(object sender, EventArgs e)
+        {
+            new FontsManagerForm(settings[SCREEN_WIDTH]).Show();
+        }
+
+        /// <summary>
         /// This method starts the SystemPerformanceManagerForm
         /// </summary>
         private void SystemPerformanceManagerButton_Click(object sender, EventArgs e)
