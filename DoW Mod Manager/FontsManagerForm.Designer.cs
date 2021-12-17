@@ -77,6 +77,8 @@ namespace DoW_Mod_Manager
             this.label14 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.openFolderButton = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
@@ -95,7 +97,7 @@ namespace DoW_Mod_Manager
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.label1.Location = new System.Drawing.Point(13, 61);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 13);
+            this.label1.Size = new System.Drawing.Size(115, 13);
             this.label1.TabIndex = 20;
             this.label1.Text = "Ingame units desription";
             // 
@@ -105,7 +107,7 @@ namespace DoW_Mod_Manager
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.label2.Location = new System.Drawing.Point(13, 102);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(105, 13);
+            this.label2.Size = new System.Drawing.Size(93, 13);
             this.label2.TabIndex = 21;
             this.label2.Text = "Ingame objectives";
             // 
@@ -115,7 +117,7 @@ namespace DoW_Mod_Manager
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.label3.Location = new System.Drawing.Point(13, 144);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(105, 13);
+            this.label3.Size = new System.Drawing.Size(72, 13);
             this.label3.TabIndex = 22;
             this.label3.Text = "Ingame Menu";
             // 
@@ -127,7 +129,7 @@ namespace DoW_Mod_Manager
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.label4.Location = new System.Drawing.Point(13, 187);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(133, 13);
+            this.label4.Size = new System.Drawing.Size(119, 13);
             this.label4.TabIndex = 23;
             this.label4.Text = "No idea! (some big font)";
             // 
@@ -137,7 +139,7 @@ namespace DoW_Mod_Manager
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.label5.Location = new System.Drawing.Point(13, 231);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 13);
+            this.label5.Size = new System.Drawing.Size(159, 13);
             this.label5.TabIndex = 24;
             this.label5.Text = "Map and ingame UI descriptions";
             // 
@@ -147,7 +149,7 @@ namespace DoW_Mod_Manager
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.label6.Location = new System.Drawing.Point(13, 276);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 13);
+            this.label6.Size = new System.Drawing.Size(47, 13);
             this.label6.TabIndex = 25;
             this.label6.Text = "No idea!";
             // 
@@ -157,7 +159,7 @@ namespace DoW_Mod_Manager
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.label7.Location = new System.Drawing.Point(13, 321);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 13);
+            this.label7.Size = new System.Drawing.Size(47, 13);
             this.label7.TabIndex = 26;
             this.label7.Text = "No idea!";
             // 
@@ -167,7 +169,7 @@ namespace DoW_Mod_Manager
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.label8.Location = new System.Drawing.Point(13, 366);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(85, 13);
+            this.label8.Size = new System.Drawing.Size(166, 13);
             this.label8.TabIndex = 27;
             this.label8.Text = "Some menu UI and map selection";
             // 
@@ -177,9 +179,9 @@ namespace DoW_Mod_Manager
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.label9.Location = new System.Drawing.Point(13, 409);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(116, 13);
+            this.label9.Size = new System.Drawing.Size(151, 26);
             this.label9.TabIndex = 28;
-            this.label9.Text = "Splash screen, some menu UI, grey buttons";
+            this.label9.Text = "Splash screen, some menu UI,\n grey buttons";
             // 
             // label10
             // 
@@ -187,24 +189,24 @@ namespace DoW_Mod_Manager
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.label10.Location = new System.Drawing.Point(13, 451);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(116, 13);
+            this.label10.Size = new System.Drawing.Size(136, 26);
             this.label10.TabIndex = 29;
-            this.label10.Text = "Splash screen, menu items, buttons";
+            this.label10.Text = "Splash screen, menu items,\n buttons";
             // 
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(172, 58);
+            this.textBox1.Location = new System.Drawing.Point(185, 58);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(116, 20);
+            this.textBox1.Size = new System.Drawing.Size(151, 20);
             this.textBox1.TabIndex = 30;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(287, 57);
+            this.button1.Location = new System.Drawing.Point(335, 57);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(32, 22);
             this.button1.TabIndex = 31;
@@ -215,7 +217,7 @@ namespace DoW_Mod_Manager
             // numericUpDown1
             // 
             this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.Location = new System.Drawing.Point(346, 58);
+            this.numericUpDown1.Location = new System.Drawing.Point(394, 58);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             200,
             0,
@@ -238,7 +240,7 @@ namespace DoW_Mod_Manager
             // numericUpDown2
             // 
             this.numericUpDown2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown2.Location = new System.Drawing.Point(346, 99);
+            this.numericUpDown2.Location = new System.Drawing.Point(394, 99);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             200,
             0,
@@ -261,7 +263,7 @@ namespace DoW_Mod_Manager
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(287, 98);
+            this.button2.Location = new System.Drawing.Point(335, 98);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(32, 22);
             this.button2.TabIndex = 34;
@@ -273,16 +275,16 @@ namespace DoW_Mod_Manager
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(172, 99);
+            this.textBox2.Location = new System.Drawing.Point(185, 99);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(116, 20);
+            this.textBox2.Size = new System.Drawing.Size(151, 20);
             this.textBox2.TabIndex = 33;
             // 
             // numericUpDown3
             // 
             this.numericUpDown3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown3.Location = new System.Drawing.Point(346, 141);
+            this.numericUpDown3.Location = new System.Drawing.Point(394, 141);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             200,
             0,
@@ -305,7 +307,7 @@ namespace DoW_Mod_Manager
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(287, 140);
+            this.button3.Location = new System.Drawing.Point(335, 140);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(32, 22);
             this.button3.TabIndex = 37;
@@ -317,16 +319,16 @@ namespace DoW_Mod_Manager
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(172, 141);
+            this.textBox3.Location = new System.Drawing.Point(185, 141);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(116, 20);
+            this.textBox3.Size = new System.Drawing.Size(151, 20);
             this.textBox3.TabIndex = 36;
             // 
             // numericUpDown4
             // 
             this.numericUpDown4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown4.Location = new System.Drawing.Point(346, 184);
+            this.numericUpDown4.Location = new System.Drawing.Point(394, 184);
             this.numericUpDown4.Maximum = new decimal(new int[] {
             200,
             0,
@@ -349,7 +351,7 @@ namespace DoW_Mod_Manager
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(287, 183);
+            this.button4.Location = new System.Drawing.Point(335, 183);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(32, 22);
             this.button4.TabIndex = 40;
@@ -361,16 +363,16 @@ namespace DoW_Mod_Manager
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(172, 184);
+            this.textBox4.Location = new System.Drawing.Point(185, 184);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(116, 20);
+            this.textBox4.Size = new System.Drawing.Size(151, 20);
             this.textBox4.TabIndex = 39;
             // 
             // numericUpDown5
             // 
             this.numericUpDown5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown5.Location = new System.Drawing.Point(346, 228);
+            this.numericUpDown5.Location = new System.Drawing.Point(394, 228);
             this.numericUpDown5.Maximum = new decimal(new int[] {
             200,
             0,
@@ -393,7 +395,7 @@ namespace DoW_Mod_Manager
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(287, 227);
+            this.button5.Location = new System.Drawing.Point(335, 227);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(32, 22);
             this.button5.TabIndex = 43;
@@ -405,16 +407,16 @@ namespace DoW_Mod_Manager
             // 
             this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox5.Location = new System.Drawing.Point(172, 228);
+            this.textBox5.Location = new System.Drawing.Point(185, 228);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(116, 20);
+            this.textBox5.Size = new System.Drawing.Size(151, 20);
             this.textBox5.TabIndex = 42;
             // 
             // numericUpDown6
             // 
             this.numericUpDown6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown6.Location = new System.Drawing.Point(346, 273);
+            this.numericUpDown6.Location = new System.Drawing.Point(394, 273);
             this.numericUpDown6.Maximum = new decimal(new int[] {
             200,
             0,
@@ -437,7 +439,7 @@ namespace DoW_Mod_Manager
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(287, 272);
+            this.button6.Location = new System.Drawing.Point(335, 272);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(32, 22);
             this.button6.TabIndex = 46;
@@ -449,16 +451,16 @@ namespace DoW_Mod_Manager
             // 
             this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox6.Location = new System.Drawing.Point(172, 273);
+            this.textBox6.Location = new System.Drawing.Point(185, 273);
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(116, 20);
+            this.textBox6.Size = new System.Drawing.Size(151, 20);
             this.textBox6.TabIndex = 45;
             // 
             // numericUpDown7
             // 
             this.numericUpDown7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown7.Location = new System.Drawing.Point(346, 318);
+            this.numericUpDown7.Location = new System.Drawing.Point(394, 318);
             this.numericUpDown7.Maximum = new decimal(new int[] {
             200,
             0,
@@ -481,7 +483,7 @@ namespace DoW_Mod_Manager
             // button7
             // 
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.Location = new System.Drawing.Point(287, 317);
+            this.button7.Location = new System.Drawing.Point(335, 317);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(32, 22);
             this.button7.TabIndex = 49;
@@ -493,16 +495,16 @@ namespace DoW_Mod_Manager
             // 
             this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox7.Location = new System.Drawing.Point(172, 318);
+            this.textBox7.Location = new System.Drawing.Point(185, 318);
             this.textBox7.Name = "textBox7";
             this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(116, 20);
+            this.textBox7.Size = new System.Drawing.Size(151, 20);
             this.textBox7.TabIndex = 48;
             // 
             // numericUpDown8
             // 
             this.numericUpDown8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown8.Location = new System.Drawing.Point(346, 363);
+            this.numericUpDown8.Location = new System.Drawing.Point(394, 363);
             this.numericUpDown8.Maximum = new decimal(new int[] {
             200,
             0,
@@ -525,7 +527,7 @@ namespace DoW_Mod_Manager
             // button8
             // 
             this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.Location = new System.Drawing.Point(287, 362);
+            this.button8.Location = new System.Drawing.Point(335, 362);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(32, 22);
             this.button8.TabIndex = 52;
@@ -537,16 +539,16 @@ namespace DoW_Mod_Manager
             // 
             this.textBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox8.Location = new System.Drawing.Point(172, 363);
+            this.textBox8.Location = new System.Drawing.Point(185, 363);
             this.textBox8.Name = "textBox8";
             this.textBox8.ReadOnly = true;
-            this.textBox8.Size = new System.Drawing.Size(116, 20);
+            this.textBox8.Size = new System.Drawing.Size(151, 20);
             this.textBox8.TabIndex = 51;
             // 
             // numericUpDown9
             // 
             this.numericUpDown9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown9.Location = new System.Drawing.Point(346, 406);
+            this.numericUpDown9.Location = new System.Drawing.Point(394, 406);
             this.numericUpDown9.Maximum = new decimal(new int[] {
             200,
             0,
@@ -569,7 +571,7 @@ namespace DoW_Mod_Manager
             // button9
             // 
             this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button9.Location = new System.Drawing.Point(287, 405);
+            this.button9.Location = new System.Drawing.Point(335, 405);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(32, 22);
             this.button9.TabIndex = 55;
@@ -581,16 +583,16 @@ namespace DoW_Mod_Manager
             // 
             this.textBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox9.Location = new System.Drawing.Point(172, 406);
+            this.textBox9.Location = new System.Drawing.Point(185, 406);
             this.textBox9.Name = "textBox9";
             this.textBox9.ReadOnly = true;
-            this.textBox9.Size = new System.Drawing.Size(116, 20);
+            this.textBox9.Size = new System.Drawing.Size(151, 20);
             this.textBox9.TabIndex = 54;
             // 
             // numericUpDown10
             // 
             this.numericUpDown10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown10.Location = new System.Drawing.Point(346, 448);
+            this.numericUpDown10.Location = new System.Drawing.Point(394, 448);
             this.numericUpDown10.Maximum = new decimal(new int[] {
             200,
             0,
@@ -613,7 +615,7 @@ namespace DoW_Mod_Manager
             // button10
             // 
             this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button10.Location = new System.Drawing.Point(287, 447);
+            this.button10.Location = new System.Drawing.Point(335, 447);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(32, 22);
             this.button10.TabIndex = 58;
@@ -625,10 +627,10 @@ namespace DoW_Mod_Manager
             // 
             this.textBox10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox10.Location = new System.Drawing.Point(172, 448);
+            this.textBox10.Location = new System.Drawing.Point(185, 448);
             this.textBox10.Name = "textBox10";
             this.textBox10.ReadOnly = true;
-            this.textBox10.Size = new System.Drawing.Size(116, 20);
+            this.textBox10.Size = new System.Drawing.Size(151, 20);
             this.textBox10.TabIndex = 57;
             // 
             // saveButton
@@ -638,7 +640,7 @@ namespace DoW_Mod_Manager
             this.saveButton.Enabled = false;
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.saveButton.Location = new System.Drawing.Point(446, 20);
+            this.saveButton.Location = new System.Drawing.Point(494, 20);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(109, 38);
             this.saveButton.TabIndex = 60;
@@ -652,7 +654,7 @@ namespace DoW_Mod_Manager
             this.defaultButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.defaultButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.defaultButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.defaultButton.Location = new System.Drawing.Point(446, 73);
+            this.defaultButton.Location = new System.Drawing.Point(494, 73);
             this.defaultButton.Name = "defaultButton";
             this.defaultButton.Size = new System.Drawing.Size(109, 38);
             this.defaultButton.TabIndex = 61;
@@ -674,7 +676,7 @@ namespace DoW_Mod_Manager
             // 
             this.label12.AutoSize = true;
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.label12.Location = new System.Drawing.Point(169, 21);
+            this.label12.Location = new System.Drawing.Point(182, 21);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(62, 13);
             this.label12.TabIndex = 63;
@@ -685,7 +687,7 @@ namespace DoW_Mod_Manager
             this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label13.AutoSize = true;
             this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.label13.Location = new System.Drawing.Point(343, 21);
+            this.label13.Location = new System.Drawing.Point(391, 21);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(27, 13);
             this.label13.TabIndex = 64;
@@ -696,7 +698,7 @@ namespace DoW_Mod_Manager
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
             this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.label14.Location = new System.Drawing.Point(457, 144);
+            this.label14.Location = new System.Drawing.Point(505, 188);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(92, 13);
             this.label14.TabIndex = 65;
@@ -718,7 +720,7 @@ namespace DoW_Mod_Manager
             "1920",
             "2560",
             "4096"});
-            this.comboBox1.Location = new System.Drawing.Point(446, 162);
+            this.comboBox1.Location = new System.Drawing.Point(494, 206);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 66;
@@ -727,12 +729,40 @@ namespace DoW_Mod_Manager
             // 
             this.openFileDialog1.Filter = "Font files|*.ttf";
             // 
+            // openFolderButton
+            // 
+            this.openFolderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.openFolderButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.openFolderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.openFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.openFolderButton.Location = new System.Drawing.Point(494, 125);
+            this.openFolderButton.Name = "openFolderButton";
+            this.openFolderButton.Size = new System.Drawing.Size(109, 38);
+            this.openFolderButton.TabIndex = 67;
+            this.openFolderButton.Text = "OPEN FOLDER";
+            this.openFolderButton.UseVisualStyleBackColor = false;
+            this.openFolderButton.Click += new System.EventHandler(this.OpenFolderButton_Click);
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.Red;
+            this.label15.Location = new System.Drawing.Point(494, 245);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(146, 52);
+            this.label15.TabIndex = 68;
+            this.label15.Text = "Ingame screen resolution is\nrarely the same as game uses\nfor determening what fon" +
+    "t\nto choose";
+            // 
             // FontsManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.ClientSize = new System.Drawing.Size(602, 492);
+            this.ClientSize = new System.Drawing.Size(650, 492);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.openFolderButton);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
@@ -780,7 +810,7 @@ namespace DoW_Mod_Manager
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.MinimumSize = new System.Drawing.Size(618, 531);
+            this.MinimumSize = new System.Drawing.Size(666, 531);
             this.Name = "FontsManagerForm";
             this.Text = "FontsManager";
             this.Load += new System.EventHandler(this.FontsManagerForm_Load);
@@ -849,5 +879,7 @@ namespace DoW_Mod_Manager
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button openFolderButton;
+        private System.Windows.Forms.Label label15;
     }
 }

@@ -20,6 +20,8 @@ namespace DoW_Mod_Manager
         private const string QUORUM_MEDIUM_BOLD_13      = "quorum medium bold13.fnt";
         private const string QUORUM_MEDIUM_BOLD_16      = "quorum medium bold16.fnt";
 
+        private const string BACKUP_FILE_NAME = "defaults.zip";
+
         private const string SIZE_DEFAULT = "sizeDefault";
         private const string SIZE_640     = "size640";
         private const string SIZE_800     = "size800";
@@ -32,7 +34,6 @@ namespace DoW_Mod_Manager
         private const string SIZE_4096    = "size4096";
 
         private readonly string FONTS_DIRECTORY = Path.Combine(Directory.GetCurrentDirectory(), "Engine", "Locale", "English", "data", "font");
-        private readonly string BACKUP_FILE_NAME = "backup.zip";
 
         private readonly Color labelForeColor;
         private readonly Color textBoxForeColor;
@@ -40,13 +41,13 @@ namespace DoW_Mod_Manager
 
         private readonly string backupFileNameWithPath;
 
-        //private readonly DirectoryInfo fontsDirectory;
-
-        private readonly Dictionary<string, string> screenSizes;
+        private readonly Dictionary<string, string> screenSizesUI;
         private string selectedScreenSize;
 
-        //private readonly FileInfo[] fonts;
-
+        /// <summary>
+        /// Creates the Form of the Font Manager Window
+        /// </summary>
+        /// <param name="screenWidth"></param>
         public FontsManagerForm(string screenWidth)
         {
             InitializeComponent();
@@ -58,7 +59,7 @@ namespace DoW_Mod_Manager
             // Use the same icon as executable
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            screenSizes = new Dictionary<string, string>
+            screenSizesUI = new Dictionary<string, string>
             {
                 { "Default", SIZE_DEFAULT },
                 { "640", SIZE_640 },
@@ -77,12 +78,9 @@ namespace DoW_Mod_Manager
             else
                 comboBox1.SelectedIndex = 0;
 
-            selectedScreenSize = screenSizes[comboBox1.SelectedItem.ToString()];
+            selectedScreenSize = screenSizesUI[comboBox1.SelectedItem.ToString()];
 
             backupFileNameWithPath = FONTS_DIRECTORY + "\\" + BACKUP_FILE_NAME;
-
-            //fontsDirectory = new DirectoryInfo(FONTS_DIRECTORY);
-            //fonts = fontsDirectory.GetFiles("*.ttf");
 
             InitializeGUIWithFonts();
 
@@ -110,9 +108,13 @@ namespace DoW_Mod_Manager
 
             comboBox1.SelectedIndexChanged += new EventHandler(ComboBox1_SelectedIndexChanged);
 
+            // Select SAVE button instead of first TextBox
             saveButton.Select();
         }
 
+        /// <summary>
+        /// This method will be called right after Constructor
+        /// </summary>
         private void FontsManagerForm_Load(object sender, EventArgs e)
         {
             if (Directory.Exists(FONTS_DIRECTORY))
@@ -125,8 +127,7 @@ namespace DoW_Mod_Manager
                     ZipFile.CreateFromDirectory(FONTS_DIRECTORY, BACKUP_FILE_NAME);
 
                     // Then we move backup file to a Font directory for convenience
-                    // DO NOT just create arhive in the same directory,
-                    // because it will try to achive itself ;-)
+                    // DO NOT just create arhive in the same directory, because it will try to achive itself ;-)
                     // (or use more complex ZipArchive class)
                     File.Move(BACKUP_FILE_NAME, backupFileNameWithPath);
                 }
@@ -138,6 +139,9 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This method initializes GUI with font names and their sizes
+        /// </summary>
         private void InitializeGUIWithFonts()
         {
             ReadFntToUI(FONTS_DIRECTORY + "\\" + ALBERTUS_EXTRA_BOLD_12,     selectedScreenSize,  label1,  textBox1,  button1,  numericUpDown1);
@@ -152,12 +156,14 @@ namespace DoW_Mod_Manager
             ReadFntToUI(FONTS_DIRECTORY + "\\" + QUORUM_MEDIUM_BOLD_16,      selectedScreenSize, label10, textBox10, button10, numericUpDown10);
         }
 
+        /// <summary>
+        /// This method initialises one "line": TextBox + Button + NumericUpDown for a particular font
+        /// </summary>
         private void ReadFntToUI(string fileNameWithPath, string searchFor, Label label, TextBox textBox, Button button, NumericUpDown numericUpDown)
         {
             if (File.Exists(fileNameWithPath))
             {
                 // Useful after pressing Default button
-                FileInfo file = new FileInfo(fileNameWithPath);
                 label.ForeColor = labelForeColor;
                 textBox.ForeColor = textBoxForeColor;
                 textBox.BackColor = textBoxBackColor;
@@ -183,8 +189,8 @@ namespace DoW_Mod_Manager
                             {
                                 textBox.Text = $"File {fileName} was not found!";
                                 // You can't change ForeColor if a TextBox if's ReadOnly = true
-                                // ... unless you specify the BackColor. Even if you would change
-                                // it from System.Control to System.Control. Because... logic ;-)
+                                // ... unless you specify the BackColor. Even if you would change it from System.Control
+                                // to System.Control. Because... logic ;-)
                                 textBox.BackColor = SystemColors.Control;
                                 textBox.ForeColor = Color.Red;        
                             }
@@ -205,7 +211,6 @@ namespace DoW_Mod_Manager
             }
             else
             {
-                FileInfo file = new FileInfo(fileNameWithPath);
                 label.ForeColor = Color.Red;
                 textBox.Enabled = false;
                 button.Enabled = false;
@@ -213,39 +218,52 @@ namespace DoW_Mod_Manager
             }
         }
 
+        /// <summary>
+        /// This method will be called when user changes screen resolution ComboBox
+        /// </summary>
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedScreenSize = screenSizes[comboBox1.SelectedItem.ToString()];
+            selectedScreenSize = screenSizesUI[comboBox1.SelectedItem.ToString()];
 
             InitializeGUIWithFonts();
         }
 
+        /// <summary>
+        /// This method will be called when one of the TextBoxes has been changed
+        /// </summary>
         private void SomeFieldChanged(object sender, EventArgs e)
         {
             saveButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method saves all the font config files
+        /// </summary>
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            WriteUIToFnt(FONTS_DIRECTORY + "\\" + ALBERTUS_EXTRA_BOLD_12, textBox1, numericUpDown1);
-            WriteUIToFnt(FONTS_DIRECTORY + "\\" + ALBERTUS_EXTRA_BOLD_14, textBox2, numericUpDown2);
-            WriteUIToFnt(FONTS_DIRECTORY + "\\" + ALBERTUS_EXTRA_BOLD_16, textBox3, numericUpDown3);
-            WriteUIToFnt(FONTS_DIRECTORY + "\\" + ENGRAVERS_OLD_ENGLISH_MT30, textBox4, numericUpDown4);
-            WriteUIToFnt(FONTS_DIRECTORY + "\\" + GILLSANS_11, textBox5, numericUpDown5);
-            WriteUIToFnt(FONTS_DIRECTORY + "\\" + GILLSANS_11B, textBox6, numericUpDown6);
-            WriteUIToFnt(FONTS_DIRECTORY + "\\" + GILLSANS_16, textBox7, numericUpDown7);
-            WriteUIToFnt(FONTS_DIRECTORY + "\\" + GILLSANS_BOLD_16, textBox8, numericUpDown8);
-            WriteUIToFnt(FONTS_DIRECTORY + "\\" + QUORUM_MEDIUM_BOLD_13, textBox9, numericUpDown9);
-            WriteUIToFnt(FONTS_DIRECTORY + "\\" + QUORUM_MEDIUM_BOLD_16, textBox10, numericUpDown10);
+            WriteUIToFnt(FONTS_DIRECTORY + "\\" + ALBERTUS_EXTRA_BOLD_12,      textBox1,  numericUpDown1);
+            WriteUIToFnt(FONTS_DIRECTORY + "\\" + ALBERTUS_EXTRA_BOLD_14,      textBox2,  numericUpDown2);
+            WriteUIToFnt(FONTS_DIRECTORY + "\\" + ALBERTUS_EXTRA_BOLD_16,      textBox3,  numericUpDown3);
+            WriteUIToFnt(FONTS_DIRECTORY + "\\" + ENGRAVERS_OLD_ENGLISH_MT30,  textBox4,  numericUpDown4);
+            WriteUIToFnt(FONTS_DIRECTORY + "\\" + GILLSANS_11,                 textBox5,  numericUpDown5);
+            WriteUIToFnt(FONTS_DIRECTORY + "\\" + GILLSANS_11B,                textBox6,  numericUpDown6);
+            WriteUIToFnt(FONTS_DIRECTORY + "\\" + GILLSANS_16,                 textBox7,  numericUpDown7);
+            WriteUIToFnt(FONTS_DIRECTORY + "\\" + GILLSANS_BOLD_16,            textBox8,  numericUpDown8);
+            WriteUIToFnt(FONTS_DIRECTORY + "\\" + QUORUM_MEDIUM_BOLD_13,       textBox9,  numericUpDown9);
+            WriteUIToFnt(FONTS_DIRECTORY + "\\" + QUORUM_MEDIUM_BOLD_16,      textBox10, numericUpDown10);
 
             saveButton.Enabled = false;
             defaultButton.Enabled = true;
         }
 
+        /// <summary>
+        /// This method saves changes to a single font configuration file
+        /// </summary>
         private void WriteUIToFnt(string fileNameWithPath, TextBox textBox, NumericUpDown numericUpDown)
         {
             if (File.Exists(fileNameWithPath))
             {
+                // TODO: Maybe use something less barbaric, like FileStream ;-)
                 string[] lines = File.ReadAllLines(fileNameWithPath);
 
                 for (int i = 0; i < lines.Length; i++)
@@ -258,18 +276,18 @@ namespace DoW_Mod_Manager
                         string currentValue = lines[i].Substring(firstIndexOfQuote + 1, lastIndexOfQuote - firstIndexOfQuote - 1);
                         lines[i] = lines[i].Replace(currentValue, textBox.Text);
                     }
-                    else if (lines[i].Contains(screenSizes[comboBox1.SelectedItem.ToString()]))
+                    else if (lines[i].Contains(screenSizesUI[comboBox1.SelectedItem.ToString()]))
                     {
-                        // We don't want to change this string - just to make it easier to parse
-                        string tempLine = lines[i].Replace(" ", "");
+                        int indexOfEqualSign = lines[i].IndexOf("=");
+                        int indexOfEndSimbol = lines[i].IndexOf(";");
 
-                        int indexOfEqualSign = tempLine.IndexOf("=");
-                        int indexOfEndSimbol = tempLine.IndexOf(";");
+                        string currentValue = lines[i].Substring(indexOfEqualSign + 1, indexOfEndSimbol - indexOfEqualSign - 1);
+                        currentValue = currentValue.Replace(" ", "");
 
-                        tempLine = tempLine.Substring(indexOfEqualSign + 1, indexOfEndSimbol - indexOfEqualSign - 1);
+                        // We are trying to avoid replacing blindly in line like this: "size1024 = 24;" where BOTH "24" would be replaced
+                        int indexOfLastValue = lines[i].LastIndexOf(currentValue);
 
-                        // Now when we know what was the previous value - we could replace it with a new one
-                        lines[i] = lines[i].Replace(tempLine, numericUpDown.Value.ToString());
+                        lines[i] = lines[i].Remove(indexOfLastValue, currentValue.Length).Insert(indexOfLastValue, numericUpDown.Value.ToString());
                     }
                 }
 
@@ -277,10 +295,13 @@ namespace DoW_Mod_Manager
             }
             else
             {
-                // TODO: Do something when there is no such file!
+                // TODO: Maybe do something when there is no such file
             }
         }
 
+        /// <summary>
+        /// This method restores all the changes since the first startr of the Font Manager
+        /// </summary>
         private void DefaultButton_Click(object sender, EventArgs e)
         {
             if (File.Exists(backupFileNameWithPath))
@@ -290,8 +311,9 @@ namespace DoW_Mod_Manager
 
                 using (ZipArchive zip = ZipFile.Open(backupFileNameWithPath, ZipArchiveMode.Read))
                 {
-                    foreach (var entry in zip.Entries)
+                    for (int i = 0; i < zip.Entries.Count; i++)
                     {
+                        ZipArchiveEntry entry = zip.Entries[i];
                         entry.ExtractToFile(FONTS_DIRECTORY + "\\" + entry.Name, true);
                     }
                 }
@@ -303,104 +325,122 @@ namespace DoW_Mod_Manager
             defaultButton.Enabled = false;
         }
 
+        /// <summary>
+        /// This method opens the DoW fonts folder
+        /// </summary>
+        private void OpenFolderButton_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(FONTS_DIRECTORY);
+        }
+
+        /// <summary>
+        /// This method adds a file name from a OpenFileDialog
+        /// </summary>
         private void Button1_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
+
             if (openFileDialog1.FileName != "")
-            {
-                FileInfo file = new FileInfo(openFileDialog1.FileName);
-                textBox1.Text = file.Name;
-            }
+                textBox1.Text = Path.GetFileName(openFileDialog1.FileName);
         }
 
+        /// <summary>
+        /// This method adds a file name from a OpenFileDialog
+        /// </summary>
         private void Button2_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
+
             if (openFileDialog1.FileName != "")
-            {
-                FileInfo file = new FileInfo(openFileDialog1.FileName);
-                textBox2.Text = file.Name;
-            }
+                textBox2.Text = Path.GetFileName(openFileDialog1.FileName);
         }
 
+        /// <summary>
+        /// This method adds a file name from a OpenFileDialog
+        /// </summary>
         private void Button3_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
+
             if (openFileDialog1.FileName != "")
-            {
-                FileInfo file = new FileInfo(openFileDialog1.FileName);
-                textBox3.Text = file.Name;
-            }
+                textBox3.Text = Path.GetFileName(openFileDialog1.FileName);
         }
 
+        /// <summary>
+        /// This method adds a file name from a OpenFileDialog
+        /// </summary>
         private void Button4_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
+
             if (openFileDialog1.FileName != "")
-            {
-                FileInfo file = new FileInfo(openFileDialog1.FileName);
-                textBox4.Text = file.Name;
-            }
+                textBox4.Text = Path.GetFileName(openFileDialog1.FileName);
         }
 
+        /// <summary>
+        /// This method adds a file name from a OpenFileDialog
+        /// </summary>
         private void Button5_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
+
             if (openFileDialog1.FileName != "")
-            {
-                FileInfo file = new FileInfo(openFileDialog1.FileName);
-                textBox5.Text = file.Name;
-            }
+                textBox5.Text = Path.GetFileName(openFileDialog1.FileName);
         }
 
+        /// <summary>
+        /// This method adds a file name from a OpenFileDialog
+        /// </summary>
         private void Button6_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
+
             if (openFileDialog1.FileName != "")
-            {
-                FileInfo file = new FileInfo(openFileDialog1.FileName);
-                textBox6.Text = file.Name;
-            }
+                textBox6.Text = Path.GetFileName(openFileDialog1.FileName);
         }
 
+        /// <summary>
+        /// This method adds a file name from a OpenFileDialog
+        /// </summary>
         private void Button7_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
+
             if (openFileDialog1.FileName != "")
-            {
-                FileInfo file = new FileInfo(openFileDialog1.FileName);
-                textBox7.Text = file.Name;
-            }
+                textBox7.Text = Path.GetFileName(openFileDialog1.FileName);
         }
 
+        /// <summary>
+        /// This method adds a file name from a OpenFileDialog
+        /// </summary>
         private void Button8_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
+
             if (openFileDialog1.FileName != "")
-            {
-                FileInfo file = new FileInfo(openFileDialog1.FileName);
-                textBox8.Text = file.Name;
-            }
+                textBox8.Text = Path.GetFileName(openFileDialog1.FileName);
         }
 
+        /// <summary>
+        /// This method adds a file name from a OpenFileDialog
+        /// </summary>
         private void Button9_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
+
             if (openFileDialog1.FileName != "")
-            {
-                FileInfo file = new FileInfo(openFileDialog1.FileName);
-                textBox9.Text = file.Name;
-            }
+                textBox9.Text = Path.GetFileName(openFileDialog1.FileName);
         }
 
+        /// <summary>
+        /// This method adds a file name from a OpenFileDialog
+        /// </summary>
         private void Button10_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
+
             if (openFileDialog1.FileName != "")
-            {
-                FileInfo file = new FileInfo(openFileDialog1.FileName);
-                textBox10.Text = file.Name;
-            }
+                textBox10.Text = Path.GetFileName(openFileDialog1.FileName);
         }
     }
 }
