@@ -63,6 +63,7 @@ namespace DoW_Mod_Manager
         public List<string> AllFoundModules;                                        // Contains the list of all available Mods that will be used by the Mod Merger
         public List<string> AllValidModules;                                        // Contains the list of all playable Mods that will be used by the Mod Merger
         public bool IsTimerResolutionLowered = false;
+        string currentModuleFilePath = "";                                          // Contains the name of the current selected Mod.
 
         // Don't make Settings readonly or it couldn't be changed from outside the class!
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "<Pending>")]
@@ -212,7 +213,7 @@ namespace DoW_Mod_Manager
                     _disabledNoFogTooltip.Show(
                         "Disable Fog only works in Dawn of War: Soulstorm",
                         noFogCheckbox,
-                        noFogCheckbox.Width / 2, 
+                        noFogCheckbox.Width / 2,
                         noFogCheckbox.Height / 2);
                     _IsNoFogTooltipShown = true;
                 }
@@ -359,21 +360,21 @@ namespace DoW_Mod_Manager
         {
             if (File.Exists(CurrentDir + "\\" + GameExecutable.SOULSTORM))
             {
-                currentDirectoryLabel.Text = "     Your current Soulstorm directory";
+                currentDirectoryLabel.Text = "Your current Soulstorm directory:";
                 _isOldGame = false;
                 return GameExecutable.SOULSTORM;
             }
 
             if (File.Exists(CurrentDir + "\\" + GameExecutable.DARK_CRUSADE))
             {
-                currentDirectoryLabel.Text = "  Your current Dark Crusade directory";
+                currentDirectoryLabel.Text = "Your current Dark Crusade directory:";
                 _isOldGame = false;
                 return GameExecutable.DARK_CRUSADE;
             }
 
             if (File.Exists(CurrentDir + "\\" + GameExecutable.WINTER_ASSAULT))
             {
-                currentDirectoryLabel.Text = "Your current Winter Assault directory";
+                currentDirectoryLabel.Text = "Your current Winter Assault directory:";
                 _isOldGame = true;
                 return GameExecutable.WINTER_ASSAULT;
             }
@@ -669,7 +670,7 @@ namespace DoW_Mod_Manager
             SetUpAllNecessaryMods();
 
             // Invoke Mod Merger refresh should it exist.
-            if(modMerger != null)
+            if (modMerger != null)
                 modMerger.refreshAllModEntries();
         }
 
@@ -692,7 +693,7 @@ namespace DoW_Mod_Manager
             else
                 settings[CHOICE_INDEX] = index;
 
-            string currentModuleFilePath = ModuleFilePaths[index];
+            currentModuleFilePath = ModuleFilePaths[index];
 
             requiredModsList.Items.Clear();
 
@@ -1320,6 +1321,38 @@ namespace DoW_Mod_Manager
             {
                 if (_currentToolTipControl != null) _disabledNoFogTooltip.Hide(_currentToolTipControl);
                 _currentToolTipControl = null;
+            }
+        }
+
+        /// <summary>
+        /// This event opens a new browser window of the currently selected Mod upon pressing the linked button. 
+        /// This code is based on this post: https://www.codeproject.com/Questions/852563/How-to-open-file-explorer-at-given-location-in-csh
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void open_folder_button_Click(object sender, EventArgs e)
+        {
+            string pathToMod = Path.Combine(CurrentDir, currentModuleFilePath.Split('.')[0]);
+            try
+            {
+                if (Directory.Exists(pathToMod))
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        Arguments = pathToMod,
+                        FileName = "explorer.exe"
+                    };
+
+                    Process.Start(startInfo);
+                }
+                else
+                {
+                    MessageBox.Show(string.Format("Directory: \"{0}\" does either not exist or this mod refers to another mod folder!", pathToMod));
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(string.Format("Permission to access the folder: \"{0}\" denied! Make sure you have the necessary access rights!", pathToMod));
             }
         }
     }

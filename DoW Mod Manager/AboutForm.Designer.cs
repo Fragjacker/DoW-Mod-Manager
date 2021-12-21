@@ -143,6 +143,16 @@
             this.author2Label.TabIndex = 7;
             this.author2Label.Text = "IgorTheLight - new active contributor";
             // 
+            // specialThanks2Label
+            // 
+            this.specialThanks2Label.AutoSize = true;
+            this.specialThanks2Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.specialThanks2Label.Location = new System.Drawing.Point(19, 55);
+            this.specialThanks2Label.Name = "specialThanks2Label";
+            this.specialThanks2Label.Size = new System.Drawing.Size(185, 13);
+            this.specialThanks2Label.TabIndex = 10;
+            this.specialThanks2Label.Text = "tebjan - for part of the TimerTool code";
+            // 
             // specialThanks1Label
             // 
             this.specialThanks1Label.AutoSize = true;
@@ -164,16 +174,6 @@
             this.specialThanks1LinkLabel.TabStop = true;
             this.specialThanks1LinkLabel.Text = "home page";
             this.specialThanks1LinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SpecialThanks1LinkLabel_LinkClicked);
-            // 
-            // specialThanks2Label
-            // 
-            this.specialThanks2Label.AutoSize = true;
-            this.specialThanks2Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.specialThanks2Label.Location = new System.Drawing.Point(19, 55);
-            this.specialThanks2Label.Name = "specialThanks2Label";
-            this.specialThanks2Label.Size = new System.Drawing.Size(185, 13);
-            this.specialThanks2Label.TabIndex = 10;
-            this.specialThanks2Label.Text = "tebjan - for part of the TimerTool code";
             // 
             // specialThanks2LinkLabel
             // 
@@ -229,15 +229,6 @@
             this.specialThanks3Label.Size = new System.Drawing.Size(214, 13);
             this.specialThanks3Label.TabIndex = 15;
             this.specialThanks3Label.Text = "zayenCh - for part of the DownloadFile code";
-            // 
-            // specialThanks4Label
-            // 
-            this.specialThanks4Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.specialThanks4Label.Location = new System.Drawing.Point(19, 9);
-            this.specialThanks4Label.Name = "specialThanks4Label";
-            this.specialThanks4Label.Size = new System.Drawing.Size(288, 16);
-            this.specialThanks4Label.TabIndex = 17;
-            this.specialThanks4Label.Text = "New and SpeedRay - For their map fog disabler code.";
             // 
             // tabControl1
             // 
@@ -356,6 +347,15 @@
             this.specialThanksTabPage.Size = new System.Drawing.Size(434, 180);
             this.specialThanksTabPage.TabIndex = 2;
             this.specialThanksTabPage.Text = "Special Thanks";
+            // 
+            // specialThanks4Label
+            // 
+            this.specialThanks4Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.specialThanks4Label.Location = new System.Drawing.Point(19, 9);
+            this.specialThanks4Label.Name = "specialThanks4Label";
+            this.specialThanks4Label.Size = new System.Drawing.Size(288, 16);
+            this.specialThanks4Label.TabIndex = 17;
+            this.specialThanks4Label.Text = "New and SpeedRay - For their map fog disabler code.";
             // 
             // changelogTabPage
             // 
