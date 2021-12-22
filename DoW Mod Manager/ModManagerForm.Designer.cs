@@ -387,6 +387,7 @@ namespace DoW_Mod_Manager
             this.AboutkLabel.TabIndex = 23;
             this.AboutkLabel.TabStop = true;
             this.AboutkLabel.Text = "About and Updates";
+            this.AboutkLabel.VisitedLinkColor = System.Drawing.Color.DodgerBlue;
             this.AboutkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HomePageLinkLabel_LinkClicked);
             // 
             // fixMissingModButton

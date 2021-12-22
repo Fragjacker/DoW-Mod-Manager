@@ -42,6 +42,7 @@ namespace DoW_Mod_Manager
         private readonly string backupFileNameWithPath;
 
         private readonly Dictionary<string, string> screenSizesUI;
+
         private string selectedScreenSize;
 
         /// <summary>
@@ -73,12 +74,28 @@ namespace DoW_Mod_Manager
                 { "4096", SIZE_4096 }
             };
 
-            if (comboBox1.Items.Contains(screenWidth))
-                comboBox1.SelectedItem = screenWidth;
+            if (screenWidthsUIComboBox.Items.Contains(screenWidth))
+            {
+                switch (screenWidth)
+                {
+                    case "1366":
+                        screenWidthsUIComboBox.SelectedItem = "1024";
+                        break;
+                    case "1280":
+                        screenWidthsUIComboBox.SelectedItem = "800";
+                        break;
+                    case "1920":
+                        screenWidthsUIComboBox.SelectedItem = "1280";
+                        break;
+                    default:
+                        screenWidthsUIComboBox.SelectedItem = screenWidth;
+                        break;
+                }
+            }
             else
-                comboBox1.SelectedIndex = 0;
+                screenWidthsUIComboBox.SelectedIndex = 0;
 
-            selectedScreenSize = screenSizesUI[comboBox1.SelectedItem.ToString()];
+            selectedScreenSize = screenSizesUI[screenWidthsUIComboBox.SelectedItem.ToString()];
 
             backupFileNameWithPath = FONTS_DIRECTORY + "\\" + BACKUP_FILE_NAME;
 
@@ -106,7 +123,7 @@ namespace DoW_Mod_Manager
             numericUpDown10.ValueChanged += new EventHandler(SomeFieldChanged);
             textBox10.TextChanged += new EventHandler(SomeFieldChanged);
 
-            comboBox1.SelectedIndexChanged += new EventHandler(ComboBox1_SelectedIndexChanged);
+            screenWidthsUIComboBox.SelectedIndexChanged += new EventHandler(ScreenWidthsUIComboBox_SelectedIndexChanged);
 
             // Select SAVE button instead of first TextBox
             saveButton.Select();
@@ -221,9 +238,9 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This method will be called when user changes screen resolution ComboBox
         /// </summary>
-        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ScreenWidthsUIComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedScreenSize = screenSizesUI[comboBox1.SelectedItem.ToString()];
+            selectedScreenSize = screenSizesUI[screenWidthsUIComboBox.SelectedItem.ToString()];
 
             InitializeGUIWithFonts();
         }
@@ -276,7 +293,7 @@ namespace DoW_Mod_Manager
                         string currentValue = lines[i].Substring(firstIndexOfQuote + 1, lastIndexOfQuote - firstIndexOfQuote - 1);
                         lines[i] = lines[i].Replace(currentValue, textBox.Text);
                     }
-                    else if (lines[i].Contains(screenSizesUI[comboBox1.SelectedItem.ToString()]))
+                    else if (lines[i].Contains(screenSizesUI[screenWidthsUIComboBox.SelectedItem.ToString()]))
                     {
                         int indexOfEqualSign = lines[i].IndexOf("=");
                         int indexOfEndSimbol = lines[i].IndexOf(";");
@@ -441,6 +458,11 @@ namespace DoW_Mod_Manager
 
             if (openFileDialog1.FileName != "")
                 textBox10.Text = Path.GetFileName(openFileDialog1.FileName);
+        }
+
+        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ThemedMessageBox.Show("1024x768 -> 1024\n1280x720 -> 800\n1366x768 -> 1024\n2560x1440 -> ?\n1920x1080 -> 1280\n4096x2160 -> ?", "Discovered screen withts");
         }
     }
 }

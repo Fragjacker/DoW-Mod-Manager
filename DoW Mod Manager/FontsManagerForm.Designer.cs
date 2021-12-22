@@ -75,10 +75,11 @@ namespace DoW_Mod_Manager
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.screenWidthsUIComboBox = new System.Windows.Forms.ComboBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFolderButton = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
@@ -700,16 +701,16 @@ namespace DoW_Mod_Manager
             this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.label14.Location = new System.Drawing.Point(505, 188);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(92, 13);
+            this.label14.Size = new System.Drawing.Size(69, 13);
             this.label14.TabIndex = 65;
-            this.label14.Text = "Your screen width";
+            this.label14.Text = "Screen width";
             // 
-            // comboBox1
+            // screenWidthsUIComboBox
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.screenWidthsUIComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.screenWidthsUIComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.screenWidthsUIComboBox.FormattingEnabled = true;
+            this.screenWidthsUIComboBox.Items.AddRange(new object[] {
             "Default",
             "640",
             "800",
@@ -720,10 +721,10 @@ namespace DoW_Mod_Manager
             "1920",
             "2560",
             "4096"});
-            this.comboBox1.Location = new System.Drawing.Point(494, 206);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 66;
+            this.screenWidthsUIComboBox.Location = new System.Drawing.Point(494, 206);
+            this.screenWidthsUIComboBox.Name = "screenWidthsUIComboBox";
+            this.screenWidthsUIComboBox.Size = new System.Drawing.Size(121, 21);
+            this.screenWidthsUIComboBox.TabIndex = 66;
             // 
             // openFileDialog1
             // 
@@ -755,15 +756,29 @@ namespace DoW_Mod_Manager
             this.label15.Text = "Ingame screen resolution is\nrarely the same as game uses\nfor determening what fon" +
     "t\nto choose";
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.LinkColor = System.Drawing.Color.DodgerBlue;
+            this.linkLabel1.Location = new System.Drawing.Point(545, 285);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(13, 13);
+            this.linkLabel1.TabIndex = 69;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "?";
+            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.DodgerBlue;
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
+            // 
             // FontsManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(650, 492);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.openFolderButton);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.screenWidthsUIComboBox);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -877,9 +892,10 @@ namespace DoW_Mod_Manager
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox screenWidthsUIComboBox;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button openFolderButton;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
