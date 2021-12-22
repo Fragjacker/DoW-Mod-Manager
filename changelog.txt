@@ -7,7 +7,7 @@ BlueAmulet - 2.1.7
 
 ## Version 2.3.0.0
 
-- Added a Fon Manager. Now you can add new fonts, and change fonts sizes for different UI elements!
+- Added a Font Manager. Now you can add new fonts, and change fonts sizes for different UI elements!
 - Some small code improvements
 
 ## Version 2.2.2
