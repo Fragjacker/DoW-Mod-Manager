@@ -12,8 +12,8 @@ BlueAmulet - 2.1.7
 
 ## Version 2.2.2
 
-- ?
-- ?
+- Improved the Layout of the current active game directory label and textbox.
+- Added a new button that allows to open the currently selected mod in a new windows explorer window, if it exists.
 
 ## Version 2.2.1
 
