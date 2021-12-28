@@ -13,6 +13,20 @@ using SSNoFog;
 
 namespace DoW_Mod_Manager
 {
+    /// <summary>
+    /// This struct contains the module name and mod folder path for easy access.
+    /// </summary>
+    public struct ModuleEntry
+    {
+        private string ModuleName, ModuleFolder;
+        public ModuleEntry(string moduleName, string moduleFolder)
+        {
+            ModuleName = moduleName;
+            ModuleFolder = moduleFolder;
+        }
+        public string getName { get { return ModuleName; } }
+        public string getPath { get { return ModuleFolder; } }
+    };
     public partial class ModManagerForm : Form
     {
         public struct GameExecutable
@@ -61,7 +75,7 @@ namespace DoW_Mod_Manager
         public string[] ModuleFilePaths;
         public string[] ModFolderPaths;
         public List<string> AllFoundModules;                                        // Contains the list of all available Mods that will be used by the Mod Merger
-        public List<string> AllValidModules;                                        // Contains the list of all playable Mods that will be used by the Mod Merger
+        public List<ModuleEntry> AllValidModules;                                        // Contains the list of all playable Mods that will be used by the Mod Merger
         public bool IsTimerResolutionLowered = false;
         string currentModuleFilePath = "";                                          // Contains the name of the current selected Mod.
 
@@ -342,7 +356,7 @@ namespace DoW_Mod_Manager
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ReselectSavedMod()
         {
-            int index = settings[CHOICE_INDEX];
+            int index = getSelectedModIndex();
 
             if (installedModsListBox.Items.Count > index)
                 installedModsListBox.SelectedIndex = index;
@@ -521,7 +535,7 @@ namespace DoW_Mod_Manager
             // Make a new list for the new Pathitems
             List<string> newfilePathsList = new List<string>();
             AllFoundModules = new List<string>();
-            AllValidModules = new List<string>();
+            AllValidModules = new List<ModuleEntry>();
 
             installedModsListBox.Items.Clear();
 
@@ -550,6 +564,7 @@ namespace DoW_Mod_Manager
                         string line;
                         bool isPlayable = false;
                         string modVersion = "";
+                        string modFolderName = "";
 
                         // Filter the unplayable mods and populate the List only with playable mods
                         while ((line = file.ReadLine()) != null)
@@ -558,6 +573,13 @@ namespace DoW_Mod_Manager
                             if (line.Contains("Playable = 1") || _isOldGame)
                                 isPlayable = true;
 
+                            // Add information about the home mod folder of a mod
+                            if (line.Contains("ModFolder"))
+                            {
+                                int indexOfEqualSigh = line.IndexOf('=');
+                                modFolderName = line.Substring(indexOfEqualSigh + 1, line.Length - indexOfEqualSigh - 1);
+                                modFolderName = modFolderName.Replace(" ", ""); //Remove whitespaces
+                            }
                             // Add information about a version of a mod
                             if (line.Contains("ModVersion"))
                             {
@@ -568,15 +590,16 @@ namespace DoW_Mod_Manager
 
                         if (isPlayable)
                         {
-                            string newItem = fileName;
+                            ModuleEntry module = new ModuleEntry(fileName, modFolderName);
 
                             newfilePathsList.Add(ModuleFilePaths[i]);
-                            AllValidModules.Add(newItem);
+                            AllValidModules.Add(module);
 
+                            // Append version number to filename string for display
                             if (modVersion.Length > 0)
-                                newItem += $"   (Version{modVersion})";
+                                fileName += $"   (Version{modVersion})";
 
-                            installedModsListBox.Items.Add(newItem);
+                            installedModsListBox.Items.Add(fileName);
                         }
                     }
                 }
@@ -687,11 +710,11 @@ namespace DoW_Mod_Manager
 
             if (index < 0 || index >= installedModsListBox.Items.Count)
             {
-                index = settings[CHOICE_INDEX];
+                index = getSelectedModIndex();
                 installedModsListBox.SelectedIndex = index;
             }
             else
-                settings[CHOICE_INDEX] = index;
+                setSelectedModIndex(index);
 
             currentModuleFilePath = ModuleFilePaths[index];
 
@@ -720,6 +743,22 @@ namespace DoW_Mod_Manager
                 LoadModFoldersFromFile();
                 CheckforInstalledMods();
             }
+        }
+        /// <summary>
+        /// Gets the numerical index of the currently selected Mod.
+        /// </summary>
+        /// <returns></returns>
+        private int getSelectedModIndex()
+        {
+            return settings[CHOICE_INDEX];
+        }
+        /// <summary>
+        /// Sets the numerical index of the currently selected Mod.
+        /// </summary>
+        /// <param name="index"></param>
+        private void setSelectedModIndex(int index)
+        {
+            settings[CHOICE_INDEX] = index;
         }
 
         /// <summary>
@@ -1332,7 +1371,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void open_folder_button_Click(object sender, EventArgs e)
         {
-            string pathToMod = Path.Combine(CurrentDir, currentModuleFilePath.Split('.')[0]);
+            string pathToMod = Path.Combine(CurrentDir, AllValidModules[getSelectedModIndex()].getPath);
             try
             {
                 if (Directory.Exists(pathToMod))
@@ -1347,7 +1386,7 @@ namespace DoW_Mod_Manager
                 }
                 else
                 {
-                    MessageBox.Show(string.Format("Directory: \"{0}\" does either not exist or this mod refers to another mod folder!", pathToMod));
+                    MessageBox.Show(string.Format("Directory: \"{0}\" does not exist!", pathToMod));
                 }
             }
             catch (Exception)
