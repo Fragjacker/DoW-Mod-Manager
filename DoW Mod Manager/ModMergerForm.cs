@@ -93,7 +93,7 @@ namespace DoW_Mod_Manager
             {
                 //Check if new upcoming mod is a merged mod, if yes surpress original mod to be loadable.
                 //Since we only want to apply changes to the merged version.
-                string newMod = modManager.AllValidModules[i].getName;
+                string newMod = modManager.AllValidModules[i].GetName;
                 if (newMod.Contains(mergePostfix))
                 {
                     int moduleCount = moduleList.Count;

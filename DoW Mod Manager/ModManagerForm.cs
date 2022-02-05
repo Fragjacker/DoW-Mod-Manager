@@ -18,15 +18,20 @@ namespace DoW_Mod_Manager
     /// </summary>
     public struct ModuleEntry
     {
-        private string ModuleName, ModuleFolder;
+        private readonly string ModuleName;
+        private readonly string ModuleFolder;
+
         public ModuleEntry(string moduleName, string moduleFolder)
         {
             ModuleName = moduleName;
             ModuleFolder = moduleFolder;
         }
-        public string getName { get { return ModuleName; } }
-        public string getPath { get { return ModuleFolder; } }
+
+        public string GetName { get { return ModuleName; } }
+
+        public string GetPath { get { return ModuleFolder; } }
     };
+
     public partial class ModManagerForm : Form
     {
         public struct GameExecutable
@@ -1371,7 +1376,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void open_folder_button_Click(object sender, EventArgs e)
         {
-            string pathToMod = Path.Combine(CurrentDir, AllValidModules[getSelectedModIndex()].getPath);
+            string pathToMod = Path.Combine(CurrentDir, AllValidModules[getSelectedModIndex()].GetPath);
             try
             {
                 if (Directory.Exists(pathToMod))
