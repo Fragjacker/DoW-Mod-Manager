@@ -192,7 +192,7 @@ namespace DoW_Mod_Manager
             {
                 noFogCheckbox.Enabled = false;
                 noFogCheckbox.Checked = false;
-                flowLayoutPanel1.MouseMove += new MouseEventHandler(noFogCheckbox_hover);
+                flowLayoutPanel1.MouseMove += new MouseEventHandler(NoFogCheckbox_hover);
             }
 
             // Perform Autoupdate
@@ -217,7 +217,7 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void noFogCheckbox_hover(object sender, MouseEventArgs e)
+        private void NoFogCheckbox_hover(object sender, MouseEventArgs e)
         {
             Control parent = sender as Control;
 
