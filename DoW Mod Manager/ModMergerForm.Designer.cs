@@ -329,7 +329,7 @@
             this.Controls.Add(this.howtolabel);
             this.MinimumSize = new System.Drawing.Size(505, 622);
             this.Name = "ModMergerForm";
-            this.Text = "Mod Merger v2.0.0";
+            this.Text = "Mod Merger v2.0.0.0";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);

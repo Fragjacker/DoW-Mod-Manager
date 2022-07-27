@@ -34,6 +34,7 @@
             this.defaultsButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.generalTabPage = new System.Windows.Forms.TabPage();
+            this.fontsManagerButton = new System.Windows.Forms.Button();
             this.renameProfileButton = new System.Windows.Forms.Button();
             this.newPlayerTextBox = new System.Windows.Forms.TextBox();
             this.newPlayerNameLabel = new System.Windows.Forms.Label();
@@ -79,6 +80,8 @@
             this.modelDetailComboBox = new System.Windows.Forms.ComboBox();
             this.terrainDetailLabel = new System.Windows.Forms.Label();
             this.terrainDetailComboBox = new System.Windows.Forms.ComboBox();
+            this.allowHDCursorLabel = new System.Windows.Forms.Label();
+            this.hwCursorCheckBox = new System.Windows.Forms.CheckBox();
             this.hdTexWarningLabel = new System.Windows.Forms.Label();
             this.betterTeamcoloredTexturesLabel = new System.Windows.Forms.Label();
             this.persistentBodiesLabel = new System.Windows.Forms.Label();
@@ -124,8 +127,6 @@
             this.soundQualityLabel = new System.Windows.Forms.Label();
             this.randomizedSoundsCheckBox = new System.Windows.Forms.CheckBox();
             this.randomizedSoundsLabel = new System.Windows.Forms.Label();
-            this.hwCursorCheckBox = new System.Windows.Forms.CheckBox();
-            this.allowHDCursorLabel = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.generalTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scrollRateTrackBar)).BeginInit();
@@ -212,6 +213,7 @@
             // generalTabPage
             // 
             this.generalTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.generalTabPage.Controls.Add(this.fontsManagerButton);
             this.generalTabPage.Controls.Add(this.renameProfileButton);
             this.generalTabPage.Controls.Add(this.newPlayerTextBox);
             this.generalTabPage.Controls.Add(this.newPlayerNameLabel);
@@ -236,6 +238,21 @@
             this.generalTabPage.Size = new System.Drawing.Size(572, 550);
             this.generalTabPage.TabIndex = 3;
             this.generalTabPage.Text = "General";
+            // 
+            // fontsManagerButton
+            // 
+            this.fontsManagerButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fontsManagerButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.fontsManagerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.fontsManagerButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.fontsManagerButton.Location = new System.Drawing.Point(191, 430);
+            this.fontsManagerButton.Name = "fontsManagerButton";
+            this.fontsManagerButton.Size = new System.Drawing.Size(185, 38);
+            this.fontsManagerButton.TabIndex = 61;
+            this.fontsManagerButton.Text = "Fonts Manager";
+            this.fontsManagerButton.UseVisualStyleBackColor = false;
+            this.fontsManagerButton.Click += new System.EventHandler(this.FontsManagerButton_Click);
             // 
             // renameProfileButton
             // 
@@ -411,11 +428,11 @@
             this.cyanLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cyanLabel2.AutoSize = true;
             this.cyanLabel2.ForeColor = System.Drawing.Color.Cyan;
-            this.cyanLabel2.Location = new System.Drawing.Point(389, 534);
+            this.cyanLabel2.Location = new System.Drawing.Point(346, 534);
             this.cyanLabel2.Name = "cyanLabel2";
-            this.cyanLabel2.Size = new System.Drawing.Size(183, 13);
+            this.cyanLabel2.Size = new System.Drawing.Size(224, 13);
             this.cyanLabel2.TabIndex = 46;
-            this.cyanLabel2.Text = "* All cyan settings are hidden in game";
+            this.cyanLabel2.Text = "* All cyan settings are hidden in game Settings";
             // 
             // parentalControlCheckBox
             // 
@@ -834,13 +851,33 @@
             this.terrainDetailComboBox.Size = new System.Drawing.Size(143, 21);
             this.terrainDetailComboBox.TabIndex = 24;
             // 
-            // hd_tex_warning_label
+            // allowHDCursorLabel
+            // 
+            this.allowHDCursorLabel.AutoSize = true;
+            this.allowHDCursorLabel.ForeColor = System.Drawing.Color.Cyan;
+            this.allowHDCursorLabel.Location = new System.Drawing.Point(17, 354);
+            this.allowHDCursorLabel.Name = "allowHDCursorLabel";
+            this.allowHDCursorLabel.Size = new System.Drawing.Size(87, 13);
+            this.allowHDCursorLabel.TabIndex = 45;
+            this.allowHDCursorLabel.Text = "DirectX 8 Cursor:";
+            // 
+            // hwCursorCheckBox
+            // 
+            this.hwCursorCheckBox.AutoSize = true;
+            this.hwCursorCheckBox.Location = new System.Drawing.Point(115, 354);
+            this.hwCursorCheckBox.Name = "hwCursorCheckBox";
+            this.hwCursorCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.hwCursorCheckBox.TabIndex = 44;
+            this.hwCursorCheckBox.UseVisualStyleBackColor = true;
+            this.hwCursorCheckBox.CheckedChanged += new System.EventHandler(this.hw_cursor_checkbox_CheckedChanged);
+            // 
+            // hdTexWarningLabel
             // 
             this.hdTexWarningLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.hdTexWarningLabel.ForeColor = System.Drawing.Color.Red;
-            this.hdTexWarningLabel.Location = new System.Drawing.Point(130, 3);
-            this.hdTexWarningLabel.Name = "hd_tex_warning_label";
-            this.hdTexWarningLabel.Size = new System.Drawing.Size(151, 49);
+            this.hdTexWarningLabel.Location = new System.Drawing.Point(132, 7);
+            this.hdTexWarningLabel.Name = "hdTexWarningLabel";
+            this.hdTexWarningLabel.Size = new System.Drawing.Size(150, 40);
             this.hdTexWarningLabel.TabIndex = 43;
             this.hdTexWarningLabel.Text = "High res can cause CTD when playing with many AI or multiplayer.";
             // 
@@ -1115,11 +1152,11 @@
             this.cyanLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cyanLabel.AutoSize = true;
             this.cyanLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.cyanLabel.Location = new System.Drawing.Point(389, 534);
+            this.cyanLabel.Location = new System.Drawing.Point(346, 534);
             this.cyanLabel.Name = "cyanLabel";
-            this.cyanLabel.Size = new System.Drawing.Size(183, 13);
+            this.cyanLabel.Size = new System.Drawing.Size(224, 13);
             this.cyanLabel.TabIndex = 45;
-            this.cyanLabel.Text = "* All cyan settings are hidden in game";
+            this.cyanLabel.Text = "* All cyan settings are hidden in game Settings";
             // 
             // audioTabPage
             // 
@@ -1198,11 +1235,11 @@
             this.cyanTextLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cyanTextLabel.AutoSize = true;
             this.cyanTextLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.cyanTextLabel.Location = new System.Drawing.Point(389, 534);
+            this.cyanTextLabel.Location = new System.Drawing.Point(346, 534);
             this.cyanTextLabel.Name = "cyanTextLabel";
-            this.cyanTextLabel.Size = new System.Drawing.Size(183, 13);
+            this.cyanTextLabel.Size = new System.Drawing.Size(224, 13);
             this.cyanTextLabel.TabIndex = 51;
-            this.cyanTextLabel.Text = "* All cyan settings are hidden in game";
+            this.cyanTextLabel.Text = "* All cyan settings are hidden in game Settings";
             // 
             // soundEnabledCheckBox
             // 
@@ -1384,26 +1421,6 @@
             this.randomizedSoundsLabel.TabIndex = 35;
             this.randomizedSoundsLabel.Text = "Randomizes Sounds:";
             // 
-            // hwCursorCheckBox
-            // 
-            this.hwCursorCheckBox.AutoSize = true;
-            this.hwCursorCheckBox.Location = new System.Drawing.Point(115, 354);
-            this.hwCursorCheckBox.Name = "hwCursorCheckBox";
-            this.hwCursorCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.hwCursorCheckBox.TabIndex = 44;
-            this.hwCursorCheckBox.UseVisualStyleBackColor = true;
-            this.hwCursorCheckBox.CheckedChanged += new System.EventHandler(this.hw_cursor_checkbox_CheckedChanged);
-            // 
-            // allowHDCursorLabel
-            // 
-            this.allowHDCursorLabel.AutoSize = true;
-            this.allowHDCursorLabel.ForeColor = System.Drawing.Color.Cyan;
-            this.allowHDCursorLabel.Location = new System.Drawing.Point(17, 354);
-            this.allowHDCursorLabel.Name = "allowHDCursorLabel";
-            this.allowHDCursorLabel.Size = new System.Drawing.Size(87, 13);
-            this.allowHDCursorLabel.TabIndex = 45;
-            this.allowHDCursorLabel.Text = "DirectX 8 Cursor:";
-            // 
             // SettingsManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1542,5 +1559,6 @@
         private System.Windows.Forms.Label hdTexWarningLabel;
         private System.Windows.Forms.Label allowHDCursorLabel;
         private System.Windows.Forms.CheckBox hwCursorCheckBox;
+        private System.Windows.Forms.Button fontsManagerButton;
     }
 }

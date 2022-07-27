@@ -254,8 +254,33 @@ namespace DoW_Mod_Manager
             if (File.Exists(DRIVER_SETTINGS_FILE))
             {
                 string[] dlines = File.ReadAllLines(DRIVER_SETTINGS_FILE);
-                string[] splitresult = dlines[14].Split(' ');
-                settings[ALLOWHWCURSOR] = splitresult[1];
+                string[] splitresult;
+                bool weFoundIt = false;
+
+                if (dlines.Length > 14)
+                {
+                    if (dlines[14].StartsWith("allowhwcursor"))
+                    {
+                        splitresult = dlines[14].Split(' ');
+                        settings[ALLOWHWCURSOR] = splitresult[1];
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < dlines.Length; i++)
+                    {
+                        if (dlines[i].StartsWith("allowhwcursor"))
+                        {
+                            splitresult = dlines[i].Split(' ');
+                            settings[ALLOWHWCURSOR] = splitresult[1];
+                            weFoundIt = true;
+                            break;      // We found what we searched for
+                        }
+                    }
+
+                    if (!weFoundIt)
+                        settings[ALLOWHWCURSOR] = "0";
+                }
             }
 
             if (File.Exists(SETTINGS_FILE))
@@ -714,51 +739,71 @@ namespace DoW_Mod_Manager
 
             if (localINI)
             {
-                // You have to use "\r\n" instead of "\n" or Dawn of War will NOT recognise the end of the line!
                 // Save settings that are stored in Local.ini
-                StringBuilder sb = new StringBuilder();
-                sb.Append($"[global]\r\n");
-                sb.Append($"{CAMERA_DETAIL}={settings[CAMERA_DETAIL]}\r\n");
-                sb.Append($"{CURRENT_MOD}={settings[CURRENT_MOD]}\r\n");
-                sb.Append($"{DYNAMIC_LIGHTS}={settings[DYNAMIC_LIGHTS]}\r\n");
-                sb.Append($"{EVENT_DETAIL_LEVEL}={settings[EVENT_DETAIL_LEVEL]}\r\n");
-                sb.Append($"{FORCE_WATCH_MOVIES}={settings[FORCE_WATCH_MOVIES]}\r\n");
-                sb.Append($"{FULLRES_TEAMCOLOUR}={settings[FULLRES_TEAMCOLOUR]}\r\n");
-                sb.Append($"{FX_DETAIL_LEVEL}={settings[FX_DETAIL_LEVEL]}\r\n");
-                sb.Append($"{MODEL_DETAIL}={settings[MODEL_DETAIL]}\r\n");
-                sb.Append($"{PARENTAL_CONTROL}={settings[PARENTAL_CONTROL]}\r\n");
-                sb.Append($"{PERSISTENT_BODIES}={settings[PERSISTENT_BODIES]}\r\n");
-                sb.Append($"{PERSISTENT_DECALS}={settings[PERSISTENT_DECALS]}\r\n");
-                sb.Append($"{PLAYER_PROFILE}={settings[PLAYER_PROFILE]}\r\n");
-                sb.Append($"{RL_SSO_NUM_TIMES_SHOWN}={settings[RL_SSO_NUM_TIMES_SHOWN]}\r\n");
-                sb.Append($"{SCREEN_ADAPTER}={settings[SCREEN_ADAPTER]}\r\n");
-                sb.Append($"{SCREEN_ANIALIAS}={settings[SCREEN_ANIALIAS]}\r\n");
-                sb.Append($"{SCREEN_DEPTH}={settings[SCREEN_DEPTH]}\r\n");
-                sb.Append($"{SCREEN_DEVICE}={settings[SCREEN_DEVICE]}\r\n");
-                sb.Append($"{SCREEN_GAMMA}={settings[SCREEN_GAMMA]}\r\n");
-                sb.Append($"{SCREEN_HEIGHT}={settings[SCREEN_HEIGHT]}\r\n");
-                sb.Append($"{SCREEN_NO_VSYNC}={settings[SCREEN_NO_VSYNC]}\r\n");
-                sb.Append($"{SCREEN_REFRESH}={settings[SCREEN_REFRESH]}\r\n");
-                sb.Append($"{SCREEN_WIDTH}={settings[SCREEN_WIDTH]}\r\n");
-                sb.Append($"{SCREEN_WINDOWED}={settings[SCREEN_WINDOWED]}\r\n");
-                sb.Append($"{SHADOW_BLOB}={settings[SHADOW_BLOB]}\r\n");
-                sb.Append($"{SHADOW_MAP}={settings[SHADOW_MAP]}\r\n");
-                sb.Append($"{SHADOW_VOLUME}={settings[SHADOW_VOLUME]}\r\n");
-                sb.Append($"{SOUND_ENABLED}={settings[SOUND_ENABLED]}\r\n");
-                sb.Append($"{SOUND_LIMIT_SAMPLES}={settings[SOUND_LIMIT_SAMPLES]}\r\n");
-                sb.Append($"{SOUND_NR_CHANNELS}={settings[SOUND_NR_CHANNELS]}\r\n");
-                sb.Append($"{SOUND_QUALITY}={settings[SOUND_QUALITY]}\r\n");
-                sb.Append($"{TERRAIN_ENABLE_FOW_BLUR}={settings[TERRAIN_ENABLE_FOW_BLUR]}\r\n");
-                sb.Append($"{TEXTURE_DETAIL}={settings[TEXTURE_DETAIL]}\r\n");
-                sb.Append($"{TOTAL_MATCHES}={settings[TOTAL_MATCHES]}\r\n");
-                sb.Append($"{UNIT_OCCLUSION}={settings[UNIT_OCCLUSION]}");
+                using (StreamWriter sw = File.CreateText(SETTINGS_FILE))
+                {
+                    sw.WriteLine($"[global]");
+                    sw.WriteLine($"{CAMERA_DETAIL}={settings[CAMERA_DETAIL]}");
+                    sw.WriteLine($"{CURRENT_MOD}={settings[CURRENT_MOD]}");
+                    sw.WriteLine($"{DYNAMIC_LIGHTS}={settings[DYNAMIC_LIGHTS]}");
+                    sw.WriteLine($"{EVENT_DETAIL_LEVEL}={settings[EVENT_DETAIL_LEVEL]}");
+                    sw.WriteLine($"{FORCE_WATCH_MOVIES}={settings[FORCE_WATCH_MOVIES]}");
+                    sw.WriteLine($"{FULLRES_TEAMCOLOUR}={settings[FULLRES_TEAMCOLOUR]}");
+                    sw.WriteLine($"{FX_DETAIL_LEVEL}={settings[FX_DETAIL_LEVEL]}");
+                    sw.WriteLine($"{MODEL_DETAIL}={settings[MODEL_DETAIL]}");
+                    sw.WriteLine($"{PARENTAL_CONTROL}={settings[PARENTAL_CONTROL]}");
+                    sw.WriteLine($"{PERSISTENT_BODIES}={settings[PERSISTENT_BODIES]}");
+                    sw.WriteLine($"{PERSISTENT_DECALS}={settings[PERSISTENT_DECALS]}");
+                    sw.WriteLine($"{PLAYER_PROFILE}={settings[PLAYER_PROFILE]}");
+                    sw.WriteLine($"{RL_SSO_NUM_TIMES_SHOWN}={settings[RL_SSO_NUM_TIMES_SHOWN]}");
+                    sw.WriteLine($"{SCREEN_ADAPTER}={settings[SCREEN_ADAPTER]}");
+                    sw.WriteLine($"{SCREEN_ANIALIAS}={settings[SCREEN_ANIALIAS]}");
+                    sw.WriteLine($"{SCREEN_DEPTH}={settings[SCREEN_DEPTH]}");
+                    sw.WriteLine($"{SCREEN_DEVICE}={settings[SCREEN_DEVICE]}");
+                    sw.WriteLine($"{SCREEN_GAMMA}={settings[SCREEN_GAMMA]}");
+                    sw.WriteLine($"{SCREEN_HEIGHT}={settings[SCREEN_HEIGHT]}");
+                    sw.WriteLine($"{SCREEN_NO_VSYNC}={settings[SCREEN_NO_VSYNC]}");
+                    sw.WriteLine($"{SCREEN_REFRESH}={settings[SCREEN_REFRESH]}");
+                    sw.WriteLine($"{SCREEN_WIDTH}={settings[SCREEN_WIDTH]}");
+                    sw.WriteLine($"{SCREEN_WINDOWED}={settings[SCREEN_WINDOWED]}");
+                    sw.WriteLine($"{SHADOW_BLOB}={settings[SHADOW_BLOB]}");
+                    sw.WriteLine($"{SHADOW_MAP}={settings[SHADOW_MAP]}");
+                    sw.WriteLine($"{SHADOW_VOLUME}={settings[SHADOW_VOLUME]}");
+                    sw.WriteLine($"{SOUND_ENABLED}={settings[SOUND_ENABLED]}");
+                    sw.WriteLine($"{SOUND_LIMIT_SAMPLES}={settings[SOUND_LIMIT_SAMPLES]}");
+                    sw.WriteLine($"{SOUND_NR_CHANNELS}={settings[SOUND_NR_CHANNELS]}");
+                    sw.WriteLine($"{SOUND_QUALITY}={settings[SOUND_QUALITY]}");
+                    sw.WriteLine($"{TERRAIN_ENABLE_FOW_BLUR}={settings[TERRAIN_ENABLE_FOW_BLUR]}");
+                    sw.WriteLine($"{TEXTURE_DETAIL}={settings[TEXTURE_DETAIL]}");
+                    sw.WriteLine($"{TOTAL_MATCHES}={settings[TOTAL_MATCHES]}");
+                    sw.WriteLine($"{UNIT_OCCLUSION}={settings[UNIT_OCCLUSION]}");
+                }
 
-                File.WriteAllText(SETTINGS_FILE, sb.ToString());
+                // Write the driversettings to file
+                string[] wDD;
 
-                // Write the driversettings to file now.
-                string[] wDD = File.ReadAllLines(DRIVER_SETTINGS_FILE);
-                wDD[14] = ALLOWHWCURSOR + " " + settings[ALLOWHWCURSOR];
-                File.WriteAllLines(DRIVER_SETTINGS_FILE, wDD);
+                if (File.Exists(DRIVER_SETTINGS_FILE))
+                {
+                    wDD = File.ReadAllLines(DRIVER_SETTINGS_FILE);
+
+                    if (wDD.Length > 14)
+                    {
+                        if (wDD[14].StartsWith("allowhwcursor"))
+                        {
+                            wDD[14] = ALLOWHWCURSOR + " " + settings[ALLOWHWCURSOR];
+                            File.WriteAllLines(DRIVER_SETTINGS_FILE, wDD);
+                        }
+                        else
+                            SearchForThatString(ref wDD);
+                    }
+                    else
+                        SearchForThatString(ref wDD);
+                }
+                else
+                {
+                    // File doesn't exist - create a new one just with one setting
+                    File.WriteAllText(DRIVER_SETTINGS_FILE, ALLOWHWCURSOR + " " + settings[ALLOWHWCURSOR]);
+                }
             }
 
             if (playercgfLUA)
@@ -836,6 +881,36 @@ namespace DoW_Mod_Manager
             {
                 modManager.ChangeSetting(ModManagerForm.FORCE_HIGH_POLY, 0);
                 disableHighPoly = false;
+            }
+        }
+
+        void SearchForThatString(ref string[] strArray)
+        {
+            bool weFoundIt = false;
+
+            for (int i = 0; i < strArray.Length; i++)
+            {
+                if (strArray[i].StartsWith("allowhwcursor"))
+                {
+                    strArray[i] = ALLOWHWCURSOR + " " + settings[ALLOWHWCURSOR];
+                    weFoundIt = true;
+                    break;      // We found what we searched for
+                }
+            }
+
+            if (!weFoundIt)
+            {
+                using (StreamWriter sw = File.CreateText(DRIVER_SETTINGS_FILE))
+                {
+                    // TODO - maybe just write the new line ;-)
+
+                    // Write all that was in file before
+                    for (int i = 0; i < strArray.Length; i++)
+                        sw.WriteLine(strArray[i]);
+
+                    // And then add this new line
+                    sw.WriteLine(ALLOWHWCURSOR + " " + settings[ALLOWHWCURSOR]);
+                }
             }
         }
 
@@ -1571,6 +1646,14 @@ namespace DoW_Mod_Manager
             saveButton.Enabled = true;
             saveButton.Focus();
             defaultsButton.Enabled = true;
+        }
+
+        /// <summary>
+        /// This method starts the FontsManagerForm
+        /// </summary>
+        private void FontsManagerButton_Click(object sender, EventArgs e)
+        {
+            new FontsManagerForm(settings[SCREEN_WIDTH]).Show();
         }
 
         /// <summary>

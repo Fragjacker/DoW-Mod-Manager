@@ -48,6 +48,7 @@ namespace DoW_Mod_Manager
             this.graphicsConfigLAAStatusLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.open_folder_button = new System.Windows.Forms.Button();
             this.toggleLAAButton = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.downloadButton = new System.Windows.Forms.Button();
@@ -60,6 +61,7 @@ namespace DoW_Mod_Manager
             this.loadUNI_EXTDLLCheckBox = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -70,27 +72,31 @@ namespace DoW_Mod_Manager
             this.flowLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // currentDirTextBox
             // 
-            this.currentDirTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.currentDirTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.currentDirTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.currentDirTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.currentDirTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.currentDirTextBox.Location = new System.Drawing.Point(199, 6);
+            this.currentDirTextBox.Location = new System.Drawing.Point(140, 0);
+            this.currentDirTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.currentDirTextBox.Name = "currentDirTextBox";
             this.currentDirTextBox.ReadOnly = true;
-            this.currentDirTextBox.Size = new System.Drawing.Size(704, 20);
+            this.currentDirTextBox.Size = new System.Drawing.Size(758, 20);
             this.currentDirTextBox.TabIndex = 0;
             // 
             // currentDirectoryLabel
             // 
             this.currentDirectoryLabel.AutoSize = true;
+            this.currentDirectoryLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.currentDirectoryLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.currentDirectoryLabel.Location = new System.Drawing.Point(16, 9);
+            this.currentDirectoryLabel.Location = new System.Drawing.Point(0, 3);
+            this.currentDirectoryLabel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 0);
             this.currentDirectoryLabel.Name = "currentDirectoryLabel";
-            this.currentDirectoryLabel.Size = new System.Drawing.Size(137, 13);
+            this.currentDirectoryLabel.Size = new System.Drawing.Size(137, 21);
             this.currentDirectoryLabel.TabIndex = 1;
             this.currentDirectoryLabel.Text = "Your current game directory";
             // 
@@ -318,6 +324,7 @@ namespace DoW_Mod_Manager
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.open_folder_button);
             this.splitContainer1.Panel1.Controls.Add(this.installedModsLabel);
             this.splitContainer1.Panel1.Controls.Add(this.installedModsListBox);
             // 
@@ -328,6 +335,20 @@ namespace DoW_Mod_Manager
             this.splitContainer1.Size = new System.Drawing.Size(898, 391);
             this.splitContainer1.SplitterDistance = 455;
             this.splitContainer1.TabIndex = 19;
+            // 
+            // open_folder_button
+            // 
+            this.open_folder_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.open_folder_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.open_folder_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.open_folder_button.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.open_folder_button.Location = new System.Drawing.Point(362, 0);
+            this.open_folder_button.Name = "open_folder_button";
+            this.open_folder_button.Size = new System.Drawing.Size(91, 23);
+            this.open_folder_button.TabIndex = 5;
+            this.open_folder_button.Text = "Open Folder...";
+            this.open_folder_button.UseVisualStyleBackColor = false;
+            this.open_folder_button.Click += new System.EventHandler(this.open_folder_button_Click);
             // 
             // toggleLAAButton
             // 
@@ -488,8 +509,25 @@ namespace DoW_Mod_Manager
             this.flowLayoutPanel2.Controls.Add(this.fixMissingModButton);
             this.flowLayoutPanel2.Location = new System.Drawing.Point(592, 32);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(331, 110);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(321, 110);
             this.flowLayoutPanel2.TabIndex = 30;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.currentDirTextBox, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.currentDirectoryLabel, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 2);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(901, 24);
+            this.tableLayoutPanel1.TabIndex = 31;
             // 
             // ModManagerForm
             // 
@@ -498,13 +536,12 @@ namespace DoW_Mod_Manager
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(925, 564);
             this.Controls.Add(this.flowLayoutPanel2);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.AboutkLabel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.authorLabel);
-            this.Controls.Add(this.currentDirectoryLabel);
-            this.Controls.Add(this.currentDirTextBox);
             this.MinimumSize = new System.Drawing.Size(941, 603);
             this.Name = "ModManagerForm";
             this.Text = "DoW Mod Manager";
@@ -523,6 +560,8 @@ namespace DoW_Mod_Manager
             this.flowLayoutPanel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -562,5 +601,7 @@ namespace DoW_Mod_Manager
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox loadUNI_EXTDLLCheckBox;
+        private System.Windows.Forms.Button open_folder_button;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
