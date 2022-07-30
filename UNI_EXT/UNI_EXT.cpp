@@ -27,16 +27,17 @@ Patch* patches[] = {
 	new Patch(Overwrite, SOULSTORM,{ 0x81F348, 0x6BDD1C },{ 0x12, 0x00, 0x00, 0x00 }, 4),
 
 	// fog remover coded in UNI_EXT.dll
-	new Patch(Overwrite, SOULSTORM,{ 0x4282F0, -1 },{ 217, 238,  15,  31,  64,   0 }, 6),
+	/*new Patch(Overwrite, SOULSTORM,{ 0x4282F0, -1 },{ 217, 238,  15,  31,  64,   0 }, 6),
 	new Patch(Overwrite, SOULSTORM,{ 0x6F54C8, -1 },{ 0,   0,   0,  68 }, 4),
 	new Patch(Overwrite, SOULSTORM,{ 0x42A33A, -1 },{ 221, 216,  15,  31,  64,   0 }, 6),
-
+	*/
 	//*** END OF FINISHED PATCHES
 
 	// modify SWFwidget bind from 'ToggleArmy' to 'deep_strike'
 	//new Patch(Overwrite, SOULSTORM,{ 0x391C4E, -1 },{ 0x20, 0x40, 0xAD, 0x00
 
 	// insert new FSCommand
+	// Runs "die" action on metamap_main_menu model
 	//new Patch(Call, SOULSTORM,{ 0x391C79, -1 }, (int)new_BindButtonClickedEntry_Function, 29),
 	//new Patch(Call, SOULSTORM,{ 0x391C8D, -1 }, (int)new_BindButtonClickedEntry_Function, 5),
 	new Patch(Call, SOULSTORM,{ 0x391C39, -1 }, (int)new_BindButtonClickedEntry_Function, 5),
