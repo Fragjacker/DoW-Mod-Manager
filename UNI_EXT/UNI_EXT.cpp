@@ -27,7 +27,8 @@ Patch* patches[] = {
 	new Patch(Overwrite, SOULSTORM,{ 0x81F348, 0x6BDD1C },{ 0x12, 0x00, 0x00, 0x00 }, 4),
 
 	// fog remover coded in UNI_EXT.dll
-	/*new Patch(Overwrite, SOULSTORM,{ 0x4282F0, -1 },{ 217, 238,  15,  31,  64,   0 }, 6),
+	/*
+	new Patch(Overwrite, SOULSTORM,{ 0x4282F0, -1 },{ 217, 238,  15,  31,  64,   0 }, 6),
 	new Patch(Overwrite, SOULSTORM,{ 0x6F54C8, -1 },{ 0,   0,   0,  68 }, 4),
 	new Patch(Overwrite, SOULSTORM,{ 0x42A33A, -1 },{ 221, 216,  15,  31,  64,   0 }, 6),
 	*/
