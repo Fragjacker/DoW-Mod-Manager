@@ -42,15 +42,6 @@
     <ClInclude Include="SoulstormVersion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\detours.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\detver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\syelog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -74,10 +65,5 @@
     <ClCompile Include="SoulstormVersion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="UNI_EXT.def">
-      <Filter>Source Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

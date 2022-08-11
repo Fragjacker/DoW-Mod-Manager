@@ -1,4 +1,0 @@
-LIBRARY UNI_EXT
-EXPORTS
-  DetourCreateProcessWithDllExW
-  DetourCreateProcessWithDllExA

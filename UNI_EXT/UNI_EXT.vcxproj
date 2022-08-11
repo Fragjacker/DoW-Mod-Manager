@@ -127,8 +127,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>lib.X86/detours.lib;lib.X86/syelog.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ModuleDefinitionFile>UNI_EXT.def</ModuleDefinitionFile>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -153,9 +154,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\detours.h" />
-    <ClInclude Include="include\detver.h" />
-    <ClInclude Include="include\syelog.h" />
     <ClInclude Include="SoulstormVersion.h" />
     <ClInclude Include="Patch.h" />
     <ClInclude Include="SoulstormHandlers.h" />
@@ -186,9 +184,6 @@
     <ClCompile Include="SoulstormVersion.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="UNI_EXT.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="UNI_EXT.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
