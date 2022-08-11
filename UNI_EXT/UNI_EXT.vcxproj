@@ -188,9 +188,6 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="UNI_EXT.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="UNI_EXT.def" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

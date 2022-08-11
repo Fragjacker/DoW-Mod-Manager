@@ -75,9 +75,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="UNI_EXT.def">
-      <Filter>Source Files</Filter>
-    </None>
-  </ItemGroup>
 </Project>
