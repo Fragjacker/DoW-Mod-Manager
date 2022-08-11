@@ -78,6 +78,7 @@ namespace DoW_Mod_Manager
 
         public readonly string CurrentDir = Directory.GetCurrentDirectory();
         public readonly string CurrentGameEXE = "";
+        public readonly bool IsUNI_EXTDLL = false;
         public readonly string GraphicsConfigEXE = "GraphicsConfig.exe";
         public string[] ModuleFilePaths;
         public string[] ModFolderPaths;
@@ -166,6 +167,7 @@ namespace DoW_Mod_Manager
 
             CurrentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
+            IsUNI_EXTDLL = FindUNI_EXTDLL();
 
             currentDirTextBox.Text = CurrentDir;
             SetUpAllNecessaryMods();
@@ -202,6 +204,14 @@ namespace DoW_Mod_Manager
 				
                 flowLayoutPanel1.MouseMove += new MouseEventHandler(noFogCheckbox_hover);
                 flowLayoutPanel1.MouseMove += new MouseEventHandler(loadUNI_EXTDLLCheckBox_hover);
+            }
+            // Also disable UNI_EXTDLL checkbox if UNI_EXT.DLL is not found.
+            else if (!IsUNI_EXTDLL)
+            {
+                loadUNI_EXTDLLCheckBox.Enabled = false;
+                loadUNI_EXTDLLCheckBox.Checked = false;
+
+                flowLayoutPanel1.MouseMove += new MouseEventHandler(loadUNI_EXTDLLNot_Found_CheckBox_hover);
             }
 
             // Perform Autoupdate
@@ -240,6 +250,39 @@ namespace DoW_Mod_Manager
                 {
                     _disabledLoadUNI_EXTDLLCheckBoxTooltip.Show(
                         "Load UNI_EXT.DLL only works in Dawn of War: Soulstorm",
+                        loadUNI_EXTDLLCheckBox,
+                        loadUNI_EXTDLLCheckBox.Width / 2,
+                        loadUNI_EXTDLLCheckBox.Height / 2);
+                    _IsUNI_EXTDLLNoFogTooltipShown = true;
+                }
+            }
+            else
+            {
+                _disabledLoadUNI_EXTDLLCheckBoxTooltip.Hide(loadUNI_EXTDLLCheckBox);
+                _IsUNI_EXTDLLNoFogTooltipShown = false;
+            }
+        }
+
+        /// <summary>
+        /// This function shows a tooltip, should the load Uni_ext.dll checkbox be disabled due to a wrong game version used.
+        /// It has to be done since using normal tooltips won't work on disabled controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void loadUNI_EXTDLLNot_Found_CheckBox_hover(object sender, MouseEventArgs e)
+        {
+            Control parent = sender as Control;
+
+            if (parent == null)
+                return;
+
+            Control ctrl = parent.GetChildAtPoint(e.Location);
+            if (ctrl != null)
+            {
+                if (ctrl == loadUNI_EXTDLLCheckBox && !_IsUNI_EXTDLLNoFogTooltipShown)
+                {
+                    _disabledLoadUNI_EXTDLLCheckBoxTooltip.Show(
+                        "File UNI_EXT.DLL is missing",
                         loadUNI_EXTDLLCheckBox,
                         loadUNI_EXTDLLCheckBox.Width / 2,
                         loadUNI_EXTDLLCheckBox.Height / 2);
@@ -413,10 +456,26 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method scans for either the Soulstorm, Dark Crusade, Winter Assault or Original version of the game.
+        /// This method scans for UNI_EXT.DLL file.
         /// </summary>
         /// <returns>string</returns>
         // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private bool FindUNI_EXTDLL()
+        {
+            if (File.Exists(CurrentDir + "\\UNI_EXT.DLL"))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// This method scans for either the Soulstorm, Dark Crusade, Winter Assault or Original version of the game.
+        /// </summary>
+        /// <returns>string</returns>
+            // Request the inlining of this method
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string GetCurrentGameEXE()
         {
