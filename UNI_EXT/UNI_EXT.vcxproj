@@ -154,9 +154,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\detours.h" />
-    <ClInclude Include="include\detver.h" />
-    <ClInclude Include="include\syelog.h" />
     <ClInclude Include="SoulstormVersion.h" />
     <ClInclude Include="Patch.h" />
     <ClInclude Include="SoulstormHandlers.h" />
