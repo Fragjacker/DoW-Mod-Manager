@@ -58,6 +58,7 @@ namespace DoW_Mod_Manager
             this.checkForErrorsButton = new System.Windows.Forms.Button();
             this.noFogCheckbox = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.loadUNI_EXTDLLCheckBox = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -283,8 +284,8 @@ namespace DoW_Mod_Manager
             // gameLAAStatusLabel
             // 
             this.gameLAAStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.gameLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gameLAAStatusLabel.Location = new System.Drawing.Point(8, 73);
+            this.gameLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameLAAStatusLabel.Location = new System.Drawing.Point(8, 77);
             this.gameLAAStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.gameLAAStatusLabel.Name = "gameLAAStatusLabel";
             this.gameLAAStatusLabel.Size = new System.Drawing.Size(210, 15);
@@ -294,8 +295,8 @@ namespace DoW_Mod_Manager
             // graphicsConfigLAAStatusLabel
             // 
             this.graphicsConfigLAAStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.graphicsConfigLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.graphicsConfigLAAStatusLabel.Location = new System.Drawing.Point(8, 89);
+            this.graphicsConfigLAAStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.graphicsConfigLAAStatusLabel.Location = new System.Drawing.Point(8, 91);
             this.graphicsConfigLAAStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.graphicsConfigLAAStatusLabel.Name = "graphicsConfigLAAStatusLabel";
             this.graphicsConfigLAAStatusLabel.Size = new System.Drawing.Size(210, 15);
@@ -462,12 +463,25 @@ namespace DoW_Mod_Manager
             this.flowLayoutPanel1.Controls.Add(this.highpolyCheckBox);
             this.flowLayoutPanel1.Controls.Add(this.optimizationsCheckBox);
             this.flowLayoutPanel1.Controls.Add(this.noFogCheckbox);
+            this.flowLayoutPanel1.Controls.Add(this.loadUNI_EXTDLLCheckBox);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 32);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(328, 110);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(330, 123);
             this.flowLayoutPanel1.TabIndex = 28;
+            // 
+            // loadUNI_EXTDLLCheckBox
+            // 
+            this.loadUNI_EXTDLLCheckBox.AutoSize = true;
+            this.loadUNI_EXTDLLCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.loadUNI_EXTDLLCheckBox.Location = new System.Drawing.Point(5, 103);
+            this.loadUNI_EXTDLLCheckBox.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.loadUNI_EXTDLLCheckBox.Name = "loadUNI_EXTDLLCheckBox";
+            this.loadUNI_EXTDLLCheckBox.Size = new System.Drawing.Size(318, 17);
+            this.loadUNI_EXTDLLCheckBox.TabIndex = 28;
+            this.loadUNI_EXTDLLCheckBox.Text = "UNI_EXT.DLL: Load experimental UNI_EXT.DLL into memory";
+            this.loadUNI_EXTDLLCheckBox.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -481,7 +495,7 @@ namespace DoW_Mod_Manager
             this.panel2.Controls.Add(this.settingsButton);
             this.panel2.Location = new System.Drawing.Point(341, 32);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(245, 110);
+            this.panel2.Size = new System.Drawing.Size(245, 118);
             this.panel2.TabIndex = 29;
             // 
             // flowLayoutPanel2
@@ -586,6 +600,7 @@ namespace DoW_Mod_Manager
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.CheckBox loadUNI_EXTDLLCheckBox;
         private System.Windows.Forms.Button open_folder_button;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }

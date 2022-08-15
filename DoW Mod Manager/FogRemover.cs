@@ -74,12 +74,14 @@ namespace SSNoFog
         {
             byte[] lpBuffer = new byte[checkVal.Length];
 
-            if (!ReadProcessMemory(pHandle, addr, lpBuffer, lpBuffer.Length, out int lpNumberOfBytesRead)
+            int lpNumberOfBytesRead, lpflOldProtect, _;
+
+            if (!ReadProcessMemory(pHandle, addr, lpBuffer, lpBuffer.Length, out lpNumberOfBytesRead)
                 || lpNumberOfBytesRead != lpBuffer.Length
                 || !((IEnumerable<byte>)lpBuffer).SequenceEqual(checkVal))
                 return false;
 
-            VirtualProtectEx(pHandle, addr, setVal.Length, PAGE_EXECUTE_READWRITE, out int lpflOldProtect);
+            VirtualProtectEx(pHandle, addr, setVal.Length, PAGE_EXECUTE_READWRITE, out lpflOldProtect);
             int returnCode = WriteProcessMemory(pHandle, addr, setVal, setVal.Length, out _) ? 1 : 0;
             
             VirtualProtectEx(pHandle, addr, setVal.Length, lpflOldProtect, out _);

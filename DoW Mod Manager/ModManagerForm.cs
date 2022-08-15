@@ -7,9 +7,11 @@ using System.Diagnostics;
 using System.Security.Permissions;
 using System.Reflection;
 using System.Threading;
+using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using System.Runtime;
 using SSNoFog;
+using SSUNI_EXTTDLL;
 
 namespace DoW_Mod_Manager
 {
@@ -52,6 +54,7 @@ namespace DoW_Mod_Manager
         public const string NO_MOVIES = "NoMovies";
         public const string FORCE_HIGH_POLY = "ForceHighPoly";
         public const string NO_FOG = "RemoveMapFog";
+        public const string UNI_EXTDLL = "LoadUNI_EXTDLL";
         public const string DOW_OPTIMIZATIONS = "DowOptimizations";
         public const string AUTOUPDATE = "Autoupdate";
         public const string MULTITHREADED_JIT = "MultithreadedJIT";
@@ -64,13 +67,18 @@ namespace DoW_Mod_Manager
         private bool _isMessageBoxOnScreen = false;
         private bool _isOldGame;
         private bool _IsNoFogTooltipShown = false;
+        private bool _IsUNI_EXTDLLNoFogTooltipShown = false;
         private string _dowProcessName = "";
         private readonly ToolTip _disabledNoFogTooltip = new ToolTip();
-        private Control _currentToolTipControl;
+        private readonly ToolTip _disabledLoadUNI_EXTDLLCheckBoxTooltip = new ToolTip();
+		private Control _currentToolTipControl;
         private ModMergerForm modMerger = null;
+
+        public static int _maxDefeatedRaces = 0x0A;
 
         public readonly string CurrentDir = Directory.GetCurrentDirectory();
         public readonly string CurrentGameEXE = "";
+        public readonly bool IsUNI_EXTDLL = false;
         public readonly string GraphicsConfigEXE = "GraphicsConfig.exe";
         public string[] ModuleFilePaths;
         public string[] ModFolderPaths;
@@ -89,6 +97,7 @@ namespace DoW_Mod_Manager
             [NO_MOVIES] = 1,
             [FORCE_HIGH_POLY] = 0,
             [NO_FOG] = 0,
+            [UNI_EXTDLL] = 0,
             [DOW_OPTIMIZATIONS] = 0,
             [AUTOUPDATE] = 1,
             [MULTITHREADED_JIT] = 0,
@@ -154,9 +163,11 @@ namespace DoW_Mod_Manager
             highpolyCheckBox.Checked = settings[FORCE_HIGH_POLY] == 1;
             optimizationsCheckBox.Checked = settings[DOW_OPTIMIZATIONS] == 1;
             noFogCheckbox.Checked = settings[NO_FOG] == 1;
+            loadUNI_EXTDLLCheckBox.Checked = settings[UNI_EXTDLL] == 1;
 
             CurrentGameEXE = GetCurrentGameEXE();
             CheckForGraphicsConfigEXE();
+            IsUNI_EXTDLL = FindUNI_EXTDLL();
 
             currentDirTextBox.Text = CurrentDir;
             SetUpAllNecessaryMods();
@@ -181,13 +192,26 @@ namespace DoW_Mod_Manager
             highpolyCheckBox.CheckedChanged += new EventHandler(HighpolyCheckBox_CheckedChanged);
             optimizationsCheckBox.CheckedChanged += new EventHandler(OptimizationsCheckBox_CheckedChanged);
             noFogCheckbox.CheckedChanged += new EventHandler(NoFogCheckboxCheckedChanged);
+            loadUNI_EXTDLLCheckBox.CheckedChanged += new EventHandler(loadUNI_EXTDLLCheckBox_CheckedChanged);
 
-            // Disable no Fog checkbox if it's not Soulstorm because it only works on Soulstorm at all.
+            // Disable no Fog checkbox and UNI_EXTDLL checkbox if it's not Soulstorm because it only works on Soulstorm at all.
             if (CurrentGameEXE != GameExecutable.SOULSTORM)
             {
                 noFogCheckbox.Enabled = false;
                 noFogCheckbox.Checked = false;
+                loadUNI_EXTDLLCheckBox.Enabled = false;
+                loadUNI_EXTDLLCheckBox.Checked = false;
+				
                 flowLayoutPanel1.MouseMove += new MouseEventHandler(noFogCheckbox_hover);
+                flowLayoutPanel1.MouseMove += new MouseEventHandler(loadUNI_EXTDLLCheckBox_hover);
+            }
+            // Also disable UNI_EXTDLL checkbox if UNI_EXT.DLL is not found.
+            else if (!IsUNI_EXTDLL)
+            {
+                loadUNI_EXTDLLCheckBox.Enabled = false;
+                loadUNI_EXTDLLCheckBox.Checked = false;
+
+                flowLayoutPanel1.MouseMove += new MouseEventHandler(loadUNI_EXTDLLNot_Found_CheckBox_hover);
             }
 
             // Perform Autoupdate
@@ -207,12 +231,12 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This function shows a tooltip, should the disable fog checkbox be disabled due to a wrong game version used.
+        /// This function shows a tooltip, should the load Uni_ext.dll checkbox be disabled due to a wrong game version used.
         /// It has to be done since using normal tooltips won't work on disabled controls.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void noFogCheckbox_hover(object sender, MouseEventArgs e)
+        private void loadUNI_EXTDLLCheckBox_hover(object sender, MouseEventArgs e)
         {
             Control parent = sender as Control;
 
@@ -220,6 +244,72 @@ namespace DoW_Mod_Manager
                 return;
 
             Control ctrl = parent.GetChildAtPoint(e.Location);
+            if (ctrl != null)
+            {
+                if (ctrl == loadUNI_EXTDLLCheckBox && !_IsUNI_EXTDLLNoFogTooltipShown)
+                {
+                    _disabledLoadUNI_EXTDLLCheckBoxTooltip.Show(
+                        "Load UNI_EXT.DLL only works in Dawn of War: Soulstorm",
+                        loadUNI_EXTDLLCheckBox,
+                        loadUNI_EXTDLLCheckBox.Width / 2,
+                        loadUNI_EXTDLLCheckBox.Height / 2);
+                    _IsUNI_EXTDLLNoFogTooltipShown = true;
+                }
+            }
+            else
+            {
+                _disabledLoadUNI_EXTDLLCheckBoxTooltip.Hide(loadUNI_EXTDLLCheckBox);
+                _IsUNI_EXTDLLNoFogTooltipShown = false;
+            }
+        }
+
+        /// <summary>
+        /// This function shows a tooltip, should the load Uni_ext.dll checkbox be disabled due to a wrong game version used.
+        /// It has to be done since using normal tooltips won't work on disabled controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void loadUNI_EXTDLLNot_Found_CheckBox_hover(object sender, MouseEventArgs e)
+        {
+            Control parent = sender as Control;
+
+            if (parent == null)
+                return;
+
+            Control ctrl = parent.GetChildAtPoint(e.Location);
+            if (ctrl != null)
+            {
+                if (ctrl == loadUNI_EXTDLLCheckBox && !_IsUNI_EXTDLLNoFogTooltipShown)
+                {
+                    _disabledLoadUNI_EXTDLLCheckBoxTooltip.Show(
+                        "File UNI_EXT.DLL is missing",
+                        loadUNI_EXTDLLCheckBox,
+                        loadUNI_EXTDLLCheckBox.Width / 2,
+                        loadUNI_EXTDLLCheckBox.Height / 2);
+                    _IsUNI_EXTDLLNoFogTooltipShown = true;
+                }
+            }
+            else
+            {
+                _disabledLoadUNI_EXTDLLCheckBoxTooltip.Hide(loadUNI_EXTDLLCheckBox);
+                _IsUNI_EXTDLLNoFogTooltipShown = false;
+            }
+        }
+
+        /// <summary>
+        /// This function shows a tooltip, should the disable fog checkbox be disabled due to a wrong game version used.
+        /// It has to be done since using normal tooltips won't work on disabled controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void noFogCheckbox_hover(object sender, MouseEventArgs e)
+        {
+            var parent = sender as Control;
+            if (parent == null)
+            {
+                return;
+            }
+            var ctrl = parent.GetChildAtPoint(e.Location);
             if (ctrl != null)
             {
                 if (ctrl == noFogCheckbox && !_IsNoFogTooltipShown)
@@ -332,6 +422,7 @@ namespace DoW_Mod_Manager
                                 case MULTITHREADED_JIT:
                                 case AOT_COMPILATION:
                                 case NO_FOG:
+                                case UNI_EXTDLL:
                                     if (value == 0 || value == 1)
                                         settings[setting] = value;
                                     else
@@ -365,10 +456,26 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This method scans for either the Soulstorm, Dark Crusade, Winter Assault or Original version of the game.
+        /// This method scans for UNI_EXT.DLL file.
         /// </summary>
         /// <returns>string</returns>
         // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private bool FindUNI_EXTDLL()
+        {
+            if (File.Exists(CurrentDir + "\\UNI_EXT.DLL"))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// This method scans for either the Soulstorm, Dark Crusade, Winter Assault or Original version of the game.
+        /// </summary>
+        /// <returns>string</returns>
+            // Request the inlining of this method
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string GetCurrentGameEXE()
         {
@@ -636,7 +743,8 @@ namespace DoW_Mod_Manager
                 sw.WriteLine($"{AUTOUPDATE}={settings[AUTOUPDATE]}");
                 sw.WriteLine($"{MULTITHREADED_JIT}={settings[MULTITHREADED_JIT]}");
                 sw.WriteLine($"{AOT_COMPILATION}={settings[AOT_COMPILATION]}");
-                sw.Write($"{NO_FOG}={settings[NO_FOG]}");
+                sw.WriteLine($"{NO_FOG}={settings[NO_FOG]}");
+				sw.WriteLine($"{UNI_EXTDLL}={settings[UNI_EXTDLL]}");
             }
 
             // If Timer Resolution was lowered we have to keep DoW Mod Manager alive or Timer Resolution will be reset
@@ -895,12 +1003,12 @@ namespace DoW_Mod_Manager
                 arguments += " -nomovies";
             if (settings[FORCE_HIGH_POLY] == 1)
                 arguments += " -forcehighpoly";
-
+            
             Process proc = new Process();
             proc.StartInfo.FileName = CurrentGameEXE;
             proc.StartInfo.Arguments = arguments;
             proc.Start();
-
+            
             _dowProcessName = proc.ProcessName;
 
             // Create new thread to change the process CPU affinity after the game has started.
@@ -958,6 +1066,34 @@ namespace DoW_Mod_Manager
                 }
                 ).Start();
             }
+
+            // Create a new thread for UNI_EXTDLL which manipulates the process memory after the game has started.
+            if (settings[UNI_EXTDLL] == 1)
+            {
+                new Thread(() =>
+                {
+                    int timeOutCounter = 0;
+                    string procName = _dowProcessName;
+
+                    // We will try 30 times and then Thread will be terminated regardless
+                    while (timeOutCounter < 30)
+                    {
+                        Thread.Sleep(1000);
+                        try
+                        {
+                            Process[] dow = Process.GetProcessesByName(procName);
+                            UNI_EXTDLLLoader.UNI_EXTdllInjector(dow[0], CurrentDir + "\\UNI_EXT.DLL");
+                            break;                                              // We've done what we intended to do
+                        }
+                        catch (Exception)
+                        {
+                            timeOutCounter++;
+                        }
+                    }
+                }
+                ).Start();
+            }
+            
         }
 
         /// <summary>
@@ -1029,6 +1165,19 @@ namespace DoW_Mod_Manager
                 settings[NO_FOG] = 1;
             else
                 settings[NO_FOG] = 0;
+        }
+
+        /// <summary>
+        /// This checkbox loads UNI_EXT.DLL to program memory.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void loadUNI_EXTDLLCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (loadUNI_EXTDLLCheckBox.Checked)
+                settings[UNI_EXTDLL] = 1;
+            else
+                settings[UNI_EXTDLL] = 0;
         }
 
         /// <summary>
@@ -1340,7 +1489,7 @@ namespace DoW_Mod_Manager
         }
 
         /// <summary>
-        /// This event handles the case when the no fog checkbox is disabled, to show a tooltip why it is disabled.
+        /// This event handles the case when the no fog checkbox and UNI_EXT.dll is disabled, to show a tooltip why it is disabled.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1355,10 +1504,17 @@ namespace DoW_Mod_Manager
                     _disabledNoFogTooltip.Show(toolTipString, control, control.Width / 2, control.Height / 2);
                     _currentToolTipControl = control;
                 }
+                if (!control.Enabled && control == loadUNI_EXTDLLCheckBox)
+                {
+                    string toolTipString = _disabledLoadUNI_EXTDLLCheckBoxTooltip.GetToolTip(control);
+                    _disabledLoadUNI_EXTDLLCheckBoxTooltip.Show(toolTipString, control, control.Width / 2, control.Height / 2);
+                    _currentToolTipControl = control;
+                }
             }
             else
             {
                 if (_currentToolTipControl != null) _disabledNoFogTooltip.Hide(_currentToolTipControl);
+                if (_currentToolTipControl != null) _disabledLoadUNI_EXTDLLCheckBoxTooltip.Hide(_currentToolTipControl);
                 _currentToolTipControl = null;
             }
         }
