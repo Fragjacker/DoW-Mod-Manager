@@ -157,7 +157,6 @@
   <ItemGroup>
     <ClInclude Include="SoulstormVersion.h" />
     <ClInclude Include="Patch.h" />
-    <ClInclude Include="SoulstormHandlers.h" />
     <ClInclude Include="SoulstormIntercepts.h" />
     <ClInclude Include="SoulstormPointers.h" />
     <ClInclude Include="stdafx.h" />
@@ -179,7 +178,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SoulstormHandlers.cpp" />
     <ClCompile Include="Patch.cpp" />
     <ClCompile Include="SoulstormIntercepts.cpp" />
     <ClCompile Include="SoulstormVersion.cpp" />

@@ -30,9 +30,6 @@
     <ClInclude Include="Patch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SoulstormHandlers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SoulstormPointers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -51,9 +48,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SoulstormHandlers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Patch.cpp">

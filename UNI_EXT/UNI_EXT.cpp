@@ -6,7 +6,6 @@
 #include "stdafx.h"
 #include "SoulstormPointers.h"
 #include "UNI_EXT.h"
-#include "SoulstormHandlers.h"
 #include "Patch.h"
 #include "SoulstormIntercepts.h"
 
