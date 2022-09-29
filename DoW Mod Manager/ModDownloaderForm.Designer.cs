@@ -130,7 +130,7 @@
             this.downloadModIEButton.TabIndex = 6;
             this.downloadModIEButton.Text = "Download mod using mini-browser";
             this.downloadModIEButton.UseVisualStyleBackColor = false;
-            this.downloadModIEButton.Click += new System.EventHandler(this.downloadModIEButton_Click);
+            this.downloadModIEButton.Click += new System.EventHandler(this.DownloadModIEButton_Click);
             // 
             // ModDownloaderForm
             // 

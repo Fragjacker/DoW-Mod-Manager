@@ -8,12 +8,11 @@
 // And then it was further improved by BlueAmulet
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace SSNoFog
+namespace DoW_Mod_Manager
 {
     public static class FogRemover
     {
@@ -76,7 +75,7 @@ namespace SSNoFog
 
             if (!ReadProcessMemory(pHandle, addr, lpBuffer, lpBuffer.Length, out int lpNumberOfBytesRead)
                 || lpNumberOfBytesRead != lpBuffer.Length
-                || !((IEnumerable<byte>)lpBuffer).SequenceEqual(checkVal))
+                || !lpBuffer.SequenceEqual(checkVal))
                 return false;
 
             VirtualProtectEx(pHandle, addr, setVal.Length, PAGE_EXECUTE_READWRITE, out int lpflOldProtect);

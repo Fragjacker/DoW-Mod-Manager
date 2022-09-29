@@ -347,7 +347,7 @@ namespace DoW_Mod_Manager
             this.open_folder_button.TabIndex = 5;
             this.open_folder_button.Text = "Open Folder...";
             this.open_folder_button.UseVisualStyleBackColor = false;
-            this.open_folder_button.Click += new System.EventHandler(this.open_folder_button_Click);
+            this.open_folder_button.Click += new System.EventHandler(this.OpenFolderButton_Click);
             // 
             // toggleLAAButton
             // 

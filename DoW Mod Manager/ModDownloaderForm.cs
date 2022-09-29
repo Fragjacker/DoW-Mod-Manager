@@ -11,7 +11,7 @@ namespace DoW_Mod_Manager
 {
     public partial class ModDownloaderForm : Form
     {
-        public class Mod
+        public sealed class Mod
         {
             public string ModName;
             public string ModuleFileName;
@@ -227,7 +227,7 @@ namespace DoW_Mod_Manager
         /// <summary>
         /// This method downloads selected mod using Internet Explorer's 11 engine
         /// </summary>
-        private void downloadModIEButton_Click(object sender, EventArgs e)
+        private void DownloadModIEButton_Click(object sender, EventArgs e)
         {
             DownloadMod(false);
         }
@@ -290,9 +290,7 @@ namespace DoW_Mod_Manager
                     for (int i = 0; i < modlist.Count; i++)
                     {
                         if (modlist[i].ModuleFileName.Contains(searchTextBox.Text))
-                        {
                             modListBox.Items.Add(modlist[i].ModName);
-                        }
                     }
 
                     findByModuleName = false;
@@ -305,9 +303,7 @@ namespace DoW_Mod_Manager
                         string searchLowerCase = searchTextBox.Text.ToLower();
 
                         if (modLowerCase.Contains(searchLowerCase))
-                        {
                             modListBox.Items.Add(modlist[i].ModName);
-                        }
                     }
                 }
             }

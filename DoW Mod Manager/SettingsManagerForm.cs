@@ -12,7 +12,7 @@ namespace DoW_Mod_Manager
 {
     public partial class SettingsManagerForm : Form
     {
-        public class Profile
+        public sealed class Profile
         {
             public string ProfileName;
             public string PlayerName;
@@ -696,10 +696,10 @@ namespace DoW_Mod_Manager
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
             List<string> videocards = new List<string>();
 
-            foreach (ManagementObject mo in searcher.Get())
+            foreach (var mbo in searcher.Get())
             {
-                PropertyData currentBitsPerPixel = mo.Properties["CurrentBitsPerPixel"];
-                PropertyData description = mo.Properties["Description"];
+                PropertyData currentBitsPerPixel = mbo.Properties["CurrentBitsPerPixel"];
+                PropertyData description = mbo.Properties["Description"];
 
                 if (currentBitsPerPixel != null && description != null)
                 {
@@ -845,30 +845,29 @@ namespace DoW_Mod_Manager
                 }
                 else
                 {
-                    StringBuilder sb = new StringBuilder();
-
-                    sb.Append("Controls = \r\n");
-                    sb.Append("{\r\n");
-                    sb.Append($"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},\r\n");
-                    sb.Append($"\t{INVERT_PAN} = {settings[INVERT_PAN]},\r\n");
-                    sb.Append($"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},\r\n");
-                    sb.Append("}\r\n");
-                    sb.Append("Sound = \r\n");
-                    sb.Append("{\r\n");
-                    sb.Append($"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},\r\n");
-                    sb.Append($"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},\r\n");
-                    sb.Append($"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},\r\n");
-                    sb.Append($"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},\r\n");
-                    sb.Append("}\r\n");
-                    sb.Append("player_preferences = \r\n");
-                    sb.Append("{\r\n");
-                    sb.Append("\tcampaign_played_disorder = false,\r\n");
-                    sb.Append("\tcampaign_played_order = false,\r\n");
-                    sb.Append("\tforce_name = \"Blood Ravens\",\r\n");
-                    sb.Append("\trace = \"space_marine_race\",\r\n");
-                    sb.Append("}\r\n");
-
-                    File.WriteAllText(pathToPlayerConfig, sb.ToString());
+                    using (StreamWriter sw = File.CreateText(pathToPlayerConfig))
+                    {
+                        sw.WriteLine("Controls = ");
+                        sw.WriteLine("{");
+                        sw.WriteLine($"\t{INVERT_DECLINATION} = {settings[INVERT_DECLINATION]},");
+                        sw.WriteLine($"\t{INVERT_PAN} = {settings[INVERT_PAN]},");
+                        sw.WriteLine($"\t{SCROLL_RATE} = {settings[SCROLL_RATE]},");
+                        sw.WriteLine("}");
+                        sw.WriteLine("Sound = ");
+                        sw.WriteLine("{");
+                        sw.WriteLine($"\t{SOUND_VOLUME_AMBIENT} = {settings[SOUND_VOLUME_AMBIENT]},");
+                        sw.WriteLine($"\t{SOUND_VOLUME_MUSIC} = {settings[SOUND_VOLUME_MUSIC]},");
+                        sw.WriteLine($"\t{SOUND_VOLUME_SFX} = {settings[SOUND_VOLUME_SFX]},");
+                        sw.WriteLine($"\t{SOUND_VOLUME_VOICE} = {settings[SOUND_VOLUME_VOICE]},");
+                        sw.WriteLine("}");
+                        sw.WriteLine("player_preferences = ");
+                        sw.WriteLine("{");
+                        sw.WriteLine("\tcampaign_played_disorder = false,");
+                        sw.WriteLine("\tcampaign_played_order = false,");
+                        sw.WriteLine("\tforce_name = \"Blood Ravens\",");
+                        sw.WriteLine("\trace = \"space_marine_race\",");
+                        sw.WriteLine("}");
+                    }
                 }
             }
 

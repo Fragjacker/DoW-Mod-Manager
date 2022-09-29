@@ -9,7 +9,6 @@ using System.Reflection;
 using System.Threading;
 using System.Runtime.CompilerServices;
 using System.Runtime;
-using SSNoFog;
 
 namespace DoW_Mod_Manager
 {
@@ -739,7 +738,7 @@ namespace DoW_Mod_Manager
 
                     if (line.Contains("RequiredMod"))
                     {
-                        line = Program.GetValueFromLine(line, deleteModule: false);
+                        line = line.GetValueFromLine(deleteModule: false);
 
                         requiredModsList.Items.Add(line);
                     }
@@ -753,6 +752,8 @@ namespace DoW_Mod_Manager
         /// Gets the numerical index of the currently selected Mod.
         /// </summary>
         /// <returns></returns>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private int getSelectedModIndex()
         {
             return settings[CHOICE_INDEX];
@@ -761,6 +762,8 @@ namespace DoW_Mod_Manager
         /// Sets the numerical index of the currently selected Mod.
         /// </summary>
         /// <param name="index"></param>
+        // Request the inlining of this method
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void setSelectedModIndex(int index)
         {
             settings[CHOICE_INDEX] = index;
@@ -790,7 +793,7 @@ namespace DoW_Mod_Manager
                         while ((line = file.ReadLine()) != null)
                         {
                             if (line.Contains("ModFolder"))
-                                ModFolderPaths[i] = Program.GetValueFromLine(line, deleteModule: true);
+                                ModFolderPaths[i] = line.GetValueFromLine(deleteModule: true);
                         }
                     }
                 }
@@ -1110,8 +1113,7 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void ModMergeButton_Click(object sender, EventArgs e)
         {
-            modMerger = new ModMergerForm(this);
-            modMerger.Show();
+            new ModMergerForm(this).Show();
         }
 
         /// <summary>
@@ -1374,29 +1376,19 @@ namespace DoW_Mod_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void open_folder_button_Click(object sender, EventArgs e)
+        private void OpenFolderButton_Click(object sender, EventArgs e)
         {
             string pathToMod = Path.Combine(CurrentDir, AllValidModules[getSelectedModIndex()].GetPath);
             try
             {
                 if (Directory.Exists(pathToMod))
-                {
-                    ProcessStartInfo startInfo = new ProcessStartInfo
-                    {
-                        Arguments = pathToMod,
-                        FileName = "explorer.exe"
-                    };
-
-                    Process.Start(startInfo);
-                }
+                    Process.Start("explorer.exe", pathToMod);
                 else
-                {
-                    MessageBox.Show(string.Format("Directory: \"{0}\" does not exist!", pathToMod));
-                }
+                    ThemedMessageBox.Show($"Directory: \"{pathToMod}\" does not exist!");
             }
             catch (Exception)
             {
-                MessageBox.Show(string.Format("Permission to access the folder: \"{0}\" denied! Make sure you have the necessary access rights!", pathToMod));
+                ThemedMessageBox.Show($"Permission to access the folder: \"{pathToMod}\" denied! \nMake sure you have the necessary access rights!");
             }
         }
     }
