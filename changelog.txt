@@ -2,8 +2,16 @@
 
 Who did what:
 Fragjacker (Original author) - up to 1.5.2,  then 1.6.1,  2.0.3,  2.0.5,  2.1.2,  2.1.4,  2.1.5,  2.1.7,  2.1.9,,  2.2.2,  2.3.1.0
-IgorTheLight - 1.5.3 to 1.6,  1.7 to 2.0.3,  2.0.4,  2.1.0,  2.1.1,  2.1.3,  2.1.6,  2.1.8,  2.2.0,  2.2.1,  2.3.0.0
+IgorTheLight - 1.5.3 to 1.6,  1.7 to 2.0.3,  2.0.4,  2.1.0,  2.1.1,  2.1.3,  2.1.6,  2.1.8,  2.2.0,  2.2.1,  2.3.0.0, 2.3.2.0
 BlueAmulet - 2.1.7
+
+## Version 2.3.2.0
+
+- Fixed unnecessary cast in method that searches for videodrivers. That may fix some rare issues with videocard detection
+- Sealed two classes for performance gain
+- Changed StringBuilder + File.WriteAllText to a simple and more efficient StreamWriter
+- Created new class - "extensions" and refactored GetValueFromLine() method to an extension
+- Renamed a few variables here and there
 
 ## Version 2.3.1.0
 
