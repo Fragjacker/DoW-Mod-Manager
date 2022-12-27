@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="changelogTextBox.Text" xml:space="preserve">
-    <value> ## Version 2.3.2.0
+    <value>## Version 2.3.2.0
 
 - Fixed unnecessary cast in method that searches for videodrivers. That may fix some rare issues with videocard detection
 - Sealed two classes for performance gain
@@ -149,7 +149,7 @@
 - Added ability to download mods using MiniBrowser - an Internet Explorer 11 engine wrapped in a WebBrowser object in .NET Framework
 - Fixed a bug where instead of a patch,  ModMownloaderForm would still download the mod itself
 - Fixed a bug where you click on a non-existent item in RequiredMods Mods when you have no mods installed
-- Version checking is more reliable now (version number could be &gt; 9 now,  for example 2.1.10)
+- Version checking is more reliable now (version number could be &amp;gt; 9 now,  for example 2.1.10)
 - State Machine is simplified now: "ngen install" will be performed every start if "AOTCompilation" setting is selected (it's much more simpler and reliable that way)
 - ModManagerForm will write all Settings to a file more efficient when closing
 - Renamed a few variables
@@ -182,7 +182,7 @@
 ## Version 2.1.6
 
 - Fixed a problem with a secure TLS/SSL connection on Windows 7 when checking for an update or downloading ModList (thanks, IgorTheLight)
-- Added a new checkbox in the Settings-&gt;Video tab to allow the user to easily set the usage of the DirectX 8 cursor (aka. -allowhwcursor). Setting this to zero can help with flickering cursor issues.
+- Added a new checkbox in the Settings-&amp;gt;Video tab to allow the user to easily set the usage of the DirectX 8 cursor (aka. -allowhwcursor). Setting this to zero can help with flickering cursor issues.
 - Added a new tooltip to explain what this option does.
 - Rearranged several UI elements in the main Mod Manager form into panels to allow for better scaling of the buttons etc.
 - Refactored code a little bit so it's more human-friendly (by IgorTheLight)
@@ -233,7 +233,6 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-</value>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</value>
   </data>
 </root>
