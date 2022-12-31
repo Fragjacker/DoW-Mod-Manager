@@ -79,7 +79,7 @@ namespace DoW_Mod_Manager
         public string[] ModuleFilePaths;
         public string[] ModFolderPaths;
         public List<string> AllFoundModules;                                        // Contains the list of all available Mods that will be used by the Mod Merger
-        public List<ModuleEntry> AllValidModules;                                        // Contains the list of all playable Mods that will be used by the Mod Merger
+        public List<ModuleEntry> AllValidModules;                                   // Contains the list of all playable Mods that will be used by the Mod Merger
         public bool IsTimerResolutionLowered = false;
         string currentModuleFilePath = "";                                          // Contains the name of the current selected Mod.
 
@@ -219,7 +219,6 @@ namespace DoW_Mod_Manager
         private void NoFogCheckbox_hover(object sender, MouseEventArgs e)
         {
             Control parent = sender as Control;
-
             if (parent == null)
                 return;
 
@@ -360,7 +359,7 @@ namespace DoW_Mod_Manager
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ReselectSavedMod()
         {
-            int index = getSelectedModIndex();
+            int index = GetSelectedModIndex();
 
             if (installedModsListBox.Items.Count > index)
                 installedModsListBox.SelectedIndex = index;
@@ -697,8 +696,10 @@ namespace DoW_Mod_Manager
             SetUpAllNecessaryMods();
 
             // Invoke Mod Merger refresh should it exist.
-            if (modMerger != null)
-                modMerger.refreshAllModEntries();
+            modMerger?.refreshAllModEntries();
+
+            // Or using the old way of checking that
+            //if (modMerger != null) modMerger.refreshAllModEntries();
         }
 
         /// <summary>
@@ -714,11 +715,11 @@ namespace DoW_Mod_Manager
 
             if (index < 0 || index >= installedModsListBox.Items.Count)
             {
-                index = getSelectedModIndex();
+                index = GetSelectedModIndex();
                 installedModsListBox.SelectedIndex = index;
             }
             else
-                setSelectedModIndex(index);
+                SetSelectedModIndex(index);
 
             currentModuleFilePath = ModuleFilePaths[index];
 
@@ -748,23 +749,25 @@ namespace DoW_Mod_Manager
                 CheckforInstalledMods();
             }
         }
+
         /// <summary>
         /// Gets the numerical index of the currently selected Mod.
         /// </summary>
         /// <returns></returns>
         // Request the inlining of this method
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private int getSelectedModIndex()
+        private int GetSelectedModIndex()
         {
             return settings[CHOICE_INDEX];
         }
+
         /// <summary>
         /// Sets the numerical index of the currently selected Mod.
         /// </summary>
         /// <param name="index"></param>
         // Request the inlining of this method
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void setSelectedModIndex(int index)
+        private void SetSelectedModIndex(int index)
         {
             settings[CHOICE_INDEX] = index;
         }
@@ -1240,8 +1243,9 @@ namespace DoW_Mod_Manager
             }
             finally
             {
-                if (fs != null)
-                    fs.Close();
+                fs?.Close();
+                // Or using the old way of checking that
+                //if (fs != null) fs.Close();
             }
 
             // File is not locked
@@ -1378,7 +1382,14 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void OpenFolderButton_Click(object sender, EventArgs e)
         {
-            string pathToMod = Path.Combine(CurrentDir, AllValidModules[getSelectedModIndex()].GetPath);
+            // Maybe there are no mods
+            if (AllValidModules.Count == 0)
+            {
+                Process.Start("explorer.exe", CurrentDir);
+                return;
+            }
+
+            string pathToMod = Path.Combine(CurrentDir, AllValidModules[GetSelectedModIndex()].GetPath);
             try
             {
                 if (Directory.Exists(pathToMod))

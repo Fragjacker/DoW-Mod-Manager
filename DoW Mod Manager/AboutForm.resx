@@ -121,6 +121,7 @@
     <value>Version 2.3.2.0
 
 - Fixed unnecessary cast in method that searches for videodrivers. That may fix some rare issues with videocard detection
+- Fixed a bug where Mod Manager would crash if you click on "Open folder..." button if you don't have any mods installed
 - Sealed two classes for performance gain
 - Changed StringBuilder + File.WriteAllText to a simple and more efficient StreamWriter
 - Created new class - "extensions" and refactored GetValueFromLine() method to an extension
