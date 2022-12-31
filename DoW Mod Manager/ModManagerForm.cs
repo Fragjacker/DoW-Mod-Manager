@@ -15,6 +15,7 @@ namespace DoW_Mod_Manager
     /// <summary>
     /// This struct contains the module name and mod folder path for easy access.
     /// </summary>
+    // TODO: Try to make this struct readonly
     public struct ModuleEntry
     {
         private readonly string ModuleName;
@@ -1116,7 +1117,8 @@ namespace DoW_Mod_Manager
         /// <param name="e"></param>
         private void ModMergeButton_Click(object sender, EventArgs e)
         {
-            new ModMergerForm(this).Show();
+            modMerger = new ModMergerForm(this);
+            modMerger.Show();
         }
 
         /// <summary>
