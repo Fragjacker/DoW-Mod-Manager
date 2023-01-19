@@ -23,6 +23,7 @@ namespace DoW_Mod_Manager
     /// </summary>
     public static class ThemedMessageBox
     {
+        // If we would pass the empty string as title - it will just disappear!
         public static void Show(string message, string title = " ")
         {
             // "using" construct ensures the resources are freed when form is closed
@@ -31,7 +32,7 @@ namespace DoW_Mod_Manager
                 form.ShowDialog();
             }
 
-            // TODO: this way may be faster - you have to test it!
+            // TODO: this way may be faster - tesing required!
             //MessageForm form = new MessageForm(message, title);
             //form.ShowDialog();
             //form.Dispose();

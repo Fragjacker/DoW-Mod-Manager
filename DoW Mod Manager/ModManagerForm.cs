@@ -48,7 +48,7 @@ namespace DoW_Mod_Manager
         private const string JIT_PROFILE_FILE_NAME = "DoW Mod Manager.JITProfile";
         private const string WARNINGS_LOG = "warnings.log";
 
-        // This is a State Machine which determmens what action must be performed
+        // This is a State Machine which determens what action must be performed
         public enum Action { None, CreateNativeImage, CreateNativeImageAndDeleteJITProfile, DeleteJITProfile, DeleteNativeImage, DeleteJITProfileAndNativeImage }
 
         public const string ACTION_STATE = "ActionState";
@@ -195,13 +195,13 @@ namespace DoW_Mod_Manager
                 flowLayoutPanel1.MouseMove += new MouseEventHandler(NoFogCheckbox_hover);
             }
 
-            // Perform Autoupdate
+            // Check for an update
             if (settings[AUTOUPDATE] == 1)
             {
-                // Threads could work even if application would be closed
+                // Threads could work even if application would be closed (IsBackground = true by default)
                 new Thread(() =>
                 {
-                    // Once all is done check for updates.
+                    // Once all is done - check for an updates.
                     DialogResult result = DownloadHelper.CheckForUpdates(silently: true);
 
                     if (result == DialogResult.OK && settings[AOT_COMPILATION] == 1)
