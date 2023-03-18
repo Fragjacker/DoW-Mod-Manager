@@ -222,7 +222,7 @@
 - Deleted author and version number in ModMergerForm (with a permission from FragJacker)
 - Increased SettingsManager Form size a little bit for better readability
 - All dialogBoxes will have titlebars (even if title is empty)
-
+    
 Full changelog: 
 https://raw.githubusercontent.com/Fragjacker/DoW-Mod-Manager/master/changelog.txt</value>
   </data>
