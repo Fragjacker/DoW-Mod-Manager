@@ -80,7 +80,7 @@ namespace DoW_Mod_Manager
         public string[] ModuleFilePaths;
         public string[] ModFolderPaths;
         public List<string> AllFoundModules;                                        // Contains the list of all available Mods that will be used by the Mod Merger
-        public List<string> AllValidModules;                                        // Contains the list of all playable Mods that will be used by the Mod Merger
+        public List<ModuleEntry> AllValidModules;                                        // Contains the list of all playable Mods that will be used by the Mod Merger
         public bool IsTimerResolutionLowered = false;
         string currentModuleFilePath = "";                                          // Contains the name of the current selected Mod.
 

@@ -7,7 +7,7 @@
     <ProjectGuid>{071DFF9E-1A7F-4F94-A1CE-4B5CB931D8EE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>DoW_Mod_Manager</RootNamespace>
-    <AssemblyName>DoW Mod Manager v2.3.2.0</AssemblyName>
+    <AssemblyName>DoW Mod Manager v2.3.2.2</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -122,6 +122,7 @@
     <Compile Include="WinApiCalls.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogueForm.resx">
       <DependentUpon>DialogueForm.cs</DependentUpon>
